@@ -1,0 +1,2 @@
+D:\Stuff\Dropbox\Projects\WoWPacketSniffer\WoWPacketSniffer\bin\Debug\WoWPacketSniffer.exe.config
+D:\Stuff\Dropbox\Projects\Vanilla\VanillaSniffer\WoWPacketSniffer\bin\Debug\WoWPacketSniffer.exe.config
