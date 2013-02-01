@@ -16,15 +16,15 @@ namespace VanillaSniffer.Proxy
 
         public ProxyManager()
         {
-            Console.WriteLine("<<< Connecting to remote server... >>>");
 
+            //We need to listen for clients
+            Server server = new Server();
+
+            Console.WriteLine("<<< Connecting to remote server... >>>");
             //Connect to remove server
             TcpClient serverConnect = new TcpClient("vanillafeenix.servegame.org", 3724);
             RemoteServer = serverConnect.Client;
             Console.WriteLine("<<< Connected to remote server! >>>");
-
-            //We need to listen for clients
-            Server server = new Server();
         }
     }
 }

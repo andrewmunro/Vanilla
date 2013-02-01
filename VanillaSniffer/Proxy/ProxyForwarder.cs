@@ -14,39 +14,41 @@ namespace VanillaSniffer.Proxy
 		private Socket _from;
 		private Socket _to;
 		private Thread _thread;
-	    private string _name;
-	    private NetworkStream _toStream;
-        private NetworkStream _fromStream;
+		private string _name;
+		private NetworkStream _toStream;
+		private NetworkStream _fromStream;
 
 		public ProxyForwarder(Socket from, Socket to, String name)
 		{
-		    _name = name;
+			_name = name;
 			_from = from;
 			_to = to;
 			_thread = new Thread(new ThreadStart(Recieve));
 			_thread.Name = _name;
 			_thread.Start();
-            _toStream = new NetworkStream(_to);
-            _fromStream = new NetworkStream(_from);
+			_toStream = new NetworkStream(_to);
+			_fromStream = new NetworkStream(_from);
 		}
 
 		private void Recieve()
 		{
 			try
 			{
-                Thread.Sleep(10);
+				Thread.Sleep(10);
 
 				while (true)
 				{
-                    Byte[] buffer = new byte[2048];
-                    int packetSize = _fromStream.Read(buffer, 0, _from.Available);
-                    byte [] packet = new byte[packetSize];
-                    Array.Copy(buffer, packet, packetSize);
-                    Send(packet);
+					Byte[] buffer = new byte[2048];
+					int packetSize = _fromStream.Read(buffer, 0, _from.Available);
+					if(packetSize == 0) break;
+					byte [] packet = new byte[packetSize];
+					Array.Copy(buffer, packet, packetSize);
+					Send(packet);
 
-                    //TODO Handle packets :)
-                    //if (OnDataRecieved != null) OnDataRecieved(packet);
+					//TODO Handle packets :)
+					//if (OnDataRecieved != null) OnDataRecieved(packet);
 				}
+				Disconnect();
 			}
 			catch (Exception e)
 			{
@@ -54,28 +56,36 @@ namespace VanillaSniffer.Proxy
 			}
 		}
 
-        public void Send(byte[] data)
-        {
-            Console.WriteLine(_name+": Sending packet!");
-            _toStream.Write(data, 0, data.Length);
-        }
+		public void Send(byte[] data)
+		{
+			Console.WriteLine(_name+": Sending packet!");
+			_toStream.Write(data, 0, data.Length);
+		}
 
 
 		public void Disconnect()
 		{
+			Console.WriteLine("<<< Client "+_name+" Disconnecting! >>>");
 			try {
-				_to.Disconnect(true);
+				_to.Disconnect(false);
 			} catch (IOException e1) {
 				Console.WriteLine(_thread.Name+" - Error while closing to-socket: "+e1);
 			}
 			try {
-				_from.Disconnect(true);
+				_from.Disconnect(false);
 			} catch (IOException e1) {
 				Console.WriteLine(_thread.Name + " - Error while closing _from-socket: " + e1);
 			}
-            //TODO Only remove from right list.
-            ProxyManager.clientToServerThreads.Remove(this);
-            ProxyManager.serverToClientThreads.Remove(this);
+			//TODO This disconnects all clients :(
+			if(ProxyManager.serverToClientThreads.Contains(this))
+			{
+				ProxyManager.serverToClientThreads.Remove(this);
+			}
+
+			if(ProxyManager.clientToServerThreads.Contains(this))
+			{
+				ProxyManager.clientToServerThreads.Remove(this);
+			}
 		}
 	}
 }
