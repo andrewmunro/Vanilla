@@ -1,23 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using VanillaSniffer.Packet;
 
 namespace VanillaSniffer.Proxy
 {
     class Client
     {
-        public NetworkStream clientStream;
+        private Thread _Thread;
+        public TcpClient _ListenSocket;
+        public NetworkStream _SendingNetworkStream;
+        public NetworkStream _ListenNetworkStream;
 
-        public Client(IPAddress ip = IPAddress.parse("127.0.0.1"), int port = 3000)
+        public Client(String _ip = "127.0.0.1", int _port = 3724)
         {
-            TcpClient client = new TcpClient();
-            serverEndPoint = new IPEndPoint(ip, port);
-            client.Connect(serverEndPoint);
-            clientStream = client.GetStream();
+            TcpClient socket = new TcpClient(_ip, _port);
+            NetworkStream networkStream = socket.GetStream();
+            Console.WriteLine("<<< Client connection initialised: "+_ip+" >>>");
+            Console.Read();
         }
     }
 }

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace VanillaSniffer.Proxy
 {
-    class Server()
+    class Server
     {     
         private TcpListener listener;
+        private int port;
         private Thread listenThread;
-        public Array packets = new Array();
+        public List<byte[]> packets = new List<byte[]>();
 
-        public Server(IPAddress ip = IPAddress.Any, int port = 3000)
+        public Server(int _port = 3724)
         {
-            listener = new TcpListener(ip, port);
+            port = _port;
+            listener = new TcpListener(IPAddress.Any, _port);
             listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
         }
@@ -27,11 +27,11 @@ namespace VanillaSniffer.Proxy
             listener.Start();
             try
             {
-                while(listener)
+                while(true)
                 {
-                    Console.WriteLine("Listening: "+String(ip)+":"+String(port));
+                    Console.WriteLine("<<< Server Initialised on port: "+port+" >>>");
                     TcpClient client = listener.AcceptTcpClient();
-                    Thread clientThread = new Thread(new ParameterizedThreadStart(Communicate);
+                    Thread clientThread = new Thread(new ParameterizedThreadStart(Communicate));
                     clientThread.Start(client);
 
                 }
@@ -49,14 +49,14 @@ namespace VanillaSniffer.Proxy
             TcpClient client = (TcpClient) tcpclient;
             NetworkStream clientStream = client.GetStream();
 
-            byte[] packet = new byte[4096]
+            byte[] packet = new byte[2048];
             int bytesRead;
             while (true)
             {
                 bytesRead = 0;
                 try
                 {
-                    bytesRead = clientStream.Read(packet, 0, 4096)
+                    bytesRead = clientStream.Read(packet, 0, 2048);
                 }
                 catch
                 {
@@ -70,7 +70,8 @@ namespace VanillaSniffer.Proxy
                 }
                 ASCIIEncoding encoder = new ASCIIEncoding();
                 Console.WriteLine(encoder.GetString(packet, 0, bytesRead));
-                packets.push(packet);
+                Console.Read();
+                packets.Add(packet);
             }
             client.Close();
         }

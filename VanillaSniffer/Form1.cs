@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VanillaSniffer.Proxy;
 
 namespace VanillaSniffer
 {
@@ -14,7 +16,13 @@ namespace VanillaSniffer
     {
         public Form1()
         {
-            InitializeComponent();
+            //InitializeComponent();
+            AllocConsole();
+            ProxyManager proxy = new ProxyManager();
         }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
     }
 }
