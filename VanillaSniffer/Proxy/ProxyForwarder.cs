@@ -23,11 +23,11 @@ namespace VanillaSniffer.Proxy
 			_name = name;
 			_from = from;
 			_to = to;
+			_toStream = new NetworkStream(_to);
+			_fromStream = new NetworkStream(_from);
 			_thread = new Thread(new ThreadStart(Recieve));
 			_thread.Name = _name;
 			_thread.Start();
-			_toStream = new NetworkStream(_to);
-			_fromStream = new NetworkStream(_from);
 		}
 
 		private void Recieve()
@@ -67,12 +67,12 @@ namespace VanillaSniffer.Proxy
 		{
 			Console.WriteLine("<<< Client "+_name+" Disconnecting! >>>");
 			try {
-				_to.Disconnect(false);
+                _toStream.Close();
 			} catch (IOException e1) {
 				Console.WriteLine(_thread.Name+" - Error while closing to-socket: "+e1);
 			}
 			try {
-				_from.Disconnect(false);
+                _fromStream.Close();
 			} catch (IOException e1) {
 				Console.WriteLine(_thread.Name + " - Error while closing _from-socket: " + e1);
 			}
