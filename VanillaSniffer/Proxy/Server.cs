@@ -30,8 +30,8 @@ namespace VanillaSniffer.Proxy
                 while(true)
                 {
                     Console.WriteLine("<<< Server Initialised on port: "+port+" >>>");
-                    TcpClient client = listener.AcceptTcpClient();
-                    Thread clientThread = new Thread(new ParameterizedThreadStart(Communicate));
+                    Socket client = listener.AcceptSocket();
+                    Thread clientThread = new Thread(new ParameterizedThreadStart(Connect));
                     clientThread.Start(client);
 
                 }
@@ -44,36 +44,13 @@ namespace VanillaSniffer.Proxy
             }
         }
 
-        private void Communicate(object tcpclient)
+        private void Connect(object client)
         {
-            TcpClient client = (TcpClient) tcpclient;
-            NetworkStream clientStream = client.GetStream();
-
-            byte[] packet = new byte[2048];
-            int bytesRead;
-            while (true)
-            {
-                bytesRead = 0;
-                try
-                {
-                    bytesRead = clientStream.Read(packet, 0, 2048);
-                }
-                catch
-                {
-                  //a socket error has occured
-                  break;
-                }
-                if (bytesRead == 0)
-                {
-                  //the client has disconnected from the server
-                  break;
-                }
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                Console.WriteLine(encoder.GetString(packet, 0, bytesRead));
-                Console.Read();
-                packets.Add(packet);
-            }
-            client.Close();
+            Console.WriteLine("New Client connected!");
+            ProxyForwarder clientToServer = new ProxyForwarder(client as Socket, ProxyManager.RemoteServer, "clientToServer");
+            ProxyForwarder serverToClient = new ProxyForwarder(ProxyManager.RemoteServer, client as Socket, "serverToClient");
+            ProxyManager.clientToServerThreads.Add(clientToServer);
+            ProxyManager.serverToClientThreads.Add(serverToClient);
         }
     }
 }

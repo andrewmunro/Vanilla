@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -9,43 +10,22 @@ namespace VanillaSniffer.Proxy
 {
     internal class ProxyManager
     {
-        private Socket client, server;
-        private ProxyForwarder clientToServerThread;
-        private ProxyForwarder serverToClientThread;
+        public static Socket RemoteServer;
+        public static List<ProxyForwarder> clientToServerThreads = new List<ProxyForwarder>();
+        public static List<ProxyForwarder> serverToClientThreads = new List<ProxyForwarder>();
 
         public ProxyManager()
         {
-            Console.WriteLine("<<< Connecting... >>>");
-            client = ListenForClient();
+            Console.WriteLine("<<< Connecting to remote server... >>>");
+
+            //Connect to remove server
             TcpClient serverConnect = new TcpClient("vanillafeenix.servegame.org", 3724);
-            server = serverConnect.Client;
-            clientToServerThread = new ProxyForwarder(client, server, "Client to Server");
-            serverToClientThread = new ProxyForwarder(server, client, "Server to Client");
-            Console.WriteLine("<<< Connected! >>>");
-        }
+            RemoteServer = serverConnect.Client;
+            Console.WriteLine("<<< Connected to remote server! >>>");
 
-        private Socket ListenForClient()
-        {
-            TcpListener listener = new TcpListener(IPAddress.Any, 3724);
-            listener.Start();
-            Socket socket = listener.AcceptSocket(); //Blocks code
-            return (socket);
-        }
-
-        public void disconnect()
-        {
-            try
-            {
-                if (client != null)
-                    client.Close();
-                if (server != null)
-                    server.Close();
-            }
-            catch (IOException e)
-            {
-                Console.Write(e);
-            }
-
+            //We need to listen for clients
+            Console.WriteLine("<<< Listening for clients... >>>");
+            Server server = new Server();
         }
     }
 }
