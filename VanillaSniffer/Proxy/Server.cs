@@ -17,9 +17,10 @@ namespace VanillaSniffer.Proxy
         public Server(int _port = 3724)
         {
             port = _port;
+            Console.WriteLine("<<< Server Initialised on port: " + port + " >>>");
             listener = new TcpListener(IPAddress.Any, _port);
             listenThread = new Thread(new ThreadStart(ListenForClients));
-            this.listenThread.Start();
+            listenThread.Start();
         }
 
         private void ListenForClients()
@@ -29,11 +30,8 @@ namespace VanillaSniffer.Proxy
             {
                 while(true)
                 {
-                    Console.WriteLine("<<< Server Initialised on port: "+port+" >>>");
                     Socket client = listener.AcceptSocket();
-                    Thread clientThread = new Thread(new ParameterizedThreadStart(Connect));
-                    clientThread.Start(client);
-
+                    Connect(client);
                 }
             }
             catch (Exception e)
@@ -44,11 +42,11 @@ namespace VanillaSniffer.Proxy
             }
         }
 
-        private void Connect(object client)
+        private void Connect(Socket client)
         {
-            Console.WriteLine("New Client connected!");
-            ProxyForwarder clientToServer = new ProxyForwarder(client as Socket, ProxyManager.RemoteServer, "clientToServer");
-            ProxyForwarder serverToClient = new ProxyForwarder(ProxyManager.RemoteServer, client as Socket, "serverToClient");
+            Console.WriteLine("<<< Client Connection from "+client.RemoteEndPoint.ToString()+" >>>");
+            ProxyForwarder clientToServer = new ProxyForwarder(client, ProxyManager.RemoteServer, "clientToServer");
+            ProxyForwarder serverToClient = new ProxyForwarder(ProxyManager.RemoteServer, client, "serverToClient");
             ProxyManager.clientToServerThreads.Add(clientToServer);
             ProxyManager.serverToClientThreads.Add(serverToClient);
         }

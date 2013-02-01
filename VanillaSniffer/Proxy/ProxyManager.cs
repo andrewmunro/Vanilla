@@ -24,7 +24,6 @@ namespace VanillaSniffer.Proxy
             Console.WriteLine("<<< Connected to remote server! >>>");
 
             //We need to listen for clients
-            Console.WriteLine("<<< Listening for clients... >>>");
             Server server = new Server();
         }
     }
