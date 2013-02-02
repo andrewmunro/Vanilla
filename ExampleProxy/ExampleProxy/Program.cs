@@ -5,6 +5,7 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.IO;
 
 namespace ExampleProxy
 {
@@ -36,12 +37,89 @@ namespace ExampleProxy
                 ProxyConnection proxyConnectionClient = new ProxyConnection(ClientProxyType.Client, proxyClient);
 
                 // This bridge just connects the two connections.
-                CreateBasicBridge(proxyConnectionServer, proxyConnectionClient);
+                //CreateBasicBridge(proxyConnectionServer, proxyConnectionClient);
 
                 // This traces the packer headers out
-                CreateWoWTraceHeaders(proxyConnectionServer, proxyConnectionClient);
+                //CreateWoWTraceHeaders(proxyConnectionServer, proxyConnectionClient);
+
+                WoWPacketListener wowPacketDetour = new WoWPacketListener(proxyConnectionServer, proxyConnectionClient);
+
+                wowPacketDetour.AddDetour(RealmPacketHeaders.CMD_REALM_LIST, (direction, data) =>
+                {
+                    if (direction == Direction.Server2Client)
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            using (BinaryWriter bw = new BinaryWriter(ms))
+                            {
+                                // bw.Write((byte)0x10); // cmd
+                                // bw.Write((Int16)0); // size
+                                bw.Write((UInt32)0x0000); // Ender?
+                                bw.Write((byte)1); // Realm count
+
+                                for (int i = 0; i < 1; i++)
+                                {
+
+
+                                    bw.Write((UInt32)1); // Icon
+                                    bw.Write((byte)0); // Flag
+
+                                    WriteCString(bw, "Proxy " + i);
+                                    WriteCString(bw, "127.0.0.1:8998");
+
+                                    bw.Write((float)1); // Pop
+                                    bw.Write((byte)3); // Chars
+                                    bw.Write((byte)1); // time
+                                    bw.Write((byte)0); // time
+
+                                }
+                                bw.Write((UInt16)0x0002);
+                            }
+
+                            byte[] array = ms.ToArray();
+                            byte[] header = new byte[1] { (byte)RealmPacketHeaders.CMD_REALM_LIST };
+
+                            MemoryStream lengthstream = new MemoryStream();
+                            BinaryWriter length = new BinaryWriter(lengthstream);
+                            length.Write((short)array.Length);
+
+                            
+                            data = Concat(Concat(header, lengthstream.ToArray()), array);
+
+                            proxyConnectionServer.Send(data);
+                            Console.WriteLine("Sent replaced realmlist");
+                        }
+
+                        // This stops the original packet
+                        return false;
+                    }
+
+                    return true;
+ 
+                });
+
             }
 
+        }
+
+        static void WriteCString(BinaryWriter bw, string input)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(input + '\0');
+            bw.Write(data);
+        }
+
+        static byte[] Concat(byte[] a, byte[] b)
+        {
+            var res = new byte[a.Length + b.Length];
+            for (int t = 0; t < a.Length; t++)
+            {
+                res[t] = a[t];
+            }
+            for (int t = 0; t < b.Length; t++)
+            {
+                res[t + a.Length] = b[t];
+            }
+            return res;
         }
 
         static void CreateBasicBridge(ProxyConnection server, ProxyConnection client)
