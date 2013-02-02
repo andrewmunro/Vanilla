@@ -16,8 +16,9 @@ namespace VanillaSniffer
     {
         public Form1()
         {
-            //InitializeComponent();
+            InitializeComponent();
             AllocConsole();
+
             ProxyManager proxy = new ProxyManager();
         }
 

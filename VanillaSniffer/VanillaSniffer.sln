@@ -13,6 +13,7 @@ Global
 		{9719FDC7-9CB6-4373-92FF-5A4866490450}.Debug|x86.Build.0 = Debug|x86
 		{9719FDC7-9CB6-4373-92FF-5A4866490450}.Release|x86.ActiveCfg = Release|x86
 		{9719FDC7-9CB6-4373-92FF-5A4866490450}.Release|x86.Build.0 = Release|x86
+		{9719FDC7-9CB6-4373-92FF-5A4866490450}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
