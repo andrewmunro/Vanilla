@@ -105,6 +105,41 @@ namespace VanillaSniffer.Packet
         {
             return new IPAddress(ReadBytes(4));
         }
+
+        public static void ReadRealms(byte[] rawData)
+        {
+            PacketReader reader = new PacketReader(new MemoryStream(rawData));
+
+            byte cmd = reader.ReadByte(); // cmd
+            short packet_Size = reader.ReadInt16();
+            UInt32 unsued = reader.ReadUInt32();
+            byte realmSize = reader.ReadByte();
+
+            for (int i = 0; i < realmSize; i++)
+            {
+                UInt32 icon = reader.ReadUInt32();
+                byte flag = reader.ReadByte();
+                string name = "S";
+                string address = "S";
+                try
+                {
+                    name = reader.ReadCString();
+                    address = reader.ReadCString();
+                }
+                catch (Exception EF)
+                {
+                }
+
+                float pop = reader.ReadSingle();
+                byte chars = reader.ReadByte();
+                byte time = reader.ReadByte();
+                byte end = reader.ReadByte();
+
+                if (name != "S") Console.WriteLine(name + " : " + address + " : " + chars);
+
+            }
+
+        }
  
     }
  
