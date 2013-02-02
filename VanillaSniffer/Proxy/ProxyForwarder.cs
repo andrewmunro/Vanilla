@@ -17,6 +17,7 @@ namespace VanillaSniffer.Proxy
 		private string _name;
 		private NetworkStream _toStream;
 		private NetworkStream _fromStream;
+	    private bool _disconnecting = false;
 
 		public ProxyForwarder(Socket from, Socket to, String name)
 		{
@@ -40,10 +41,19 @@ namespace VanillaSniffer.Proxy
 				{
 					Byte[] buffer = new byte[2048];
 					int packetSize = _fromStream.Read(buffer, 0, _from.Available);
-					if(packetSize == 0) break;
-					byte [] packet = new byte[packetSize];
-					Array.Copy(buffer, packet, packetSize);
-					Send(packet);
+                    // Only disconnect if two packets of 0 size are sent in a row
+                    if (packetSize == 0)
+                    {
+                        if (_disconnecting) break;
+                        else _disconnecting = true;
+                    }
+                    else
+                    {
+                        _disconnecting = false;
+                        byte[] packet = new byte[packetSize];
+                        Array.Copy(buffer, packet, packetSize);
+                        Send(packet);
+                    }
 
 					//TODO Handle packets :)
 					//if (OnDataRecieved != null) OnDataRecieved(packet);
