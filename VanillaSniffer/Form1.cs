@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using VanillaSniffer.Database;
 using VanillaSniffer.Proxy;
 
 namespace VanillaSniffer
 {
     public partial class Form1 : Form
     {
+        public DatabaseManager DatabaseManager;
+        public ProxyManager ProxyManager;
+
         public Form1()
         {
             InitializeComponent();
             AllocConsole();
 
-            ProxyManager proxy = new ProxyManager();
+            ProxyManager = new ProxyManager();
+            DatabaseManager = new DatabaseManager();
+            
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

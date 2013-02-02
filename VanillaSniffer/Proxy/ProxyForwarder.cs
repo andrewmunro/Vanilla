@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace VanillaSniffer.Proxy
 {
-	class ProxyForwarder
+	public class ProxyForwarder
 	{
 		private Socket _from;
 		private Socket _to;
@@ -18,6 +18,7 @@ namespace VanillaSniffer.Proxy
 		private NetworkStream _toStream;
 		private NetworkStream _fromStream;
 	    private bool _disconnecting = false;
+        public event DataRecived OnDataRecived;
 
 		public ProxyForwarder(Socket from, Socket to, String name)
 		{
@@ -52,11 +53,9 @@ namespace VanillaSniffer.Proxy
                         _disconnecting = false;
                         byte[] packet = new byte[packetSize];
                         Array.Copy(buffer, packet, packetSize);
-                        Send(packet);
-                    }
-
-					//TODO Handle packets :)
-					//if (OnDataRecieved != null) OnDataRecieved(packet);
+                        //Send(packet);
+                        if (OnDataRecived != null) OnDataRecived(packet);
+                    }             
 				}
 				Disconnect();
 			}
@@ -68,13 +67,13 @@ namespace VanillaSniffer.Proxy
 
 		public void Send(byte[] data)
 		{
-			Console.WriteLine(_name+": Sending packet!");
 			_toStream.Write(data, 0, data.Length);
 		}
 
 
 		public void Disconnect()
 		{
+            //TODO Fix disconnects :(
 			Console.WriteLine("<<< Client "+_name+" Disconnecting! >>>");
 			try {
                 _toStream.Close();
