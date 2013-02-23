@@ -53,7 +53,6 @@ namespace VanillaSniffer.Proxy
                         _disconnecting = false;
                         byte[] packet = new byte[packetSize];
                         Array.Copy(buffer, packet, packetSize);
-                        //Send(packet);
                         if (OnDataRecived != null) OnDataRecived(packet);
                     }             
 				}
@@ -73,28 +72,7 @@ namespace VanillaSniffer.Proxy
 
 		public void Disconnect()
 		{
-            //TODO Fix disconnects :(
-			Console.WriteLine("<<< Client "+_name+" Disconnecting! >>>");
-			try {
-                _toStream.Close();
-			} catch (IOException e1) {
-				Console.WriteLine(_thread.Name+" - Error while closing to-socket: "+e1);
-			}
-			try {
-                _fromStream.Close();
-			} catch (IOException e1) {
-				Console.WriteLine(_thread.Name + " - Error while closing _from-socket: " + e1);
-			}
-			//TODO This disconnects all clients :(
-			if(ProxyManager.serverToClientThreads.Contains(this))
-			{
-				ProxyManager.serverToClientThreads.Remove(this);
-			}
-
-			if(ProxyManager.clientToServerThreads.Contains(this))
-			{
-				ProxyManager.clientToServerThreads.Remove(this);
-			}
+            
 		}
 	}
 }

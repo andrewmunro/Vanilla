@@ -70,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs" />
     <Compile Include="Properties\Settings.Designer.cs" />
     <Compile Include="Proxy\DataRecived.cs" />
+    <Compile Include="Proxy\Proxy.cs" />
     <Compile Include="Proxy\ProxyForwarder.cs" />
     <Compile Include="Proxy\ProxyManager.cs" />
     <Compile Include="Proxy\Server.cs" />

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace VanillaSniffer.Packet
@@ -22,7 +20,7 @@ namespace VanillaSniffer.Packet
                     bw.Write((UInt32) 1); // Icon
                     bw.Write((byte) 0); // Flag
 
-                    WriteCString(bw, "Proxy");
+                    WriteCString(bw, "Lucas extends noobzilla!");
                     WriteCString(bw, "127.0.0.1:8998");
 
                     bw.Write((float) 1); // Pop

@@ -13,6 +13,7 @@ namespace VanillaSniffer.Proxy
         private int port;
         private Thread listenThread;
         public List<byte[]> packets = new List<byte[]>();
+        private Proxy proxy;
 
         public Server(int _port = 3724)
         {
@@ -45,10 +46,8 @@ namespace VanillaSniffer.Proxy
         private void Connect(Socket client)
         {
             Console.WriteLine("<<< Client Connection from "+client.RemoteEndPoint.ToString()+" >>>");
-            ProxyForwarder clientToServer = new ProxyForwarder(client, ProxyManager.RemoteServer, "clientToServer");
-            ProxyForwarder serverToClient = new ProxyForwarder(ProxyManager.RemoteServer, client, "serverToClient");
-            ProxyManager.clientToServerThreads.Add(clientToServer);
-            ProxyManager.serverToClientThreads.Add(serverToClient);
+            proxy = new Proxy(client);
+            ProxyManager.AddProxy(proxy);
         }
     }
 }

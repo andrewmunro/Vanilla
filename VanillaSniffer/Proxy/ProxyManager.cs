@@ -9,6 +9,7 @@ namespace VanillaSniffer.Proxy
     public class ProxyManager
     {
         public static Socket RemoteServer;
+        public static List<Proxy> proxyList = new List<Proxy>(); 
         public static List<ProxyForwarder> clientToServerThreads = new List<ProxyForwarder>();
         public static List<ProxyForwarder> serverToClientThreads = new List<ProxyForwarder>();
 
@@ -24,45 +25,11 @@ namespace VanillaSniffer.Proxy
             RemoteServer = serverConnect.Client;
             Console.WriteLine("<<< Connected to remote server! >>>");
 
-            Update();
         }
 
-        private void Update()
+        public static void AddProxy(Proxy proxy)
         {
-            while (true)
-            {
-                Thread.Sleep(10);
-
-                foreach (ProxyForwarder clientThread in clientToServerThreads)
-                {
-                    if (clientThread != null) clientThread.OnDataRecived += (packet) => ClientPacket(packet);
-                }
-
-                foreach (ProxyForwarder serverThread in serverToClientThreads)
-                {
-                    if (serverThread != null) serverThread.OnDataRecived +=(packet) => ServerPacket(packet);
-                }
-            }
-        }
-
-        private void ServerPacket(Byte[] packet)
-        {
-            Console.WriteLine("Server -> Client " + (PacketHeaders) packet[0]);
-            if ((PacketHeaders) (byte) packet[0] == PacketHeaders.CMD_REALM_LIST)
-            {
-                PacketReader.ReadRealms(packet);
-                packet = PacketWriter.WriteRealm(packet);
-            }
-        }
-        
-        private void ClientPacket(Byte[] packet)
-        {
-            Console.WriteLine("Client -> Server " + (PacketHeaders) packet[0]);
-            if ((PacketHeaders) (byte) packet[0] == PacketHeaders.CMD_REALM_LIST)
-            {
-                PacketReader.ReadRealms(packet);
-                packet = PacketWriter.WriteRealm(packet);
-            }
+            proxyList.Add(proxy);
         }
         
     }
