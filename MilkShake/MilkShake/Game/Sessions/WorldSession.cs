@@ -382,6 +382,13 @@ namespace Milkshake.Net
                     //sendHexPacket(Opcodes.SMSG_UPDATE_OBJECT, "01 00 00 00 00 00 01 04 29 00 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54 00 00 00 ");
                     
                 }
+
+                string[] splitMessage = message.ToLower().Split();
+                if (splitMessage.Count() == 2 && splitMessage[0] == ".sound")
+                {
+                    uint soundID = uint.Parse(splitMessage[1]);
+                    sendPacket(Opcodes.SMSG_PLAY_SOUND, new PSPlaySound(soundID).Packet);
+                }
             }
 
 

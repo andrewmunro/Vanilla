@@ -217,7 +217,8 @@ namespace Milkshake.Game.Sessions
                               bw.Write((byte)0); // Flag
 
                               WriteCString(bw, "Hello World aaa");
-                              WriteCString(bw, "82.47.157.173:120");
+                              //WriteCString(bw, "82.47.157.173:120");
+                              WriteCString(bw, "127.0.0.1:120");
 
                               bw.Write((float)1); // Pop
                               bw.Write((byte)3); // Chars

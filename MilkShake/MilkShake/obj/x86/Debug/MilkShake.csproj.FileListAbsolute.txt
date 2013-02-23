@@ -1,0 +1,7 @@
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.exe.config
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.exe
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.pdb
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.csprojResolveAssemblyReference.cache
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.exe
+D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.pdb
