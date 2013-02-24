@@ -71,6 +71,8 @@
     <Compile Include="Game\Constants\Character\Race.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
+    <Compile Include="Game\Constants\Game\Update\EUnitFields.cs" />
+    <Compile Include="Game\Constants\Game\Update\MovementFlags.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectFlags.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectUpdateType.cs" />
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\Update\UpdateMask.cs" />
     <Compile Include="Tools\Update\UpdateReader.cs" />
   </ItemGroup>
   <ItemGroup />

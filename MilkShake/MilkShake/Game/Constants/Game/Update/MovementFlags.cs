@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
+    [Flags]
     public enum MovementFlags
     {
         MOVEFLAG_NONE = 0x00000000,
