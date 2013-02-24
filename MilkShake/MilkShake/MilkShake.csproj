@@ -50,12 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\Incoming\Character\PCCharCreate.cs" />
-    <Compile Include="Communication\Incoming\Character\PSCharDelete.cs" />
+    <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
     <Compile Include="Communication\Outgoing\Weather\Weather.cs" />
     <Compile Include="Communication\Outgoing\World\AccountDataTimes.cs" />
+    <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
