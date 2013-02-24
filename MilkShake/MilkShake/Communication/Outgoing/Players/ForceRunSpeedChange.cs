@@ -1,16 +1,15 @@
 ﻿using System.IO;
+using Milkshake.Network;
 
 namespace Milkshake.Communication.Outgoing.Players
 {
-    public class ForceRunSpeedChange: BinaryWriter
+    public class ForceRunSpeedChange : ServerPacket
     {
-        public ForceRunSpeedChange(float speed)  : base(new MemoryStream())
+        public ForceRunSpeedChange(uint GUID, float speed)  : base(Opcodes.SMSG_FORCE_RUN_SPEED_CHANGE)
         {
-            //Write((uint)state);
-            //Write(grad);
-            //Write((uint)sound);
+            Write(GUID);
+            Write((uint)0);
+            Write(speed);
         }
-
-        public byte[] Packet { get { return (BaseStream as MemoryStream).ToArray(); } }
     }
 }

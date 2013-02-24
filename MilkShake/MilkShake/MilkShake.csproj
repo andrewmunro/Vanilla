@@ -100,6 +100,7 @@
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\Update\UpdateReader.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
