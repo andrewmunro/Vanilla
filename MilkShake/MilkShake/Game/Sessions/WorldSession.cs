@@ -375,6 +375,11 @@ namespace Milkshake.Net
                 ChatManager.OnChatMessage(this, new PCMessageChat(data)); 
             }
 
+            if (code == Opcodes.CMSG_NAME_QUERY)
+            {
+                ChatManager.OnNameQuery(this, new PCNameQuery(data));
+            }
+
             if (code == Opcodes.CMSG_LOGOUT_REQUEST)
             {
                 LogoutManager.OnLogout(this);

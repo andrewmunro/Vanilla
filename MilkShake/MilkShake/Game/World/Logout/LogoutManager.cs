@@ -7,6 +7,7 @@ using Milkshake.Communication;
 using Milkshake.Communication.Outgoing.World.Logout;
 using Milkshake.Game.World.Chat;
 using Milkshake.Net;
+using Milkshake.Tools;
 
 namespace Milkshake.Game.World.Logout
 {
@@ -32,6 +33,7 @@ namespace Milkshake.Game.World.Logout
         {
             Thread thread = new Thread(update);
             thread.Start();
+            Log.Print(LogType.Server, "Logout queue initialised");
         }
 
         public static void update()
@@ -46,10 +48,8 @@ namespace Milkshake.Game.World.Logout
                         logoutQueue.Remove(entry.Key);
                     }                   
                 }
-                Console.WriteLine("Queue: "+logoutQueue.Count);
                 Thread.Sleep(1000);
             }
         }
-
     }
 }

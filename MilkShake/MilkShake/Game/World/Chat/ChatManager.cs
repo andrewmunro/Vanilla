@@ -1,9 +1,13 @@
 ﻿using System;
 using Milkshake.Communication;
+using Milkshake.Communication.Incoming.World;
 using Milkshake.Communication.Incoming.World.Chat;
+using Milkshake.Communication.Outgoing.World;
 using Milkshake.Communication.Outgoing.World.Chat;
 using Milkshake.Game.Constants.Game;
 using Milkshake.Net;
+using Milkshake.Network;
+using Milkshake.Tools.Database;
 
 namespace Milkshake.Game.World.Chat
 {
@@ -14,7 +18,7 @@ namespace Milkshake.Game.World.Chat
             if (packet.Type == ChatMessageType.CHAT_MSG_WHISPER)
             {
                 Console.WriteLine("[Chat] Whisper:" + " To:" + packet.To + " From:" + session.Account.Username + " Message:" + packet.Message);
-                WorldSession remoteSession = GetSessionByUsername(packet.To);
+                WorldSession remoteSession = GetSessionByCharacterName(packet.To);
                 if (remoteSession != null) SendWhisper(session, remoteSession, packet.Message);
             }
             else
@@ -27,20 +31,29 @@ namespace Milkshake.Game.World.Chat
 
         private static void SendWhisper(WorldSession session, WorldSession remoteSession, string message)
         {
-            //session.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet);
-            //remoteSession.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet);
+            session.sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, (UInt32) 20, message));
+            remoteSession.sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message));
         }
 
         public static void SendSytemMessage(WorldSession session, string message)
         {
             session.sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_SYSTEM, ChatMessageLanguage.LANG_COMMON, 0, 0, message));
-
-            //session.sendPacket(Opcodes.SMSG_EMOTE, new PSMessageChat(ChatMessageType.CHAT_MSG_SAY, ChatMessageLanguage.LANG_COMMON, session.Character.GUID, session.Character.GUID, message).Packet);
         }
 
         public static WorldSession GetSessionByUsername(string username)
         {
              return WorldServer.Sessions.Find(user => user.Account.Username.ToLower() == username.ToLower());
+        }
+
+        public static WorldSession GetSessionByCharacterName(string characterName)
+        {
+            return WorldServer.Sessions.Find(character => character.Character.Name.ToLower() == characterName.ToLower());
+        }
+
+        public static void OnNameQuery(WorldSession session, PCNameQuery packet)
+        {
+            Character target = DBCharacters.Characters.Find(character => character.GUID == packet.GUID);
+            if(target != null) session.sendPacket(new PSNameQuery(target));
         }
     }
 }

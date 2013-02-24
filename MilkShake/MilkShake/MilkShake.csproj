@@ -53,6 +53,7 @@
     <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
     <Compile Include="Communication\Incoming\World\Auth\PCAuthSession.cs" />
     <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
+    <Compile Include="Communication\Incoming\World\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
+    <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
     <Compile Include="Communication\Outgoing\World\PSUpdateObject.cs" />
     <Compile Include="Game\Constants\Character\Class.cs" />
