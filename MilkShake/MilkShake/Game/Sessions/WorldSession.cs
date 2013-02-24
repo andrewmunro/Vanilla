@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Game.Sessions;
 using Milkshake.Network;
 using Milkshake.Tools;
@@ -251,11 +252,9 @@ namespace Milkshake.Net
 
             if (code == Opcodes.CMSG_AUTH_SESSION)
             {
-                PacketReader reader = new PacketReader(data);
-                reader.ReadInt32(); // ClientBuild
-                reader.ReadInt32(); // unk2
-                String accountName = reader.ReadCString();
-                Account = DBAccounts.GetAccount(accountName);
+                PCAuthSession pcAuthSession = new PCAuthSession(data);
+
+                Account = DBAccounts.GetAccount(pcAuthSession.AccountName);
 
                 crypt = new VanillaCrypt();
                 crypt.init(StringToByteArray(Account.SessionKey));
