@@ -37,6 +37,8 @@ namespace Milkshake.Net
         public int ConnectionID { get { return connectionID; } }
 
         public UInt32 seed;
+        public Accounts Account;
+        
 
         public WorldSession(int _connectionID, Socket _connectionSocket)
         {
@@ -242,7 +244,7 @@ namespace Milkshake.Net
             Console.WriteLine("done");
         }
         int encCount = 0;
-        Accounts account;
+        
         private void onPacketOLD(Opcodes code, byte[] data)
         {
             
@@ -253,10 +255,10 @@ namespace Milkshake.Net
                 reader.ReadInt32(); // ClientBuild
                 reader.ReadInt32(); // unk2
                 String accountName = reader.ReadCString();
-                account = DBAccounts.GetAccount(accountName);
+                Account = DBAccounts.GetAccount(accountName);
 
                 crypt = new VanillaCrypt();
-                crypt.init(StringToByteArray(account.SessionKey));
+                crypt.init(StringToByteArray(Account.SessionKey));
                 //crypt.init(StringToByteArray(Console.ReadLine()));
 
                 Log.Print(LogType.Error, "Started Encryption");
@@ -273,7 +275,7 @@ namespace Milkshake.Net
             if (code == Opcodes.CMSG_CHAR_ENUM)
             {
 
-                List<Character> characters = DBCharacters.GetCharacters(account.Username);
+                List<Character> characters = DBCharacters.GetCharacters(Account.Username);
                 /*characters.Add(new Character() { Name = "FreyaSmells", GUID = 12, Class = ClassID.Druid, Race = RaceID.Gnome, Gender = Gender.Male,  MapID = 1, X = -566, Y = -1496, Z = 100 });*/
                 //characters.Add(new Character() { Name = "FreyaSmells4000", GUID = 13, Class = 1, Race = 8, MapID = 1, X = -5626, Y = -1496, Z = 100 });
 
@@ -285,7 +287,7 @@ namespace Milkshake.Net
             {
                 PCCharCreate newCharacter = new PCCharCreate(data);
 
-                DBCharacters.CreateCharacter(account, new Character() { Name = Helper.Normalize(newCharacter.Name),
+                DBCharacters.CreateCharacter(Account, new Character() { Name = Helper.Normalize(newCharacter.Name),
                                                                         Race = (RaceID)newCharacter.Race,
                                                                         Class = (ClassID)newCharacter.Class,
                                                                         Gender = (Gender)newCharacter.Gender,
