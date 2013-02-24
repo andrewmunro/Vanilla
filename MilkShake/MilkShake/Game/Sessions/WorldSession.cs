@@ -371,12 +371,12 @@ namespace Milkshake.Net
 
             if (code == Opcodes.CMSG_MESSAGECHAT)
             {
-                ChatManager.OnChatMessage(this, new PCMessageChat(data));
+                ChatManager.OnChatMessage(this, new PCMessageChat(data)); 
             }
 
             if (code == Opcodes.CMSG_LOGOUT_REQUEST)
             {
-                sendPacket(Opcodes.SMSG_LOGOUT_RESPONSE, new SCLogoutResponse().Packet);
+                sendPacket(Opcodes.SMSG_LOGOUT_RESPONSE, new SCLogoutResponse());
             }
 
             if (code == Opcodes.CMSG_LOGOUT_CANCEL)

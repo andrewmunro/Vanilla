@@ -14,10 +14,5 @@ namespace Milkshake.Communication.Outgoing.World.Logout
             Write((UInt32) 0);
             Write((byte) 0);
         }
-
-        public byte[] Packet
-        {
-            get { return (BaseStream as MemoryStream).ToArray(); }
-        }
     }
 }

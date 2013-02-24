@@ -61,6 +61,7 @@
     <Compile Include="Communication\Outgoing\World\AccountDataTimes.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
+    <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
     <Compile Include="Communication\Outgoing\World\PSUpdateObject.cs" />
@@ -98,7 +99,9 @@
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\World\NewFolder1\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
