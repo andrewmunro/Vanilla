@@ -38,7 +38,10 @@ namespace Milkshake.Tools.Update
             Console.WriteLine("  Update Flags");
             updateFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
 
+            if (updateFlags.GetIndividualFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+            {
 
+            }
         }
     }
 
