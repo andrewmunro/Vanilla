@@ -79,6 +79,10 @@ namespace Milkshake.Tools.Update
            // byte blockCount = reader.ReadByte();
            // Console.WriteLine("blockCount: " + blockCount);
             //int maskSize = blockCount << 2;
+           // byte[] ddddd = reader.ReadBytes((int)reader.BaseStream.Length - (int)reader.BaseStream.Position);
+
+           // Console.WriteLine(Helper.byteArrayToHex(ddddd));
+
             UpdateMask updateMask = ReadUpdateMask(reader);
             
 
