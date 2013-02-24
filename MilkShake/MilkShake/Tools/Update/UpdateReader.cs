@@ -5,14 +5,11 @@ using System.Text;
 using System.IO;
 using Milkshake.Network;
 using Milkshake.Communication.Outgoing.World;
+using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Game.Constants.Update;
 
 namespace Milkshake.Tools.Update
 {
-
-    
-
-
-
     public class UpdateReader
     {
         public static void Boot()
@@ -23,8 +20,7 @@ namespace Milkshake.Tools.Update
             {
                 Console.WriteLine("Reading: " + log.Split('/')[log.Split('/').Length - 1]);
                 ProccessLog(Helper.StringToByteArray(File.ReadAllText(log)));
-            });
-          
+            });          
         }
 
         public static void ProccessLog(byte[] data)
@@ -33,14 +29,16 @@ namespace Milkshake.Tools.Update
 
             Console.WriteLine("  Block Count: " + reader.ReadUInt32());
             Console.WriteLine("  HasTransport: " + reader.ReadByte());
-            Console.WriteLine("  UpdateType: " + reader.ReadByte());
+            Console.WriteLine("  UpdateType: " + (ObjectUpdateType)reader.ReadByte());
             Console.WriteLine("  GUID: " + reader.ReadUInt16());
-            Console.WriteLine("  ObjectType: " + reader.ReadByte());
+            Console.WriteLine("  ObjectType: " + (TypeID)reader.ReadByte());
 
-            ObjectUpdateFlags updateFlags = (ObjectUpdateFlags)reader.ReadByte();
+            ObjectFlags updateFlags = (ObjectFlags)reader.ReadByte();
 
             Console.WriteLine("  Update Flags");
             updateFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
+
+
         }
     }
 
