@@ -352,7 +352,6 @@ namespace Milkshake.Net
             if (code == Opcodes.CMSG_MESSAGECHAT)
             {
                 PacketReader reader = new PacketReader(data);
-
                 uint type = reader.ReadUInt32();
                 uint lang = reader.ReadUInt32();
                 string message = reader.ReadCString();
