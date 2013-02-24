@@ -9,7 +9,7 @@ namespace Milkshake.Communication.Outgoing.World.Chat
 {
     internal class PSMessageChat : BinaryWriter
     {
-        public PSMessageChat(ChatMessage type, ChatLanguage language, uint fromGUID, uint toGUID, string message) : base(new MemoryStream())
+        public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, uint fromGUID, uint toGUID, string message) : base(new MemoryStream())
         {
             Write((byte)type);
             Write((uint)language);

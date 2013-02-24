@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game
 {
-    public enum ChatLanguage : byte
+    public enum ChatMessageLanguage : byte
     {
         LANG_UNIVERSAL      = 0,
         LANG_ORCISH         = 1,

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game
 {
-    public enum ChatMessage : byte
+    public enum ChatMessageType : byte
     {
         CHAT_MSG_SAY = 0x00,
         CHAT_MSG_PARTY = 0x01,

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Communication\Incoming\Character\PCCharCreate.cs" />
     <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
+    <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
@@ -64,10 +65,11 @@
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
     <Compile Include="Game\Constants\Character\Race.cs" />
-    <Compile Include="Game\Constants\Game\Chat\ChatLanguage.cs" />
-    <Compile Include="Game\Constants\Game\Chat\ChatMessage.cs" />
+    <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
+    <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Sessions\SessionManager.cs" />
+    <Compile Include="Game\World\Chat\ChatManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
@@ -93,9 +95,7 @@
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\World\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
