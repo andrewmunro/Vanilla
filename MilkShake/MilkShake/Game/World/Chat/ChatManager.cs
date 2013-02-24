@@ -27,8 +27,8 @@ namespace Milkshake.Game.World.Chat
 
         private static void SendWhisper(WorldSession session, WorldSession remoteSession, string message)
         {
-            session.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet;
-            remoteSession.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet;
+            //session.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet;
+           // remoteSession.sendPacket(Opcodes.SMSG_MESSAGECHAT, new PSMessageChat(ChatMessageType.CHAT_MSG_WHISPER, ChatMessageLanguage.LANG_COMMON, remoteSession.Character.GUID, session.Character.GUID, message).Packet;
         }
 
         public static void SendSytemMessage(WorldSession session, string message)

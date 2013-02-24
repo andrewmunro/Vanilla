@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Milkshake.Communication.Incoming.World.Auth;
+using Milkshake.Communication.Outgoing.World.Logout;
 using Milkshake.Game.Sessions;
 using Milkshake.Network;
 using Milkshake.Tools;
@@ -368,8 +369,15 @@ namespace Milkshake.Net
                 ChatManager.OnChatMessage(this, new PCMessageChat(data));
             }
 
+            if (code == Opcodes.CMSG_LOGOUT_REQUEST)
+            {
+                sendPacket(Opcodes.SMSG_LOGOUT_RESPONSE, new SCLogoutResponse().Packet);
+            }
 
-
+            if (code == Opcodes.CMSG_LOGOUT_CANCEL)
+            {
+                sendPacket(Opcodes.SMSG_LOGOUT_CANCEL_ACK, 0);
+            }
 
         }
 
