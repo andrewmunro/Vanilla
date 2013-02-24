@@ -52,6 +52,7 @@
     <Compile Include="Communication\Incoming\Character\PCCharCreate.cs" />
     <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
     <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
+    <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
