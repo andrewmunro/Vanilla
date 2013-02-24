@@ -87,7 +87,6 @@ namespace Milkshake.Tools.Database
 
         public int AccountID { get; set; }
         public string Name { get; set; }
-        public int DisplayID { get; set; }
 
         public RaceID Race { get; set; }
         public ClassID Class { get; set; }
@@ -101,7 +100,7 @@ namespace Milkshake.Tools.Database
         public int Happiness { get; set; }
         public byte Drunk { get; set; }
         public byte Online { get; set; }
-
+        public uint Flags { get; set; }
 
         public int MapID { get; set; }
         public int Zone { get; set; }
