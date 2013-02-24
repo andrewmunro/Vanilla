@@ -117,6 +117,11 @@ namespace Milkshake.Net
             sendData((writer.BaseStream as MemoryStream).ToArray());
         }
 
+        public void sendPacket(ServerPacket packet)
+        {
+            sendPacket(packet.Opcode, packet.Packet);
+        }
+
         public void sendPacket(Opcodes opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
@@ -368,7 +373,10 @@ namespace Milkshake.Net
                 ChatManager.OnChatMessage(this, new PCMessageChat(data));
             }
 
-
+            if (code == Opcodes.CMSG_LOGOUT_REQUEST)
+            {
+                sendPacket(Opcodes.SMSG_LOGOUT_COMPLETE, 0);
+            }
 
 
         }

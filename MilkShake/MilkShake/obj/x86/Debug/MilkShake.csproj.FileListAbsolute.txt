@@ -5,3 +5,10 @@ D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\bin\Debug\ICSharpCode.Shar
 D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.csprojResolveAssemblyReference.cache
 D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.exe
 D:\Stuff\Dropbox\Projects\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.pdb
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.exe.config
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.exe
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Debug\MilkShake.pdb
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.exe
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Debug\MilkShake.pdb
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Debug\ICSharpCode.SharpZipLib.dll

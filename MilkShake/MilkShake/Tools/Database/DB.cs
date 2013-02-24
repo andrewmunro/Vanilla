@@ -83,7 +83,7 @@ namespace Milkshake.Tools.Database
     public class Character
     {
         [PrimaryKey, AutoIncrement]
-        public int GUID { get; set; }
+        public uint GUID { get; set; }
 
         public int OwnerID { get; set; }
         public string Name { get; set; }

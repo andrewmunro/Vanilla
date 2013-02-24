@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Communication\Incoming\Character\PCCharCreate.cs" />
     <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
+    <Compile Include="Communication\Incoming\World\Auth\PCAuthSession.cs" />
     <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
     <Compile Include="Game\Constants\PacketHeaderType.cs" />
+    <Compile Include="Network\ServerPacket.cs" />
     <Compile Include="Tools\Cryptography\BigInteger.cs" />
     <Compile Include="Tools\Cryptography\PacketCrypto.cs" />
     <Compile Include="Tools\Cryptography\RC4.cs" />
