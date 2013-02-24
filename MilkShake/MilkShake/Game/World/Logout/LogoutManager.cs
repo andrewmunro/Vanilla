@@ -25,7 +25,7 @@ namespace Milkshake.Game.World.Logout
         public static void OnCancel(WorldSession session)
         {
             logoutQueue.Remove(session);
-            session.sendPacket(Opcodes.SMSG_LOGOUT_CANCEL_ACK, new byte[] { 0x00 });
+            session.sendPacket(Opcodes.SMSG_LOGOUT_CANCEL_ACK, 0);
         }
 
         public static void Boot()
@@ -42,7 +42,7 @@ namespace Milkshake.Game.World.Logout
                 {
                     if (DateTime.Now.Subtract(entry.Value).Seconds >= 20)
                     {
-                        entry.Key.sendPacket(Opcodes.SMSG_LOGOUT_COMPLETE, new byte[] { 0x00 });
+                        entry.Key.sendPacket(Opcodes.SMSG_LOGOUT_COMPLETE, 0);
                         logoutQueue.Remove(entry.Key);
                     }                   
                 }

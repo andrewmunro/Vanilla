@@ -58,7 +58,6 @@
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
     <Compile Include="Communication\Outgoing\Weather\Weather.cs" />
-    <Compile Include="Communication\Outgoing\World\AccountDataTimes.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
-    <Compile Include="Tools\Timer.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

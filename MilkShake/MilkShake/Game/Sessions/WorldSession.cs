@@ -106,7 +106,7 @@ namespace Milkshake.Net
             }
         }
 
-        private void sendPacket(Opcodes opcode, byte data)
+        public void sendPacket(Opcodes opcode, byte data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = encode(1, (int)opcode);
