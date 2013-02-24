@@ -64,12 +64,12 @@ namespace Milkshake.Tools.Database
         public static List<Character> GetCharacters(String username)
         {
             int accountID = DBAccounts.GetAccount(username).ID;
-            return Characters.FindAll(a => a.OwnerID == accountID);
+            return Characters.FindAll(a => a.AccountID == accountID);
         }
 
         public static void CreateCharacter(Accounts owner, Character character)
         {
-            character.OwnerID = owner.ID;
+            character.AccountID = owner.ID;
 
             DB.SQLite.Insert(character);
         }
@@ -85,14 +85,26 @@ namespace Milkshake.Tools.Database
         [PrimaryKey, AutoIncrement]
         public uint GUID { get; set; }
 
-        public int OwnerID { get; set; }
+        public int AccountID { get; set; }
         public string Name { get; set; }
+        public int DisplayID { get; set; }
 
         public RaceID Race { get; set; }
         public ClassID Class { get; set; }
+
         public byte Level { get; set; }
+        public int Health { get; set; }
+        public int Mana { get; set; }
+        public int Rage { get; set; }
+        public int Focus { get; set; }
+        public int Energy { get; set; }
+        public int Happiness { get; set; }
+        public byte Drunk { get; set; }
+        public byte Online { get; set; }
+
 
         public int MapID { get; set; }
+        public int Zone { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
