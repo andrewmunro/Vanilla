@@ -73,6 +73,7 @@
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Sessions\SessionManager.cs" />
     <Compile Include="Game\World\Chat\ChatManager.cs" />
+    <Compile Include="Game\World\Logout\LogoutManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
@@ -98,10 +99,9 @@
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\Timer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\World\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>

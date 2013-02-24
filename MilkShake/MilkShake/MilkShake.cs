@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Milkshake.Game.Sessions;
+using Milkshake.Game.World.Logout;
 using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Net;
@@ -47,6 +48,9 @@ namespace Milkshake
 
             Console.WriteLine(objectCount);
             */
+
+            LogoutManager.Boot();
+
             while (true)
             {
                 Console.ReadLine();

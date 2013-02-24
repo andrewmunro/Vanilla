@@ -5,6 +5,7 @@ using System.Text;
 using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Communication.Outgoing.World.Logout;
 using Milkshake.Game.Sessions;
+using Milkshake.Game.World.Logout;
 using Milkshake.Network;
 using Milkshake.Tools;
 using System.Net.Sockets;
@@ -376,12 +377,12 @@ namespace Milkshake.Net
 
             if (code == Opcodes.CMSG_LOGOUT_REQUEST)
             {
-                sendPacket(Opcodes.SMSG_LOGOUT_RESPONSE, new SCLogoutResponse());
+                LogoutManager.OnLogout(this);
             }
 
             if (code == Opcodes.CMSG_LOGOUT_CANCEL)
             {
-                sendPacket(Opcodes.SMSG_LOGOUT_CANCEL_ACK, 0);
+                LogoutManager.OnCancel(this);
             }
 
         }

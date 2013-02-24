@@ -7,9 +7,9 @@ using Milkshake.Network;
 
 namespace Milkshake.Communication.Outgoing.World.Logout
 {
-    class SCLogoutResponse : BinaryWriter
+    class SCLogoutResponse : ServerPacket
     {
-        public SCLogoutResponse() : base(new MemoryStream())
+        public SCLogoutResponse(): base(Opcodes.SMSG_LOGOUT_RESPONSE)
         {
             Write((UInt32) 0);
             Write((byte) 0);
