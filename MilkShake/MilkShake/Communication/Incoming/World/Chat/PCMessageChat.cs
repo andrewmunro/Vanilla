@@ -19,15 +19,8 @@ namespace Milkshake.Communication.Incoming.World.Chat
             Type = (ChatMessageType)ReadUInt32();
             Language = (ChatMessageLanguage)ReadUInt32();
 
-            if (Type != ChatMessageType.CHAT_MSG_WHISPER)
-            {
-                Message = ReadCString();
-            }
-            else
-            {
-                To = ReadCString();
-                Message = ReadCString();
-            }
+            if (Type == ChatMessageType.CHAT_MSG_WHISPER) To = ReadCString();            
+            Message = ReadCString();
         }
     }
 }
