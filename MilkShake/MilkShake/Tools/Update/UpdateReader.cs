@@ -72,9 +72,10 @@ namespace Milkshake.Tools.Update
 
             if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_ALL))
             {
-                reader.ReadUInt32().ToString("X2");
+                Console.WriteLine(reader.ReadUInt32().ToString("X2"));
             }
 
+            
            // byte blockCount = reader.ReadByte();
            // Console.WriteLine("blockCount: " + blockCount);
             //int maskSize = blockCount << 2;
@@ -93,7 +94,7 @@ namespace Milkshake.Tools.Update
             }
 
             
-
+            
             
         }
 

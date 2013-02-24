@@ -65,7 +65,7 @@
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
-    <Compile Include="Communication\Outgoing\World\PSUpdateObject.cs" />
+    <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
     <Compile Include="Game\Constants\Character\Race.cs" />
