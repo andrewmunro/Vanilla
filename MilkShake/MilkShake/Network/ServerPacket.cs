@@ -11,7 +11,7 @@ namespace Milkshake.Network
     {
         public Opcodes Opcode;
 
-        public ServerPacket(Opcodes opcode)
+        public ServerPacket(Opcodes opcode) : base(new MemoryStream())
         {
             Opcode = opcode;
         }
