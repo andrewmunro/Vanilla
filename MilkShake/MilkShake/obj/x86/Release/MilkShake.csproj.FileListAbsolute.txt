@@ -1,0 +1,7 @@
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Release\MilkShake.exe.config
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Release\MilkShake.exe
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Release\MilkShake.pdb
+C:\Dropbox\Vanilla\MilkShake\MilkShake\bin\Release\ICSharpCode.SharpZipLib.dll
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Release\MilkShake.exe
+C:\Dropbox\Vanilla\MilkShake\MilkShake\obj\x86\Release\MilkShake.pdb
