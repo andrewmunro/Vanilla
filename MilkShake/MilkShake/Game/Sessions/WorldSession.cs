@@ -222,7 +222,6 @@ namespace Milkshake.Net
 
                 for (int index = 0; index < data.Length; index++)
                 {
-
                     byte[] headerData = new byte[6];
                     Array.Copy(data, index, headerData, 0, 6);
 
@@ -230,14 +229,8 @@ namespace Milkshake.Net
                     short opcode = 0;
 
                     proccessHeader(headerData, out length, out opcode);                
-                 
-
-                    
 
                         Opcodes code = (Opcodes)opcode;
-
-                      
-
 
                         byte[] packetDate = new byte[length];
                         Console.WriteLine("aa " + length);
@@ -246,8 +239,6 @@ namespace Milkshake.Net
                         onPacketOLD(code, packetDate);
                        
                         index += 2 + (length - 1);
-                        
-
                 }
             
 
@@ -258,8 +249,6 @@ namespace Milkshake.Net
         
         private void onPacketOLD(Opcodes code, byte[] data)
         {
-            
-
             if (code == Opcodes.CMSG_AUTH_SESSION)
             {
                 PCAuthSession pcAuthSession = new PCAuthSession(data);
@@ -268,15 +257,8 @@ namespace Milkshake.Net
 
                 crypt = new VanillaCrypt();
                 crypt.init(StringToByteArray(Account.SessionKey));
-                //crypt.init(StringToByteArray(Console.ReadLine()));
 
                 Log.Print(LogType.Error, "Started Encryption");
-
-
-             
-
-                
-                
 
                 sendHexPacket(Opcodes.SMSG_AUTH_RESPONSE, "0C 00 00 00 00 00 00 00 00 00 ");
             }
@@ -305,7 +287,24 @@ namespace Milkshake.Net
                                                                         HairStyle = newCharacter.HairStyle,
                                                                         HairColor = newCharacter.HairColor,
                                                                         Accessory = newCharacter.Accessorie,
-                                                                        Level = 1 });
+                                                                        Level = 1,
+                                                                        Health = 1000,
+                                                                        Mana = 1000,
+                                                                        Rage = 1000,
+                                                                        Energy = 1000,
+                                                                        Happiness = 1000,
+                                                                        Focus = 1000,
+                                                                        Drunk = 100,
+                                                                        Online = 0,
+                                                                        MapID = 0,
+                                                                        Zone = 1,
+                                                                        X = 0,
+                                                                        Y = 0,
+                                                                        Z = 0,
+                                                                        Rotation = 0,
+
+
+                });
 
                 sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);
             }
