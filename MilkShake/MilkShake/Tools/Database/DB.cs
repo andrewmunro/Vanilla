@@ -17,6 +17,9 @@ namespace Milkshake.Tools.Database
         public static void Boot(string databaseURL = "db.db3")
         {
             SQLite = new SQLiteConnection(databaseURL);
+
+            SQLite.CreateTable(typeof(Accounts));
+            SQLite.CreateTable(typeof(Character));
         }
     }
 
@@ -28,6 +31,8 @@ namespace Milkshake.Tools.Database
 
         public static Accounts GetAccount(String username)
         {
+            if(Accounts.Count == 0) return null;
+
             return Accounts.First(a => a.Username.ToLower() == username.ToLower());
         }
 
@@ -69,6 +74,7 @@ namespace Milkshake.Tools.Database
 
         public static void CreateCharacter(Accounts owner, Character character)
         {
+            character.GUID += 256;
             character.AccountID = owner.ID;
 
             DB.SQLite.Insert(character);
@@ -83,7 +89,7 @@ namespace Milkshake.Tools.Database
     public class Character
     {
         [PrimaryKey, AutoIncrement]
-        public uint GUID { get; set; }
+        public int GUID { get; set; }
 
         public int AccountID { get; set; }
         public string Name { get; set; }
