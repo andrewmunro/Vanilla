@@ -90,11 +90,13 @@ namespace Milkshake.Tools.Database
 
         public RaceID Race { get; set; }
         public ClassID Class { get; set; }
+        public byte Level { get; set; }
 
         public int MapID { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
+        public float Rotation { get; set; }
 
         public Gender Gender { get; set; }
         public byte Skin { get; set; }
@@ -103,7 +105,6 @@ namespace Milkshake.Tools.Database
         public byte HairColor { get; set; }
         public byte Accessory { get; set; }
 
-        public byte Level { get; set; }
     }
 
     public class Accounts
