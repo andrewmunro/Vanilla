@@ -19,6 +19,8 @@ using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Constants.Login;
 using System.Globalization;
+using Milkshake.Game.World.Chat;
+using Milkshake.Communication.Incoming.World.Chat;
 
 namespace Milkshake.Net
 {
@@ -110,7 +112,7 @@ namespace Milkshake.Net
             sendData((writer.BaseStream as MemoryStream).ToArray());
         }
 
-        private void sendPacket(Opcodes opcode, byte[] data)
+        public void sendPacket(Opcodes opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = encode(data.Length, (int)opcode);
@@ -351,43 +353,7 @@ namespace Milkshake.Net
 
             if (code == Opcodes.CMSG_MESSAGECHAT)
             {
-                PacketReader reader = new PacketReader(data);
-                uint type = reader.ReadUInt32();
-                uint lang = reader.ReadUInt32();
-                string message = reader.ReadCString();
-
-
-                BinaryWriter writer = new BinaryWriter(new MemoryStream());
-                writer.Write((byte)0x0A); // TYPE
-                writer.Write((UInt32)0); // Lang
-                writer.Write((UInt32)0); // GUID
-                writer.Write((UInt32)0); // GUID
-                writer.Write((UInt32)message.Length );
-                byte[] dataa = Encoding.UTF8.GetBytes(message + '\0');
-                writer.Write(dataa);
-
-                WorldServer.Sessions.ForEach(session => session.sendPacket(Opcodes.SMSG_MESSAGECHAT, (writer.BaseStream as MemoryStream).ToArray()));
-
-                
-
-                //                                      Type   Lang              Guid                         // Len
-                //sendHexPacket(Opcodes.SMSG_MESSAGECHAT, "0A" + " 00 00 00 00 " + "00 00 00 00 00 00 00 00 " + "47 00 00 00" + "57 65 6C 63 6F 6D 65 20 74 6F 20 22 53 65 72 76 65 72 22 2E 20 50 6F 77 65 72 65 64 20 62 79 20 41 6C 74 65 72 57 6F 57 20 33 2E 35 20 66 6F 72 20 43 6C 69 65 6E 74 20 56 65 72 73 69 6F 6E 20 31 2E 31 32 2E 78 00 " + "00 ");
-                Console.WriteLine("Chat: " + message);
-               // sendPacket(Opcodes.SMSG_WEATHER, new Weather(WeatherState.WEATHER_STATE_LIGHT_RAIN, 0.999f, WeatherSounds.WEATHER_SNOWMEDIUM).Packet);
-
-                if (message.ToLower() == "spawn")
-                {
-                    sendHexPacket(Opcodes.SMSG_UPDATE_OBJECT, "01" + "00 00 00 00" + "03" + "01 01 04 71 00 00 00 00 AD 5E 00 00 7B 34 37 C5 E7 3B 85 C3 06 52 56 42 CA A9 49 3F 00 00 00 00 00 00 20 40 00 00 E0 40 00 00 90 40 71 1C 97 40 00 00 20 40 E0 0F 49 40 01 00 00 00 29 15 00 40 54 1D C0 00 00 00 00 00 80 20 00 00 C0 D9 04 C2 4F 38 19 00 00 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 B6 6D DB B6 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 6C 80 00 00 00 00 00 00 80 00 40 00 00 80 3F 00 00 00 00 20 00 00 00 00 00 00 01 00 00 00 19 00 00 00 CD CC AC 3F 54 00 00 00 64 00 00 00 54 00 00 00 E8 03 00 00 64 00 00 00 01 00 00 00 06 00 00 00 06 01 00 01 08 00 00 00 99 09 00 00 09 00 00 00 01 00 00 00 D0 07 00 00 D0 07 00 00 D0 07 00 00 3B 00 00 00 3B 00 00 00 25 49 D2 40 25 49 F2 40 00 EE 11 00 00 00 80 3F 1C 00 00 00 0F 00 00 00 18 00 00 00 0F 00 00 00 16 00 00 00 1E 00 00 00 0A 00 00 00 14 00 00 00 00 28 00 00 27 00 00 00 06 00 00 00 DC B6 ED 3F 6E DB 36 40 07 00 07 01 02 00 00 01 90 01 00 00 1A 00 00 00 01 00 01 00 2C 00 00 00 01 00 05 00 36 00 00 00 01 00 05 00 5F 00 00 00 01 00 05 00 6D 00 00 00 2C 01 2C 01 73 00 00 00 2C 01 2C 01 A0 00 00 00 01 00 05 00 A2 00 00 00 01 00 05 00 9D 01 00 00 01 00 01 00 9E 01 00 00 01 00 01 00 9F 01 00 00 01 00 01 00 B1 01 00 00 01 00 01 00 02 00 00 00 48 E1 9A 40 3E 0A 17 3F 3E 0A 17 3F CD CC 0C 3F 00 00 04 00 29 00 00 00 0A 00 00 00 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F FF FF FF FF ");
-                    //sendHexPacket(Opcodes.SMSG_UPDATE_OBJECT, "01 00 00 00 00 00 01 04 29 00 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54 00 00 00 ");
-                    
-                }
-
-                string[] splitMessage = message.ToLower().Split();
-                if (splitMessage.Count() == 2 && splitMessage[0] == ".sound")
-                {
-                    uint soundID = uint.Parse(splitMessage[1]);
-                    sendPacket(Opcodes.SMSG_PLAY_SOUND, new PSPlaySound(soundID).Packet);
-                }
+                ChatManager.OnChatMessage(this, new PCMessageChat(data));
             }
 
 
