@@ -101,12 +101,13 @@ namespace Milkshake.Communication.Outgoing.World.Update
         }
 
 
-         public static PSUpdateObject CreateCharacterUpdate(Character character)
+        public static PSUpdateObject CreateCharacterUpdate(Character character)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            writer.Write((UInt16)2305);
+            UInt64 guid = GenerateGUID();
+            writer.Write((ulong)guid);
 
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
@@ -141,6 +142,13 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write(Helper.StringToByteArray("29150040541DC0000000000080200000C0180402001000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000900000019000000CDCCAC3F540000006400000054000000E80300006400000001000000060000000601000108000000990900000900000001000000D0070000D00700003B0000003B00000000EE11000000803F002800000700030006000002"));
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+        }
+
+        private static ulong GenerateGUID()
+        {
+            
+            Int32 lastGUID = DBCharacters.Characters.FindLast(character => character.GUID > 1);
+            return guid;
         }
     }
 }
