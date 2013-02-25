@@ -53,6 +53,7 @@
     <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
     <Compile Include="Communication\Incoming\World\Auth\PCAuthSession.cs" />
     <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
+    <Compile Include="Communication\Incoming\World\Movement\MoveInfo.cs" />
     <Compile Include="Communication\Incoming\World\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Game\Sessions\SessionManager.cs" />
     <Compile Include="Game\World\Chat\ChatManager.cs" />
     <Compile Include="Game\World\Logout\LogoutManager.cs" />
+    <Compile Include="Game\World\Movement\MovementManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
