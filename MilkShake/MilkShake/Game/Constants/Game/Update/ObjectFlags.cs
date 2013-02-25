@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Milkshake.Game.Constants.Update
+namespace Milkshake.Game.Constants.Game.Update
 {
     [Flags]
     public enum ObjectFlags : byte
