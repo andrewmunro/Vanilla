@@ -71,9 +71,11 @@
     <Compile Include="Game\Constants\Character\Race.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
-    <Compile Include="Game\Constants\Game\Update\EUnitFields.cs" />
+    <Compile Include="Game\Constants\Game\Update\EUpdateFields.cs" />
+    <Compile Include="Game\Constants\Game\Update\HighGUID.cs" />
     <Compile Include="Game\Constants\Game\Update\MovementFlags.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectFlags.cs" />
+    <Compile Include="Game\Constants\Game\Update\ObjectGUID.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectUpdateType.cs" />
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
