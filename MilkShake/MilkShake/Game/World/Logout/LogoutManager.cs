@@ -13,6 +13,8 @@ namespace Milkshake.Game.World.Logout
 {
     public class LogoutManager
     {
+        public const int LOGOUT_TIME = 20;
+
         public static Dictionary<WorldSession, DateTime> logoutQueue = new Dictionary<WorldSession, DateTime>();
 
         public static void OnLogout(WorldSession session)
@@ -42,7 +44,7 @@ namespace Milkshake.Game.World.Logout
             {
                 foreach (KeyValuePair<WorldSession, DateTime> entry in logoutQueue.ToArray())
                 {
-                    if (DateTime.Now.Subtract(entry.Value).Seconds >= 20)
+                    if (DateTime.Now.Subtract(entry.Value).Seconds >= LOGOUT_TIME)
                     {
                         entry.Key.sendPacket(Opcodes.SMSG_LOGOUT_COMPLETE, 0);
                         logoutQueue.Remove(entry.Key);

@@ -31,7 +31,7 @@ namespace Milkshake.Tools
 
         public static byte[] StringToByteArray(string hex)
         {
-            hex = hex.Replace(" ", "");
+            hex = hex.Replace(" ", "").Replace("\n", "").Replace("\r", "");
 
             return Enumerable.Range(0, hex.Length)
                              .Where(x => x % 2 == 0)

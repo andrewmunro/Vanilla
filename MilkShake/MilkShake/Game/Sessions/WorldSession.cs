@@ -357,7 +357,7 @@ namespace Milkshake.Net
 
 
                // Send a debug
-               ChatManager.SendSytemMessage(this, "You logged in to: " + Character.Name + " " + Character.Class + " " + Character.Race);
+               ChatManager.SendSytemMessage(this, "You logged in to: " + Character.Name + " " + Character.Class + " " + Character.Race + " GUID:" + Character.GUID);
             }
 
             if (code == Opcodes.CMSG_UPDATE_ACCOUNT_DATA)

@@ -108,7 +108,9 @@
     <Compile Include="Tools\Update\UpdateMask.cs" />
     <Compile Include="Tools\Update\UpdateReader.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\World\Entity\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>

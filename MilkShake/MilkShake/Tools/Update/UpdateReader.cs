@@ -20,8 +20,16 @@ namespace Milkshake.Tools.Update
             {
                 Console.WriteLine("Reading: " + log.Split('/')[log.Split('/').Length - 1]);
                 ProccessLog(Helper.StringToByteArray(File.ReadAllText(log)));
-            });          
+            });
+
+            Console.WriteLine("");
+            guids.ForEach(p =>
+            {
+                byte[] bytes = BitConverter.GetBytes(p);
+                Console.WriteLine(bytes[0] + " " + bytes[1]);
+            });
         }
+        static List<UInt16> guids = new List<ushort>();
 
         public static void ProccessLog(byte[] data)
         {
@@ -31,7 +39,11 @@ namespace Milkshake.Tools.Update
             Console.WriteLine("  HasTransport: " + reader.ReadByte());
             ObjectUpdateType objectUpdateType = (ObjectUpdateType)reader.ReadByte();
             Console.WriteLine("  UpdateType: " + objectUpdateType);
-            Console.WriteLine("  GUID: " + reader.ReadUInt16());
+
+            UInt16 guid = reader.ReadUInt16();
+            guids.Add(guid);
+
+            Console.WriteLine("  GUID: " + guid);
             Console.WriteLine("  ObjectType: " + (TypeID)reader.ReadByte());
 
             Console.WriteLine("  Update Flags");
@@ -90,9 +102,22 @@ namespace Milkshake.Tools.Update
             {
                 if (updateMask.GetBit(i))
                 {
-                    uint value = reader.ReadUInt32();
+                    int value = (int)reader.ReadUInt32();
 
-                    Console.WriteLine((EUnitFields)i + " " + value);
+                    if (Enum.IsDefined(typeof(EUpdateFields), i)) Console.WriteLine((EUpdateFields)i + " " + value);
+                    else if (Enum.IsDefined(typeof(EObjectFields), i)) Console.WriteLine((EObjectFields)i + " " + value);
+                    else Console.WriteLine("Unkown " + i + " " + value);
+                 
+                        
+                    
+                   /*
+                    // GUID
+                    if (i == 0)
+                    {
+                        byte[] raw = BitConverter.GetBytes(value);
+                        Console.WriteLine("GUID: " + raw[0] + " " + raw[1] + " " + raw[2] + " " + raw[3]);
+                    }
+                    * */
                     //obj.SetUInt32Value((uint)i, value);
                 }
             }
