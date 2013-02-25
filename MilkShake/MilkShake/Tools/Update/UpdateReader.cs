@@ -6,7 +6,7 @@ using System.IO;
 using Milkshake.Network;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Game.Constants.Game.Update;
-using Milkshake.Game.Constants.Update;
+
 
 namespace Milkshake.Tools.Update
 {

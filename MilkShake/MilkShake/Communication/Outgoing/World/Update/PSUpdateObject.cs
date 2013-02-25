@@ -6,7 +6,6 @@ using Milkshake.Network;
 using Milkshake.Tools.Database;
 using System.IO;
 using Milkshake.Game.Constants.Game.Update;
-using Milkshake.Game.Constants.Update;
 using Milkshake.Tools.Update;
 using Milkshake.Tools;
 
@@ -106,8 +105,8 @@ namespace Milkshake.Communication.Outgoing.World.Update
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            UInt64 guid = GenerateGUID();
-            writer.Write((ulong)guid);
+            byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+            WriteBytes(writer, guidBytes, guidBytes.Length);
 
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
@@ -144,11 +143,5 @@ namespace Milkshake.Communication.Outgoing.World.Update
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
 
-        private static ulong GenerateGUID()
-        {
-            
-            Int32 lastGUID = DBCharacters.Characters.FindLast(character => character.GUID > 1);
-            return guid;
-        }
     }
 }
