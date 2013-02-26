@@ -218,11 +218,10 @@ namespace Milkshake.Game.Sessions
                               bw.Write((UInt32)1); // Icon
                               bw.Write((byte)0); // Flag
 
-                              WriteCString(bw, Config.GetValue(ConfigValues.REALM, ConfigValues.NAME));
-                              //WriteCString(bw, "82.47.157.173:120");
-                              WriteCString(bw, Config.GetValue(ConfigValues.REALM, ConfigValues.IP));
+                              WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
+                              WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.IP));
 
-                              bw.Write((float)Config.GetValue<float>(ConfigValues.REALM, ConfigValues.POPULATION)); // Pop
+                              bw.Write((float)Config.GetValue<float>(ConfigValues.WORLD, ConfigValues.POPULATION)); // Pop
                               bw.Write((byte)3); // Chars
                               bw.Write((byte)1); // time
                               bw.Write((byte)0); // time
