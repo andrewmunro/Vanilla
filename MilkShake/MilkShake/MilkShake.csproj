@@ -88,6 +88,7 @@
     <Compile Include="Game\Entitys\WorldEntity.cs" />
     <Compile Include="Game\Managers\EntityManager.cs" />
     <Compile Include="Game\Managers\LogoutManager.cs" />
+    <Compile Include="Game\Managers\MiscManager.cs" />
     <Compile Include="Game\Managers\MovementManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Database\Tables\Accounts.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
+    <Compile Include="Tools\DBC.cs" />
     <Compile Include="Tools\Extensions\EnumExtensions.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />

@@ -179,7 +179,7 @@ namespace Milkshake.Net
                 Log.Print(LogType.Error, socketException.ToString());
             }
         }
-
+        
         public static string byteArrayToHex(byte[] data, int legnth)
         {
             string packetOutput = "";
@@ -195,7 +195,7 @@ namespace Milkshake.Net
         }
 
         private void proccessHeader(byte[] header, out ushort length, out short opcode)
-        {
+        {   
             if (crypt != null)
             {
                 crypt.decrypt(header, 6);
@@ -377,25 +377,7 @@ namespace Milkshake.Net
                 //crypt.decrypt(new byte[(int)2 * 6]);
             }
 
-            if (code == Opcodes.CMSG_MESSAGECHAT)
-            {
-                ChatManager.OnChatMessage(this, new PCMessageChat(data)); 
-            }
-
-            if (code == Opcodes.CMSG_NAME_QUERY)
-            {
-                ChatManager.OnNameQuery(this, new PCNameQuery(data));
-            }
-
-            if (code == Opcodes.CMSG_LOGOUT_REQUEST)
-            {
-                LogoutManager.OnLogout(this);
-            }
-
-           if (code == Opcodes.CMSG_LOGOUT_CANCEL)
-            {
-                LogoutManager.OnCancel(this);
-            }
+         
         }
 
         

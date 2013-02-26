@@ -1,6 +1,7 @@
 ﻿using System;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Tools.Database.Tables;
+using Milkshake.Tools;
 
 namespace Milkshake.Game.Entitys
 {
@@ -36,8 +37,8 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, 59);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, 59);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, DBC.GetModel(character));
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, DBC.GetModel(character));
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINDAMAGE, 1083927991);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXDAMAGE, 1086025143);

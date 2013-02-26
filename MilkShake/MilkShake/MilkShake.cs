@@ -31,7 +31,9 @@ namespace Milkshake
             realm.Start(3724, 50);           
             
             LogoutManager.Boot();
+            ChatManager.Boot();
             MovementManager.Boot();
+            MiscManager.Boot();
 
             while (true) Console.ReadLine();
         }
@@ -59,5 +61,17 @@ namespace Milkshake
 
             return session;
         }
+
+        /* Move to WorldServer */
+        public static void TransmitToAll(ServerPacket packet)
+        {
+            WorldServer.Sessions.FindAll(s => s.Character != null).ForEach(s => s.sendPacket(packet));
+        }
+
+        public static WorldSession GetSessionByPlayerName(string playerName)
+        {
+            return WorldServer.Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
+        }
+
     }
 }
