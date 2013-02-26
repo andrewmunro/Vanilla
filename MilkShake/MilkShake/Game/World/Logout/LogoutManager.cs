@@ -13,7 +13,7 @@ namespace Milkshake.Game.World.Logout
 {
     public class LogoutManager
     {
-        public const int LOGOUT_TIME = 20;
+        public const int LOGOUT_TIME = 1;
 
         public static Dictionary<WorldSession, DateTime> logoutQueue = new Dictionary<WorldSession, DateTime>();
 

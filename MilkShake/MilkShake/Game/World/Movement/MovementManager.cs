@@ -6,6 +6,7 @@ using Milkshake.Communication;
 using Milkshake.Communication.Incoming.World.Movement;
 using Milkshake.Game.World.Chat;
 using Milkshake.Net;
+using Milkshake.Tools.Database;
 
 namespace Milkshake.Game.World
 {
@@ -15,7 +16,13 @@ namespace Milkshake.Game.World
         {
             ChatManager.SendSytemMessage(session, "PlayerX: " + data.X + " PlayerY: " + data.Y + " PlayerZ: " + data.Z + " PlayerR: " + data.R);
 
-            if (data.Transport.Y != null) ChatManager.SendSytemMessage(session, "Player Falling: " + data.Transport.Z);
+            session.Character.X = data.X;
+            session.Character.Y = data.Y;
+            session.Character.Z = data.Z;
+            session.Character.Rotation = data.R;
+
+            DBCharacters.UpdateCharacter(session.Character);
+            //if (data.Transport.Y != null) ChatManager.SendSytemMessage(session, "Player Falling: " + data.Transport.Z);
         }
     }
 }

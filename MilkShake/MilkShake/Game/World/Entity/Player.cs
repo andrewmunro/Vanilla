@@ -14,7 +14,7 @@ namespace Milkshake.Game.World.Entity
             SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
-            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)10.0f);
+            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)1f);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_HEALTH, 70);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER4, 100);
@@ -24,7 +24,13 @@ namespace Milkshake.Game.World.Entity
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_LEVEL, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, 5);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_0, 16777477); // Unsure
+
+            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_0, 16777477); // Unsure
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Class, 1);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 1, 3); //POwer
+
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 8);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURAFLAGS, 9);
@@ -33,8 +39,8 @@ namespace Milkshake.Game.World.Entity
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, 57);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, 57);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, 59);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, 59);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINDAMAGE, 1083927991);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXDAMAGE, 1086025143);
@@ -56,9 +62,14 @@ namespace Milkshake.Game.World.Entity
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINRANGEDDAMAGE, 1074940196);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXRANGEDDAMAGE, 1079134500);
 
-            
-            SetUpdateField<Int32>((int)EUnitFields.PLAYER_BYTES, 50790404);
-            SetUpdateField<Int32>((int)EUnitFields.PLAYER_BYTES_2, 33554436);
+
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.Skin, 0);
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.Face, 1);
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.HairStyle, 2);
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.HairColor, 3);
+
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, character.Accessory, 0);
+
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26); 
 

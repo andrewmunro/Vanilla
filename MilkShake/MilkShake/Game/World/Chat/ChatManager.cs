@@ -8,6 +8,8 @@ using Milkshake.Game.Constants.Game;
 using Milkshake.Net;
 using Milkshake.Network;
 using Milkshake.Tools.Database;
+using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Communication.Outgoing.World.Movement;
 
 namespace Milkshake.Game.World.Chat
 {
@@ -25,6 +27,24 @@ namespace Milkshake.Game.World.Chat
             {
                 Console.WriteLine("[Chat] Type:" + packet.Type.ToString() + " Language:" + packet.Language.ToString() + " Message:" + packet.Message);
                 SendSytemMessage(session, "[Chat] [" + packet.Type.ToString() + "] " + packet.Message);
+
+                if (packet.Message.ToLower() == "spawn")
+                {
+                    session.sendPacket(PSUpdateObject.CreateCharacterUpdate(DBCharacters.Characters[1]));
+                    SendSytemMessage(session, "Spawned");
+                }
+
+                if (packet.Message.ToLower() == "move")
+                {
+                    Character ba = DBCharacters.Characters[1];
+                    ba.X = session.Character.X;
+                    ba.Y = session.Character.Y;
+                    ba.Z = session.Character.Z;
+
+                    session.sendPacket(new PSMoveHeartbeat(ba));
+                    SendSytemMessage(session, "move");
+                }
+                
             }
 
         }

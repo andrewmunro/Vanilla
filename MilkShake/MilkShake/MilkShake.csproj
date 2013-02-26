@@ -63,6 +63,7 @@
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />

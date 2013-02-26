@@ -300,11 +300,11 @@ namespace Milkshake.Net
                                                                         Online = 0,
                                                                         MapID = 0,
                                                                         Zone = 1,
-                                                                        X = 0,
-                                                                        Y = 0,
-                                                                        Z = 0,
+                                                                        X = -2917.580078125f,
+                                                                        Y = -257.980010986328f,
+                                                                        Z = 52.9967994689941f,
                                                                         Rotation = 0,
-
+                                                                          
 
                 });
 

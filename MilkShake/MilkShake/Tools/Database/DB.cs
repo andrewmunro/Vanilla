@@ -87,6 +87,11 @@ namespace Milkshake.Tools.Database
         {
             DB.SQLite.Delete(character);
         }
+
+        public static void UpdateCharacter(Character character)
+        {
+            DB.SQLite.Update(character);
+        }
     }
 
     public class Character
