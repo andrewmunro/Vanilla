@@ -2,10 +2,11 @@
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Network;
 using Milkshake.Tools;
+using Milkshake.Tools.Extensions;
 
 namespace Milkshake.Communication.Incoming.World.Movement
 {
-    class MoveInfo : PacketReader
+    public class MoveInfo : PacketReader
     {
         public MovementFlags moveFlags { get; set; }
         public uint time { get; set; }

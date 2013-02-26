@@ -6,6 +6,7 @@ using System.IO;
 using Milkshake.Network;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Tools.Extensions;
 
 
 namespace Milkshake.Tools.Update
@@ -19,7 +20,7 @@ namespace Milkshake.Tools.Update
             logs.ForEach(log => 
             {
                 Console.WriteLine("Reading: " + log.Split('/')[log.Split('/').Length - 1]);
-                ProccessLog(Helper.StringToByteArray(File.ReadAllText(log)));
+                ProccessLog(Helper.HexToByteArray(File.ReadAllText(log)));
             });
 
             Console.WriteLine("");
@@ -93,7 +94,7 @@ namespace Milkshake.Tools.Update
             //int maskSize = blockCount << 2;
            // byte[] ddddd = reader.ReadBytes((int)reader.BaseStream.Length - (int)reader.BaseStream.Position);
 
-           // Console.WriteLine(Helper.byteArrayToHex(ddddd));
+           // Console.WriteLine(Helper.ByteArrayToHex(ddddd));
 
             UpdateMask updateMask = ReadUpdateMask(reader);
             

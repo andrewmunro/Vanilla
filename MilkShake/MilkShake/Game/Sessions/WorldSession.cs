@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Communication.Incoming.World.Movement;
-using Milkshake.Communication.Outgoing.World.Logout;
+using Milkshake.Game.Managers;
 using Milkshake.Game.Sessions;
-using Milkshake.Game.World;
-using Milkshake.Game.World.Logout;
 using Milkshake.Network;
 using Milkshake.Tools;
 using System.Net.Sockets;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip.Compression;
 using Milkshake.Communication.Outgoing.World;
-using Milkshake.Communication.Outgoing.Weather;
 using Milkshake.Tools.Cryptography;
 using Milkshake.Communication;
-using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.Auth;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Constants.Login;
-using System.Globalization;
-using Milkshake.Game.World.Chat;
 using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Incoming.World;
 using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Database.Tables;
+using Milkshake.Game.Handlers;
 
 namespace Milkshake.Net
 {
     public class WorldSession : ISession
     {
-        public const int BUFFER_SIZE = 20480;
+        public const int BUFFER_SIZE = 2048;
         public const int TIMEOUT = 1000;
 
         private int connectionID;
@@ -120,6 +114,11 @@ namespace Milkshake.Net
             Log.Print(LogType.Database, connectionID + "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "] [Ec: " + (crypt != null) + "] Length:" + 1);
 
             sendData((writer.BaseStream as MemoryStream).ToArray());
+        }
+
+        public void sendMessage(String message)
+        {
+            ChatManager.SendSytemMessage(this, message);
         }
 
         public void sendPacket(ServerPacket packet)
@@ -239,7 +238,10 @@ namespace Milkshake.Net
                         Array.Copy(data, index + 6, packetDate, 0, length - 4);
                         Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length + " " + encCount);
                         onPacketOLD(code, packetDate);
-                       
+
+                        // New handler
+                        DataRouter.CallHandler(this, code, packetDate);   
+
                         index += 2 + (length - 1);
                 }
             
@@ -258,7 +260,7 @@ namespace Milkshake.Net
                 Account = DBAccounts.GetAccount(pcAuthSession.AccountName);
 
                 crypt = new VanillaCrypt();
-                crypt.init(StringToByteArray(Account.SessionKey));
+                crypt.init(Helper.HexToByteArray(Account.SessionKey));
 
                 Log.Print(LogType.Error, "Started Encryption");
 
@@ -280,7 +282,7 @@ namespace Milkshake.Net
             {
                 PCCharCreate newCharacter = new PCCharCreate(data);
 
-                DBCharacters.CreateCharacter(Account, new Character() { Name = Helper.Normalize(newCharacter.Name),
+                DBCharacters.CreateCharacter(Account, new Character() { Name = Helper.NormalizeText(newCharacter.Name),
                                                                         Race = (RaceID)newCharacter.Race,
                                                                         Class = (ClassID)newCharacter.Class,
                                                                         Gender = (Gender)newCharacter.Gender,
@@ -356,7 +358,8 @@ namespace Milkshake.Net
                sendHexPacket(Opcodes.SMSG_INIT_WORLD_STATES, "01 00 00 00 6C 00 AE 07 01 00 32 05 01 00 31 05 00 00 2E 05 00 00 F9 06 00 00 F3 06 00 00 F1 06 00 00 EE 06 00 00 ED 06 00 00 71 05 00 00 70 05 00 00 67 05 01 00 66 05 01 00 50 05 01 00 44 05 00 00 36 05 00 00 35 05 01 00 C6 03 00 00 C4 03 00 00 C2 03 00 00 A8 07 00 00 A3 07 0F 27 74 05 00 00 73 05 00 00 72 05 00 00 6F 05 00 00 6E 05 00 00 6D 05 00 00 6C 05 00 00 6B 05 00 00 6A 05 01 00 69 05 01 00 68 05 01 00 65 05 00 00 64 05 00 00 63 05 00 00 62 05 00 00 61 05 00 00 60 05 00 00 5F 05 00 00 5E 05 00 00 5D 05 00 00 5C 05 00 00 5B 05 00 00 5A 05 00 00 59 05 00 00 58 05 00 00 57 05 00 00 56 05 00 00 55 05 00 00 54 05 01 00 53 05 01 00 52 05 01 00 51 05 01 00 4F 05 00 00 4E 05 00 00 4D 05 01 00 4C 05 00 00 4B 05 00 00 45 05 00 00 43 05 01 00 42 05 00 00 40 05 00 00 3F 05 00 00 3E 05 00 00 3D 05 00 00 3C 05 00 00 3B 05 00 00 3A 05 01 00 39 05 00 00 38 05 00 00 37 05 00 00 34 05 00 00 33 05 00 00 30 05 00 00 2F 05 00 00 2D 05 01 00 16 05 01 00 15 05 00 00 B6 03 00 00 45 07 02 00 36 07 01 00 35 07 01 00 34 07 01 00 33 07 01 00 32 07 01 00 02 07 00 00 01 07 00 00 00 07 00 00 FE 06 00 00 FD 06 00 00 FC 06 00 00 FB 06 00 00 F8 06 00 00 F7 06 00 00 F6 06 00 00 F4 06 D0 07 F2 06 00 00 F0 06 00 00 EF 06 00 00 EC 06 00 00 EA 06 00 00 E9 06 00 00 E8 06 00 00 E7 06 00 00 18 05 00 00 17 05 00 00 03 07 00 00 ");
 
                sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(Character));
-
+               EntityManager.SpawnPlayer(Character);
+               EntityManager.SendPlayers(this);
 
                // Send a debug
                ChatManager.SendSytemMessage(this, "You logged in to: " + Character.Name + " " + Character.Class + " " + Character.Race + " GUID:" + Character.GUID);
@@ -393,34 +396,6 @@ namespace Milkshake.Net
             {
                 LogoutManager.OnCancel(this);
             }
-
-            Opcodes[] movementCodes = { Opcodes.MSG_MOVE_START_TURN_LEFT, 
-                                        Opcodes.MSG_MOVE_START_TURN_RIGHT, 
-                                        Opcodes.MSG_MOVE_START_STRAFE_LEFT, 
-                                        Opcodes.MSG_MOVE_START_STRAFE_RIGHT, 
-                                        Opcodes.MSG_MOVE_START_BACKWARD, 
-                                        Opcodes.MSG_MOVE_START_FORWARD,
-                                        Opcodes.MSG_MOVE_START_PITCH_DOWN, 
-                                        Opcodes.MSG_MOVE_START_PITCH_UP, 
-                                        Opcodes.MSG_MOVE_START_SWIM, 
-                                        Opcodes.MSG_MOVE_START_SWIM_CHEAT,
-                                        Opcodes.MSG_MOVE_JUMP, 
-                                        Opcodes.MSG_MOVE_HEARTBEAT, 
-                                        Opcodes.MSG_MOVE_FALL_LAND, 
-                                        Opcodes.MSG_MOVE_FEATHER_FALL,
-                                        Opcodes.MSG_MOVE_HOVER };
-
-            foreach (var moveCode in movementCodes) if (code == moveCode) new MovementManager(this, code, new MoveInfo(data));
-
-        }
-
-
-        public static byte[] StringToByteArray(string hex)
-        {
-            return Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
         }
 
         
@@ -428,7 +403,7 @@ namespace Milkshake.Net
         {
             string end = hex.Replace(" ", "").Replace("\n", "");
 
-            byte[] data = StringToByteArray(end);
+            byte[] data = Helper.HexToByteArray(end);
 
             sendPacket(opcde, data);
         }

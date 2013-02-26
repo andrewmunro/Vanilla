@@ -7,6 +7,7 @@ using Milkshake.Network;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Communication.Outgoing.Auth
 {

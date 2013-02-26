@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Milkshake.Network;
 using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Communication.Outgoing.World
 {

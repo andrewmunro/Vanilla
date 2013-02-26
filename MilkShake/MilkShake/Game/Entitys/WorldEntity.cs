@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Collections;
-using Milkshake.Network;
 using System.IO;
 
-namespace Milkshake.Game.World.Entity
+namespace Milkshake.Game.Entitys
 {
-    public class WorldObject
+    public class WorldEntity
     {
         public UInt64 GUID;
 
@@ -16,7 +13,7 @@ namespace Milkshake.Game.World.Entity
         public BitArray Mask;
         public Hashtable UpdateData;
 
-        public WorldObject(int dataLength)
+        public WorldEntity(int dataLength)
         {
             MaskSize = ((dataLength) + 32) / 32;
             Mask = new BitArray(dataLength, false);

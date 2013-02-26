@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Game.Entitys;
 using Milkshake.Network;
 using Milkshake.Tools.Database;
 using System.IO;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.Update;
 using Milkshake.Tools;
-using Milkshake.Game.World.Entity;
 using Milkshake.Net;
 
 namespace Milkshake.Communication.Outgoing.World.Update
@@ -95,7 +96,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write(0x1); // Unkown...
 
-            new Player(character).WriteUpdateFields(writer);
+            new PlayerEntity(character).WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
@@ -139,7 +140,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write(0x1); // Unkown...
 
-            new Player(character).WriteUpdateFields(writer);
+            new PlayerEntity(character).WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
@@ -182,7 +183,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write(0x1); // Unkown...
             */
-            //new Player(character).WriteUpdateFields(writer);
+            //new PlayerEntity(character).WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }

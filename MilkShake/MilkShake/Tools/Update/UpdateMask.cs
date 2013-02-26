@@ -15,14 +15,9 @@ namespace Milkshake.Tools.Update
 
         public UpdateMask(int blockcount)
         {
-            //m_maxBlockCount = (highestField + 31) >> 5;
             m_maxBlockCount = blockcount;
             m_highestIndex = blockcount * 32;
             m_blocks = new uint[blockcount];
-            /*if ((highestField & 31) != 0)
-                ++m_maxBlockCount;*/
-
-            //Clear();
         }
 
         public int MaxBlockCount

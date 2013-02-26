@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using Milkshake.Communication;
 using Milkshake.Communication.Outgoing.World.Logout;
-using Milkshake.Game.World.Chat;
 using Milkshake.Net;
 using Milkshake.Tools;
 
-namespace Milkshake.Game.World.Logout
+namespace Milkshake.Game.Managers
 {
     public class LogoutManager
     {

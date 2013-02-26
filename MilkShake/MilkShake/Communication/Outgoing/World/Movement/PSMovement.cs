@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Milkshake.Network;
-using Milkshake.Tools.Database;
+using Milkshake.Communication.Incoming.World.Movement;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Network;
 using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Communication.Outgoing.World.Movement
 {
-    public class PSMoveHeartbeat : ServerPacket
+    public class PSMovement : ServerPacket
     {
-        public PSMoveHeartbeat(Character character) : base(Opcodes.MSG_MOVE_HEARTBEAT)
+        public PSMovement(Opcodes opcode, Character character, MoveInfo moveinfo) : base(opcode)
         {
             byte[] packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)character.GUID);
             PSUpdateObject.WriteBytes(this, packedGUID);
-            Write((UInt32)MovementFlags.MOVEFLAG_NONE);
+            Write((UInt32)moveinfo.moveFlags);
             Write((UInt32)1); // Time
-            Write(character.X);
-            Write(character.Y);
-            Write(character.Z);
-            Write(character.Rotation);
+            Write(moveinfo.X);
+            Write(moveinfo.Y);
+            Write(moveinfo.Z);
+            Write(moveinfo.R);
             Write((UInt32)0); // ?
         }
     }

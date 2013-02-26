@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Milkshake.Network;
-using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Helpers;
 
 namespace Milkshake.Communication.Incoming.Character
 {
     class PCCharDelete : PacketReader
     {
-        public Tools.Database.Character Character { get; private set; }
+        public Tools.Database.Tables.Character Character { get; private set; }
 
         public PCCharDelete(byte[] data) : base(data)
         {

@@ -1,17 +1,16 @@
 ﻿using System;
-using Milkshake.Communication;
 using Milkshake.Communication.Incoming.World;
 using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Communication.Outgoing.World.Chat;
 using Milkshake.Game.Constants.Game;
 using Milkshake.Net;
-using Milkshake.Network;
-using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Communication.Outgoing.World.Movement;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Database.Tables;
 
-namespace Milkshake.Game.World.Chat
+namespace Milkshake.Game.Managers
 {
     public class ChatManager
     {

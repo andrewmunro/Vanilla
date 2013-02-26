@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Milkshake.Tools
 {
@@ -15,46 +13,26 @@ namespace Milkshake.Tools
         Warning,
         Database,
         Status,
-        Map,
-        LuaManager,
-        Lua
+        Map
     }
 
     public class Log
     {
+        public static readonly Dictionary<LogType, ConsoleColor> TypeColour = new Dictionary<LogType, ConsoleColor>()
+        {
+            { LogType.Debug,    ConsoleColor.DarkMagenta },
+            { LogType.Server,   ConsoleColor.Green },
+            { LogType.Error,    ConsoleColor.Red },
+            { LogType.Status,   ConsoleColor.Blue },
+            { LogType.Database, ConsoleColor.Magenta },
+            { LogType.Map,      ConsoleColor.Cyan },
+            { LogType.Packet,   ConsoleColor.Cyan },
+            { LogType.Warning,  ConsoleColor.Yellow }
+        };
+
         public static void Print(LogType _type, object _obj)
         {
-            switch (_type)
-            {
-                case LogType.Debug:
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    break;
-                case LogType.Server:
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    break;
-                case LogType.Error:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    break;
-                    break;
-                case LogType.Status:
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    break;
-                case LogType.Database:
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    break;
-                case LogType.Map:
-                case LogType.Packet:
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    break;
-                case LogType.Lua:
-                case LogType.LuaManager:
-                case LogType.Warning:
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
-            }
+            Console.ForegroundColor = TypeColour[_type];
 
             Console.Write("[" + _type.ToString() + "] ");
             Console.ForegroundColor = ConsoleColor.White;

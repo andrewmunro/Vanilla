@@ -9,7 +9,8 @@ using Milkshake.Tools;
 using System.Security.Cryptography;
 using System.IO;
 using Milkshake.Tools.Cryptography;
-using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Game.Sessions
 {
@@ -93,7 +94,7 @@ namespace Milkshake.Game.Sessions
 
             try
             {
-                Log.Print(LogType.Lua, "Sending [" + send[0].ToString("X2") + "] ");
+                Log.Print(LogType.Packet, "Sending [" + send[0].ToString("X2") + "] ");
             }
             catch (Exception e)
             { }
@@ -188,7 +189,7 @@ namespace Milkshake.Game.Sessions
 
                     byte[] sessionKey = Srp6.K;
 
-                    DBAccounts.SetSessionKey(accountName, Helper.byteArrayToHex(sessionKey));
+                    DBAccounts.SetSessionKey(accountName, Helper.ByteArrayToHex(sessionKey));
 
                     Console.WriteLine("Coorect: " + IsCorrectHash(packet1.A, packet1.M1));
 

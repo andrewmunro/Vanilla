@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Communication;
+using Milkshake.Game.Managers;
 using Milkshake.Game.Sessions;
-using Milkshake.Game.World.Logout;
 using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Net;
 using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.World;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Update;
+using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Game.Handlers;
+using Milkshake.Communication.Incoming.Character;
 
 namespace Milkshake
 {
@@ -18,16 +24,18 @@ namespace Milkshake
         static void Main(string[] args)
         {
             DB.Boot();
-            
+
             RealmServer realm = new RealmServer();
             WorldServer world = new WorldServer();
             world.Start(120, 50);
             realm.Start(3724, 50);           
             
             LogoutManager.Boot();
+            MovementManager.Boot();
 
             while (true) Console.ReadLine();
         }
+
     }
 
     public class RealmServer : MilkTCPListener

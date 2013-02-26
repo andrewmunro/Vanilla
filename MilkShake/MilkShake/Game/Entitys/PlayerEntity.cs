@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Milkshake.Game.Constants.Game.Update;
-using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Tables;
 
-namespace Milkshake.Game.World.Entity
+namespace Milkshake.Game.Entitys
 {
-    public class Player : WorldObject
+    public class PlayerEntity : WorldEntity
     {
-        public Player(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
+        public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
             SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
