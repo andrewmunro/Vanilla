@@ -23,9 +23,7 @@ namespace Milkshake.Tools.Config
                     {
                         {IP, "127.0.0.1"},
                         {PORT, "3724"},
-                        {MAX_CONNECTIONS, "50"},
-                        {NAME, "Lucas Smells"},
-                        {POPULATION, "3"}
+                        {MAX_CONNECTIONS, "50"}
                     }
                 },
                 {
@@ -33,7 +31,9 @@ namespace Milkshake.Tools.Config
                     {
                         {IP, "127.0.0.1"},
                         {PORT, "120"},
-                        {MAX_CONNECTIONS, "50"}
+                        {MAX_CONNECTIONS, "50"},
+                        {NAME, "Lucas Smells"},
+                        {POPULATION, "3"}
                     }
                 }
             };

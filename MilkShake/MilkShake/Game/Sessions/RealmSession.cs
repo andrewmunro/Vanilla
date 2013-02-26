@@ -219,7 +219,7 @@ namespace Milkshake.Game.Sessions
                               bw.Write((byte)0); // Flag
 
                               WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
-                              WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.IP));
+                              WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.IP) + ":" + Config.GetValue(ConfigValues.WORLD, ConfigValues.PORT));
 
                               bw.Write((float)Config.GetValue<float>(ConfigValues.WORLD, ConfigValues.POPULATION)); // Pop
                               bw.Write((byte)3); // Chars

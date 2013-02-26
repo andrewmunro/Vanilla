@@ -47,6 +47,7 @@ namespace Milkshake.Tools.Config
         public static T GetValue<T>(String Section, String Key)
         {
             if (typeof(T) == typeof(int)) return (T)(Object)int.Parse(GetValue(Section, Key));
+            Log.Print(LogType.Warning, GetValue(Section, Key));
             if (typeof(T) == typeof(float)) return (T)(Object)float.Parse(GetValue(Section, Key));
             if (typeof(T) == typeof(string)) return (T)(Object)(GetValue(Section, Key));
             return (T)(Object)GetValue(Section, Key);
