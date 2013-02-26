@@ -8,6 +8,7 @@ using Milkshake.Game.Sessions;
 using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Net;
+using Milkshake.Tools.Config;
 using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Tools.Database.Helpers;
@@ -24,11 +25,11 @@ namespace Milkshake
         static void Main(string[] args)
         {
             DB.Boot();
-
+            Config.Boot();
             RealmServer realm = new RealmServer();
             WorldServer world = new WorldServer();
-            world.Start(120, 50);
-            realm.Start(3724, 50);           
+            realm.Start(Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
+            world.Start(Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
             
             LogoutManager.Boot();
             ChatManager.Boot();

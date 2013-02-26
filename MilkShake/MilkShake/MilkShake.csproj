@@ -97,6 +97,8 @@
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
     <Compile Include="Game\Constants\PacketHeaderType.cs" />
     <Compile Include="Network\ServerPacket.cs" />
+    <Compile Include="Tools\Config\Config.cs" />
+    <Compile Include="Tools\Config\ConfigValues.cs" />
     <Compile Include="Tools\Cryptography\BigInteger.cs" />
     <Compile Include="Tools\Cryptography\PacketCrypto.cs" />
     <Compile Include="Tools\Cryptography\RC4.cs" />

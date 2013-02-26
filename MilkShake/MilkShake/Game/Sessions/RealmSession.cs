@@ -8,6 +8,7 @@ using Milkshake.Network;
 using Milkshake.Tools;
 using System.Security.Cryptography;
 using System.IO;
+using Milkshake.Tools.Config;
 using Milkshake.Tools.Cryptography;
 using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
@@ -217,11 +218,11 @@ namespace Milkshake.Game.Sessions
                               bw.Write((UInt32)1); // Icon
                               bw.Write((byte)0); // Flag
 
-                              WriteCString(bw, "Hello World aaa");
+                              WriteCString(bw, Config.GetValue(ConfigValues.REALM, ConfigValues.NAME));
                               //WriteCString(bw, "82.47.157.173:120");
-                              WriteCString(bw, "127.0.0.1:120");
+                              WriteCString(bw, Config.GetValue(ConfigValues.REALM, ConfigValues.IP));
 
-                              bw.Write((float)1); // Pop
+                              bw.Write((float)Config.GetValue<float>(ConfigValues.REALM, ConfigValues.POPULATION)); // Pop
                               bw.Write((byte)3); // Chars
                               bw.Write((byte)1); // time
                               bw.Write((byte)0); // time
