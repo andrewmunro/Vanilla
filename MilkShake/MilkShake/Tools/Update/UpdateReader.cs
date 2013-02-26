@@ -104,7 +104,7 @@ namespace Milkshake.Tools.Update
                 {
                     int value = (int)reader.ReadUInt32();
 
-                    if (Enum.IsDefined(typeof(EUpdateFields), i)) Console.WriteLine((EUpdateFields)i + " " + value);
+                    if (Enum.IsDefined(typeof(EUnitFields), i)) Console.WriteLine((EUnitFields)i + " " + value);
                     else if (Enum.IsDefined(typeof(EObjectFields), i)) Console.WriteLine((EObjectFields)i + " " + value);
                     else Console.WriteLine("Unkown " + i + " " + value);
                  

@@ -81,6 +81,8 @@
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Sessions\SessionManager.cs" />
     <Compile Include="Game\World\Chat\ChatManager.cs" />
+    <Compile Include="Game\World\Entity\Player.cs" />
+    <Compile Include="Game\World\Entity\WorldObject.cs" />
     <Compile Include="Game\World\Logout\LogoutManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
@@ -110,9 +112,7 @@
     <Compile Include="Tools\Update\UpdateMask.cs" />
     <Compile Include="Tools\Update\UpdateReader.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\World\Entity\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>

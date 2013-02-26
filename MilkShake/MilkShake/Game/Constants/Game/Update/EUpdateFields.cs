@@ -47,7 +47,7 @@ namespace Milkshake.Game.Constants.Game.Update
         CONTAINER_END = EItemFields.ITEM_END + 0x3A,
     };
 
-    enum EUpdateFields
+    enum EUnitFields
     {
         UNIT_FIELD_CHARM = 0x00 + EObjectFields.OBJECT_END, // Size:2
         UNIT_FIELD_SUMMON = 0x02 + EObjectFields.OBJECT_END, // Size:2
@@ -159,95 +159,95 @@ namespace Milkshake.Game.Constants.Game.Update
         UNIT_FIELD_PADDING = 0xb5 + EObjectFields.OBJECT_END,
         UNIT_END = 0xb6 + EObjectFields.OBJECT_END,
 
-        PLAYER_DUEL_ARBITER = 0x00 + EUpdateFields.UNIT_END, // Size:2
-        PLAYER_FLAGS = 0x02 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_GUILDID = 0x03 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_GUILDRANK = 0x04 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_BYTES = 0x05 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_BYTES_2 = 0x06 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_BYTES_3 = 0x07 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_DUEL_TEAM = 0x08 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_GUILD_TIMESTAMP = 0x09 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_QUEST_LOG_1_1 = 0x0A + EUpdateFields.UNIT_END, // count = 20
-        PLAYER_QUEST_LOG_1_2 = 0x0B + EUpdateFields.UNIT_END,
-        PLAYER_QUEST_LOG_1_3 = 0x0C + EUpdateFields.UNIT_END,
-        PLAYER_QUEST_LOG_LAST_1 = 0x43 + EUpdateFields.UNIT_END,
-        PLAYER_QUEST_LOG_LAST_2 = 0x44 + EUpdateFields.UNIT_END,
-        PLAYER_QUEST_LOG_LAST_3 = 0x45 + EUpdateFields.UNIT_END,
-        PLAYER_VISIBLE_ITEM_1_CREATOR = 0x46 + EUpdateFields.UNIT_END, // Size:2, count = 19
-        PLAYER_VISIBLE_ITEM_1_0 = 0x48 + EUpdateFields.UNIT_END, // Size:8
-        PLAYER_VISIBLE_ITEM_1_PROPERTIES = 0x50 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_VISIBLE_ITEM_1_PAD = 0x51 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_VISIBLE_ITEM_LAST_CREATOR = 0x11e + EUpdateFields.UNIT_END,
-        PLAYER_VISIBLE_ITEM_LAST_0 = 0x120 + EUpdateFields.UNIT_END,
-        PLAYER_VISIBLE_ITEM_LAST_PROPERTIES = 0x128 + EUpdateFields.UNIT_END,
-        PLAYER_VISIBLE_ITEM_LAST_PAD = 0x129 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_INV_SLOT_HEAD = 0x12a + EUpdateFields.UNIT_END, // Size:46
-        PLAYER_FIELD_PACK_SLOT_1 = 0x158 + EUpdateFields.UNIT_END, // Size:32
-        PLAYER_FIELD_PACK_SLOT_LAST = 0x176 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_BANK_SLOT_1 = 0x178 + EUpdateFields.UNIT_END, // Size:48
-        PLAYER_FIELD_BANK_SLOT_LAST = 0x1a6 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_BANKBAG_SLOT_1 = 0x1a8 + EUpdateFields.UNIT_END, // Size:12
-        PLAYER_FIELD_BANKBAG_SLOT_LAST = 0xab2 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_VENDORBUYBACK_SLOT_1 = 0x1b4 + EUpdateFields.UNIT_END, // Size:24
-        PLAYER_FIELD_VENDORBUYBACK_SLOT_LAST = 0x1ca + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_KEYRING_SLOT_1 = 0x1cc + EUpdateFields.UNIT_END, // Size:64
-        PLAYER_FIELD_KEYRING_SLOT_LAST = 0x20a + EUpdateFields.UNIT_END,
-        PLAYER_FARSIGHT = 0x20c + EUpdateFields.UNIT_END, // Size:2
-        PLAYER_FIELD_COMBO_TARGET = 0x20e + EUpdateFields.UNIT_END, // Size:2
-        PLAYER_XP = 0x210 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_NEXT_LEVEL_XP = 0x211 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_SKILL_INFO_1_1 = 0x212 + EUpdateFields.UNIT_END, // Size:384
-        PLAYER_CHARACTER_POINTS1 = 0x392 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_CHARACTER_POINTS2 = 0x393 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_TRACK_CREATURES = 0x394 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_TRACK_RESOURCES = 0x395 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_BLOCK_PERCENTAGE = 0x396 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_DODGE_PERCENTAGE = 0x397 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_PARRY_PERCENTAGE = 0x398 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_CRIT_PERCENTAGE = 0x399 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_RANGED_CRIT_PERCENTAGE = 0x39a + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_EXPLORED_ZONES_1 = 0x39b + EUpdateFields.UNIT_END, // Size:64
-        PLAYER_REST_STATE_EXPERIENCE = 0x3db + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_COINAGE = 0x3dc + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_POSSTAT0 = 0x3DD + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_POSSTAT1 = 0x3DE + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_POSSTAT2 = 0x3DF + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_POSSTAT3 = 0x3E0 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_POSSTAT4 = 0x3E1 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_NEGSTAT0 = 0x3E2 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_NEGSTAT1 = 0x3E3 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_NEGSTAT2 = 0x3E4 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_NEGSTAT3 = 0x3E5 + EUpdateFields.UNIT_END, // Size:1,
-        PLAYER_FIELD_NEGSTAT4 = 0x3E6 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_RESISTANCEBUFFMODSPOSITIVE = 0x3E7 + EUpdateFields.UNIT_END, // Size:7
-        PLAYER_FIELD_RESISTANCEBUFFMODSNEGATIVE = 0x3EE + EUpdateFields.UNIT_END, // Size:7
-        PLAYER_FIELD_MOD_DAMAGE_DONE_POS = 0x3F5 + EUpdateFields.UNIT_END, // Size:7
-        PLAYER_FIELD_MOD_DAMAGE_DONE_NEG = 0x3FC + EUpdateFields.UNIT_END, // Size:7
-        PLAYER_FIELD_MOD_DAMAGE_DONE_PCT = 0x403 + EUpdateFields.UNIT_END, // Size:7
-        PLAYER_FIELD_BYTES = 0x40A + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_AMMO_ID = 0x40B + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_SELF_RES_SPELL = 0x40C + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_PVP_MEDALS = 0x40D + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_BUYBACK_PRICE_1 = 0x40E + EUpdateFields.UNIT_END, // count=12
-        PLAYER_FIELD_BUYBACK_PRICE_LAST = 0x419 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_BUYBACK_TIMESTAMP_1 = 0x41A + EUpdateFields.UNIT_END, // count=12
-        PLAYER_FIELD_BUYBACK_TIMESTAMP_LAST = 0x425 + EUpdateFields.UNIT_END,
-        PLAYER_FIELD_SESSION_KILLS = 0x426 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_YESTERDAY_KILLS = 0x427 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_LAST_WEEK_KILLS = 0x428 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_THIS_WEEK_KILLS = 0x429 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_THIS_WEEK_CONTRIBUTION = 0x42a + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_LIFETIME_HONORABLE_KILLS = 0x42b + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_LIFETIME_DISHONORABLE_KILLS = 0x42c + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_YESTERDAY_CONTRIBUTION = 0x42d + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_LAST_WEEK_CONTRIBUTION = 0x42e + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_LAST_WEEK_RANK = 0x42f + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_BYTES2 = 0x430 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_WATCHED_FACTION_INDEX = 0x431 + EUpdateFields.UNIT_END, // Size:1
-        PLAYER_FIELD_COMBAT_RATING_1 = 0x432 + EUpdateFields.UNIT_END, // Size:20
+        PLAYER_DUEL_ARBITER = 0x00 + EUnitFields.UNIT_END, // Size:2
+        PLAYER_FLAGS = 0x02 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_GUILDID = 0x03 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_GUILDRANK = 0x04 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_BYTES = 0x05 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_BYTES_2 = 0x06 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_BYTES_3 = 0x07 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_DUEL_TEAM = 0x08 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_GUILD_TIMESTAMP = 0x09 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_QUEST_LOG_1_1 = 0x0A + EUnitFields.UNIT_END, // count = 20
+        PLAYER_QUEST_LOG_1_2 = 0x0B + EUnitFields.UNIT_END,
+        PLAYER_QUEST_LOG_1_3 = 0x0C + EUnitFields.UNIT_END,
+        PLAYER_QUEST_LOG_LAST_1 = 0x43 + EUnitFields.UNIT_END,
+        PLAYER_QUEST_LOG_LAST_2 = 0x44 + EUnitFields.UNIT_END,
+        PLAYER_QUEST_LOG_LAST_3 = 0x45 + EUnitFields.UNIT_END,
+        PLAYER_VISIBLE_ITEM_1_CREATOR = 0x46 + EUnitFields.UNIT_END, // Size:2, count = 19
+        PLAYER_VISIBLE_ITEM_1_0 = 0x48 + EUnitFields.UNIT_END, // Size:8
+        PLAYER_VISIBLE_ITEM_1_PROPERTIES = 0x50 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_VISIBLE_ITEM_1_PAD = 0x51 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_VISIBLE_ITEM_LAST_CREATOR = 0x11e + EUnitFields.UNIT_END,
+        PLAYER_VISIBLE_ITEM_LAST_0 = 0x120 + EUnitFields.UNIT_END,
+        PLAYER_VISIBLE_ITEM_LAST_PROPERTIES = 0x128 + EUnitFields.UNIT_END,
+        PLAYER_VISIBLE_ITEM_LAST_PAD = 0x129 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_INV_SLOT_HEAD = 0x12a + EUnitFields.UNIT_END, // Size:46
+        PLAYER_FIELD_PACK_SLOT_1 = 0x158 + EUnitFields.UNIT_END, // Size:32
+        PLAYER_FIELD_PACK_SLOT_LAST = 0x176 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_BANK_SLOT_1 = 0x178 + EUnitFields.UNIT_END, // Size:48
+        PLAYER_FIELD_BANK_SLOT_LAST = 0x1a6 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_BANKBAG_SLOT_1 = 0x1a8 + EUnitFields.UNIT_END, // Size:12
+        PLAYER_FIELD_BANKBAG_SLOT_LAST = 0xab2 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_VENDORBUYBACK_SLOT_1 = 0x1b4 + EUnitFields.UNIT_END, // Size:24
+        PLAYER_FIELD_VENDORBUYBACK_SLOT_LAST = 0x1ca + EUnitFields.UNIT_END,
+        PLAYER_FIELD_KEYRING_SLOT_1 = 0x1cc + EUnitFields.UNIT_END, // Size:64
+        PLAYER_FIELD_KEYRING_SLOT_LAST = 0x20a + EUnitFields.UNIT_END,
+        PLAYER_FARSIGHT = 0x20c + EUnitFields.UNIT_END, // Size:2
+        PLAYER_FIELD_COMBO_TARGET = 0x20e + EUnitFields.UNIT_END, // Size:2
+        PLAYER_XP = 0x210 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_NEXT_LEVEL_XP = 0x211 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_SKILL_INFO_1_1 = 0x212 + EUnitFields.UNIT_END, // Size:384
+        PLAYER_CHARACTER_POINTS1 = 0x392 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_CHARACTER_POINTS2 = 0x393 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_TRACK_CREATURES = 0x394 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_TRACK_RESOURCES = 0x395 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_BLOCK_PERCENTAGE = 0x396 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_DODGE_PERCENTAGE = 0x397 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_PARRY_PERCENTAGE = 0x398 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_CRIT_PERCENTAGE = 0x399 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_RANGED_CRIT_PERCENTAGE = 0x39a + EUnitFields.UNIT_END, // Size:1
+        PLAYER_EXPLORED_ZONES_1 = 0x39b + EUnitFields.UNIT_END, // Size:64
+        PLAYER_REST_STATE_EXPERIENCE = 0x3db + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_COINAGE = 0x3dc + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_POSSTAT0 = 0x3DD + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_POSSTAT1 = 0x3DE + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_POSSTAT2 = 0x3DF + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_POSSTAT3 = 0x3E0 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_POSSTAT4 = 0x3E1 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_NEGSTAT0 = 0x3E2 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_NEGSTAT1 = 0x3E3 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_NEGSTAT2 = 0x3E4 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_NEGSTAT3 = 0x3E5 + EUnitFields.UNIT_END, // Size:1,
+        PLAYER_FIELD_NEGSTAT4 = 0x3E6 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_RESISTANCEBUFFMODSPOSITIVE = 0x3E7 + EUnitFields.UNIT_END, // Size:7
+        PLAYER_FIELD_RESISTANCEBUFFMODSNEGATIVE = 0x3EE + EUnitFields.UNIT_END, // Size:7
+        PLAYER_FIELD_MOD_DAMAGE_DONE_POS = 0x3F5 + EUnitFields.UNIT_END, // Size:7
+        PLAYER_FIELD_MOD_DAMAGE_DONE_NEG = 0x3FC + EUnitFields.UNIT_END, // Size:7
+        PLAYER_FIELD_MOD_DAMAGE_DONE_PCT = 0x403 + EUnitFields.UNIT_END, // Size:7
+        PLAYER_FIELD_BYTES = 0x40A + EUnitFields.UNIT_END, // Size:1
+        PLAYER_AMMO_ID = 0x40B + EUnitFields.UNIT_END, // Size:1
+        PLAYER_SELF_RES_SPELL = 0x40C + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_PVP_MEDALS = 0x40D + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_BUYBACK_PRICE_1 = 0x40E + EUnitFields.UNIT_END, // count=12
+        PLAYER_FIELD_BUYBACK_PRICE_LAST = 0x419 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_BUYBACK_TIMESTAMP_1 = 0x41A + EUnitFields.UNIT_END, // count=12
+        PLAYER_FIELD_BUYBACK_TIMESTAMP_LAST = 0x425 + EUnitFields.UNIT_END,
+        PLAYER_FIELD_SESSION_KILLS = 0x426 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_YESTERDAY_KILLS = 0x427 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_LAST_WEEK_KILLS = 0x428 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_THIS_WEEK_KILLS = 0x429 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_THIS_WEEK_CONTRIBUTION = 0x42a + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_LIFETIME_HONORABLE_KILLS = 0x42b + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_LIFETIME_DISHONORABLE_KILLS = 0x42c + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_YESTERDAY_CONTRIBUTION = 0x42d + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_LAST_WEEK_CONTRIBUTION = 0x42e + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_LAST_WEEK_RANK = 0x42f + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_BYTES2 = 0x430 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_WATCHED_FACTION_INDEX = 0x431 + EUnitFields.UNIT_END, // Size:1
+        PLAYER_FIELD_COMBAT_RATING_1 = 0x432 + EUnitFields.UNIT_END, // Size:20
 
-        PLAYER_END = 0x446 + EUpdateFields.UNIT_END
+        PLAYER_END = 0x446 + EUnitFields.UNIT_END
     };
 
     enum EGameObjectFields
