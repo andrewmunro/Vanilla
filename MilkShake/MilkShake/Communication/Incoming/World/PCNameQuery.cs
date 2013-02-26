@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Incoming.World
 {
     public class PCNameQuery : PacketReader
     {
-        public UInt32 GUID { get; private set; }
+        public uint GUID { get; private set; }
 
         public PCNameQuery(byte[] data): base(data)
         {

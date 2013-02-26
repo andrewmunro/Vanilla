@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Milkshake.Communication.Incoming.World.Auth;
+using Milkshake.Communication.Incoming.World.Movement;
 using Milkshake.Communication.Outgoing.World.Logout;
 using Milkshake.Game.Sessions;
+using Milkshake.Game.World;
 using Milkshake.Game.World.Logout;
 using Milkshake.Network;
 using Milkshake.Tools;
@@ -391,6 +393,24 @@ namespace Milkshake.Net
             {
                 LogoutManager.OnCancel(this);
             }
+
+            Opcodes[] movementCodes = { Opcodes.MSG_MOVE_START_TURN_LEFT, 
+                                        Opcodes.MSG_MOVE_START_TURN_RIGHT, 
+                                        Opcodes.MSG_MOVE_START_STRAFE_LEFT, 
+                                        Opcodes.MSG_MOVE_START_STRAFE_RIGHT, 
+                                        Opcodes.MSG_MOVE_START_BACKWARD, 
+                                        Opcodes.MSG_MOVE_START_FORWARD,
+                                        Opcodes.MSG_MOVE_START_PITCH_DOWN, 
+                                        Opcodes.MSG_MOVE_START_PITCH_UP, 
+                                        Opcodes.MSG_MOVE_START_SWIM, 
+                                        Opcodes.MSG_MOVE_START_SWIM_CHEAT,
+                                        Opcodes.MSG_MOVE_JUMP, 
+                                        Opcodes.MSG_MOVE_HEARTBEAT, 
+                                        Opcodes.MSG_MOVE_FALL_LAND, 
+                                        Opcodes.MSG_MOVE_FEATHER_FALL,
+                                        Opcodes.MSG_MOVE_HOVER };
+
+            foreach (var moveCode in movementCodes) if (code == moveCode) new MovementManager(this, code, new MoveInfo(data));
 
         }
 

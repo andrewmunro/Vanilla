@@ -8,6 +8,7 @@ namespace Milkshake.Tools
     public enum LogType
     {
         None,
+        Debug,
         Server,
         Packet,
         Error,
@@ -25,6 +26,9 @@ namespace Milkshake.Tools
         {
             switch (_type)
             {
+                case LogType.Debug:
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    break;
                 case LogType.Server:
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
