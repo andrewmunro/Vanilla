@@ -26,9 +26,11 @@ namespace Milkshake
         {
             DB.Boot();
             Config.Boot();
-            RealmServer realm = new RealmServer();
+
+            LoginServer login = new LoginServer();
             WorldServer world = new WorldServer();
-            realm.Start(Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
+
+            login.Start(Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
             world.Start(Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
             
             LogoutManager.Boot();
@@ -41,11 +43,11 @@ namespace Milkshake
 
     }
 
-    public class RealmServer : MilkTCPListener
+    public class LoginServer : MilkTCPListener
     {
         public override ISession GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
         {
-            return new RealmSession(connectionID, connectionSocket);
+            return new LoginSession(connectionID, connectionSocket);
         }
     }
 

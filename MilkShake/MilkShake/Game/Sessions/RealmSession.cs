@@ -46,7 +46,7 @@ namespace Milkshake.Game.Sessions
         
     }
 
-    public class RealmSession : ISession
+    public class LoginSession : ISession
     {
         public const int BUFFER_SIZE = 1024;
         public const int TIMEOUT = 1000;
@@ -58,7 +58,7 @@ namespace Milkshake.Game.Sessions
         public string ConnectionRemoteIP { get { return connectionSocket.RemoteEndPoint.ToString(); } }
         public int ConnectionID { get { return connectionID; } }
 
-        public RealmSession(int _connectionID, Socket _connectionSocket)
+        public LoginSession(int _connectionID, Socket _connectionSocket)
         {
             connectionID = _connectionID;
             connectionSocket = _connectionSocket;
