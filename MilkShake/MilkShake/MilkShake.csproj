@@ -74,8 +74,12 @@
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
     <Compile Include="Game\Constants\Character\Race.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelFlags.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelDBCFlags.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelMemberFlags.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelNotify.cs" />
     <Compile Include="Game\Constants\Game\Update\EUpdateFields.cs" />
     <Compile Include="Game\Constants\Game\Update\HighGUID.cs" />
     <Compile Include="Game\Constants\Game\Update\MovementFlags.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
+    <Compile Include="Game\Managers\ChatChannelManager.cs" />
     <Compile Include="Game\Managers\ChatManager.cs" />
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
     <Compile Include="Game\Entitys\WorldEntity.cs" />

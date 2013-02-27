@@ -20,7 +20,7 @@ namespace Milkshake.Game.Managers
 
     public class ChatManager
     {
-        private static Dictionary<ChatMessageType, ProcessChatCallback> ChatHandlers;
+        public static Dictionary<ChatMessageType, ProcessChatCallback> ChatHandlers;
 
         public static void Boot()
         {
