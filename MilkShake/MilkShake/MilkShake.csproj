@@ -122,9 +122,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Database\DB.cs" />
     <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
+    <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
     <Compile Include="Tools\Database\SQLite.cs" />
-    <Compile Include="Tools\Database\Tables\Accounts.cs" />
+    <Compile Include="Tools\Database\Tables\Account.cs" />
+    <Compile Include="Tools\Database\Tables\Channel.cs" />
+    <Compile Include="Tools\Database\Tables\ChannelCharacter.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
     <Compile Include="Tools\DBC.cs" />
     <Compile Include="Tools\Extensions\EnumExtensions.cs" />
