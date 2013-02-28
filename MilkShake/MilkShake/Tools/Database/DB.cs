@@ -12,7 +12,7 @@ namespace Milkshake.Tools.Database
         {
             SQLite = new SQLiteConnection(databaseURL);
 
-            SQLite.CreateTable(typeof(Accounts));
+            SQLite.CreateTable(typeof(Account));
             SQLite.CreateTable(typeof(Character));
 
             DBAccounts.CreateAccount("Graype", "password");

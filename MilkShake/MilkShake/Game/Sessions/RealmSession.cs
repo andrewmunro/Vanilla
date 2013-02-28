@@ -151,7 +151,7 @@ namespace Milkshake.Game.Sessions
                     AuthLogonChallenge packet = new AuthLogonChallenge(_dataBuffer);
 
                     accountName = packet.Name;
-                    Accounts account = DBAccounts.GetAccount(packet.Name);
+                    Account account = DBAccounts.GetAccount(packet.Name);
 
                     byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
                     byte[] passBytes = Encoding.UTF8.GetBytes(account.Password.ToUpper());

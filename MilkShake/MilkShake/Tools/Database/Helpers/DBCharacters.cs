@@ -24,7 +24,7 @@ namespace Milkshake.Tools.Database.Helpers
             return Characters.FindAll(a => a.AccountID == accountID);
         }
 
-        public static void CreateCharacter(Accounts owner, Character character)
+        public static void CreateCharacter(Account owner, Character character)
         {
             character.GUID += 256;
             character.AccountID = owner.ID;

@@ -2,7 +2,7 @@
 
 namespace Milkshake.Tools.Database.Tables
 {
-    public class Accounts
+    public class Account
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
