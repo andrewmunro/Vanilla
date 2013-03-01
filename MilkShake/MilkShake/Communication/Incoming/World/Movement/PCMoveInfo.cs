@@ -6,7 +6,7 @@ using Milkshake.Tools.Extensions;
 
 namespace Milkshake.Communication.Incoming.World.Movement
 {
-    public class MoveInfo : PacketReader
+    public class PCMoveInfo : PacketReader
     {
         public MovementFlags moveFlags { get; set; }
         public uint time { get; set; }
@@ -38,7 +38,7 @@ namespace Milkshake.Communication.Incoming.World.Movement
 
         public float splineUnknown { get; set; }
 
-        public MoveInfo(byte[] data) : base(data)
+        public PCMoveInfo(byte[] data) : base(data)
         {
             moveFlags = (MovementFlags) ReadUInt32();
             time = ReadUInt32();

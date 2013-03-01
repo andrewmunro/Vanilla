@@ -29,12 +29,12 @@ namespace Milkshake.Game.Managers
 
         public static void Boot()
         {
-            MOVEMENT_CODES.ForEach(code => DataRouter.AddHandler<MoveInfo>(code, GenerateResponce(code)));
+            MOVEMENT_CODES.ForEach(code => DataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
 
-            DataRouter.AddHandler<MoveInfo>(Opcodes.MSG_MOVE_HEARTBEAT, OnHeartBeat);
+            DataRouter.AddHandler<PCMoveInfo>(Opcodes.MSG_MOVE_HEARTBEAT, OnHeartBeat);
         }
 
-        private static void OnHeartBeat(WorldSession session, MoveInfo handler)
+        private static void OnHeartBeat(WorldSession session, PCMoveInfo handler)
         {
             session.Character.X = handler.X;
             session.Character.Y = handler.Y;
@@ -44,12 +44,12 @@ namespace Milkshake.Game.Managers
             DBCharacters.UpdateCharacter(session.Character);
         }
 
-        private static ProcessPacketCallbackTypes<MoveInfo> GenerateResponce(Opcodes opcode)
+        private static ProcessPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
         {
-            return delegate(WorldSession session, MoveInfo handler) { TransmitMovement(session, handler, opcode); };
+            return delegate(WorldSession session, PCMoveInfo handler) { TransmitMovement(session, handler, opcode); };
         }
 
-        private static void TransmitMovement(WorldSession session, MoveInfo handler, Opcodes code)
+        private static void TransmitMovement(WorldSession session, PCMoveInfo handler, Opcodes code)
         {
             WorldServer.Sessions.FindAll(s => s != session).ForEach(s => s.sendPacket(new PSMovement(code, session.Character, handler)));
         }

@@ -6,7 +6,7 @@ using SQLite;
 
 namespace Milkshake.Tools.Database.Tables
 {
-    class Channel
+    public class Channel
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

@@ -1,18 +1,10 @@
-﻿using System;
-using Milkshake.Communication.Incoming.World;
-using Milkshake.Communication.Incoming.World.Chat;
-using Milkshake.Communication.Outgoing.World;
+﻿using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Outgoing.World.Chat;
 using Milkshake.Game.Constants.Game;
 using Milkshake.Net;
-using Milkshake.Communication.Outgoing.World.Update;
-using Milkshake.Communication.Outgoing.World.Movement;
-using Milkshake.Tools.Database.Helpers;
-using Milkshake.Tools.Database.Tables;
 using Milkshake.Game.Handlers;
 using Milkshake.Communication;
 using System.Collections.Generic;
-using Milkshake.Network;
 
 namespace Milkshake.Game.Managers
 {

@@ -12,7 +12,7 @@ namespace Milkshake.Communication.Outgoing.World.Movement
 {
     public class PSMovement : ServerPacket
     {
-        public PSMovement(Opcodes opcode, Character character, MoveInfo moveinfo) : base(opcode)
+        public PSMovement(Opcodes opcode, Character character, PCMoveInfo moveinfo) : base(opcode)
         {
             byte[] packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)character.GUID);
             PSUpdateObject.WriteBytes(this, packedGUID);

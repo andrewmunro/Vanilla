@@ -35,6 +35,7 @@ namespace Milkshake
             
             LogoutManager.Boot();
             ChatManager.Boot();
+            ChatChannelManager.Boot();
             MovementManager.Boot();
             MiscManager.Boot();
 
