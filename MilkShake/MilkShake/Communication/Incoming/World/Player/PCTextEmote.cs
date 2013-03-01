@@ -6,12 +6,14 @@ using Milkshake.Network;
 
 namespace Milkshake.Communication.Incoming.World.Player
 {
-    public class PCEmote : PacketReader
+    public class PCTextEmote : PacketReader
     {
+        public uint TextID { get; private set; }
         public uint EmoteID { get; private set; }
 
-        public PCEmote(byte[] data)  : base(data)
+        public PCTextEmote(byte[] data)  : base(data)
         {
+            TextID = ReadUInt32();
             EmoteID = ReadUInt32();
         }
     }

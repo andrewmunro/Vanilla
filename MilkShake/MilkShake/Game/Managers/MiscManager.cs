@@ -19,7 +19,7 @@ namespace Milkshake.Game.Managers
         public static void Boot()
         {
             DataRouter.AddHandler<PCNameQuery>(Opcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
-            DataRouter.AddHandler<PCEmote>(Opcodes.CMSG_TEXT_EMOTE, OneEmotePacket);
+            DataRouter.AddHandler<PCTextEmote>(Opcodes.CMSG_TEXT_EMOTE, OneEmotePacket);
         }
 
         public static void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
@@ -32,9 +32,9 @@ namespace Milkshake.Game.Managers
             }
         }
 
-        public static void OneEmotePacket(WorldSession session, PCEmote packet)
+        public static void OneEmotePacket(WorldSession session, PCTextEmote packet)
         {
-            WorldServer.TransmitToAll(new PSEmote((int)packet.EmoteID, (int)session.Character.GUID));
+            WorldServer.TransmitToAll(new PSTextEmote((int)session.Character.GUID, (int)packet.EmoteID, (int)packet.TextID));
         }
     }
 }
