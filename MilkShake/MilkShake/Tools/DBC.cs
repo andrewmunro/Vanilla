@@ -20,7 +20,7 @@ namespace Milkshake.Tools
         }
     }
 
-    public class DBC
+    public class DBCTemp
     {
         private static readonly Dictionary<RaceID, GenderModelEntry> MODELS = new Dictionary<RaceID, GenderModelEntry>()
         {

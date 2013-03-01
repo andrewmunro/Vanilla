@@ -26,7 +26,6 @@ namespace Milkshake.Tools.Database.Helpers
 
         public static void CreateCharacter(Accounts owner, Character character)
         {
-            character.GUID += 256;
             character.AccountID = owner.ID;
 
             DB.SQLite.Insert(character);

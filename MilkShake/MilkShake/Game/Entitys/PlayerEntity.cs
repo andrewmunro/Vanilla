@@ -5,6 +5,7 @@ using Milkshake.Tools;
 
 namespace Milkshake.Game.Entitys
 {
+
     public class PlayerEntity : WorldEntity
     {
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
@@ -37,8 +38,8 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, DBC.GetModel(character));
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, DBC.GetModel(character));
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, DBCTemp.GetModel(character));
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_NATIVEDISPLAYID, DBCTemp.GetModel(character));
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINDAMAGE, 1083927991);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXDAMAGE, 1086025143);
