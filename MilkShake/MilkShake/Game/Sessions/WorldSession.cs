@@ -38,7 +38,7 @@ namespace Milkshake.Net
         public int ConnectionID { get { return connectionID; } }
 
         public UInt32 seed;
-        public Accounts Account;
+        public Account Account;
         public Character Character;
         
 

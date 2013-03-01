@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using Milkshake.Communication;
+using Milkshake.Communication.Incoming.World.Chat;
+using Milkshake.Communication.Incoming.World.Chat.Channel;
+using Milkshake.Communication.Outgoing.World.Chat;
+using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Game.Constants.Game;
+using Milkshake.Game.Constants.Game.Chat.Channel;
+using Milkshake.Game.Handlers;
+using Milkshake.Net;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Database.Tables;
+
+namespace Milkshake.Game.Managers
+{
+    class ChatChannelManager
+    {
+        public static void Boot()
+        {
+            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
+            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
+            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_CHANNEL_LIST, OnListChannel);
+            ChatManager.ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
+        }
+
+        private static void OnListChannel(WorldSession session, PCChannel packet)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void OnLeaveChannel(WorldSession session, PCChannel packet)
+        {
+            DBChannels.LeaveChannel(session.Character.GUID, packet.ChannelName);
+        }
+
+        private static void OnJoinChannel(WorldSession session, PCChannel packet)
+        {
+            DBChannels.JoinChannel(session.Character.GUID, packet.ChannelName);
+            session.sendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.GUID, packet.ChannelName));
+        }
+
+        //When channel gets a message!
+        private static void OnChannelMessage(WorldSession session, PCMessageChat packet)
+        {
+            List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
+            //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
+            WorldServer.TransmitToAll(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName));
+        }
+    }
+}

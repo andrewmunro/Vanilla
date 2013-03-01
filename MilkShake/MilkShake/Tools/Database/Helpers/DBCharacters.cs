@@ -18,13 +18,23 @@ namespace Milkshake.Tools.Database.Helpers
             get { return TableQuery.ToList<Character>(); }
         }
 
+        public static IEnumerable<Character> GetCharacters(int guid)
+        {
+            return DB.SQLite.Table<Character>().Where(c => c.GUID == guid);
+        }
+
         public static List<Character> GetCharacters(String username)
         {
             int accountID = DBAccounts.GetAccount(username).ID;
             return Characters.FindAll(a => a.AccountID == accountID);
         }
 
-        public static void CreateCharacter(Accounts owner, Character character)
+        public static Character GetCharacter(int guid)
+        {
+            return Characters.Find(c => c.GUID == guid);
+        }
+
+        public static void CreateCharacter(Account owner, Character character)
         {
             character.AccountID = owner.ID;
 
