@@ -56,7 +56,7 @@
     <Compile Include="Communication\Incoming\World\Movement\MoveInfo.cs" />
     <Compile Include="Communication\Incoming\World\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
-    <Compile Include="Communication\Incoming\World\Player\PCEmote.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
@@ -66,7 +66,7 @@
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
-    <Compile Include="Communication\Outgoing\World\Player\PSEmote.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
@@ -122,6 +122,11 @@
     <Compile Include="Tools\Database\Tables\Accounts.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
     <Compile Include="Tools\DBC.cs" />
+    <Compile Include="Tools\DBC\DBCConverter.cs" />
+    <Compile Include="Tools\DBC\Tables\AreaTableEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\AreaTriggerEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\ChrRacesEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\EmotesTextEntry.cs" />
     <Compile Include="Tools\Extensions\EnumExtensions.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />

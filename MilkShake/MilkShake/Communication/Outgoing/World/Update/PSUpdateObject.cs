@@ -146,44 +146,25 @@ namespace Milkshake.Communication.Outgoing.World.Update
         }
 
 
-        public static PSUpdateObject Poop(WorldSession session, Character character)
+        public static PSUpdateObject UpdateValues(WorldSession session, Character character)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_MOVEMENT);
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
 
             byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
             WriteBytes(writer, guidBytes, guidBytes.Length);
 
 
-            writer.Write((byte)TypeID.TYPEID_PLAYER);
 
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_HAS_POSITION;
-                                      
+            BinaryWriter a = new BinaryWriter(new MemoryStream());
+            PlayerEntity entity = new PlayerEntity(character);
+            entity.WriteUpdateFields(a);
 
-            writer.Write((byte)updateFlags);
 
-            writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
-            //writer.Write((UInt32)55675); // Time?
-
-            // Position
-            writer.Write((float)1);
-            writer.Write((float)0);
-            writer.Write((float)0);
-            writer.Write((float)0); // R
-            /*
-            // Movement speeds
-            writer.Write((float)0);     // ????
-
-            writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7 * 20);     // MOVE_RUN
-            writer.Write((float)4.5f);  // MOVE_RUN_BACK
-            writer.Write((float)4.72f * 20); // MOVE_SWIM
-            writer.Write((float)2.5f);  // MOVE_SWIM_BACK
-            writer.Write((float)3.14f); // MOVE_TURN_RATE
-
-            writer.Write(0x1); // Unkown...
-            */
-            //new PlayerEntity(character).WriteUpdateFields(writer);
+            entity.SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)2f);
+            entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_HEALTH, 20);
+            entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_LEVEL, 60);
+            entity.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
