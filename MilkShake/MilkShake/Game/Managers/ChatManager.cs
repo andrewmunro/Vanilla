@@ -43,8 +43,8 @@ namespace Milkshake.Game.Managers
             {
                 if (splitMessage[0].ToLower() == "move")
                 {
-                    PSMovement.MOVE_TIME_MODIFIER = int.Parse(splitMessage[1]);
-                    session.sendMessage("Changed MOVE_TIME_MODIFIER to " + PSMovement.MOVE_TIME_MODIFIER);
+                    //PSMovement.MOVE_TIME_MODIFIER = int.Parse(splitMessage[1]);
+                    //.sendMessage("Changed MOVE_TIME_MODIFIER to " + PSMovement.MOVE_TIME_MODIFIER);
                 }
             }
 
