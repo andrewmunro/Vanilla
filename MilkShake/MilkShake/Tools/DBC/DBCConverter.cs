@@ -10,7 +10,7 @@ namespace Milkshake.Tools.DBC
 {
     public class DBCConverter
     {
-        public static string DBC_LOCATION = @"C:\Users\Lupas\Dropbox\Vanilla\dbc\";
+        public static string DBC_LOCATION = @"C:\Dropbox\Vanilla\dbc\";
 
         public static SQLiteConnection SQLite;
 
@@ -23,6 +23,7 @@ namespace Milkshake.Tools.DBC
             GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.dbc.CSV");
             GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.dbc.CSV");
             GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
+            GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
 
             Console.Write(true);
             Console.Read();
@@ -88,7 +89,24 @@ namespace Milkshake.Tools.DBC
                 Zone = int.Parse(data[2]),
                 ExploreFlag = int.Parse(data[3]),
                 Flag = int.Parse(data[4]),
-                Team = int.Parse(data[20])                
+                Team = int.Parse(data[20])
+            };
+        }
+
+        private static AreaTriggerEntry CSVToAreaTriggerEntry(string[] data)
+        {
+            return new AreaTriggerEntry()
+            {
+                ID = int.Parse(data[0]),
+                MapID = int.Parse(data[1]),
+                X = float.Parse(data[2]),
+                Y = float.Parse(data[3]),
+                Z = float.Parse(data[4]),
+                Radius = float.Parse(data[5]),
+                BoxX = float.Parse(data[6]),
+                BoxY = float.Parse(data[7]),
+                BoxZ = float.Parse(data[8]),
+                BoxOrientation = float.Parse(data[9]),
             };
         }
     }

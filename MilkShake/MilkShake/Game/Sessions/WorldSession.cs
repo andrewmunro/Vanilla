@@ -27,7 +27,7 @@ namespace Milkshake.Net
 {
     public class WorldSession : ISession
     {
-        public const int BUFFER_SIZE = 2048;
+        public const int BUFFER_SIZE = 20480;
         public const int TIMEOUT = 1000;
 
         private int connectionID;
@@ -40,7 +40,8 @@ namespace Milkshake.Net
         public UInt32 seed;
         public Account Account;
         public Character Character;
-        
+        public uint OutOfSyncDelay;
+        public uint Latancy;
 
         public WorldSession(int _connectionID, Socket _connectionSocket)
         {
@@ -111,7 +112,7 @@ namespace Milkshake.Net
             writer.Write(header);
             writer.Write(data);
 
-            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "] [Ec: " + (crypt != null) + "] Length:" + 1);
+            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData((writer.BaseStream as MemoryStream).ToArray());
         }
@@ -134,7 +135,7 @@ namespace Milkshake.Net
             writer.Write(header);
             writer.Write(data);
 
-            Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "] [Ec: " + (crypt != null) + "] Length:" + data.Length);
+            Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData((writer.BaseStream as MemoryStream).ToArray());
         }
@@ -234,7 +235,6 @@ namespace Milkshake.Net
                         Opcodes code = (Opcodes)opcode;
 
                         byte[] packetDate = new byte[length];
-                        Console.WriteLine("aa " + length);
                         Array.Copy(data, index + 6, packetDate, 0, length - 4);
                         Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length + " " + encCount);
                         onPacketOLD(code, packetDate);
@@ -244,10 +244,6 @@ namespace Milkshake.Net
 
                         index += 2 + (length - 1);
                 }
-            
-
-
-            Console.WriteLine("done");
         }
         int encCount = 0;
         
@@ -300,11 +296,11 @@ namespace Milkshake.Net
                                                                         Focus = 1000,
                                                                         Drunk = 100,
                                                                         Online = 0,
-                                                                        MapID = 0,
+                                                                        MapID = 489,
                                                                         Zone = 1,
-                                                                        X = -2917.580078125f,
-                                                                        Y = -257.980010986328f,
-                                                                        Z = 52.9967994689941f,
+                                                                        X = 1235.54f, //- 2917.580078125f,
+                                                                        Y = 1427.1f, //- 257.980010986328f,
+                                                                        Z = 309.715f, //52.9967994689941f,
                                                                         Rotation = 0,
                                                                           
 
@@ -338,7 +334,7 @@ namespace Milkshake.Net
                 
                 sendHexPacket(Opcodes.SMSG_LOGIN_VERIFY_WORLD, "01 00 00 00 7B 34 37 C5 E7 3B 85 C3 06 52 56 42 CA A9 49 3F ");
                 */
-                sendPacket(Opcodes.SMSG_LOGIN_VERIFY_WORLD, new LoginVerifyWorld(1, 618.518f, -4251.67f, 38.718f, 0).Packet);
+                sendPacket(Opcodes.SMSG_LOGIN_VERIFY_WORLD, new LoginVerifyWorld(Character.MapID, 618.518f, -4251.67f, 38.718f, 0).Packet);
 
                 sendHexPacket(Opcodes.SMSG_ACCOUNT_DATA_TIMES, "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ");
                 

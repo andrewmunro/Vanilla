@@ -20,30 +20,27 @@ namespace Milkshake.Communication.Outgoing.World.Chat
 
         public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, ulong GUID, string message, string channelName = null)  : base(Opcodes.SMSG_MESSAGECHAT)
         {
-            byte[] packedGUID = PSUpdateObject.GenerateGuidBytes(GUID);
-
             Write((byte)type);
 
-            Write((uint)language);
+            Write((uint)language);            
+
+            if (type == ChatMessageType.CHAT_MSG_CHANNEL)
+            {
+                Write(Encoding.UTF8.GetBytes(channelName + '\0'));
+                Write((uint)0); 
+            }
 
             Write((ulong)GUID);
 
-            if (type == ChatMessageType.CHAT_MSG_CHANNEL)
+            if (type == ChatMessageType.CHAT_MSG_SAY || type == ChatMessageType.CHAT_MSG_YELL || type == ChatMessageType.CHAT_MSG_PARTY)
             {
-                Write((uint)0);
-                Write(Encoding.UTF8.GetBytes(channelName + '\0'));
-            }
-
-            if (type == ChatMessageType.CHAT_MSG_SAY || type == ChatMessageType.CHAT_MSG_YELL || type == ChatMessageType.CHAT_MSG_PARTY || type == ChatMessageType.CHAT_MSG_CHANNEL)
                 Write((ulong)GUID);
-
-            Write((uint)message.Length);
-            Write(Encoding.UTF8.GetBytes(message + '\0'));
-
-            if (type == ChatMessageType.CHAT_MSG_CHANNEL)
-            {
-                Write((byte)0); //Chat tag
             }
+
+            Write((uint)message.Length + 1);
+            Write(Encoding.UTF8.GetBytes(message + '\0'));
+            Write((byte)0);
+       
         } 
     }
 }

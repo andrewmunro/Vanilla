@@ -16,6 +16,7 @@ using Milkshake.Tools.Update;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Game.Handlers;
 using Milkshake.Communication.Incoming.Character;
+using Milkshake.Tools.DBC;
 
 namespace Milkshake
 {
@@ -24,7 +25,18 @@ namespace Milkshake
 
         static void Main(string[] args)
         {
+            Console.WriteLine(BitConverter.ToUInt32(Helper.HexToByteArray("C7 E8 AB 02 C0 1F"), 0));
+
+            string CreateGameObject = "01 00 00 00 01 02 C7 B6 B0 02 C0 1F 05 52 E4 DD 3D C5 07 5C 5E C3 00 00 00 00 00 00 80 3F 01 00 00 00 F6 82 04 00 01 1F 43 20 01 B6 B0 02 00 00 00 C0 1F 21 00 00 00 B6 B0 02 00 00 00 80 3F C7 0B 00 00 28 00 00 00 01 00 00 00 0F 00 00 00 64 00 00 00 ";
+            UpdateReader.ProccessLog(Helper.HexToByteArray(CreateGameObject));
+            Console.WriteLine("------------------------------------");
+            //UpdateReader.ProccessLog(PSUpdateObject.CreateGameObject(null).Packet);
+
+
+            //DBCConverter.Convert();
+            
             DB.Boot();
+            DBC.Boot();
             Config.Boot();
 
             LoginServer login = new LoginServer();
@@ -38,6 +50,7 @@ namespace Milkshake
             ChatChannelManager.Boot();
             MovementManager.Boot();
             MiscManager.Boot();
+            //ZoneHandler.Boot();
 
             while (true) Console.ReadLine();
         }

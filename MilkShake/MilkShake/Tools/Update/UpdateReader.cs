@@ -44,6 +44,11 @@ namespace Milkshake.Tools.Update
             UInt16 guid = reader.ReadUInt16();
             guids.Add(guid);
 
+            reader.ReadByte();//TMPDF-----------------------
+            reader.ReadByte();
+            reader.ReadByte();
+            reader.ReadByte();
+
             Console.WriteLine("  GUID: " + guid);
             Console.WriteLine("  ObjectType: " + (TypeID)reader.ReadByte());
 
@@ -51,14 +56,17 @@ namespace Milkshake.Tools.Update
             ObjectFlags updateFlags = (ObjectFlags)reader.ReadByte();
             updateFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
 
-            MovementFlags movemenFlags = (MovementFlags)reader.ReadUInt32();
-            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+            if(updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
             {
-                Console.WriteLine("  Movement Flags");
+                MovementFlags movemenFlags = (MovementFlags)reader.ReadUInt32();
+                if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+                {
+                    Console.WriteLine("  Movement Flags");
                 
-                movemenFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
+                    movemenFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
 
-                UInt32 time = reader.ReadUInt32();
+                    UInt32 time = reader.ReadUInt32();
+                }
             }
 
             if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_HAS_POSITION))
@@ -85,7 +93,12 @@ namespace Milkshake.Tools.Update
 
             if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_ALL))
             {
-                Console.WriteLine(reader.ReadUInt32().ToString("X2"));
+                Console.WriteLine(reader.ReadUInt32());
+            }
+
+            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_TRANSPORT))
+            {
+                Console.WriteLine(reader.ReadUInt32());
             }
 
             
@@ -97,19 +110,26 @@ namespace Milkshake.Tools.Update
            // Console.WriteLine(Helper.ByteArrayToHex(ddddd));
 
             UpdateMask updateMask = ReadUpdateMask(reader);
-            
+
+            Console.WriteLine("----------------------");
 
             for (int i = 0; i < updateMask.HighestIndex; ++i)
             {
                 if (updateMask.GetBit(i))
                 {
+                    if (i == 0)
+                    {
+                       // ulong GUID = reader.ReadUInt64();
+                    }
                     int value = (int)reader.ReadUInt32();
 
-                    if (Enum.IsDefined(typeof(EUnitFields), i)) Console.WriteLine((EUnitFields)i + " " + value);
+                    if (Enum.IsDefined(typeof(EObjectFields), i)) Console.WriteLine((EObjectFields)i + " " + value);
+                    else if (Enum.IsDefined(typeof(EGameObjectFields), i)) Console.WriteLine((EGameObjectFields)i + " " + value);
+                    else if (Enum.IsDefined(typeof(EUnitFields), i)) Console.WriteLine((EUnitFields)i + " " + value);
                     else if (Enum.IsDefined(typeof(EObjectFields), i)) Console.WriteLine((EObjectFields)i + " " + value);
                     else Console.WriteLine("Unkown " + i + " " + value);
-                 
-                        
+
+
                     
                    /*
                     // GUID

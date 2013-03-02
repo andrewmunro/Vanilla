@@ -49,13 +49,13 @@ namespace Milkshake.Communication.Incoming.World.Movement
 
             if(moveFlags.GetFlags().Contains(MovementFlags.MOVEFLAG_ONTRANSPORT)) //On boat/zeplin
             {
-                /*
-                Transport.GUID = ReadUInt32();
-                Transport.X = ReadSingle();
-                Transport.Y = ReadSingle();
-                Transport.Z = ReadSingle();
-                Transport.R = ReadSingle();
-                 */
+                
+               ReadUInt32();
+                ReadSingle();
+               ReadSingle();
+               ReadSingle();
+                ReadSingle();
+
             }
             if (moveFlags.GetFlags().Contains(MovementFlags.MOVEFLAG_SWIMMING))
             {
@@ -66,12 +66,10 @@ namespace Milkshake.Communication.Incoming.World.Movement
 
             if (moveFlags.GetFlags().Contains(MovementFlags.MOVEFLAG_FALLING))
             {
-                /*
-                JumpInfo.velocity = ReadSingle();
-                JumpInfo.sinAngle = ReadSingle();
-                JumpInfo.cosAngle = ReadSingle();
-                JumpInfo.xySpeed = ReadSingle();
-                 */
+                 ReadSingle();
+                 ReadSingle();
+                ReadSingle();
+                 ReadSingle();
             }
 
             if (moveFlags.GetFlags().Contains(MovementFlags.MOVEFLAG_SPLINE_ELEVATION))

@@ -39,7 +39,7 @@ namespace Milkshake.Game.Handlers
             }
             else
             {
-                Log.Print(LogType.Packet, "Missing handler: " + opcode);
+                Log.Print(LogType.Warning, "Missing handler: " + opcode);
             }
         }
     }

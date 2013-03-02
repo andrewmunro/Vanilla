@@ -57,7 +57,10 @@
     <Compile Include="Communication\Incoming\World\Movement\PCMoveInfo.cs" />
     <Compile Include="Communication\Incoming\World\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCAreaTrigger.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCPing.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
@@ -68,6 +71,8 @@
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PCAccountDataTimes.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSPong.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
@@ -90,7 +95,9 @@
     <Compile Include="Game\Constants\Game\Update\ObjectUpdateType.cs" />
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
+    <Compile Include="Game\Entitys\GameObjectEntity.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
+    <Compile Include="Game\Handlers\ZoneHandler.cs" />
     <Compile Include="Game\Managers\ChatChannelManager.cs" />
     <Compile Include="Game\Managers\ChatManager.cs" />
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
@@ -132,6 +139,7 @@
     <Compile Include="Tools\Database\Tables\ChannelCharacter.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
     <Compile Include="Tools\DBC.cs" />
+    <Compile Include="Tools\DBC\DBC.cs" />
     <Compile Include="Tools\DBC\DBCConverter.cs" />
     <Compile Include="Tools\DBC\Tables\AreaTableEntry.cs" />
     <Compile Include="Tools\DBC\Tables\AreaTriggerEntry.cs" />

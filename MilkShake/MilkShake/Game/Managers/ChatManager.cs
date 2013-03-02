@@ -5,6 +5,8 @@ using Milkshake.Net;
 using Milkshake.Game.Handlers;
 using Milkshake.Communication;
 using System.Collections.Generic;
+using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Communication.Outgoing.World.Movement;
 
 namespace Milkshake.Game.Managers
 {
@@ -34,6 +36,18 @@ namespace Milkshake.Game.Managers
 
         public static void OnSayYell(WorldSession session, PCMessageChat packet)
         {
+            //PSUpdateObject.CreateCharacterUpdate
+            string[] splitMessage = packet.Message.Split(' ');
+
+            if (splitMessage.Length == 2)
+            {
+                if (splitMessage[0].ToLower() == "move")
+                {
+                    PSMovement.MOVE_TIME_MODIFIER = int.Parse(splitMessage[1]);
+                    session.sendMessage("Changed MOVE_TIME_MODIFIER to " + PSMovement.MOVE_TIME_MODIFIER);
+                }
+            }
+
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }
 

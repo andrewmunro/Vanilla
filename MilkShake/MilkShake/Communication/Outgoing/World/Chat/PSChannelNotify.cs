@@ -16,6 +16,10 @@ namespace Milkshake.Communication.Outgoing.World.Chat
             Write((byte)type);
             Write(Encoding.UTF8.GetBytes(channelName + '\0'));
             Write((ulong)GUID);
+
+            //Write((byte)0x03); // Flags
+            //Write((uint)1); // ID
+            //Write((uint)0); // ?
         }
     }
 }

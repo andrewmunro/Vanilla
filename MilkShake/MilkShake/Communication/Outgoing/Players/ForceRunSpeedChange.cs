@@ -7,7 +7,7 @@ namespace Milkshake.Communication.Outgoing.Players
     {
         public ForceRunSpeedChange(uint GUID, float speed)  : base(Opcodes.SMSG_FORCE_RUN_SPEED_CHANGE)
         {
-            Write(GUID);
+            Write((ulong)GUID);
             Write((uint)0);
             Write(speed);
         }

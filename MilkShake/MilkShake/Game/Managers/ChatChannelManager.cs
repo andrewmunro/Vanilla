@@ -11,6 +11,8 @@ using Milkshake.Game.Handlers;
 using Milkshake.Net;
 using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
+using Milkshake.Network;
+using Milkshake.Tools;
 
 namespace Milkshake.Game.Managers
 {
@@ -45,7 +47,12 @@ namespace Milkshake.Game.Managers
         {
             List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
             //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
-            WorldServer.TransmitToAll(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName));
+
+            ServerPacket outPacket = new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName);
+
+            Console.WriteLine(Helper.ByteArrayToHex(outPacket.Packet));
+
+            WorldServer.TransmitToAll(outPacket);
         }
     }
 }

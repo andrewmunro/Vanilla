@@ -8,6 +8,7 @@ namespace Milkshake.Game.Constants.Game.Update
     public enum EObjectFields
     {
         OBJECT_FIELD_GUID = 0x00, // Size:2
+        OBJECT_FIELD_DATA = 0x01, // Size:2
         OBJECT_FIELD_TYPE = 0x02, // Size:1
         OBJECT_FIELD_ENTRY = 0x03, // Size:1
         OBJECT_FIELD_SCALE_X = 0x04, // Size:1
