@@ -16,10 +16,13 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)1f);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_HEALTH, 70);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER4, 100);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, 70);
+
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER1, 100);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 100);
+
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER4, 100);
+            
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_LEVEL, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, 5);
@@ -28,7 +31,7 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Class, 1);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 1, 3); //POwer
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 0, 3); //POwer 1 = rage
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 8);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);

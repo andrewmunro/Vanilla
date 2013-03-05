@@ -41,9 +41,8 @@ namespace Milkshake.Game.Managers
 
             if (splitMessage[0].ToLower() == "spell")
             {
-                SpellManager.OnLearnSpell(session, 133);
-            }
-            
+                SpellManager.OnLearnSpell(session, 23965);
+            }   
 
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }
