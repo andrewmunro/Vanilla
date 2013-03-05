@@ -15,7 +15,6 @@ namespace Milkshake.Tools.DBC
         {
             SQLite = new SQLiteConnection("dbc.db3");
         }
-
         public static TableQuery<AreaTableEntry> AreaTable
         {
             get { return SQLite.Table<AreaTableEntry>(); }

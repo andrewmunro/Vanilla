@@ -39,14 +39,11 @@ namespace Milkshake.Game.Managers
             //PSUpdateObject.CreateCharacterUpdate
             string[] splitMessage = packet.Message.Split(' ');
 
-            if (splitMessage.Length == 2)
+            if (splitMessage[0].ToLower() == "spell")
             {
-                if (splitMessage[0].ToLower() == "move")
-                {
-                    //PSMovement.MOVE_TIME_MODIFIER = int.Parse(splitMessage[1]);
-                    //.sendMessage("Changed MOVE_TIME_MODIFIER to " + PSMovement.MOVE_TIME_MODIFIER);
-                }
+                SpellManager.OnLearnSpell(session, 133);
             }
+            
 
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }

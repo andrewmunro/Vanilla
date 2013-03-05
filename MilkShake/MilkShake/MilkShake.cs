@@ -50,6 +50,7 @@ namespace Milkshake
             ChatChannelManager.Boot();
             MovementManager.Boot();
             MiscManager.Boot();
+            SpellManager.Boot();
             //ZoneHandler.Boot();
 
             while (true) Console.ReadLine();

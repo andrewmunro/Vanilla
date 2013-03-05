@@ -77,6 +77,7 @@
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Game\Managers\LogoutManager.cs" />
     <Compile Include="Game\Managers\MiscManager.cs" />
     <Compile Include="Game\Managers\MovementManager.cs" />
+    <Compile Include="Game\Managers\SpellManager.cs" />
     <Compile Include="MilkShake.cs" />
     <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
