@@ -39,17 +39,11 @@ namespace Milkshake.Game.Managers
             //PSUpdateObject.CreateCharacterUpdate
             string[] splitMessage = packet.Message.Split(' ');
 
-            if (splitMessage.Length == 1)
+            if (splitMessage[0].ToLower() == "spell")
             {
-                if (splitMessage[0].ToLower() == "spawn")
-                {
-                    for (int x = 0; x < 100; x++)
-                    for (int y = 0; y < 100; y++)
-                    {
-                        session.sendPacket(PSUpdateObject.CreateGameObject(session.Character.X + (x * 10), session.Character.Y - (y * 10), session.Character.Z));
-                    }
-                }
+                SpellManager.OnLearnSpell(session, 133);
             }
+            
 
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }
