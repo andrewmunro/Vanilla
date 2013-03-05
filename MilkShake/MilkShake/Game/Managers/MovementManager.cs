@@ -14,7 +14,7 @@ namespace Milkshake.Game.Managers
 {
     public class MovementManager
     {
-        private static readonly  List<Opcodes> MOVEMENT_CODES = new List<Opcodes>()
+        private static readonly List<Opcodes> MOVEMENT_CODES = new List<Opcodes>()
         {   
             Opcodes.MSG_MOVE_HEARTBEAT,
             Opcodes.MSG_MOVE_JUMP,
@@ -37,19 +37,16 @@ namespace Milkshake.Game.Managers
             Opcodes.MSG_MOVE_START_SWIM,
             Opcodes.MSG_MOVE_STOP_SWIM,
             Opcodes.MSG_MOVE_FALL_LAND,
-            //Opcodes.CMSG_MOVE_SET_FLY,
             Opcodes.MSG_MOVE_HOVER,
             Opcodes.MSG_MOVE_KNOCK_BACK,
-            //Opcodes.MSG_MOVE_START_ASCEND,
-            //Opcodes.MSG_MOVE_STOP_ASCEND,
             Opcodes.CMSG_MOVE_CHNG_TRANSPORT,
-            Opcodes.CMSG_MOVE_FALL_RESET,
-            //Opcodes.MSG_MOVE_HEARTBEAT
+            Opcodes.CMSG_MOVE_FALL_RESET
         };
 
         public static void Boot()
         {
             MOVEMENT_CODES.ForEach(code => DataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
+
             DataRouter.AddHandler(Opcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
         }
 
@@ -59,8 +56,7 @@ namespace Milkshake.Game.Managers
             PSUpdateObject.ReadPackedGuid(reader);
             session.OutOfSyncDelay = reader.ReadUInt32();
 
-            session.sendMessage("[MoveTimeSkipped] OutOfSyncDelay: " + session.OutOfSyncDelay);
-            
+            session.sendMessage("[MoveTimeSkipped] OutOfSyncDelay: " + session.OutOfSyncDelay);            
             
         }
 
@@ -71,7 +67,7 @@ namespace Milkshake.Game.Managers
             session.Character.Z = handler.Z;
             session.Character.Rotation = handler.R;
 
-            //session.sendPacket(PSUpdateObject.CreateGameObject(session.Character));
+            
         }
 
         private static ProcessPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
@@ -84,6 +80,8 @@ namespace Milkshake.Game.Managers
             //SavePosition(session, handler);
 
             //DBCharacters.UpdateCharacter(session.Character);
+
+            
 
             WorldServer.Sessions.FindAll(s => s != session).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));
         }

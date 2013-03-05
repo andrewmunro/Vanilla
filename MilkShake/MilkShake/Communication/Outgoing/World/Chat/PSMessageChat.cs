@@ -13,11 +13,7 @@ namespace Milkshake.Communication.Outgoing.World.Chat
     public class PSMessageChat : ServerPacket
     {
         private string channel;
-
-        public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, WorldEntity entity, string message)  : this(type, language, entity.GUID, message)
-        {
-        }
-
+		
         public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, ulong GUID, string message, string channelName = null)  : base(Opcodes.SMSG_MESSAGECHAT)
         {
             Write((byte)type);

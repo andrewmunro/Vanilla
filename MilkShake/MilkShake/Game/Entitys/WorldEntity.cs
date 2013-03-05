@@ -7,7 +7,7 @@ namespace Milkshake.Game.Entitys
 {
     public class WorldEntity
     {
-        public UInt64 GUID;
+        public ObjectGUID GUID;
 
         public int MaskSize;
         public BitArray Mask;

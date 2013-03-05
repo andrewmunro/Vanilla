@@ -9,7 +9,7 @@ namespace Milkshake.Tools.DBC
 {
     public class DBC
     {
-        public static SQLiteConnection SQLite;
+        private static SQLiteConnection SQLite;
 
         public static void Boot()
         {
@@ -21,9 +21,14 @@ namespace Milkshake.Tools.DBC
             get { return SQLite.Table<AreaTableEntry>(); }
         }
 
-        public static TableQuery<AreaTriggerEntry> AreaTrigger
+        public static TableQuery<AreaTriggerEntry> AreaTriggers
         {
             get { return SQLite.Table<AreaTriggerEntry>(); }
+        }
+
+        public static TableQuery<SpellEntry> Spells
+        {
+            get { return SQLite.Table<SpellEntry>(); }
         }
     }
 }

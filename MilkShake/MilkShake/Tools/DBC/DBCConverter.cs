@@ -20,10 +20,11 @@ namespace Milkshake.Tools.DBC
 
             List<string> DBCFiles = Directory.GetFiles(DBC_LOCATION, "*.csv").ToList<string>();
 
-            GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.dbc.CSV");
-            GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.dbc.CSV");
-            GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
-            GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
+            //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.dbc.CSV");
+            //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.dbc.CSV");
+            //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
+            //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
+            GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv");
 
             Console.Write(true);
             Console.Read();
@@ -39,7 +40,17 @@ namespace Milkshake.Tools.DBC
             Log.Print(LogType.Debug, "Creating table " + typeof(T).Name);
             SQLite.CreateTable<T>();
 
-            ConvertedEntries.ForEach(e => SQLite.Insert(e));
+            float index = 0;
+            ConvertedEntries.ForEach(e => 
+                {
+                    Console.Clear();
+                    float percent = (index / ConvertedEntries.Count) * 100;
+                    Console.WriteLine(percent + "% - [" + index + "/" + ConvertedEntries.Count + "]");
+
+
+                    SQLite.Insert(e);
+                    index++;
+                });
             Log.Print(LogType.Debug, "Adding " + ConvertedEntries.Count + " entries");
         }
 
@@ -48,7 +59,23 @@ namespace Milkshake.Tools.DBC
             List<string> csvEntrys = File.ReadAllLines(url).ToList<string>();
 
             List<T> convertedEntrys = new List<T>();
-            csvEntrys.ForEach(e => convertedEntrys.Add(converter(e.Split(','))));
+
+            
+            
+            csvEntrys.ForEach(e =>
+                {
+                    
+
+                    
+                    try
+                    {
+                        convertedEntrys.Add(converter(e.Split(',')));
+                    }
+                    catch (Exception ed)
+                    {
+                    }
+                }
+            );
 
             return convertedEntrys;
         }
@@ -107,6 +134,20 @@ namespace Milkshake.Tools.DBC
                 BoxY = float.Parse(data[7]),
                 BoxZ = float.Parse(data[8]),
                 BoxOrientation = float.Parse(data[9]),
+            };
+        }
+
+
+        private static SpellEntry CSVToSpellEntry(string[] data)
+        {
+            return new SpellEntry()
+            {
+                ID = int.Parse(data[0]),
+                School = int.Parse(data[1]),
+                Category = int.Parse(data[2]),
+                Name = data[120].Replace("\"", ""),
+                Cooldown = int.Parse(data[19]),
+                CooldownCatagory = int.Parse(data[20]),
             };
         }
     }

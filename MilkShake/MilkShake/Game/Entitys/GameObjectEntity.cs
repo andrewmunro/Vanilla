@@ -8,11 +8,11 @@ namespace Milkshake.Game.Entitys
 {
     public class GameObjectEntity : WorldEntity
     {
-        public GameObjectEntity(ulong guid, int DISPLA) : base((int)EGameObjectFields.GAMEOBJECT_END)
+        public GameObjectEntity(int DISPLA) : base((int)EGameObjectFields.GAMEOBJECT_END)
         {
-            uint uintGUID = (uint)(guid & (ulong)0x0000000000FFFFFF);
+            GUID = ObjectGUID.GetGameObjectGUID();
 
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)uintGUID);
+            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)GUID.Low);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)33);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_ENTRY, (uint)175080);

@@ -96,6 +96,7 @@
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Entitys\GameObjectEntity.cs" />
+    <Compile Include="Game\Entitys\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
     <Compile Include="Game\Managers\ChatChannelManager.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Tools\DBC\Tables\AreaTriggerEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ChrRacesEntry.cs" />
     <Compile Include="Tools\DBC\Tables\EmotesTextEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\SpellEntry.cs" />
     <Compile Include="Tools\Extensions\EnumExtensions.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />

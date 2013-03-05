@@ -88,7 +88,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write((float)0);     // ????
 
             writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7);     // MOVE_RUN
+            writer.Write((float)7 * 5);     // MOVE_RUN
             writer.Write((float)4.5f);  // MOVE_RUN_BACK
             writer.Write((float)4.72f); // MOVE_SWIM
             writer.Write((float)2.5f);  // MOVE_SWIM_BACK
@@ -168,17 +168,15 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             return res;
         }
-        static int index = 1;
-        public static PSUpdateObject CreateGameObject(Character character)
+        public static int DisplayIDIndex = 2000;
+        public static PSUpdateObject CreateGameObject(float x, float y, float z)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-            ulong GUID = (ulong)((ulong)index++ |
-                                 ((ulong)TypeID.TYPEID_OBJECT << 24) |
-                                 ((ulong)HighGUID.HIGHGUID_MO_TRANSPORT << 48));
+            GameObjectEntity entity = new GameObjectEntity(DisplayIDIndex++);
 
-            byte[] guidBytes = GenerateGuidBytes(GUID);
+            byte[] guidBytes = GenerateGuidBytes(entity.GUID.RawGUID);
 
             for (int i = 0; i < guidBytes.Length; i++) writer.Write(guidBytes[i]);
 
@@ -218,25 +216,18 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write((byte)updateFlags);
 
             // Position
-            if (character != null)
-            {
-                writer.Write((float)character.X);
-                writer.Write((float)character.Y);
-                writer.Write((float)character.Z);
-            }
-            else
-            {
-                writer.Write((float)1);
-                writer.Write((float)2);
-                writer.Write((float)3);
-            }
+
+                writer.Write((float)x);
+                writer.Write((float)y);
+                writer.Write((float)z);
+         
             writer.Write((float)0); // R
 
             writer.Write((uint)0x1); // Unkown... time?
             writer.Write((uint)0); // Unkown... time?
 
 
-            new GameObjectEntity(GUID, index).WriteUpdateFields(writer);
+           entity.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, 1);
         }

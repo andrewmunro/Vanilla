@@ -39,12 +39,15 @@ namespace Milkshake.Game.Managers
             //PSUpdateObject.CreateCharacterUpdate
             string[] splitMessage = packet.Message.Split(' ');
 
-            if (splitMessage.Length == 2)
+            if (splitMessage.Length == 1)
             {
-                if (splitMessage[0].ToLower() == "move")
+                if (splitMessage[0].ToLower() == "spawn")
                 {
-                    //PSMovement.MOVE_TIME_MODIFIER = int.Parse(splitMessage[1]);
-                    //.sendMessage("Changed MOVE_TIME_MODIFIER to " + PSMovement.MOVE_TIME_MODIFIER);
+                    for (int x = 0; x < 100; x++)
+                    for (int y = 0; y < 100; y++)
+                    {
+                        session.sendPacket(PSUpdateObject.CreateGameObject(session.Character.X + (x * 10), session.Character.Y - (y * 10), session.Character.Z));
+                    }
                 }
             }
 

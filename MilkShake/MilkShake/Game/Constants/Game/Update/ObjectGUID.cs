@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
+    /*
     public class ObjectGuid
     {
         public UInt64 Guid { get; set; }
@@ -29,4 +30,5 @@ namespace Milkshake.Game.Constants.Game.Update
             return guid & 0xFFFFFFF;
         }
     }
+     * */
 }
