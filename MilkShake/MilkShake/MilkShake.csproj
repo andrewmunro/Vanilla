@@ -61,6 +61,7 @@
     <Compile Include="Communication\Incoming\World\Player\PCPing.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
+    <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
@@ -136,11 +137,14 @@
     <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
     <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
+    <Compile Include="Tools\Database\Helpers\DBSpells.cs" />
     <Compile Include="Tools\Database\SQLite.cs" />
     <Compile Include="Tools\Database\Tables\Account.cs" />
     <Compile Include="Tools\Database\Tables\Channel.cs" />
     <Compile Include="Tools\Database\Tables\ChannelCharacter.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterCreationSpell.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterSpell.cs" />
     <Compile Include="Tools\DBC.cs" />
     <Compile Include="Tools\DBC\DBC.cs" />
     <Compile Include="Tools\DBC\DBCConverter.cs" />
