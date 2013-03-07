@@ -38,9 +38,7 @@ namespace Milkshake.Game.Managers
             Opcodes.MSG_MOVE_STOP_SWIM,
             Opcodes.MSG_MOVE_FALL_LAND,
             Opcodes.MSG_MOVE_HOVER,
-            Opcodes.MSG_MOVE_KNOCK_BACK,
-            Opcodes.CMSG_MOVE_CHNG_TRANSPORT,
-            Opcodes.CMSG_MOVE_FALL_RESET
+            Opcodes.MSG_MOVE_KNOCK_BACK
         };
 
         public static void Boot()
@@ -66,8 +64,13 @@ namespace Milkshake.Game.Managers
             session.Character.Y = handler.Y;
             session.Character.Z = handler.Z;
             session.Character.Rotation = handler.R;
+        }
 
-            
+        private static void UpdateEntity(WorldSession session, PCMoveInfo handler)
+        {
+            session.Entity.X = handler.X;
+            session.Entity.Y = handler.Y;
+            session.Entity.Z = handler.Z;
         }
 
         private static ProcessPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
@@ -81,7 +84,7 @@ namespace Milkshake.Game.Managers
 
             //DBCharacters.UpdateCharacter(session.Character);
 
-            
+            UpdateEntity(session, handler);
 
             WorldServer.Sessions.FindAll(s => s != session).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));
         }

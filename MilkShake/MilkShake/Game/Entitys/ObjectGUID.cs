@@ -27,6 +27,11 @@ namespace Milkshake.Game.Entitys
         public ulong RawGUID { get; private set; }
         public uint Low { get { return (uint)(RawGUID & (ulong)0x0000000000FFFFFF); } }
 
+        public ObjectGUID(ulong GUID)
+        {
+            RawGUID = GUID;
+        }
+
         public ObjectGUID(uint index, TypeID type, HighGUID high)
         {
             RawGUID = (ulong)((ulong)index |

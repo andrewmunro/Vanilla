@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Milkshake.Network;
-using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Communication.Outgoing.World.Spell
 {
-    public class PSLearnSpell : ServerPacket
+    public class PSCastFailed : ServerPacket
     {
-        public PSLearnSpell(uint spellID) : base(Opcodes.SMSG_LEARNED_SPELL)
+        public PSCastFailed(uint spellID)  : base(Opcodes.SMSG_CAST_FAILED)
         {
             Write((uint)spellID);
-            Write((UInt16)0);
         }
     }
 }

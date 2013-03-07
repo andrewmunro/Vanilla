@@ -14,6 +14,7 @@ using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Network;
+using Milkshake.Game.Entitys;
 
 namespace Milkshake.Game.Managers
 {
@@ -26,6 +27,7 @@ namespace Milkshake.Game.Managers
             DataRouter.AddHandler<PCZoneUpdate>(Opcodes.CMSG_ZONEUPDATE, OnZoneUpdatePacket);
             DataRouter.AddHandler<PCAreaTrigger>(Opcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
             DataRouter.AddHandler<PCPing>(Opcodes.CMSG_PING, OnPingPacket);
+            DataRouter.AddHandler<PCSetSelection>(Opcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
         }
 
         public static void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
@@ -58,6 +60,24 @@ namespace Milkshake.Game.Managers
             session.sendMessage("Ping: " + packet.Ping + " Latancy: " + packet.Latency);
 
             session.sendPacket(new PSPong(packet.Ping));
+        }
+
+        public static void OnSetSelectionPacket(WorldSession session, PCSetSelection packet)
+        {
+            try
+            {
+                session.Entity.Target = WorldServer.Sessions.First(s => s.Entity.GUID.RawGUID == packet.GUID).Entity;
+
+                session.sendMessage("Targeted: " + (session.Entity.Target as PlayerEntity).Character.Name);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            //session.sendMessage("Ping: " + packet.Ping + " Latancy: " + packet.Latency);
+
+           // session.sendPacket(new PSPong(packet.Ping));
         }
     }
 }

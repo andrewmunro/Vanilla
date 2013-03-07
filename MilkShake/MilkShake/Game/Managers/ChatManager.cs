@@ -7,6 +7,12 @@ using Milkshake.Communication;
 using System.Collections.Generic;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Communication.Outgoing.World.Movement;
+using Milkshake.Tools.DBC.Tables;
+using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.DBC;
+using System.Linq;
+using System;
 
 namespace Milkshake.Game.Managers
 {
@@ -39,10 +45,28 @@ namespace Milkshake.Game.Managers
             //PSUpdateObject.CreateCharacterUpdate
             string[] splitMessage = packet.Message.Split(' ');
 
-            if (splitMessage[0].ToLower() == "spell")
+        
+
+            if (splitMessage.Length == 2)
             {
-                SpellManager.OnLearnSpell(session, 23965);
-            }   
+                if (splitMessage[0].ToLower() == "lookup")
+                {
+                    string value = splitMessage[1];
+                    List<SpellEntry> matchingSpells = DBC.Spells.Where(s => s.Name.Contains(value)).ToList();
+
+                    matchingSpells.ForEach(s => session.sendMessage("[" + s.ID + "] " + s.Name));
+                }
+
+                if (splitMessage[0].ToLower() == "spell")
+                {
+                    SpellManager.OnLearnSpell(session, int.Parse(splitMessage[1]));
+                }
+            }
+
+            if (splitMessage[0].ToLower() == "pow")
+            {
+                
+            }
 
             WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }

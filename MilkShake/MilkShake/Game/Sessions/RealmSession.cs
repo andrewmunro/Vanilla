@@ -215,7 +215,7 @@ namespace Milkshake.Game.Sessions
                               bw.Write((UInt32)0x0000); // Ender?
                               bw.Write((byte)1); // Realm count
 
-                              bw.Write((UInt32)1); // Icon
+                              bw.Write((UInt32)RealmType.PVP); // Icon
                               bw.Write((byte)0); // Flag
 
                               WriteCString(bw, Config.GetValue(ConfigValues.WORLD, ConfigValues.NAME));

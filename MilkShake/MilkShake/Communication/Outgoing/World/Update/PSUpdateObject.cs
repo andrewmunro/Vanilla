@@ -58,7 +58,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
                 writer.Write(data, 0, count);
         }
 
-        public static PSUpdateObject CreateOwnCharacterUpdate(Character character)
+        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
@@ -88,7 +88,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write((float)0);     // ????
 
             writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7 * 5);     // MOVE_RUN
+            writer.Write((float)7);     // MOVE_RUN
             writer.Write((float)4.5f);  // MOVE_RUN_BACK
             writer.Write((float)4.72f); // MOVE_SWIM
             writer.Write((float)2.5f);  // MOVE_SWIM_BACK
@@ -96,7 +96,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write(0x1); // Unkown...
 
-            new PlayerEntity(character).WriteUpdateFields(writer);
+            entity = new PlayerEntity(character);
+            entity.GUID = new ObjectGUID((ulong)character.GUID);
+            entity.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }

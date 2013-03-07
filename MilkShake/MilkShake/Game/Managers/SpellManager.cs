@@ -10,6 +10,7 @@ using Milkshake.Game.Constants.Game;
 using Milkshake.Game.Handlers;
 using Milkshake.Net;
 using Milkshake.Tools.Database.Helpers;
+using Milkshake.Communication.Outgoing.World.Movement;
 
 namespace Milkshake.Game.Managers
 {
@@ -23,13 +24,17 @@ namespace Milkshake.Game.Managers
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
         {
-            //https://github.com/mangoszero/server/blob/master/src/game/Spell.cpp#L3254
-            throw new NotImplementedException();
+            WorldServer.TransmitToAll(new PSSpellGo(session.Entity, session.Entity.Target, packet.spellID));
+            session.sendPacket(new PSCastFailed(packet.spellID));
+
+            float radians = (float)(Math.Atan2(session.Entity.Y - session.Entity.Target.Y, session.Entity.X - session.Entity.Target.X));
+
+            WorldServer.TransmitToAll(new PSMoveKnockBack(session.Entity.Target, (float)Math.Cos(radians), (float)Math.Sin(radians), -10, -10));
         }
 
         private static void OnCancelSpell(WorldSession session, PCCancelSpell packet)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public static void OnLearnSpell(WorldSession session, int spellID)

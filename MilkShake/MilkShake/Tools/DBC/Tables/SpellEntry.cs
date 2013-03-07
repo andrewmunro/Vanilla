@@ -14,5 +14,7 @@ namespace Milkshake.Tools.DBC.Tables
 
         public int Cooldown { get; set; }
         public int CooldownCatagory { get; set; }
+
+        public float Speed { get; set; }
     }
 }

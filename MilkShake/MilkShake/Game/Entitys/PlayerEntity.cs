@@ -2,14 +2,25 @@
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools;
+using Milkshake.Game.Constants;
+using Milkshake.Tools.DBC;
+using System.Linq;
+using Milkshake.Tools.DBC.Tables;
 
 namespace Milkshake.Game.Entitys
 {
 
     public class PlayerEntity : WorldEntity
     {
+        public Character Character;
+        public PlayerEntity Target;
+
+        public float X, Y, Z;
+
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
+            Character = character;
+
             SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
@@ -22,10 +33,12 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 100);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
-            
+
+            ChrRacesEntry Race = DBC.ChrRaces.ToList().First(r => (RaceID)r.RaceID == character.Race);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_LEVEL, 1);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, 5);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, Race.FactionID);
+            //SetUpdateField<Int32>((int)EUnitFields, Race.FactionID);
 
             //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_0, 16777477); // Unsure
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
@@ -33,7 +46,7 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 0, 3); //POwer 1 = rage
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 8);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 0x00000010);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURAFLAGS, 9);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURALEVELS, 1);

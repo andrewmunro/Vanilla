@@ -24,7 +24,7 @@ namespace Milkshake.Tools.DBC
             //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.dbc.CSV");
             //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
             //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
-            GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv");
+            //GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv");
 
             Console.Write(true);
             Console.Read();

@@ -59,6 +59,7 @@
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCAreaTrigger.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCPing.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCSetSelection.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
     <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
+    <Compile Include="Communication\Outgoing\World\Movement\PSMoveKnockBack.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PCAccountDataTimes.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSPong.cs" />
@@ -78,7 +80,9 @@
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
