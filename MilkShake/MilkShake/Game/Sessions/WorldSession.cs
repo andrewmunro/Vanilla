@@ -328,7 +328,7 @@ namespace Milkshake.Net
                 // Find Character
                 Character = DBCharacters.Characters.Find(character => character.GUID == playerGUID);
 
-                
+                SpellManager.SendInitialSpells(this);
 
                 /*
                 sendHexPacket(Opcodes.SMSG_UPDATE_AURA_DURATION, "00 FF FF FF FF ");
@@ -361,7 +361,6 @@ namespace Milkshake.Net
 
                // Auto learn spells
                //SpellManager.OnLearnSpell(this, 145);
-                SpellManager.SendInitialSpells(this);
 
                // Send a debug
                ChatManager.SendSytemMessage(this, "You logged in to: " + Character.Name + " " + Character.Class + " " + Character.Race + " GUID:" + Character.GUID);

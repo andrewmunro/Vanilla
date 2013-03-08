@@ -9,6 +9,7 @@ using Milkshake.Communication.Outgoing.World.Spell;
 using Milkshake.Game.Constants.Game;
 using Milkshake.Game.Handlers;
 using Milkshake.Net;
+using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Tools.Database.Helpers;
 using Milkshake.Communication.Outgoing.World.Movement;
@@ -25,7 +26,7 @@ namespace Milkshake.Game.Managers
 
         public static void SendInitialSpells(WorldSession session)
         {
-            Console.WriteLine(Helper.ByteArrayToHex(new PSInitialSpells(DBSpells.GetCharacterSpells(session.Character)).Packet));
+            session.sendPacket(new PSInitialSpells(DBSpells.GetCharacterSpells(session.Character)));
         }
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)

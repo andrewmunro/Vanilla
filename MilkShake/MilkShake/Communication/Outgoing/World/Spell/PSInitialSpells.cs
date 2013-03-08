@@ -15,36 +15,37 @@ namespace Milkshake.Communication.Outgoing.World.Spell
         public PSInitialSpells(List<CharacterSpell> characterSpells) : base(Opcodes.SMSG_INITIAL_SPELLS)
         {
             Write((byte)0);
-            Write((UInt16)characterSpells.Count -1);
+            Write((UInt16)characterSpells.Count);
 
-            characterSpells.ForEach(s =>
+            foreach (var s in characterSpells)
+            {
+                Write((UInt16)s.SpellID);
+                Write((UInt16)0);
+            }
+
+            Write((UInt16)characterSpells.Count); //SpellCooldowns count.
+
+
+            foreach (var s in characterSpells)
+            {
+                SpellEntry spell = DBC.Spells.First(se => se.ID == s.SpellID);
+
+                Write((uint)spell.ID);
+                Write((UInt16)0);
+                Write((UInt16)spell.Category);
+
+                if (spell.Category == 0)
                 {
-                    Write((UInt16)s.SpellID);
-                    Write((UInt16)0);
-                });
-
-            Write((UInt16)0); //SpellCooldowns count.
-
-/*            characterSpells.ForEach(s=>
+                    Write((UInt32)spell.Cooldown);
+                    Write((UInt32)0);
+                }
+                else
                 {
-                    SpellEntry spell = DBC.Spells.First(se => se.ID == s.SpellID);
+                    Write((UInt32)0);
+                    Write((UInt32)spell.Cooldown);
+                }
+            }
 
-                    Write((uint)spell.ID);
-                    Write((UInt16)0);
-                    Write((UInt16)spell.Category);
-
-                    if (spell.Category == 0)
-                    {
-                        Write((UInt32)spell.Cooldown);
-                        Write((UInt32)0);
-                    }
-                    else
-                    {
-                        Write((UInt32)0);
-                        Write((UInt32)spell.Cooldown);
-                    }
-
-                });*/
         }
     }
 }
