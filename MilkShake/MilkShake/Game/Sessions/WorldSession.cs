@@ -359,8 +359,9 @@ namespace Milkshake.Net
                EntityManager.SpawnPlayer(Character);
                EntityManager.SendPlayers(this);
 
-               // Auto learn fireball
-               SpellManager.OnLearnSpell(this, 145);
+               // Auto learn spells
+               //SpellManager.OnLearnSpell(this, 145);
+                SpellManager.SendInitialSpells(this);
 
                // Send a debug
                ChatManager.SendSytemMessage(this, "You logged in to: " + Character.Name + " " + Character.Class + " " + Character.Race + " GUID:" + Character.GUID);

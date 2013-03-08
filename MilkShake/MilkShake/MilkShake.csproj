@@ -81,6 +81,7 @@
     <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSInitialSpells.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />

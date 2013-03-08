@@ -9,11 +9,9 @@ namespace Milkshake.Tools.Database.Tables
 {
     class CharacterCreationSpell
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-
         public RaceID Race { get; set; }
         public ClassID Class { get; set; }
         public int SpellID { get; set; }
+        public string Name { get; set; }
     }
 }

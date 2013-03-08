@@ -16,6 +16,8 @@ namespace Milkshake.Tools.Database
             SQLite.CreateTable(typeof(Character));
             SQLite.CreateTable(typeof(Channel));
             SQLite.CreateTable(typeof(ChannelCharacter));
+            SQLite.CreateTable(typeof(CharacterCreationSpell));
+            SQLite.CreateTable(typeof(CharacterSpell));
 
             DBAccounts.CreateAccount("Graype", "password");
 			DBAccounts.CreateAccount("Andrew", "password");
