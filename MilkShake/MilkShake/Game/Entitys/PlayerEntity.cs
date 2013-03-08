@@ -29,8 +29,8 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_HEALTH, 70);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, 70);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER1, 100);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 100);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER1, 1000);
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 1000);
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
 

@@ -148,6 +148,7 @@ namespace Milkshake.Tools.DBC
                 Name = data[120].Replace("\"", ""),
                 Cooldown = int.Parse(data[19]),
                 CooldownCatagory = int.Parse(data[20]),
+                Speed = float.Parse(data[37])
             };
         }
     }
