@@ -8,14 +8,14 @@ namespace Milkshake.Tools.Database.Helpers
 {
     public class DBCharacters
     {
-        public static TableQuery<Character> TableQuery
+        public static TableQuery<Character> CharacterQuery
         {
             get { return DB.SQLite.Table<Character>(); }
         }
 
         public static List<Character> Characters
         {
-            get { return TableQuery.ToList<Character>(); }
+            get { return CharacterQuery.ToList<Character>(); }
         }
 
         public static IEnumerable<Character> GetCharacters(int guid)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Communication.Incoming.World.Movement;
+using Milkshake.Communication.Outgoing.World.ActionBarButton;
 using Milkshake.Game.Managers;
 using Milkshake.Game.Sessions;
 using Milkshake.Network;
@@ -329,6 +330,7 @@ namespace Milkshake.Net
                 Character = DBCharacters.Characters.Find(character => character.GUID == playerGUID);
 
                 SpellManager.SendInitialSpells(this);
+                sendPacket(new PSActionButtons(Character));
 
                 /*
                 sendHexPacket(Opcodes.SMSG_UPDATE_AURA_DURATION, "00 FF FF FF FF ");

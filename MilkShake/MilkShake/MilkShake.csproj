@@ -67,6 +67,7 @@
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
     <Compile Include="Communication\Outgoing\Weather\Weather.cs" />
+    <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Database\DB.cs" />
     <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
+    <Compile Include="Tools\Database\Helpers\DBActionBarButtons.cs" />
     <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacterSpells.cs" />
@@ -149,6 +151,8 @@
     <Compile Include="Tools\Database\Tables\Channel.cs" />
     <Compile Include="Tools\Database\Tables\ChannelCharacter.cs" />
     <Compile Include="Tools\Database\Tables\Character.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterActionBarButton.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterCreationActionBarButton.cs" />
     <Compile Include="Tools\Database\Tables\CharacterCreationSpell.cs" />
     <Compile Include="Tools\Database\Tables\CharacterSpell.cs" />
     <Compile Include="Tools\DBC.cs" />

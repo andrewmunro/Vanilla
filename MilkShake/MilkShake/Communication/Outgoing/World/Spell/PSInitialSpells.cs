@@ -5,6 +5,7 @@ using System.Text;
 using Milkshake.Network;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Communication.Outgoing.World.Spell
@@ -12,8 +13,10 @@ namespace Milkshake.Communication.Outgoing.World.Spell
     class PSInitialSpells : ServerPacket
     {
 
-        public PSInitialSpells(List<CharacterSpell> characterSpells) : base(Opcodes.SMSG_INITIAL_SPELLS)
+        public PSInitialSpells(Character character) : base(Opcodes.SMSG_INITIAL_SPELLS)
         {
+            List<CharacterSpell> characterSpells = DBSpells.GetCharacterSpells(character);
+            
             Write((byte)0);
             Write((UInt16)characterSpells.Count);
 

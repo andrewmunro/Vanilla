@@ -35,6 +35,7 @@ namespace Milkshake.Tools.Database.Helpers
             }
             return result;
         }
+
         public static CharacterSpell GetCharacterSpell(Character character, int spellID)
         {
             return CharacterSpellQuery.First(s => s.GUID == character.GUID && s.SpellID == spellID);

@@ -31,7 +31,7 @@ namespace Milkshake.Game.Managers
 
         public static void SendInitialSpells(WorldSession session)
         {
-            session.sendPacket(new PSInitialSpells(DBSpells.GetCharacterSpells(session.Character)));
+            session.sendPacket(new PSInitialSpells(session.Character));
         }
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
