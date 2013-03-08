@@ -153,6 +153,7 @@
     <Compile Include="Tools\Database\Tables\Character.cs" />
     <Compile Include="Tools\Database\Tables\CharacterActionBarButton.cs" />
     <Compile Include="Tools\Database\Tables\CharacterCreationActionBarButton.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterCreationInfo.cs" />
     <Compile Include="Tools\Database\Tables\CharacterCreationSpell.cs" />
     <Compile Include="Tools\Database\Tables\CharacterSpell.cs" />
     <Compile Include="Tools\DBC.cs" />

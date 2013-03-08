@@ -15,7 +15,7 @@ namespace Milkshake.Communication.Outgoing.World.ActionBarButton
         {
             List<CharacterActionBarButton> savedButtons = DBActionBarButtons.GetActionBarButtons(character);
 
-            for (int button = 0; button < 120; ++button)
+            for (int button = 0; button < 120; button++)
             {
                 int index = savedButtons.FindIndex(b => b.Button == button);
 
