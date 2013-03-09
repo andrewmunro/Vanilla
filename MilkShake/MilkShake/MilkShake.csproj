@@ -151,6 +151,7 @@
     <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
     <Compile Include="Tools\Database\Helpers\DBActionBarButtons.cs" />
     <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
+    <Compile Include="Tools\Database\Helpers\DBCharacterCreation.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacterSpells.cs" />
     <Compile Include="Tools\Database\Helpers\DBGameObject.cs" />

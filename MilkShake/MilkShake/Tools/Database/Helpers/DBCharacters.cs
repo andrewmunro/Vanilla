@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Milkshake.Game.Constants;
 using Milkshake.Tools.Database.Tables;
 using SQLite;
 
@@ -16,6 +17,16 @@ namespace Milkshake.Tools.Database.Helpers
         public static List<Character> Characters
         {
             get { return CharacterQuery.ToList<Character>(); }
+        }
+
+        public static TableQuery<CharacterCreationInfo> CharacterCreationInfoQuery
+        {
+            get { return DB.SQLite.Table<CharacterCreationInfo>(); }
+        }
+
+        public static CharacterCreationInfo GetCreationInfo(RaceID raceID, ClassID classID)
+        {
+            return CharacterCreationInfoQuery.First(m => m.Race == raceID && m.Class == classID);
         }
 
         public static IEnumerable<Character> GetCharacters(int guid)

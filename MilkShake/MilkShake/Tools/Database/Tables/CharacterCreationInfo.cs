@@ -6,7 +6,7 @@ using Milkshake.Game.Constants;
 
 namespace Milkshake.Tools.Database.Tables
 {
-    class CharacterCreationInfo
+    public class CharacterCreationInfo
     {
         public RaceID Race { get; set; }
         public ClassID Class { get; set; }

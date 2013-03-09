@@ -282,6 +282,8 @@ namespace Milkshake.Net
             {
                 PCCharCreate newCharacter = new PCCharCreate(data);
 
+                CharacterCreationInfo newCharacterInfo = DBCharacters.GetCreationInfo((RaceID)newCharacter.Race, (ClassID)newCharacter.Class);
+
                 DBCharacters.CreateCharacter(Account, new Character() { Name = Helper.NormalizeText(newCharacter.Name),
                                                                         Race = (RaceID)newCharacter.Race,
                                                                         Class = (ClassID)newCharacter.Class,
@@ -300,15 +302,12 @@ namespace Milkshake.Net
                                                                         Focus = 1000,
                                                                         Drunk = 100,
                                                                         Online = 0,
-                                                                        MapID = 489,
-                                                                        Zone = 1,
-                                                                        X = 1235.54f, //- 2917.580078125f,
-                                                                        Y = 1427.1f, //- 257.980010986328f,
-                                                                        Z = 309.715f, //52.9967994689941f,
-                                                                        Rotation = 0,
-                                                                          
-
-                });
+                                                                        MapID = newCharacterInfo.Map,
+                                                                        Zone = newCharacterInfo.Zone,
+                                                                        X = newCharacterInfo.X,    //1235.54f, //- 2917.580078125f,
+                                                                        Y = newCharacterInfo.Y,    //1427.1f, //- 257.980010986328f,
+                                                                        Z = newCharacterInfo.Z,    //309.715f, //52.9967994689941f,
+                                                                        Rotation = newCharacterInfo.R });
 
                 sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);
             }
