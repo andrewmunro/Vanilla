@@ -47,7 +47,7 @@ namespace Milkshake.Tools.Database.Helpers
                 DB.SQLite.Insert(new CharacterActionBarButton() { GUID = character.GUID, Action = action, Button = button, Type = type });
         }
 
-        public static void RemoveSpell(Character character, int action, int button, int type)
+        public static void RemoveActionBarButton(Character character, int action, int button, int type)
         {
             DB.SQLite.Delete(GetActionBarButton(character, action, button, type));
         }
