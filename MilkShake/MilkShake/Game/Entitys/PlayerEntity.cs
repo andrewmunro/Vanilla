@@ -6,6 +6,7 @@ using Milkshake.Game.Constants;
 using Milkshake.Tools.DBC;
 using System.Linq;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Game.Constants.Game.World.Entity;
 
 namespace Milkshake.Game.Entitys
 {
@@ -46,10 +47,10 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 0, 3); //POwer 1 = rage
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 0x00000010);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURAFLAGS, 9);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURALEVELS, 1);
+            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 0x00000010);
+            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);
+            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURAFLAGS, 9);
+            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURALEVELS, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BASEATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);
@@ -59,9 +60,14 @@ namespace Milkshake.Game.Entitys
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINDAMAGE, 1083927991);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXDAMAGE, 1086025143);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_1, 1175040);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_MOD_CAST_SPEED, 1065353216);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)UnitStandStateType.UNIT_STAND_STATE_STAND, 0); // Stand State?
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (character.Class == ClassID.Warrior) ? (byte)ShapeshiftForm.FORM_BATTLESTANCE : (byte)ShapeshiftForm.FORM_NONE, 2); // ShapeshiftForm?
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
+
+
+            SetUpdateField<float>((int)EUnitFields.UNIT_MOD_CAST_SPEED, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_STAT0, 22);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_STAT1, 18);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_STAT2, 23);
@@ -71,7 +77,13 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RESISTANCES, 36);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RESISTANCES_05, 10);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BASE_HEALTH, 20);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_2, 10240);
+
+            /*
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 1, 0);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 1);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 2);
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 3);
+            */
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_ATTACK_POWER, 27);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGED_ATTACK_POWER, 9);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINRANGEDDAMAGE, 1074940196);

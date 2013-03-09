@@ -88,7 +88,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write((float)0);     // ????
 
             writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7);     // MOVE_RUN
+            writer.Write((float)7 * 10);     // MOVE_RUN
             writer.Write((float)4.5f);  // MOVE_RUN_BACK
             writer.Write((float)4.72f); // MOVE_SWIM
             writer.Write((float)2.5f);  // MOVE_SWIM_BACK
@@ -171,12 +171,12 @@ namespace Milkshake.Communication.Outgoing.World.Update
             return res;
         }
         public static int DisplayIDIndex = 2000;
-        public static PSUpdateObject CreateGameObject(float x, float y, float z)
+        public static PSUpdateObject CreateGameObject(float x, float y, float z, GameObject gameObject, GameObjectTemplate template)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-            GameObjectEntity entity = new GameObjectEntity(DisplayIDIndex++);
+            GameObjectEntity entity = new GameObjectEntity(gameObject, template);
 
             byte[] guidBytes = GenerateGuidBytes(entity.GUID.RawGUID);
 

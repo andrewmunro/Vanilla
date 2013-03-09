@@ -64,6 +64,8 @@ namespace Milkshake.Game.Managers
             session.Character.Y = handler.Y;
             session.Character.Z = handler.Z;
             session.Character.Rotation = handler.R;
+
+            DBCharacters.UpdateCharacter(session.Character);
         }
 
         private static void UpdateEntity(WorldSession session, PCMoveInfo handler)
@@ -80,9 +82,11 @@ namespace Milkshake.Game.Managers
 
         private static void TransmitMovement(WorldSession session, PCMoveInfo handler, Opcodes code)
         {
-            //SavePosition(session, handler);
-
-            //DBCharacters.UpdateCharacter(session.Character);
+            if (code == Opcodes.MSG_MOVE_HEARTBEAT)
+            {
+                SavePosition(session, handler);
+            }
+            
 
             UpdateEntity(session, handler);
 
