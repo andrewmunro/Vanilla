@@ -20,42 +20,55 @@ namespace Milkshake.Game.Entitys
             return angle * (180.0f / (float)Math.PI);
         }
 
+        public GameObject GameObject;
+        public GameObjectTemplate GameObjectTemplate;
+
         public GameObjectEntity(GameObject gameObject, GameObjectTemplate template) : base((int)EGameObjectFields.GAMEOBJECT_END)
         {
+            GameObject = gameObject;
+            GameObjectTemplate = template;
+
             GUID = ObjectGUID.GetGameObjectGUID();
 
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)GUID.Low);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608); // ?
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)TypeID.TYPEID_GAMEOBJECT);
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_ENTRY, (uint)template.Entry);
-            
 
-            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)1);
+
+           
+            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_ENTRY, (uint)template.Entry);
+
+            float size = (GameObjectTemplate.Size > 3) ? 1 : GameObjectTemplate.Size;
+
+            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)size);
             
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
+            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
             SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, (uint)template.DisplayID);
 
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_X, (float)gameObject.X);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Y, (float)gameObject.Y);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Z, (float)gameObject.Z);
 
-
+            
             Quaternion pew = Quaternion.CreateFromYawPitchRoll(0, 0, gameObject.R);
 
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 0, (float)pew.X);     // up down?       
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 1, (float)pew.Y);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 2, (float)pew.Z);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 3, (float)pew.W);
-            
 
             //SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_FACING, 0);           
-            
 
+
+
+            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_FLAGS, (uint)template.Flag);
+            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_STATE, (uint)1);
             
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_FLAGS, (uint)40);
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_STATE, (uint)1);
-            
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_ANIMPROGRESS, (uint)100);
+            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_ANIMPROGRESS, (uint)100);
+
+
+            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)0x21);
+            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
+            //SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)TypeID.TYPEID_DYNAMICOBJECT);
         }
     }  
 }

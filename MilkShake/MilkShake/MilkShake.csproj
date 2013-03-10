@@ -58,8 +58,9 @@
     <Compile Include="Communication\Incoming\World\Auth\PCAuthSession.cs" />
     <Compile Include="Communication\Incoming\World\Chat\Channel\PCChannel.cs" />
     <Compile Include="Communication\Incoming\World\Chat\PCMessageChat.cs" />
+    <Compile Include="Communication\Incoming\World\GameObject\PCGameObjectQuery.cs" />
     <Compile Include="Communication\Incoming\World\Movement\PCMoveInfo.cs" />
-    <Compile Include="Communication\Incoming\World\PCNameQuery.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCAreaTrigger.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCPing.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponce.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
@@ -84,7 +86,7 @@
     <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSLoginSetTimeSpeed.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
-    <Compile Include="Communication\Outgoing\World\PSNameQuery.cs" />
+    <Compile Include="Communication\Outgoing\World\PSNameQueryResponce.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSInitialSpells.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
     <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelNotify.cs" />
     <Compile Include="Game\Constants\Game\Update\EUpdateFields.cs" />
+    <Compile Include="Game\Constants\Game\Update\GameObjectTypes.cs" />
     <Compile Include="Game\Constants\Game\Update\HighGUID.cs" />
     <Compile Include="Game\Constants\Game\Update\MovementFlags.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectFlags.cs" />

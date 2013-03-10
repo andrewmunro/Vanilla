@@ -148,17 +148,21 @@ namespace Milkshake.Net
         {
             byte[] buffer = new byte[send.Length];
             Buffer.BlockCopy(send, 0, buffer, 0, send.Length);
-            
+
             try
             {
 
-                connectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate(IAsyncResult result) {  }, null);
+                connectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate(IAsyncResult result) { }, null);
             }
             catch (SocketException)
             {
                 Disconnect();
             }
             catch (NullReferenceException)
+            {
+                Disconnect();
+            }
+            catch (ObjectDisposedException)
             {
                 Disconnect();
             }

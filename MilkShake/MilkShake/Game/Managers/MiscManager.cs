@@ -15,6 +15,9 @@ using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Network;
 using Milkshake.Game.Entitys;
+using Milkshake.Communication.Incoming.World.GameObject;
+using Milkshake.Communication.Outgoing.World.Entity;
+using Milkshake.Game.Constants.Game.Update;
 
 namespace Milkshake.Game.Managers
 {
@@ -28,6 +31,7 @@ namespace Milkshake.Game.Managers
             DataRouter.AddHandler<PCAreaTrigger>(Opcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
             DataRouter.AddHandler<PCPing>(Opcodes.CMSG_PING, OnPingPacket);
             DataRouter.AddHandler<PCSetSelection>(Opcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
+            DataRouter.AddHandler<PCGameObjectQuery>(Opcodes.CMSG_GAMEOBJECT_QUERY, OnGameObjectQuery);
         }
 
         public static void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
@@ -36,8 +40,15 @@ namespace Milkshake.Game.Managers
 
             if (target != null)
             {
-                session.sendPacket(new PSNameQuery(target));
+                session.sendPacket(new PSNameQueryResponce(target));
             }
+        }
+
+        public static void OnGameObjectQuery(WorldSession session, PCGameObjectQuery packet)
+        {            
+            GameObjectTemplate template = DBGameObject.GameObjectTemplates.Find(g => g.Entry == packet.EntryID);
+            session.sendPacket(new PSGameObjectQueryResponce(template));
+            session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
         }
 
         public static void OnTextEmotePacket(WorldSession session, PCTextEmote packet)

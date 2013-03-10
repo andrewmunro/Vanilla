@@ -10,31 +10,31 @@ namespace Milkshake.Tools.Database.Helpers
 {
     public class DBGameObject
     {
-        private static List<GameObject> GameObjectQueryCache;
-        public static List<GameObject> GameObjectQuery
+        private static List<GameObject> GameObjectCache;
+        public static List<GameObject> GameObjects
         {
             get
             {
                 if (GameObjectQueryCache == null) GameObjectQueryCache = DB.World.Table<GameObject>().ToList();
 
-                return GameObjectQueryCache;
+                return GameObjectCache;
             }
         }
 
-        private static List<GameObjectTemplate> GameObjectTemplateQueryCache;
-        public static List<GameObjectTemplate> GameObjectTemplateQuery
+        private static List<GameObjectTemplate> GameObjectTemplateCache;
+        public static List<GameObjectTemplate> GameObjectTemplates
         {
             get
             {
                 if (GameObjectTemplateQueryCache == null) GameObjectTemplateQueryCache = DB.World.Table<GameObjectTemplate>().ToList();
 
-                return GameObjectTemplateQueryCache;
+                return GameObjectTemplateCache;
             }
         }
 
         public static List<GameObject> GetGameObjects(PlayerEntity entity, float Radius)
         {
-            return GameObjectQuery.FindAll((go) => entity.Character.MapID == go.Map && Distance(entity, go.X, go.Y, go.Z) < Radius);
+            return GameObjects.FindAll((go) => entity.Character.MapID == go.Map && Distance(entity, go.X, go.Y, go.Z) < Radius);
         }
 
         public static float Distance(PlayerEntity player, float X, float Y, float Z)
@@ -48,7 +48,7 @@ namespace Milkshake.Tools.Database.Helpers
 
         public static GameObjectTemplate GetGameObjectTemplate(uint Entry)
         {
-            return GameObjectTemplateQuery.ToList<GameObjectTemplate>().Find((got) => got.Entry == Entry);
+            return GameObjectTemplates.ToList<GameObjectTemplate>().Find((got) => got.Entry == Entry);
         }
     }
 }
