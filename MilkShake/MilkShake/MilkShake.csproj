@@ -129,6 +129,9 @@
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
     <Compile Include="Game\Constants\PacketHeaderType.cs" />
     <Compile Include="Network\ServerPacket.cs" />
+    <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
+    <Compile Include="Tools\Chat\ChatCommandParser.cs" />
+    <Compile Include="Tools\Chat\Commands\SpellCommands.cs" />
     <Compile Include="Tools\Config\Config.cs" />
     <Compile Include="Tools\Config\ConfigValues.cs" />
     <Compile Include="Tools\Cryptography\BigInteger.cs" />
@@ -151,9 +154,7 @@
     <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
     <Compile Include="Tools\Database\Helpers\DBActionBarButtons.cs" />
     <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
-    <Compile Include="Tools\Database\Helpers\DBCharacterCreation.cs" />
     <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
-    <Compile Include="Tools\Database\Helpers\DBCharacterSpells.cs" />
     <Compile Include="Tools\Database\Helpers\DBGameObject.cs" />
     <Compile Include="Tools\Database\Helpers\DBSpells.cs" />
     <Compile Include="Tools\Database\SQLite.cs" />

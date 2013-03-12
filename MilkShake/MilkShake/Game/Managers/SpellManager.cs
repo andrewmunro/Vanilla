@@ -89,7 +89,7 @@ namespace Milkshake.Game.Managers
         public static void OnLearnSpell(WorldSession session, int spellID)
         {
             session.sendPacket(new PSLearnSpell((uint)spellID));
-            DBCharacterSpells.AddSpell(session.Character, spellID);
+            DBSpells.AddSpell(session.Character, spellID);
         }
     }
 }

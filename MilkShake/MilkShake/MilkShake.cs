@@ -8,6 +8,7 @@ using Milkshake.Game.Sessions;
 using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Net;
+using Milkshake.Tools.Chat;
 using Milkshake.Tools.Config;
 using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.World;
@@ -51,6 +52,7 @@ namespace Milkshake
             MovementManager.Boot();
             MiscManager.Boot();
             SpellManager.Boot();
+            ChatCommandParser.Boot();
             //ZoneHandler.Boot();
 
             while (true) Console.ReadLine();
