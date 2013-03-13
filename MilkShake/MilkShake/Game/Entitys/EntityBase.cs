@@ -2,26 +2,41 @@
 using System.Linq;
 using System.Collections;
 using System.IO;
+using Milkshake.Game.Constants.Game.Update;
+using System.Collections.Generic;
 
 namespace Milkshake.Game.Entitys
 {
-    public class WorldEntity
+    public class EntityBase
     {
+        public static List<EntityBase> Entitys = new List<EntityBase>();
+
         public ObjectGUID GUID;
 
         public int MaskSize;
         public BitArray Mask;
         public Hashtable UpdateData;
 
-        public WorldEntity(int dataLength)
+        public float Scale
+        {
+            get { return (float)UpdateData[(int)EObjectFields.OBJECT_FIELD_SCALE_X]; }
+            set { SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, value); }
+        }
+
+        public int UpdateCount = 0;
+
+        public EntityBase(int dataLength)
         {
             MaskSize = ((dataLength) + 32) / 32;
             Mask = new BitArray(dataLength, false);
             UpdateData = new Hashtable();
+
+            Entitys.Add(this);
         }
 
-        public void SetUpdateField<T>(int index, T value, byte offset = 0)
+        internal void SetUpdateField<T>(int index, T value, byte offset = 0)
         {
+            UpdateCount++;
             switch (value.GetType().Name)
             {
                 case "SByte":
@@ -100,7 +115,9 @@ namespace Milkshake.Game.Entitys
 
         public void WriteUpdateFields(BinaryWriter packet)
         {
+           
             packet.Write((byte)MaskSize);
+            
             WriteBitArray(packet, Mask, (MaskSize * 4));    // Int32 = 4 Bytes
 
             for (int i = 0; i < Mask.Count; i++)
@@ -129,6 +146,7 @@ namespace Milkshake.Game.Entitys
             }
 
             Mask.SetAll(false);
+            UpdateCount = 0;
         }
     }
 }

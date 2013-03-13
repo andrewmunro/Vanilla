@@ -11,12 +11,38 @@ using Milkshake.Game.Constants.Game.World.Entity;
 namespace Milkshake.Game.Entitys
 {
 
-    public class PlayerEntity : WorldEntity
+    public class PlayerEntity : EntityBase
     {
         public Character Character;
         public PlayerEntity Target;
 
         public float X, Y, Z;
+
+        public int Health
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_HEALTH]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, value); }
+        }
+
+        public int MaxHealth
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_MAXHEALTH]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, value); }
+        }
+
+        public int Level
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_LEVEL]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, value); }
+        }
+
+        public int XP
+        {
+            get { return (int)UpdateData[(int)EUnitFields.PLAYER_XP]; }
+            set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
+        }
+
+
 
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
@@ -25,19 +51,22 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
-            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)1f);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_HEALTH, 70);
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, 70);
+            Health = 70;
+            MaxHealth = 70;
+            Level = 1;
+            XP = 0;
+            Scale = 1;
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER1, 1000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 1000);
+            
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
 
             ChrRacesEntry Race = DBC.ChrRaces.ToList().First(r => (RaceID)r.RaceID == character.Race);
 
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_LEVEL, 1);
+            
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, Race.FactionID);
             //SetUpdateField<Int32>((int)EUnitFields, Race.FactionID);
 

@@ -15,6 +15,11 @@ namespace Milkshake.Game.Entitys
             return new ObjectGUID(TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
         }
 
+        public static ObjectGUID GetGameObjectGUID(uint index)
+        {
+            return new ObjectGUID(index, TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
+        }
+
         private static uint GetIndex(TypeID type)
         {
             if (!Indexes.ContainsKey(type)) Indexes.Add(type, 0);

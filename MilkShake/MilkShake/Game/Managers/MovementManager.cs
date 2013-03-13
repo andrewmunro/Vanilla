@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Network;
 using Milkshake.Tools;
+using Milkshake.Game.Entitys;
 
 namespace Milkshake.Game.Managers
 {
@@ -46,6 +47,13 @@ namespace Milkshake.Game.Managers
             MOVEMENT_CODES.ForEach(code => DataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
 
             DataRouter.AddHandler(Opcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
+            DataRouter.AddHandler(Opcodes.MSG_MOVE_WORLDPORT_ACK, OnWorldPort);
+        }
+
+        private static void OnWorldPort(WorldSession session, byte[] data)
+        {
+            PlayerEntity a;
+            session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out a));
         }
 
         private static void OnMoveTimeSkipped(WorldSession session, byte[] packet)
@@ -86,7 +94,7 @@ namespace Milkshake.Game.Managers
             {
                 SavePosition(session, handler);
             }
-            
+
 
             UpdateEntity(session, handler);
 

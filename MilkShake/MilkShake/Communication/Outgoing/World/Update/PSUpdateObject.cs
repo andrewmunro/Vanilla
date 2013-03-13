@@ -176,7 +176,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			BinaryWriter writer = new BinaryWriter(new MemoryStream());
 			writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-			GameObjectEntity entity = new GameObjectEntity(gameObject, template);
+            GOEntity entity = new GOEntity(gameObject, template);
 
 			byte[] guidBytes = GenerateGuidBytes(entity.GUID.RawGUID);
 
@@ -234,10 +234,28 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, 1);
 		}
 
-		public static PSUpdateObject UpdateValues(WorldSession session, Character character)
-		{
-			BinaryWriter writer = new BinaryWriter(new MemoryStream());
-			writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
+        public static PSUpdateObject UpdateValues(WorldSession session, EntityBase entity)
+        {
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
+
+
+
+            byte[] guidBytes = GenerateGuidBytes((ulong)entity.GUID.RawGUID);
+            WriteBytes(writer, guidBytes, guidBytes.Length);
+
+            //entity.SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)20f);
+            //entity.SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION, (float)1f);
+            //entity.SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, (uint)10);
+            entity.WriteUpdateFields(writer);
+
+            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, (entity is PlayerEntity) ? 0 : 1);
+        }
+        /*
+        public static PSUpdateObject UpdateValues(WorldSession session, Character character)
+        {
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
 
 
 			
@@ -258,6 +276,6 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
 			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
 		}
-
+        */
 	}
 }

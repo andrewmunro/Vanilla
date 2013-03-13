@@ -5,6 +5,8 @@ using Milkshake.Tools.Database;
 using Milkshake.Tools.Database.Helpers;
 using System.Collections.Generic;
 using System;
+using Milkshake.Game.Entitys;
+using System.Threading;
 
 namespace Milkshake.Game.Managers
 {
@@ -12,7 +14,23 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            
+            Thread thread = new Thread(Update);
+            thread.Start();
+        }
+
+        public static void Update()
+        {
+            while (true)
+            {
+                foreach (EntityBase entity in EntityBase.Entitys.ToArray())
+                {
+                    if (entity.UpdateCount > 0)
+                    {
+                        WorldServer.Sessions.ForEach(s => s.sendPacket(PSUpdateObject.UpdateValues(s, entity)));
+                    }
+                }
+                Thread.Sleep(100);
+            }
         }
 
         public static void SpawnPlayer(Character character)

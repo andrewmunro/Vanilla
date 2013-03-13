@@ -18,6 +18,8 @@ using Milkshake.Game.Entitys;
 using Milkshake.Communication.Incoming.World.GameObject;
 using Milkshake.Communication.Outgoing.World.Entity;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Communication.Outgoing.Players;
+using Milkshake.Communication.Outgoing.World.Update;
 
 namespace Milkshake.Game.Managers
 {
@@ -32,6 +34,7 @@ namespace Milkshake.Game.Managers
             DataRouter.AddHandler<PCPing>(Opcodes.CMSG_PING, OnPingPacket);
             DataRouter.AddHandler<PCSetSelection>(Opcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
             DataRouter.AddHandler<PCGameObjectQuery>(Opcodes.CMSG_GAMEOBJECT_QUERY, OnGameObjectQuery);
+
         }
 
         public static void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
@@ -48,7 +51,7 @@ namespace Milkshake.Game.Managers
         {            
             GameObjectTemplate template = DBGameObject.GameObjectTemplates.Find(g => g.Entry == packet.EntryID);
             session.sendPacket(new PSGameObjectQueryResponce(template));
-            session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
+            //session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
         }
 
         public static void OnTextEmotePacket(WorldSession session, PCTextEmote packet)
@@ -63,7 +66,26 @@ namespace Milkshake.Game.Managers
 
         public static void OnAreaTriggerPacket(WorldSession session, PCAreaTrigger packet)
         {
-            session.sendMessage("[AreaTrigger] ID:" + packet.TriggerID);
+            AreaTriggerTeleport areaTrigger = DBAreaTriggers.AreaTriggerTeleport.Find(at => at.ID == packet.TriggerID);
+
+            if (areaTrigger != null)
+            {
+                session.sendMessage("[AreaTrigger] ID:" + packet.TriggerID + " " + areaTrigger.Name);
+                session.Character.MapID = areaTrigger.TargetMap;
+                session.Character.X = areaTrigger.TargetX;
+                session.Character.Y = areaTrigger.TargetY;
+                session.Character.Z = areaTrigger.TargetZ;
+                session.Character.Rotation = areaTrigger.TargetR;
+                DBCharacters.UpdateCharacter(session.Character);
+
+                session.sendPacket(new PSTransferPending(areaTrigger.TargetMap));
+                session.sendPacket(new PSNewWorld(areaTrigger.TargetMap, areaTrigger.TargetX, areaTrigger.TargetY, areaTrigger.TargetZ, areaTrigger.TargetR));
+                
+            }
+            else
+            {
+                session.sendMessage("[AreaTrigger] ID:" + packet.TriggerID);
+            }
         }
 
         public static void OnPingPacket(WorldSession session, PCPing packet)

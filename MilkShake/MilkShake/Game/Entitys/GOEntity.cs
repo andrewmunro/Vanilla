@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework;
 
 namespace Milkshake.Game.Entitys
 {
-    public class GameObjectEntity : WorldEntity
+    public class GOEntity : EntityBase
     {
+        public static List<GOEntity> GOEntitys = new List<GOEntity>();
+
         private float DegreeToRadian(float angle)
         {
             return (float)Math.PI * angle / 180.0f;
@@ -23,13 +25,21 @@ namespace Milkshake.Game.Entitys
         public GameObject GameObject;
         public GameObjectTemplate GameObjectTemplate;
 
-        public GameObjectEntity(GameObject gameObject, GameObjectTemplate template) : base((int)EGameObjectFields.GAMEOBJECT_END)
+
+
+        public int DisplayID
+        {
+            get { return (int)UpdateData[EGameObjectFields.GAMEOBJECT_DISPLAYID]; }
+            set { SetUpdateField<int>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, value); }
+        }
+
+        public GOEntity(GameObject gameObject, GameObjectTemplate template) : base((int)EGameObjectFields.GAMEOBJECT_END)
         {
             GameObject = gameObject;
             GameObjectTemplate = template;
 
-            GUID = ObjectGUID.GetGameObjectGUID();
-
+            GUID = ObjectGUID.GetGameObjectGUID((uint)gameObject.GUID);
+            //GUID = new ObjectGUID(
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)GUID.Low);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608); // ?
 
@@ -37,12 +47,11 @@ namespace Milkshake.Game.Entitys
            
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_ENTRY, (uint)template.Entry);
 
-            float size = (GameObjectTemplate.Size > 3) ? 1 : GameObjectTemplate.Size;
+            float size = GameObjectTemplate.Size;
 
-            SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)size);
-            
-            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, (uint)template.DisplayID);
+            // Some DB issue
+            Scale = GameObjectTemplate.Size != 114 ? GameObjectTemplate.Size : 1;
+            DisplayID = GameObjectTemplate.DisplayID;
 
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_X, (float)gameObject.X);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Y, (float)gameObject.Y);
@@ -66,9 +75,11 @@ namespace Milkshake.Game.Entitys
             //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_ANIMPROGRESS, (uint)100);
 
 
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)0x21);
+            //SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)0x41);
             SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
             //SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)TypeID.TYPEID_DYNAMICOBJECT);
+
+            GOEntitys.Add(this);
         }
     }  
 }
