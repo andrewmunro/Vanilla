@@ -18,6 +18,7 @@ using Milkshake.Tools.Database;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools;
+using Milkshake.Game.Entitys;
 
 namespace Milkshake.Game.Managers
 {
@@ -36,7 +37,9 @@ namespace Milkshake.Game.Managers
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
         {
-            WorldServer.TransmitToAll(new PSSpellGo(session.Entity, session.Entity.Target, packet.spellID));
+            PlayerEntity target = (session.Entity.Target == null) ? session.Entity : session.Entity.Target;
+
+            WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
             session.sendPacket(new PSCastFailed(packet.spellID));
 
             SpellEntry spell = DBC.Spells.First(s => s.ID == packet.spellID);
