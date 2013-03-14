@@ -13,14 +13,14 @@ namespace Milkshake.Tools.Chat.Commands
         [ChatCommand("modify", "Modify entity attributes")]
         public static void Lookup(WorldSession session, string[] args)
         {
-            if (args.Length == 2 && args[1].ToLower() == "list")
+            if (args.Length == 1 && args[0].ToLower() == "list")
             {
                 session.sendMessage("List");
             }
-            else if(args.Length == 3)
+            else if(args.Length == 2)
             {
-                string attributeName = args[1].ToLower();
-                string attributeValue = args[2];
+                string attributeName = args[0].ToLower();
+                string attributeValue = args[1];
 
                 // If player isn't targeting. Target self
                 PlayerEntity entity = (session.Entity.Target == null) ? session.Entity : session.Entity.Target;

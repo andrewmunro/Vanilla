@@ -26,7 +26,7 @@ namespace Milkshake.Game.Managers
                 {
                     if (entity.UpdateCount > 0)
                     {
-                        WorldServer.Sessions.ForEach(s => s.sendPacket(PSUpdateObject.UpdateValues(s, entity)));
+                        WorldServer.Sessions.FindAll(s => entity.GUID != null).ForEach(s => s.sendPacket(PSUpdateObject.UpdateValues(s, entity)));
                     }
                 }
                 Thread.Sleep(100);

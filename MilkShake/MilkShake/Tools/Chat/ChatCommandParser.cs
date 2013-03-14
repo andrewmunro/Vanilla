@@ -37,13 +37,14 @@ namespace Milkshake.Tools.Chat
         {
             message = message.Remove(0, INI.GetValue(ConfigValues.WORLD, ConfigValues.COMMAND_KEY).Length);
             List<String> args = message.ToLower().Split(' ').ToList();
-            args.RemoveAt(0);
+            
 
             MethodInfo Command;
 
             if (CommandHandlers.TryGetValue(args[0], out Command))
             {
-                object[] CommandArguments = new object[] { sender, args };
+                args.RemoveAt(0);
+                object[] CommandArguments = new object[] { sender, args.ToArray() };
 
                 //Call method with null instance (all command methods are static)
                 try
