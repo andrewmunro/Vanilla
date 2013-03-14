@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Milkshake.Net;
+using Milkshake.Tools.Config;
 
 namespace Milkshake.Tools.Chat
 {
@@ -34,8 +35,9 @@ namespace Milkshake.Tools.Chat
 
         public static Boolean ExecuteCommand(WorldSession sender, String message)
         {
-            message = message.Remove(0, 1);
-            string[] args = message.ToLower().Split(' ');
+            message = message.Remove(0, INI.GetValue(ConfigValues.WORLD, ConfigValues.COMMAND_KEY).Length);
+            List<String> args = message.ToLower().Split(' ').ToList();
+            args.RemoveAt(0);
 
             MethodInfo Command;
 
@@ -47,13 +49,13 @@ namespace Milkshake.Tools.Chat
                 try
                 {
                     Command.Invoke(null, CommandArguments);
+                    return true;
                 }
                 catch (Exception e)
                 {
                     sender.sendMessage("Command Errored: " + e.Message);
+                    return false;
                 }
-
-                return true;
             }
             return false;
         }
