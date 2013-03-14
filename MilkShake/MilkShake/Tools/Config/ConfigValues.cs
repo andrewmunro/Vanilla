@@ -16,6 +16,8 @@ namespace Milkshake.Tools.Config
         public const String NAME = "NAME";
         public const String POPULATION = "POPULATION";
 
+        public const String COMMAND_KEY = ".";
+
         public static readonly Dictionary<String, Dictionary<String, String>> DEFAULT_VALUES = new Dictionary<string, Dictionary<string, string>>
             {
                 {   
@@ -33,7 +35,8 @@ namespace Milkshake.Tools.Config
                         {PORT, "120"},
                         {MAX_CONNECTIONS, "50"},
                         {NAME, "Lucas Smells"},
-                        {POPULATION, "3"}
+                        {POPULATION, "3"},
+                        {COMMAND_KEY, "."}
                     }
                 }
             };

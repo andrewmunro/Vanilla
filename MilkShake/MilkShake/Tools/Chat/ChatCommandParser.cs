@@ -8,31 +8,33 @@ namespace Milkshake.Tools.Chat
 {
     public class ChatCommandParser
     {
+        private const string COMMANDS_NAMESPACE = "Milkshake.Tools.Chat.Commands";
+
         private static Dictionary<String, MethodInfo> CommandHandlers = new Dictionary<String, MethodInfo>();
 
         public static void Boot()
         {
-            List<Type> nameSpaces = Assembly.GetExecutingAssembly().GetTypes().Where(t => String.Equals(t.Namespace, "Milkshake.Tools.Chat.Commands", StringComparison.Ordinal)).ToList();
+            List<Type> nameSpaces = Assembly.GetExecutingAssembly().GetTypes().Where(t => String.Equals(t.Namespace, COMMANDS_NAMESPACE, StringComparison.Ordinal)).ToList();
             nameSpaces.ForEach(n =>
+            {
+                List<MethodInfo> methods = n.GetMethods().ToList();
+                methods.ForEach(m =>
                 {
-                    List<MethodInfo> methods = n.GetMethods().ToList();
-                    methods.ForEach(m =>
-                        {
-                            ChatCommandAttribute commandInfo = GetAttributes(m);
-                            if(commandInfo != null) CommandHandlers.Add(commandInfo.ChatCommand, m);
-                        });
+                    ChatCommandAttribute commandInfo = GetAttributes(m);
+                    if(commandInfo != null) CommandHandlers.Add(commandInfo.ChatCommand, m);
                 });
+            });
         }
 
         private static ChatCommandAttribute GetAttributes(MethodInfo method)
         {
             Object[] attributes = method.GetCustomAttributes(typeof (ChatCommandAttribute), false);
-            if (attributes.Length > 0) return attributes.First() as ChatCommandAttribute;
-            return null;
+            return (attributes.Length > 0) ? attributes.First() as ChatCommandAttribute : null;
         }
 
         public static Boolean ExecuteCommand(WorldSession sender, String message)
         {
+            message = message.Remove(0, 1);
             string[] args = message.ToLower().Split(' ');
 
             MethodInfo Command;
@@ -42,7 +44,15 @@ namespace Milkshake.Tools.Chat
                 object[] CommandArguments = new object[] { sender, args };
 
                 //Call method with null instance (all command methods are static)
-                Command.Invoke(null, CommandArguments);
+                try
+                {
+                    Command.Invoke(null, CommandArguments);
+                }
+                catch (Exception e)
+                {
+                    sender.sendMessage("Command Errored: " + e.Message);
+                }
+
                 return true;
             }
             return false;

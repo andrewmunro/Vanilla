@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Milkshake.Tools.Config
 {
-    static class Config
+    static class INI
     {
         private const String FILEPATH = "./config.ini";
         [DllImport("kernel32")]
@@ -19,10 +19,10 @@ namespace Milkshake.Tools.Config
 
         public static void Boot()
         {
-            Log.Print(LogType.Server, "Config file initialised");
+            Log.Print(LogType.Server, "INI file initialised");
             if (!File.Exists(FILEPATH))
             {
-                Log.Print(LogType.Warning, "Config file not found! Creating new one!");
+                Log.Print(LogType.Warning, "INI file not found! Creating new one!");
                 using (FileStream fs = File.Create(FILEPATH));
             }
             

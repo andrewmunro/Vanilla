@@ -132,7 +132,7 @@
     <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
     <Compile Include="Tools\Chat\ChatCommandParser.cs" />
     <Compile Include="Tools\Chat\Commands\SpellCommands.cs" />
-    <Compile Include="Tools\Config\Config.cs" />
+    <Compile Include="Tools\Config\INI.cs" />
     <Compile Include="Tools\Config\ConfigValues.cs" />
     <Compile Include="Tools\Cryptography\BigInteger.cs" />
     <Compile Include="Tools\Cryptography\PacketCrypto.cs" />

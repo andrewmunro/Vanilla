@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Communication.Outgoing.World.Movement;
 using Milkshake.Tools.Chat;
+using Milkshake.Tools.Config;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools.Database;
 using Milkshake.Tools.Database.Helpers;
@@ -43,8 +44,8 @@ namespace Milkshake.Game.Managers
 
         public static void OnSayYell(WorldSession session, PCMessageChat packet)
         {
-            if (!ChatCommandParser.ExecuteCommand(session, packet.Message))
-                WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
+            if (packet.Message[0].ToString() == INI.GetValue(ConfigValues.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
+            else WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }
 
         public static void OnWhisper(WorldSession session, PCMessageChat packet)

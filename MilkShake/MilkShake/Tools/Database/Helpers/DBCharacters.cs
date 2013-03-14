@@ -55,8 +55,15 @@ namespace Milkshake.Tools.Database.Helpers
         public static void DeleteCharacter(Character character)
         {
             DB.SQLite.Delete(character);
-            DBSpells.GetCharacterSpells(character).ForEach(s=> DB.SQLite.Delete(s));
-            DBActionBarButtons.GetActionBarButtons(character).ForEach(b => DB.SQLite.Delete(b));
+            DBActionBarButtons.GetActionBarButtons(character).ForEach(s => DB.SQLite.Delete(s));
+
+
+
+            List<CharacterSpell> spells = DBSpells.GetCharacterSpells(character);
+            foreach (CharacterSpell spell in spells)
+            {
+                DB.SQLite.Delete(spell);
+            }
         }
 
         public static void UpdateCharacter(Character character)

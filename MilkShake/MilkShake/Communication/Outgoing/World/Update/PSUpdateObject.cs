@@ -14,250 +14,250 @@ using Milkshake.Net;
 
 namespace Milkshake.Communication.Outgoing.World.Update
 {
-    public class PSUpdateObject : ServerPacket
-    {
-        public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(Opcodes.SMSG_UPDATE_OBJECT)
-        {
-            Write((uint)blocks.Count());
-            Write((byte)hasTansport); // Has transport
+	public class PSUpdateObject : ServerPacket
+	{
+		public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(Opcodes.SMSG_UPDATE_OBJECT)
+		{
+			Write((uint)blocks.Count());
+			Write((byte)hasTansport); // Has transport
 
-            // Write each block
-            blocks.ForEach(b => Write(b));
-        }
+			// Write each block
+			blocks.ForEach(b => Write(b));
+		}
 
-        /* Needs moving */
-        public static byte[] GenerateGuidBytes(ulong guid)
-        {
-            byte[] packedGuid = new byte[9];
-            byte length = 1;
+		/* Needs moving */
+		public static byte[] GenerateGuidBytes(ulong guid)
+		{
+			byte[] packedGuid = new byte[9];
+			byte length = 1;
 
-            for (byte i = 0; guid != 0; i++)
-            {
-                if ((guid & 0xFF) != 0)
-                {
-                    packedGuid[0] |= (byte)(1 << i);
-                    packedGuid[length] = (byte)(guid & 0xFF);
-                    ++length;
-                }
-
-                guid >>= 8;
-            }
-
-            byte[] clippedArray = new byte[length];
-            Array.Copy(packedGuid, clippedArray, length);
-
-            return clippedArray;           
-        }
-
-        /* Needs moving */
-        public static void WriteBytes(BinaryWriter writer, byte[] data, int count = 0)
-        {
-            if (count == 0)
-                writer.Write(data);
-            else
-                writer.Write(data, 0, count);
-        }
-
-        public static PSUpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
-        {
-            BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
-
-            byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
-            WriteBytes(writer, guidBytes, guidBytes.Length);
-            
-            
-            writer.Write((byte)TypeID.TYPEID_PLAYER);
-
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
-                                      ObjectFlags.UPDATEFLAG_HAS_POSITION |
-                                      ObjectFlags.UPDATEFLAG_LIVING |
-                                      ObjectFlags.UPDATEFLAG_SELF;
-
-            writer.Write((byte)updateFlags);
-
-            writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
-            writer.Write((UInt32)Environment.TickCount); // Time?
-
-            writer.Write((float)character.X);
-            writer.Write((float)character.Y);
-            writer.Write((float)character.Z);
-            writer.Write((float)character.Rotation); // R
-
-            // Movement speeds
-            writer.Write((float)0);     // ????
-
-            writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7 * 10);     // MOVE_RUN
-            writer.Write((float)4.5f);  // MOVE_RUN_BACK
-            writer.Write((float)4.72f); // MOVE_SWIM
-            writer.Write((float)2.5f);  // MOVE_SWIM_BACK
-            writer.Write((float)3.14f); // MOVE_TURN_RATE
-
-            writer.Write(0x1); // Unkown...
-
-            entity = new PlayerEntity(character);
-            entity.GUID = new ObjectGUID((ulong)character.GUID);
-            entity.WriteUpdateFields(writer);
-
-            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
-        }
-
-
-        public static PSUpdateObject CreateCharacterUpdate(Character character)
-        {
-            BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
-
-            byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
-            WriteBytes(writer, guidBytes, guidBytes.Length);
-
-
-            writer.Write((byte)TypeID.TYPEID_PLAYER);
-
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
-                                      ObjectFlags.UPDATEFLAG_HAS_POSITION |
-                                      ObjectFlags.UPDATEFLAG_LIVING;
-
-            writer.Write((byte)updateFlags);
-
-            writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
-            writer.Write((UInt32)Environment.TickCount); // Time?
-
-            // Position
-            writer.Write((float)character.X);
-            writer.Write((float)character.Y);
-            writer.Write((float)character.Z);
-            writer.Write((float)0); // R
-
-            // Movement speeds
-            writer.Write((float)0);     // ????
-
-            writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7);     // MOVE_RUN
-            writer.Write((float)4.5f);  // MOVE_RUN_BACK
-            writer.Write((float)4.72f * 20); // MOVE_SWIM
-            writer.Write((float)2.5f);  // MOVE_SWIM_BACK
-            writer.Write((float)3.14f); // MOVE_TURN_RATE
-
-            writer.Write(0x1); // Unkown...
-
-            new PlayerEntity(character).WriteUpdateFields(writer);
-
-            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
-        }
-
-        public static ulong ReadPackedGuid(BinaryReader reader)
-        {
-            byte mask = reader.ReadByte();
-
-            if (mask == 0)
-            {
-                return 0;
-            }
-
-            ulong res = 0;
-
-            int i = 0;
-            while (i < 8)
-            {
-                if ((mask & 1 << i) != 0)
-                {
-                    res += (ulong)reader.ReadByte() << (i * 8);
-                }
-                i++;
-            }
-
-            return res;
-        }
-        public static int DisplayIDIndex = 2000;
-        public static PSUpdateObject CreateGameObject(float x, float y, float z, GameObject gameObject, GameObjectTemplate template)
-        {
-            BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
-
-            GameObjectEntity entity = new GameObjectEntity(gameObject, template);
-
-            byte[] guidBytes = GenerateGuidBytes(entity.GUID.RawGUID);
-
-            for (int i = 0; i < guidBytes.Length; i++) writer.Write(guidBytes[i]);
-
-            //BinaryReader reader = new BinaryReader(new MemoryStream(guidBytes));
-           // ulong lol = ReadPackedGuid(reader);
-
-            //
-            /*
-            byte[] Guid = Helper.HexToByteArray("C7 E8 AB 02 C0 1F");
-            BinaryReader reader = new BinaryReader(new MemoryStream(Guid));
-            ulong lol = ReadPackedGuid(reader);
-
-            Console.WriteLine("s");
-             */
-            /*
-            HighGUID a = (HighGUID)((lol >> 48) & 0x0000FFFF);
-            TypeID ID = (TypeID)((lol >> 24) & (ulong)0x0000000000FFFFFF);
-
-            uint meh = (uint)(lol & (ulong)0x0000000000FFFFFF); // Counter?
-
-            byte[] guidByteas = GenerateGuidBytes((ulong)lol);
-            
-
-            for (int i = 0; i < Guid.Length; i++)
+			for (byte i = 0; guid != 0; i++)
 			{
-                writer.Write(Guid[i]);
+				if ((guid & 0xFF) != 0)
+				{
+					packedGuid[0] |= (byte)(1 << i);
+					packedGuid[length] = (byte)(guid & 0xFF);
+					++length;
+				}
+
+				guid >>= 8;
 			}
-           */
-            //Console.WriteLine("----> " + BitConverter.ToUInt32(Guid, 0));
 
-            writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
+			byte[] clippedArray = new byte[length];
+			Array.Copy(packedGuid, clippedArray, length);
 
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_TRANSPORT |
-                                      ObjectFlags.UPDATEFLAG_ALL |
-                                      ObjectFlags.UPDATEFLAG_HAS_POSITION;
+			return clippedArray;           
+		}
 
-            writer.Write((byte)updateFlags);
+		/* Needs moving */
+		public static void WriteBytes(BinaryWriter writer, byte[] data, int count = 0)
+		{
+			if (count == 0)
+				writer.Write(data);
+			else
+				writer.Write(data, 0, count);
+		}
 
-            // Position
+		public static PSUpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
+		{
+			BinaryWriter writer = new BinaryWriter(new MemoryStream());
+			writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-                writer.Write((float)x);
-                writer.Write((float)y);
-                writer.Write((float)z);
-         
-            writer.Write((float)0); // R
+			byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+			WriteBytes(writer, guidBytes, guidBytes.Length);
+			
+			
+			writer.Write((byte)TypeID.TYPEID_PLAYER);
 
-            writer.Write((uint)0x1); // Unkown... time?
-            writer.Write((uint)0); // Unkown... time?
+			ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
+									  ObjectFlags.UPDATEFLAG_HAS_POSITION |
+									  ObjectFlags.UPDATEFLAG_LIVING |
+									  ObjectFlags.UPDATEFLAG_SELF;
+
+			writer.Write((byte)updateFlags);
+
+			writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
+			writer.Write((UInt32)Environment.TickCount); // Time?
+
+			writer.Write((float)character.X);
+			writer.Write((float)character.Y);
+			writer.Write((float)character.Z);
+			writer.Write((float)character.Rotation); // R
+
+			// Movement speeds
+			writer.Write((float)0);     // ????
+
+			writer.Write((float)2.5f);  // MOVE_WALK
+			writer.Write((float)7 * 10);     // MOVE_RUN
+			writer.Write((float)4.5f);  // MOVE_RUN_BACK
+			writer.Write((float)4.72f); // MOVE_SWIM
+			writer.Write((float)2.5f);  // MOVE_SWIM_BACK
+			writer.Write((float)3.14f); // MOVE_TURN_RATE
+
+			writer.Write(0x1); // Unkown...
+
+			entity = new PlayerEntity(character);
+			entity.GUID = new ObjectGUID((ulong)character.GUID);
+			entity.WriteUpdateFields(writer);
+
+			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+		}
 
 
-           entity.WriteUpdateFields(writer);
+		public static PSUpdateObject CreateCharacterUpdate(Character character)
+		{
+			BinaryWriter writer = new BinaryWriter(new MemoryStream());
+			writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, 1);
-        }
-
-        public static PSUpdateObject UpdateValues(WorldSession session, Character character)
-        {
-            BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
+			byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+			WriteBytes(writer, guidBytes, guidBytes.Length);
 
 
-            
-            byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
-            WriteBytes(writer, guidBytes, guidBytes.Length);
+			writer.Write((byte)TypeID.TYPEID_PLAYER);
+
+			ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
+									  ObjectFlags.UPDATEFLAG_HAS_POSITION |
+									  ObjectFlags.UPDATEFLAG_LIVING;
+
+			writer.Write((byte)updateFlags);
+
+			writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
+			writer.Write((UInt32)Environment.TickCount); // Time?
+
+			// Position
+			writer.Write((float)character.X);
+			writer.Write((float)character.Y);
+			writer.Write((float)character.Z);
+			writer.Write((float)0); // R
+
+			// Movement speeds
+			writer.Write((float)0);     // ????
+
+			writer.Write((float)2.5f);  // MOVE_WALK
+			writer.Write((float)7);     // MOVE_RUN
+			writer.Write((float)4.5f);  // MOVE_RUN_BACK
+			writer.Write((float)4.72f * 20); // MOVE_SWIM
+			writer.Write((float)2.5f);  // MOVE_SWIM_BACK
+			writer.Write((float)3.14f); // MOVE_TURN_RATE
+
+			writer.Write(0x1); // Unkown...
+
+			new PlayerEntity(character).WriteUpdateFields(writer);
+
+			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+		}
+
+		public static ulong ReadPackedGuid(BinaryReader reader)
+		{
+			byte mask = reader.ReadByte();
+
+			if (mask == 0)
+			{
+				return 0;
+			}
+
+			ulong res = 0;
+
+			int i = 0;
+			while (i < 8)
+			{
+				if ((mask & 1 << i) != 0)
+				{
+					res += (ulong)reader.ReadByte() << (i * 8);
+				}
+				i++;
+			}
+
+			return res;
+		}
+		public static int DisplayIDIndex = 2000;
+		public static PSUpdateObject CreateGameObject(float x, float y, float z, GameObject gameObject, GameObjectTemplate template)
+		{
+			BinaryWriter writer = new BinaryWriter(new MemoryStream());
+			writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+
+			GameObjectEntity entity = new GameObjectEntity(gameObject, template);
+
+			byte[] guidBytes = GenerateGuidBytes(entity.GUID.RawGUID);
+
+			for (int i = 0; i < guidBytes.Length; i++) writer.Write(guidBytes[i]);
+
+			//BinaryReader reader = new BinaryReader(new MemoryStream(guidBytes));
+		   // ulong lol = ReadPackedGuid(reader);
+
+			//
+			/*
+			byte[] Guid = Helper.HexToByteArray("C7 E8 AB 02 C0 1F");
+			BinaryReader reader = new BinaryReader(new MemoryStream(Guid));
+			ulong lol = ReadPackedGuid(reader);
+
+			Console.WriteLine("s");
+			 */
+			/*
+			HighGUID a = (HighGUID)((lol >> 48) & 0x0000FFFF);
+			TypeID ID = (TypeID)((lol >> 24) & (ulong)0x0000000000FFFFFF);
+
+			uint meh = (uint)(lol & (ulong)0x0000000000FFFFFF); // Counter?
+
+			byte[] guidByteas = GenerateGuidBytes((ulong)lol);
+			
+
+			for (int i = 0; i < Guid.Length; i++)
+			{
+				writer.Write(Guid[i]);
+			}
+		   */
+			//Console.WriteLine("----> " + BitConverter.ToUInt32(Guid, 0));
+
+			writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
+
+			ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_TRANSPORT |
+									  ObjectFlags.UPDATEFLAG_ALL |
+									  ObjectFlags.UPDATEFLAG_HAS_POSITION;
+
+			writer.Write((byte)updateFlags);
+
+			// Position
+
+				writer.Write((float)x);
+				writer.Write((float)y);
+				writer.Write((float)z);
+		 
+			writer.Write((float)0); // R
+
+			writer.Write((uint)0x1); // Unkown... time?
+			writer.Write((uint)0); // Unkown... time?
+
+
+		   entity.WriteUpdateFields(writer);
+
+			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, 1);
+		}
+
+		public static PSUpdateObject UpdateValues(WorldSession session, Character character)
+		{
+			BinaryWriter writer = new BinaryWriter(new MemoryStream());
+			writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
+
+
+			
+			byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+			WriteBytes(writer, guidBytes, guidBytes.Length);
 
 
 
-            BinaryWriter a = new BinaryWriter(new MemoryStream());
-            PlayerEntity entity = new PlayerEntity(character);
-            entity.WriteUpdateFields(a);
+			BinaryWriter a = new BinaryWriter(new MemoryStream());
+			PlayerEntity entity = new PlayerEntity(character);
+			entity.WriteUpdateFields(a);
 
 
-            entity.SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)2f);
-            entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_HEALTH, 20);
-            entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_LEVEL, 60);
-            entity.WriteUpdateFields(writer);
+			entity.SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, (float)2f);
+			entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_HEALTH, 20);
+			entity.SetUpdateField<UInt32>((int)EUnitFields.UNIT_FIELD_LEVEL, 60);
+			entity.WriteUpdateFields(writer);
 
-            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
-        }
+			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+		}
 
-    }
+	}
 }

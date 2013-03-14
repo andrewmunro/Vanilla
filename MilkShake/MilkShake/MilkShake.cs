@@ -13,6 +13,7 @@ using Milkshake.Tools.Config;
 using Milkshake.Tools.Database;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Tools.Database.Helpers;
+using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.Update;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Game.Handlers;
@@ -38,13 +39,13 @@ namespace Milkshake
 
             DB.Boot();
             DBC.Boot();
-            Config.Boot();
+            INI.Boot();
 
             LoginServer login = new LoginServer();
             WorldServer world = new WorldServer();
 
-            login.Start(Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
-            world.Start(Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
+            login.Start(INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
+            world.Start(INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
             
             LogoutManager.Boot();
             ChatManager.Boot();

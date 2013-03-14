@@ -21,8 +21,8 @@ namespace Milkshake.Tools.Database.Helpers
 
         public static List<CharacterSpell> GetCharacterSpells(Character character)
         {
-            
-            List<CharacterSpell> result = CharacterSpellQuery.Where(s => s.GUID == character.GUID).ToList();
+
+            List<CharacterSpell> result = CharacterSpellQuery.ToList().FindAll(s => s.GUID == character.GUID);
             if (result.Count == 0) 
             {
                 List<CharacterCreationSpell> newCharacterSpells = CharacterCreationSpellQuery.Where(s => s.Race == character.Race && s.Class == character.Class).ToList();
