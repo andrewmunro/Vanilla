@@ -11,12 +11,12 @@ namespace Milkshake.Tools.Database.Helpers
     {
         public static TableQuery<CharacterSpell> CharacterSpellQuery
         {
-            get { return DB.SQLite.Table<CharacterSpell>(); }
+            get { return DB.Character.Table<CharacterSpell>(); }
         }
 
         public static TableQuery<CharacterCreationSpell> CharacterCreationSpellQuery
         {
-            get { return DB.SQLite.Table<CharacterCreationSpell>(); }
+            get { return DB.World.Table<CharacterCreationSpell>(); }
         }
 
         public static List<CharacterSpell> GetCharacterSpells(Character character)
@@ -29,7 +29,7 @@ namespace Milkshake.Tools.Database.Helpers
                 newCharacterSpells.ForEach(s =>
                     {
                         CharacterSpell newSpell = new CharacterSpell() {GUID = character.GUID, SpellID = s.SpellID};
-                        DB.SQLite.Insert(newSpell);
+                        DB.Character.Insert(newSpell);
                         result.Add(newSpell);
                     });
             }
@@ -44,12 +44,12 @@ namespace Milkshake.Tools.Database.Helpers
         public static void AddSpell(Character character, int spellID)
         {
             if(GetCharacterSpell(character, spellID) == null) 
-                DB.SQLite.Insert(new CharacterSpell() { GUID = character.GUID, SpellID = spellID });
+                DB.Character.Insert(new CharacterSpell() { GUID = character.GUID, SpellID = spellID });
         }
 
         public static void RemoveSpell(Character character, int spellID)
         {
-            DB.SQLite.Delete(GetCharacterSpell(character, spellID));
+            DB.Character.Delete(GetCharacterSpell(character, spellID));
         }
     }
 }

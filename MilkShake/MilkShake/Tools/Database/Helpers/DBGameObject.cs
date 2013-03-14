@@ -15,7 +15,7 @@ namespace Milkshake.Tools.Database.Helpers
         {
             get
             {
-                if (GameObjectQueryCache == null) GameObjectQueryCache = DB.SQLite.Table<GameObject>().ToList();
+                if (GameObjectQueryCache == null) GameObjectQueryCache = DB.World.Table<GameObject>().ToList();
 
                 return GameObjectQueryCache;
             }
@@ -26,7 +26,7 @@ namespace Milkshake.Tools.Database.Helpers
         {
             get
             {
-                if(GameObjectTemplateQueryCache == null) GameObjectTemplateQueryCache = DB.SQLite.Table<GameObjectTemplate>().ToList();
+                if (GameObjectTemplateQueryCache == null) GameObjectTemplateQueryCache = DB.World.Table<GameObjectTemplate>().ToList();
 
                 return GameObjectTemplateQueryCache;
             }

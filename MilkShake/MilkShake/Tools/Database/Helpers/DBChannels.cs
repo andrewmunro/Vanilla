@@ -11,18 +11,12 @@ namespace Milkshake.Tools.Database.Helpers
     {
         public static TableQuery<Channel> ChannelQuery
         {
-            get { return DB.SQLite.Table<Channel>(); }
+            get { return DB.Character.Table<Channel>(); }
         }
 
         public static TableQuery<ChannelCharacter> ChannelCharacterQuery
         {
-            get { return DB.SQLite.Table<ChannelCharacter>(); }
-        }
-
-        public static List<Character> GetCharacters(String channelName)
-        {
-            int channelID = GetChannel(channelName).ID;
-            return DB.SQLite.Query<Character>("select * from Character left join ChannelCharacter where ChannelCharacter.GUID = ?", channelID);
+            get { return DB.Character.Table<ChannelCharacter>(); }
         }
 
         public static List<Channel> Channels
@@ -40,9 +34,10 @@ namespace Milkshake.Tools.Database.Helpers
             return Channels.Find(c => c.Name == channel);
         }
 
-        public static Channel GetChannel(int channelID)
+        public static List<Character> GetCharacters(String channelName)
         {
-            return Channels.Find(c => c.ID == channelID);
+            int channelID = GetChannel(channelName).ID;
+            return DB.Character.Query<Character>("select * from Character left join ChannelCharacter where ChannelCharacter.GUID = ?", channelID);
         }
 
         public static ChannelCharacter GetChannelCharacter(int guid, string channelName)
@@ -50,9 +45,14 @@ namespace Milkshake.Tools.Database.Helpers
             return ChannelCharacters.Find(c => c.GUID == guid && c.ChannelID == GetChannel(channelName).ID);
         }
 
+        public static List<ChannelCharacter> GetChannelCharacters(Character character)
+        {
+            return ChannelCharacterQuery.ToList().FindAll(c => c.GUID == character.GUID);
+        }
+
         public static void CreateChannel(int guid, String channelName)
         {
-            DB.SQLite.Insert(new Channel() { Name = channelName, DateCreated = DateTime.Now, OwnerGUID = guid });
+            DB.Character.Insert(new Channel() { Name = channelName, DateCreated = DateTime.Now, OwnerGUID = guid });
             JoinChannel(guid, channelName);
         }
 
@@ -60,14 +60,14 @@ namespace Milkshake.Tools.Database.Helpers
         {
             if (GetChannel(channelName) != null)
             {
-                if (GetChannelCharacter(guid, channelName) == null) DB.SQLite.Insert(new ChannelCharacter() { GUID = guid, ChannelID = GetChannel(channelName).ID });
+                if (GetChannelCharacter(guid, channelName) == null) DB.Character.Insert(new ChannelCharacter() { GUID = guid, ChannelID = GetChannel(channelName).ID });
             }
             else CreateChannel(guid, channelName);
         }
 
         public static void LeaveChannel(int guid, String channelName)
         {
-            DB.SQLite.Delete(GetChannelCharacter(guid, channelName));
+            DB.Character.Delete(GetChannelCharacter(guid, channelName));
         }
     }
 }

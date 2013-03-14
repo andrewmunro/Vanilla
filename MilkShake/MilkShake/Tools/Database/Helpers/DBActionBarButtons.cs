@@ -11,12 +11,12 @@ namespace Milkshake.Tools.Database.Helpers
     {
         public static TableQuery<CharacterActionBarButton> CharacterActionBarButtonQuery
         {
-            get { return DB.SQLite.Table<CharacterActionBarButton>(); }
+            get { return DB.Character.Table<CharacterActionBarButton>(); }
         }
 
         public static TableQuery<CharacterCreationActionBarButton> CharacterCreationActionBarButtonQuery
         {
-            get { return DB.SQLite.Table<CharacterCreationActionBarButton>(); }
+            get { return DB.World.Table<CharacterCreationActionBarButton>(); }
         }
 
         public static List<CharacterActionBarButton> GetActionBarButtons(Character character)
@@ -29,7 +29,7 @@ namespace Milkshake.Tools.Database.Helpers
                 newCharacterActionBarButtons.ForEach(ncabb =>
                 {
                     CharacterActionBarButton actionBarButton = new CharacterActionBarButton() { GUID = character.GUID, Action = ncabb.Action, Button = ncabb.Button, Type = ncabb.Type};
-                    DB.SQLite.Insert(actionBarButton);
+                    DB.Character.Insert(actionBarButton);
                     result.Add(actionBarButton);
                 });
             }
@@ -44,12 +44,12 @@ namespace Milkshake.Tools.Database.Helpers
         public static void AddActionBarButton(Character character, int action, int button, int type)
         {
             if (GetActionBarButton(character, action, button, type) == null)
-                DB.SQLite.Insert(new CharacterActionBarButton() { GUID = character.GUID, Action = action, Button = button, Type = type });
+                DB.Character.Insert(new CharacterActionBarButton() { GUID = character.GUID, Action = action, Button = button, Type = type });
         }
 
         public static void RemoveActionBarButton(Character character, int action, int button, int type)
         {
-            DB.SQLite.Delete(GetActionBarButton(character, action, button, type));
+            DB.Character.Delete(GetActionBarButton(character, action, button, type));
         }
     }
 }

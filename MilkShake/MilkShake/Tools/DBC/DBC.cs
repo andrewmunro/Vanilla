@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Tools.Config;
 using Milkshake.Tools.DBC.Tables;
 using SQLite;
 
@@ -13,7 +14,7 @@ namespace Milkshake.Tools.DBC
 
         public static void Boot()
         {
-            SQLite = new SQLiteConnection("dbc.db3");
+            SQLite = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.DBC));
         }
 
         public static TableQuery<ChrRacesEntry> ChrRaces

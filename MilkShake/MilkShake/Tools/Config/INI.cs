@@ -19,7 +19,6 @@ namespace Milkshake.Tools.Config
 
         public static void Boot()
         {
-            Log.Print(LogType.Server, "INI file initialised");
             if (!File.Exists(FILEPATH))
             {
                 Log.Print(LogType.Warning, "INI file not found! Creating new one!");
@@ -27,6 +26,7 @@ namespace Milkshake.Tools.Config
             }
             
             CheckValues();
+            Log.Print(LogType.Server, "INI file initialised");
         }
 
         private static void CheckValues()

@@ -11,7 +11,12 @@ namespace Milkshake.Tools.Database.Helpers
     {
         public static TableQuery<Character> CharacterQuery
         {
-            get { return DB.SQLite.Table<Character>(); }
+            get { return DB.Character.Table<Character>(); }
+        }
+
+        public static TableQuery<CharacterCreationInfo> CharacterCreationInfoQuery
+        {
+            get { return DB.World.Table<CharacterCreationInfo>(); }
         }
 
         public static List<Character> Characters
@@ -19,19 +24,9 @@ namespace Milkshake.Tools.Database.Helpers
             get { return CharacterQuery.ToList<Character>(); }
         }
 
-        public static TableQuery<CharacterCreationInfo> CharacterCreationInfoQuery
-        {
-            get { return DB.SQLite.Table<CharacterCreationInfo>(); }
-        }
-
         public static CharacterCreationInfo GetCreationInfo(RaceID raceID, ClassID classID)
         {
             return CharacterCreationInfoQuery.First(m => m.Race == raceID && m.Class == classID);
-        }
-
-        public static IEnumerable<Character> GetCharacters(int guid)
-        {
-            return DB.SQLite.Table<Character>().Where(c => c.GUID == guid);
         }
 
         public static List<Character> GetCharacters(String username)
@@ -49,26 +44,20 @@ namespace Milkshake.Tools.Database.Helpers
         {
             character.AccountID = owner.ID;
 
-            DB.SQLite.Insert(character);
+            DB.Character.Insert(character);
         }
 
         public static void DeleteCharacter(Character character)
         {
-            DB.SQLite.Delete(character);
-            DBActionBarButtons.GetActionBarButtons(character).ForEach(s => DB.SQLite.Delete(s));
-
-
-
-            List<CharacterSpell> spells = DBSpells.GetCharacterSpells(character);
-            foreach (CharacterSpell spell in spells)
-            {
-                DB.SQLite.Delete(spell);
-            }
+            DB.Character.Delete(character);
+            DBActionBarButtons.GetActionBarButtons(character).ForEach(b => DB.Character.Delete(b));
+            DBSpells.GetCharacterSpells(character).ForEach(s => DB.Character.Delete(s));
+            DBChannels.GetChannelCharacters(character).ForEach(c => DB.Character.Delete(c));
         }
 
         public static void UpdateCharacter(Character character)
         {
-            DB.SQLite.Update(character);
+            DB.Character.Update(character);
         }
     }
 }

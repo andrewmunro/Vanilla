@@ -36,10 +36,9 @@ namespace Milkshake
             Console.WriteLine("------------------------------------");
             //UpdateReader.ProccessLog(PSUpdateObject.CreateGameObject(null).Packet);
             */
-
+            INI.Boot();
             DB.Boot();
             DBC.Boot();
-            INI.Boot();
 
             LoginServer login = new LoginServer();
             WorldServer world = new WorldServer();
