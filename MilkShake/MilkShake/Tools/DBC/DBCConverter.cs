@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using Milkshake.Tools.DBC.Tables;
 using SQLite;
+using Milkshake.Game.Constants;
+using Milkshake.Game.Constants.Character;
 
 namespace Milkshake.Tools.DBC
 {
@@ -25,6 +27,7 @@ namespace Milkshake.Tools.DBC
             //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
             //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
             //GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv");
+            GenerateTable<CharStartOutfitEntry>(CSVToCharStartOutfitEntry, DBC_LOCATION + "CharStartOutfit.csv");
 
             Console.Write(true);
             Console.Read();
@@ -150,6 +153,33 @@ namespace Milkshake.Tools.DBC
                 CooldownCatagory = int.Parse(data[20]),
                 Speed = float.Parse(data[37])
             };
+        }
+
+
+        private static CharStartOutfitEntry CSVToCharStartOutfitEntry(string[] data)
+        {
+            uint RaceClassGender = uint.Parse(data[1]);
+
+            string[] itemID = new string[12];
+            for (int index = 0; index < 12; index++)
+            {
+                itemID[index] = int.Parse(data[index + 2]).ToString();
+            }
+
+            string itemSCV = string.Join(",", itemID);
+            
+
+            CharStartOutfitEntry BLA = new CharStartOutfitEntry()
+            {
+                Race = (RaceID)(RaceClassGender >> 8),
+                Class = (ClassID)(RaceClassGender >> 12),
+                Gender = (Gender)(RaceClassGender >> 18),
+                ItemIDCSV = itemSCV
+            };
+
+            Console.WriteLine(BLA.Race);
+
+            return BLA;
         }
     }
 }
