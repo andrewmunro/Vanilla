@@ -54,6 +54,7 @@ namespace Milkshake.Game.Managers
         {
             PlayerEntity a;
             session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out a));
+            a.Session = session;
         }
 
         private static void OnMoveTimeSkipped(WorldSession session, byte[] packet)

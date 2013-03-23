@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using Milkshake.Game.Entitys;
 using System.Threading;
+using Microsoft.Xna.Framework;
 
 namespace Milkshake.Game.Managers
 {
@@ -28,7 +29,21 @@ namespace Milkshake.Game.Managers
                     {
                         WorldServer.Sessions.FindAll(s => entity.GUID != null).ForEach(s => s.sendPacket(PSUpdateObject.UpdateValues(s, entity)));
                     }
+
+                    if (entity is PlayerEntity)
+                    {
+                        PlayerEntity player = entity as PlayerEntity;
+
+                        if (player.Session != null && Vector2.Distance(new Vector2(player.X, player.Y), new Vector2(player.lastUpdateX, player.lastUpdateY)) > 50)
+                        {
+                            SpawnGameObjects(player.Session);
+                           
+                        }
+
+                    }
                 }
+
+
                 Thread.Sleep(100);
             }
         }
@@ -53,15 +68,18 @@ namespace Milkshake.Game.Managers
 
         public static void SpawnGameObjects(WorldSession worldSession)
         {
+            worldSession.Entity.lastUpdateX = worldSession.Entity.X;
+            worldSession.Entity.lastUpdateY = worldSession.Entity.Y;
+
             worldSession.Entity.X = worldSession.Character.X;
             worldSession.Entity.Y = worldSession.Character.Y;
             worldSession.Entity.Z = worldSession.Character.Z;
 
             DateTime before = DateTime.Now;
-            List<GameObject> gameObjects = DBGameObject.GetGameObjects(worldSession.Entity, 1000);
+            List<GameObject> gameObjects = DBGameObject.GetGameObjects(worldSession.Entity, 100);
             int mills = DateTime.Now.Subtract(before).Milliseconds;
 
-            worldSession.sendMessage("Found: " + gameObjects.Count + " in " + mills);
+            worldSession.sendMessage("Sending " + gameObjects.Count + " in " + mills);
 
             foreach (GameObject gameObject in gameObjects)
 	        {

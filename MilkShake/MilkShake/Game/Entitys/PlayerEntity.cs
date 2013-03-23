@@ -18,6 +18,8 @@ namespace Milkshake.Game.Entitys
 
         public float X, Y, Z;
 
+        public float lastUpdateX, lastUpdateY;
+
         public int Health
         {
             get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_HEALTH]; }
@@ -173,5 +175,7 @@ namespace Milkshake.Game.Entitys
 
             
         }
+
+        public Net.WorldSession Session { get; set; }
     }
 }

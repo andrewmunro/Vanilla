@@ -38,8 +38,8 @@ namespace Milkshake.Game.Entitys
             GameObject = gameObject;
             GameObjectTemplate = template;
 
-            GUID = ObjectGUID.GetGameObjectGUID((uint)gameObject.GUID);
-            //GUID = new ObjectGUID(
+            //GUID = ObjectGUID.GetGameObjectGUID((uint)gameObject.GUID);
+            GUID = ObjectGUID.GetGameObjectGUID();
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)GUID.Low);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608); // ?
 
