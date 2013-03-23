@@ -13,7 +13,7 @@ namespace Milkshake.Tools.Database.Helpers
         {
             get
             {
-                if (AreaTriggerTeleportCache == null) AreaTriggerTeleportCache = DB.Table<AreaTriggerTeleport>().ToList();
+                if (AreaTriggerTeleportCache == null) AreaTriggerTeleportCache = DB.World.Table<AreaTriggerTeleport>().ToList();
 
                 return AreaTriggerTeleportCache;
             }

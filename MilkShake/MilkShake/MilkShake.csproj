@@ -118,6 +118,7 @@
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterCreationOutfit.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
