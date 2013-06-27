@@ -46,12 +46,12 @@ namespace Milkshake.Tools
 
         public static ChrStartingOutfitEntry GetCharStartingOutfitString(PCCharCreate character)
         {
-            return DBC.DBC.ChrStartingOutfit.ToList().First(r => r.Class == character.Class && r.Gender == character.Gender && r.Race == character.Race);
+            return DBC.DBC.ChrStartingOutfit.ToList().Find(r => r.Class == character.Class && r.Gender == character.Gender && r.Race == character.Race);
         }
 
         public static ChrStartingOutfitEntry GetCharStartingOutfitString(Character character)
         {
-            return DBC.DBC.ChrStartingOutfit.ToList().First(r => r.Class == (int)character.Class && r.Gender == (int)character.Gender && r.Race == (int)character.Race);
+            return DBC.DBC.ChrStartingOutfit.ToList().Find(r => r.Class == (int)character.Class && r.Gender == (int)character.Gender && r.Race == (int)character.Race);
         }
     }
 

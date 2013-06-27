@@ -140,6 +140,11 @@ namespace Milkshake.Net
             writer.Write(header);
             writer.Write(data);
 
+            if (opcode == Opcodes.SMSG_CHAR_ENUM)
+            {
+                Log.Print(LogType.Debug, Helper.ByteArrayToHex(data));
+            }
+
             Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData((writer.BaseStream as MemoryStream).ToArray());
