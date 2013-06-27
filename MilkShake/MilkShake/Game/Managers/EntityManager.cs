@@ -36,8 +36,7 @@ namespace Milkshake.Game.Managers
 
                         if (player.Session != null && Vector2.Distance(new Vector2(player.X, player.Y), new Vector2(player.lastUpdateX, player.lastUpdateY)) > 50)
                         {
-                            SpawnGameObjects(player.Session);
-                           
+                            SpawnGameObjects(player.Session);                           
                         }
 
                     }

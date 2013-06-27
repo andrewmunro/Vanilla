@@ -25,6 +25,7 @@ using Milkshake.Tools.Database.Tables;
 using Milkshake.Game.Handlers;
 using Milkshake.Game.Entitys;
 using Milkshake.Communication.Outgoing.World.Player;
+using Milkshake.Communication.Outgoing.Players;
 
 namespace Milkshake.Net
 {
@@ -142,6 +143,19 @@ namespace Milkshake.Net
             Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData((writer.BaseStream as MemoryStream).ToArray());
+        }
+
+        public void Teleport(int mapID, float X, float Y, float Z)
+        {
+            Character.MapID = mapID;
+            Character.X = X;
+            Character.Y = Y;
+            Character.Z = Z;
+            Character.Rotation = 0;
+            DBCharacters.UpdateCharacter(Character);
+
+            sendPacket(new PSTransferPending(mapID));
+            sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
         }
 
         private void sendData(byte[] send)

@@ -36,6 +36,9 @@ namespace Milkshake
             Console.WriteLine("------------------------------------");
             //UpdateReader.ProccessLog(PSUpdateObject.CreateGameObject(null).Packet);
             */
+
+           // DBCConverter.Convert();
+
             INI.Boot();
             DB.Boot();
             DBC.Boot();
