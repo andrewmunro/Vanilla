@@ -228,8 +228,6 @@ namespace Milkshake.Net
 
         private void onPacket(byte[] data)
         {
-
-
                 for (int index = 0; index < data.Length; index++)
                 {
                     byte[] headerData = new byte[6];
@@ -240,20 +238,19 @@ namespace Milkshake.Net
 
                     proccessHeader(headerData, out length, out opcode);                
 
-                        Opcodes code = (Opcodes)opcode;
+                    Opcodes code = (Opcodes)opcode;
 
-                        byte[] packetDate = new byte[length];
-                        Array.Copy(data, index + 6, packetDate, 0, length - 4);
-                        Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length + " " + encCount);
-                        onPacketOLD(code, packetDate);
+                    byte[] packetDate = new byte[length];
+                    Array.Copy(data, index + 6, packetDate, 0, length - 4);
+                    Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
+                    onPacketOLD(code, packetDate);
 
-                        // New handler
-                        DataRouter.CallHandler(this, code, packetDate);   
+                    // New handler
+                    DataRouter.CallHandler(this, code, packetDate);   
 
-                        index += 2 + (length - 1);
+                    index += 2 + (length - 1);
                 }
         }
-        int encCount = 0;
         
         private void onPacketOLD(Opcodes code, byte[] data)
         {
@@ -288,30 +285,34 @@ namespace Milkshake.Net
 
                 CharacterCreationInfo newCharacterInfo = DBCharacters.GetCreationInfo((RaceID)newCharacter.Race, (ClassID)newCharacter.Class);
 
-                DBCharacters.CreateCharacter(Account, new Character() { Name = Helper.NormalizeText(newCharacter.Name),
-                                                                        Race = (RaceID)newCharacter.Race,
-                                                                        Class = (ClassID)newCharacter.Class,
-                                                                        Gender = (Gender)newCharacter.Gender,
-                                                                        Skin = newCharacter.Skin,
-                                                                        Face = newCharacter.Face,
-                                                                        HairStyle = newCharacter.HairStyle,
-                                                                        HairColor = newCharacter.HairColor,
-                                                                        Accessory = newCharacter.Accessorie,
-                                                                        Level = 1,
-                                                                        Health = 1000,
-                                                                        Mana = 1000,
-                                                                        Rage = 1000,
-                                                                        Energy = 1000,
-                                                                        Happiness = 1000,
-                                                                        Focus = 1000,
-                                                                        Drunk = 100,
-                                                                        Online = 0,
-                                                                        MapID = newCharacterInfo.Map,
-                                                                        Zone = newCharacterInfo.Zone,
-                                                                        X = newCharacterInfo.X,    //1235.54f, //- 2917.580078125f,
-                                                                        Y = newCharacterInfo.Y,    //1427.1f, //- 257.980010986328f,
-                                                                        Z = newCharacterInfo.Z,    //309.715f, //52.9967994689941f,
-                                                                        Rotation = newCharacterInfo.R });
+                DBCharacters.CreateCharacter(Account, new Character()
+                    {
+                        Name = Helper.NormalizeText(newCharacter.Name),
+                        Race = (RaceID) newCharacter.Race,
+                        Class = (ClassID) newCharacter.Class,
+                        Gender = (Gender) newCharacter.Gender,
+                        Skin = newCharacter.Skin,
+                        Face = newCharacter.Face,
+                        HairStyle = newCharacter.HairStyle,
+                        HairColor = newCharacter.HairColor,
+                        Accessory = newCharacter.Accessorie,
+                        Level = 1,
+                        Health = 1000,
+                        Mana = 1000,
+                        Rage = 1000,
+                        Energy = 1000,
+                        Happiness = 1000,
+                        Focus = 1000,
+                        Drunk = 100,
+                        Online = 0,
+                        MapID = newCharacterInfo.Map,
+                        Zone = newCharacterInfo.Zone,
+                        X = newCharacterInfo.X, //1235.54f, //- 2917.580078125f,
+                        Y = newCharacterInfo.Y, //1427.1f, //- 257.980010986328f,
+                        Z = newCharacterInfo.Z, //309.715f, //52.9967994689941f,
+                        Rotation = newCharacterInfo.R,
+                        Items = Helper.GetCharStartingOutfitString(newCharacter).ItemID
+                    });
 
                 sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);
             }

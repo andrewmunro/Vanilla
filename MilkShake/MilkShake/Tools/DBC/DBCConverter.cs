@@ -10,7 +10,7 @@ namespace Milkshake.Tools.DBC
 {
     public class DBCConverter
     {
-        public static string DBC_LOCATION = @"C:\Dropbox\Vanilla\dbc\";
+        public static string DBC_LOCATION = @"C:\Users\Andrew\Documents\My Dropbox\Projects\Vanilla\dbc\";
 
         public static SQLiteConnection SQLite;
 
@@ -20,11 +20,12 @@ namespace Milkshake.Tools.DBC
 
             List<string> DBCFiles = Directory.GetFiles(DBC_LOCATION, "*.csv").ToList<string>();
 
-            //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.dbc.CSV");
-            //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.dbc.CSV");
-            //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.dbc.CSV");
-            //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.dbc.CSV");
+            //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.csv");
+            //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.csv");
+            //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.csv");
+            //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.csv");
             //GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv");
+            GenerateTable<ChrStartingOutfitEntry>(CSVToChrStartingEntry, DBC_LOCATION + "CharStartOutfit.csv");
 
             Console.Write(true);
             Console.Read();
@@ -93,6 +94,32 @@ namespace Milkshake.Tools.DBC
                 StartingTaxiMask = int.Parse(data[14]),
                 CinematicSequence = int.Parse(data[16])
             };
+        }
+
+        private static ChrStartingOutfitEntry CSVToChrStartingEntry(string[] data)
+        {
+            return new ChrStartingOutfitEntry()
+                {
+                    Race = int.Parse(data[1]),
+                    Class = int.Parse(data[2]),
+                    Gender = int.Parse(data[3]),
+                    ItemID = GetCSVStringFromIndex(data, 2 + 3, 12),
+                    ItemDisplayID = GetCSVStringFromIndex(data, 14 + 3, 12),
+                    ItemInventoryType = GetCSVStringFromIndex(data, 26 + 3, 12)
+                };
+        }
+
+        private static string GetCSVStringFromIndex(string[] data, int startIndex, int length)
+        {
+            String result = "";
+            for (int i = 0; i < length; i++)
+            {
+                result += data[startIndex + i] + ",";
+            }
+
+            string[] output = new string[length];
+            Array.Copy(data, startIndex, output, 0, length);
+            return String.Join(",", output);
         }
 
         private static EmotesTextEntry CSVToEmotesTextEntry(string[] data)

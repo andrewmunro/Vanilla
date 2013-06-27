@@ -22,6 +22,11 @@ namespace Milkshake.Tools.DBC
             get { return SQLite.Table<ChrRacesEntry>(); }
         }
 
+        public static TableQuery<ChrStartingOutfitEntry> ChrStartingOutfit
+        {
+            get { return SQLite.Table<ChrStartingOutfitEntry>(); }
+        }
+
         public static TableQuery<AreaTableEntry> AreaTable
         {
             get { return SQLite.Table<AreaTableEntry>(); }

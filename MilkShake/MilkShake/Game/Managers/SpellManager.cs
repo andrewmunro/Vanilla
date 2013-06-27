@@ -37,9 +37,9 @@ namespace Milkshake.Game.Managers
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
         {
-            PlayerEntity target = (session.Entity.Target == null) ? session.Entity : session.Entity.Target;
+            PrepareSpell(session, packet);
 
-            WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
+            //WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
             session.sendPacket(new PSCastFailed(packet.spellID));
 
             SpellEntry spell = DBC.Spells.First(s => s.ID == packet.spellID);
@@ -74,6 +74,11 @@ namespace Milkshake.Game.Managers
            
 
            
+        }
+
+        private static void PrepareSpell(WorldSession session, PCCastSpell packet)
+        {
+            PlayerEntity target = session.Entity.Target ?? session.Entity;
         }
 
         public static void DoTimer(double interval, ElapsedEventHandler elapseEvent)

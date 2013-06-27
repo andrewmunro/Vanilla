@@ -6,6 +6,9 @@ using System.IO;
 using Milkshake.Network;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
+using Milkshake.Tools;
+using Milkshake.Tools.DBC;
+using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools.Database;
 using Milkshake.Tools.Database.Tables;
 
@@ -47,10 +50,22 @@ namespace Milkshake.Communication.Outgoing.Auth
 			    Write(0); // Pet Level
 			    Write(0); // Pet FamilyID
 
+	            ChrStartingOutfitEntry Items = Helper.GetCharStartingOutfitString(character);
+	            int[] DisplayIDs = Helper.CSVStringToIntArray(Items.ItemDisplayID);
+                int[] ItemInventoryType = Helper.CSVStringToIntArray(Items.ItemInventoryType);
+
                 for (int itemSlot = 0; itemSlot < 19; ++itemSlot)
                 {
-				    Write((int)0); // Item DisplayID
-				    Write((byte) 0); // Item Inventory Type
+                    if (itemSlot < 11 && (int) DisplayIDs[itemSlot] != -1)
+                    {
+                        Write((int)DisplayIDs[itemSlot]); // Item DisplayID
+                        Write((byte)ItemInventoryType[itemSlot]); // Item Inventory Type
+                    }
+                    else
+                    {
+                        Write((int)0);
+                        Write((byte)0);
+                    }
 			    }
 
                 Write((int)0); // first bag display id
