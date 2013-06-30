@@ -53,16 +53,16 @@ namespace Milkshake.Communication.Outgoing.Auth
 				ChrStartingOutfitEntry Items = Helper.GetCharStartingOutfitString(character);
 				int[] DisplayIDs = Helper.CSVStringToIntArray(Items.ItemDisplayID);
 				int[] ItemInventoryType = Helper.CSVStringToIntArray(Items.ItemInventoryType);
-                int[] ItemIDs = Helper.CSVStringToIntArray(Items.ItemID);
+				int[] ItemIDs = Helper.CSVStringToIntArray(Items.ItemID);
 
-                Console.WriteLine(character.Name);
+				Console.WriteLine(character.Name);
 				for (int itemSlot = 0; itemSlot < 19; itemSlot++)
 				{
-				    int InventoryType = Array.IndexOf(ItemInventoryType, itemSlot);
+					int InventoryType = Array.IndexOf(ItemInventoryType, itemSlot + 1);
 
 					if (InventoryType != -1)
 					{
-                        Console.WriteLine("Items ID:" + ItemIDs[InventoryType] + " DisplayID: " + DisplayIDs[InventoryType] + " InventoryType: " + itemSlot);
+						Console.WriteLine("Items ID:" + ItemIDs[InventoryType] + " DisplayID: " + DisplayIDs[InventoryType] + " InventoryType: " + itemSlot);
 						Write((int)DisplayIDs[InventoryType]); // Item DisplayID
 						Write((byte)itemSlot); // Item Inventory Type
 					}

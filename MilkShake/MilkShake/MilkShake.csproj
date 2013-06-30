@@ -119,6 +119,7 @@
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
     <Compile Include="Tools\DBC\Tables\ChrStartingOutfitEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
