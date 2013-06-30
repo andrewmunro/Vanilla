@@ -125,6 +125,8 @@
     <Compile Include="Tools\DBC\Helper\ItemTemplaceDBC.cs" />
     <Compile Include="Tools\DBC\Helper\SpellsDBC.cs" />
     <Compile Include="Tools\DBC\Tables\ChrStartingOutfitEntry.cs" />
+    <Compile Include="Tools\Database\Tables\CreatureEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\CreatureTemplateEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
@@ -187,7 +189,7 @@
     <Compile Include="Tools\Database\Tables\GameObjectTemplate.cs" />
     <Compile Include="Tools\DBC.cs" />
     <Compile Include="Tools\DBC\DBC.cs" />
-    <Compile Include="Tools\DBC\DBCConverter.cs" />
+    <Compile Include="Tools\DBC\DBConverter.cs" />
     <Compile Include="Tools\DBC\Tables\AreaTableEntry.cs" />
     <Compile Include="Tools\DBC\Tables\AreaTriggerEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ChrRacesEntry.cs" />
