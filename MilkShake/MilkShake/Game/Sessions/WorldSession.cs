@@ -20,6 +20,7 @@ using Milkshake.Game.Constants.Login;
 using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Incoming.World;
 using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Tools.DBC;
 using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Game.Handlers;
@@ -330,7 +331,7 @@ namespace Milkshake.Net
                         Y = newCharacterInfo.Y, //1427.1f, //- 257.980010986328f,
                         Z = newCharacterInfo.Z, //309.715f, //52.9967994689941f,
                         Rotation = newCharacterInfo.R,
-                        Items = Helper.GetCharStartingOutfitString(newCharacter).ItemID
+                        Items = DBC.GetCharStartingOutfitString(newCharacter).ItemID
                     });
 
                 sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);

@@ -50,7 +50,7 @@ namespace Milkshake.Communication.Outgoing.Auth
 				Write(0); // Pet Level
 				Write(0); // Pet FamilyID
 
-				ChrStartingOutfitEntry Items = Helper.GetCharStartingOutfitString(character);
+				ChrStartingOutfitEntry Items = DBC.GetCharStartingOutfitString(character);
 				int[] DisplayIDs = Helper.CSVStringToIntArray(Items.ItemDisplayID);
 				int[] ItemInventoryType = Helper.CSVStringToIntArray(Items.ItemInventoryType);
 				int[] ItemIDs = Helper.CSVStringToIntArray(Items.ItemID);

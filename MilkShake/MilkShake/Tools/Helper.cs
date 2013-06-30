@@ -44,15 +44,6 @@ namespace Milkshake.Tools
             return csv.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
         }
 
-        public static ChrStartingOutfitEntry GetCharStartingOutfitString(PCCharCreate character)
-        {
-            return DBC.DBC.ChrStartingOutfit.ToList().Find(r => r.Class == character.Class && r.Gender == character.Gender && r.Race == character.Race);
-        }
-
-        public static ChrStartingOutfitEntry GetCharStartingOutfitString(Character character)
-        {
-            return DBC.DBC.ChrStartingOutfit.ToList().Find(r => r.Class == (int)character.Class && r.Gender == (int)character.Gender && r.Race == (int)character.Race);
-        }
     }
 
     

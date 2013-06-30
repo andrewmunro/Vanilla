@@ -16,9 +16,7 @@ namespace Milkshake.Tools.DBC
 
         public static void Convert()
         {
-            SQLite = new SQLiteConnection("dbc.db3");
-
-            List<string> DBCFiles = Directory.GetFiles(DBC_LOCATION, "*.csv").ToList<string>();
+            SQLite = new SQLiteConnection("database/dbc.db3");
 
             //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.csv");
             //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.csv");
@@ -62,13 +60,8 @@ namespace Milkshake.Tools.DBC
 
             List<T> convertedEntrys = new List<T>();
 
-            
-            
             csvEntrys.ForEach(e =>
                 {
-                    
-
-                    
                     try
                     {
                         convertedEntrys.Add(converter(e.Split(',')));
@@ -78,7 +71,6 @@ namespace Milkshake.Tools.DBC
                     }
                 }
             );
-
             return convertedEntrys;
         }
 
