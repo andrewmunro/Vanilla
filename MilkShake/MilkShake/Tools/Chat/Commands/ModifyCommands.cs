@@ -7,12 +7,14 @@ using Milkshake.Game.Entitys;
 using System.Reflection;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Game.Constants.Character;
+using Milkshake.Game.Managers;
 
 namespace Milkshake.Tools.Chat.Commands
 {
     public class ModifyCommands
     {
-        [ChatCommand("modify", "Modify entity attributes")]
+
+        [ChatCommand("modify", "Modify entity att   ributes")]
         public static void Modify(WorldSession session, string[] args)
         {
             if (args.Length == 1 && args[0].ToLower() == "list")
@@ -49,6 +51,13 @@ namespace Milkshake.Tools.Chat.Commands
 
                     case "gender":
                         entity.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)int.Parse(attributeValue), 2);
+                        break;
+
+                    case "model":
+                        entity.SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, int.Parse(attributeValue));
+                        break;
+
+                    case "unit":
                         break;
 
                     default:

@@ -118,6 +118,7 @@
     <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
+    <Compile Include="Game\Entitys\UnitEntity.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
     <Compile Include="Tools\DBC\CachedDBC.cs" />
@@ -193,7 +194,6 @@
     <Compile Include="Tools\DBC\Tables\ChrRacesEntry.cs" />
     <Compile Include="Tools\DBC\Tables\EmotesTextEntry.cs" />
     <Compile Include="Tools\DBC\Tables\SpellEntry.cs" />
-    <Compile Include="Tools\Extensions\CachedList.cs" />
     <Compile Include="Tools\Extensions\EnumExtensions.cs" />
     <Compile Include="Tools\Helper.cs" />
     <Compile Include="Tools\Log.cs" />
