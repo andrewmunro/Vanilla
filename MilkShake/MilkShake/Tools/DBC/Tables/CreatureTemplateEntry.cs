@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Milkshake.Tools.DBC.Tables
+{
+    public class CreatureTemplateEntry
+    {
+        public int entry { get; set; }
+        public int KillCredit1 { get; set; }
+        public int KillCredit2 { get; set; }
+        public int modelid_1 { get; set; }
+        public int modelid_2 { get; set; }
+        public string name { get; set; }
+        public string subname { get; set; }
+        public int gossip_menu_id { get; set; }
+        public int minlevel { get; set; }
+        public int maxlevel { get; set; }
+        public int minhealth { get; set; }
+        public int maxhealth { get; set; }
+        public int minmana { get; set; }
+        public int maxmana { get; set; }
+        public int armor { get; set; }
+        public int faction_A { get; set; }
+        public int faction_H { get; set; }
+        public int npcflag { get; set; }
+        public float speed_walk { get; set; }
+        public float speed_run { get; set; }
+        public float scale { get; set; }
+        public int rank { get; set; }
+        public int mindmg { get; set; }
+        public int maxdmg { get; set; }
+        public int dmgschool { get; set; }
+        public int attackpower { get; set; }
+        public int dmg_multiplier { get; set; }
+        public int baseattacktime { get; set; }
+        public int rangeattacktime { get; set; }
+        public int unit_class { get; set; }
+        public int unit_flags { get; set; }
+        public int dynamicflags { get; set; }
+        public int family { get; set; }
+        public int trainer_type { get; set; }
+        public int trainer_spell { get; set; }
+        public int trainer_class { get; set; }
+        public int trainer_race { get; set; }
+        public float minrangedmg { get; set; }
+        public float maxrangedmg { get; set; }
+        public int rangedattackpower { get; set; }
+        public int type { get; set; }
+        public int type_flags { get; set; }
+        public int lootid { get; set; }
+        public int pickpocketloot { get; set; }
+        public int skinloot { get; set; }
+        public int resistance1 { get; set; }
+        public int resistance2 { get; set; }
+        public int resistance3 { get; set; }
+        public int resistance4 { get; set; }
+        public int resistance5 { get; set; }
+        public int resistance6 { get; set; }
+        public int spell1 { get; set; }
+        public int spell2 { get; set; }
+        public int spell3 { get; set; }
+        public int spell4 { get; set; }
+        public int PetSpellDataId { get; set; }
+        public int mingold { get; set; }
+        public int maxgold { get; set; }
+        public string AIName { get; set; }
+        public int MovementType { get; set; }
+        public int InhabitType { get; set; }
+        public int Civilian { get; set; }
+        public int RacialLeader { get; set; }
+        public int RegenHealth { get; set; }
+        public int equipment_id { get; set; }
+        public int trainer_id { get; set; }
+        public int vendor_id { get; set; }
+        public int mechanic_immune_mask { get; set; }
+        public int flags_extra { get; set; }
+        public string ScriptName { get; set; }
+    }
+}
