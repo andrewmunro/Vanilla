@@ -51,22 +51,14 @@ namespace Milkshake.Communication.Outgoing.Auth
 				Write(0); // Pet Level
 				Write(0); // Pet FamilyID
 
-                Dictionary<InventorySlotID, ItemTemplateEntry> Equipment = DBC.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
-                if (Equipment.ContainsKey(InventorySlotID.Robe))
-                {
-                    ItemTemplateEntry Item = Equipment[InventorySlotID.Robe];
-                    Equipment.Remove(InventorySlotID.Robe);
-                    Equipment.Add(InventorySlotID.Vest, Item);
-                }
+                ItemTemplateEntry[] Equipment = DBC.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
 
 				for(int itemSlot = 0; itemSlot < 19; itemSlot++)
 				{
-					if(Equipment.ContainsKey((InventorySlotID)itemSlot))
+					if(Equipment[itemSlot] != null)
 					{
-					    ItemTemplateEntry Item = Equipment[(InventorySlotID) itemSlot];
-						Console.WriteLine("Equipment ID:" + Item.entry + " DisplayID: " + Item.displayid + " InventoryType: " + Item.InventoryType);
-						Write((int)Item.displayid); // Item DisplayID
-						Write((byte)Item.InventoryType); // Item Inventory Type
+                        Write((int)Equipment[itemSlot].displayid); // Item DisplayID
+                        Write((byte)Equipment[itemSlot].InventoryType); // Item Inventory Type
 					}
 					else
 					{
