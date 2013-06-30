@@ -115,9 +115,11 @@
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitByte1Flags.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
+    <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
+    <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
     <Compile Include="Tools\DBC\Tables\ChrStartingOutfitEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />

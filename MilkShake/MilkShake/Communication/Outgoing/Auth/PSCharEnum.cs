@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Milkshake.Game.Constants.Game.World.Item;
 using Milkshake.Network;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
@@ -50,21 +51,22 @@ namespace Milkshake.Communication.Outgoing.Auth
 				Write(0); // Pet Level
 				Write(0); // Pet FamilyID
 
-				ChrStartingOutfitEntry Items = DBC.GetCharStartingOutfitString(character);
-				int[] DisplayIDs = Helper.CSVStringToIntArray(Items.ItemDisplayID);
-				int[] ItemInventoryType = Helper.CSVStringToIntArray(Items.ItemInventoryType);
-				int[] ItemIDs = Helper.CSVStringToIntArray(Items.ItemID);
+                Dictionary<InventorySlotID, ItemTemplateEntry> Equipment = DBC.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+                if (Equipment.ContainsKey(InventorySlotID.Robe))
+                {
+                    ItemTemplateEntry Item = Equipment[InventorySlotID.Robe];
+                    Equipment.Remove(InventorySlotID.Robe);
+                    Equipment.Add(InventorySlotID.Vest, Item);
+                }
 
-				Console.WriteLine(character.Name);
-				for (int itemSlot = 0; itemSlot < 19; itemSlot++)
+				for(int itemSlot = 0; itemSlot < 19; itemSlot++)
 				{
-					int InventoryType = Array.IndexOf(ItemInventoryType, itemSlot + 1);
-
-					if (InventoryType != -1)
+					if(Equipment.ContainsKey((InventorySlotID)itemSlot))
 					{
-						Console.WriteLine("Items ID:" + ItemIDs[InventoryType] + " DisplayID: " + DisplayIDs[InventoryType] + " InventoryType: " + itemSlot);
-						Write((int)DisplayIDs[InventoryType]); // Item DisplayID
-						Write((byte)itemSlot); // Item Inventory Type
+					    ItemTemplateEntry Item = Equipment[(InventorySlotID) itemSlot];
+						Console.WriteLine("Equipment ID:" + Item.entry + " DisplayID: " + Item.displayid + " InventoryType: " + Item.InventoryType);
+						Write((int)Item.displayid); // Item DisplayID
+						Write((byte)Item.InventoryType); // Item Inventory Type
 					}
 					else
 					{

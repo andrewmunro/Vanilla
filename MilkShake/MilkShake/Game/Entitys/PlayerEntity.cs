@@ -44,7 +44,10 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
         }
 
-
+        public void AddItem(Character character, ItemTemplateEntry item)
+        {
+            
+        }
 
         public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
         {
@@ -97,7 +100,6 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (character.Class == ClassID.Warrior) ? (byte)ShapeshiftForm.FORM_BATTLESTANCE : (byte)ShapeshiftForm.FORM_NONE, 2); // ShapeshiftForm?
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
 
-
             SetUpdateField<float>((int)EUnitFields.UNIT_MOD_CAST_SPEED, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_STAT0, 22);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_STAT1, 18);
@@ -109,12 +111,6 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RESISTANCES_05, 10);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BASE_HEALTH, 20);
 
-            /*
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 1, 0);
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 1);
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 2);
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_2, 0, 3);
-            */
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_ATTACK_POWER, 27);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGED_ATTACK_POWER, 9);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MINRANGEDDAMAGE, 1074940196);
@@ -130,9 +126,6 @@ namespace Milkshake.Game.Entitys
 
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26); 
-
-
-
             // sdfs
             SetUpdateField<Int32>((int)719, 65537);
             SetUpdateField<Int32>((int)721, 43);
@@ -171,9 +164,6 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)1220, 1065353216);
             SetUpdateField<Int32>((int)1221, 1065353216);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
-
-
-            
         }
 
         public Net.WorldSession Session { get; set; }

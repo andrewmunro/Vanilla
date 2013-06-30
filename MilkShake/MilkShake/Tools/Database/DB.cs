@@ -14,24 +14,22 @@ namespace Milkshake.Tools.Database
 		{
 
 			Character = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.CHARACTER));
-
+			//TODO these values should be removed when we have finished with the databases
 			Character.CreateTable(typeof(Account));
 			Character.CreateTable(typeof(Character));
 			Character.CreateTable(typeof(Channel));
 			Character.CreateTable(typeof(ChannelCharacter));
 			Character.CreateTable(typeof(CharacterSpell));
 			Character.CreateTable(typeof(CharacterActionBarButton));
+			Character.CreateTable(typeof(CharacterInventory));
 
 			DBAccounts.CreateAccount("Graype", "password");
 			DBAccounts.CreateAccount("Andrew", "password");
 
 			World = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.WORLD));
-
-			//TODO these values should be removed when we have finished with the databases
 			World.CreateTable(typeof(CharacterCreationSpell));
 			World.CreateTable(typeof(CharacterCreationActionBarButton));
 			World.CreateTable(typeof(CharacterCreationInfo));
-			//World.CreateTable(typeof(CharacterCreationOutfit));
 			World.CreateTable(typeof(AreaTriggerTeleport));
 		}
 	} 

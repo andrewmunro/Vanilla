@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Milkshake.Communication.Incoming.Character;
+using Milkshake.Game.Constants.Game.World.Item;
 using Milkshake.Tools.Config;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools.Database.Tables;
@@ -29,9 +30,26 @@ namespace Milkshake.Tools.DBC
             get { return SQLite.Table<ChrStartingOutfitEntry>(); }
         }
 
+        public static List<ChrStartingOutfitEntry> ChrStartingOutfitList
+        {
+            get { return ChrStartingOutfit.ToList(); }
+        }
+
         public static TableQuery<ItemTemplateEntry> ItemTemplate
         {
             get { return SQLite.Table<ItemTemplateEntry>(); }
+        }
+
+        public static List<ItemTemplateEntry> ItemTemplateListCache;
+
+        public static List<ItemTemplateEntry> ItemTemplateList
+        {
+            get
+            {
+                if (ItemTemplateListCache == null) ItemTemplateListCache = ItemTemplate.ToList();
+
+                return ItemTemplateListCache;
+            }
         }
 
         public static TableQuery<AreaTableEntry> AreaTable
@@ -51,22 +69,38 @@ namespace Milkshake.Tools.DBC
 
         public static ChrStartingOutfitEntry GetCharStartingOutfitString(PCCharCreate character)
         {
-            return ChrStartingOutfit.ToList().Find(r => r.Class == character.Class && r.Gender == character.Gender && r.Race == character.Race);
+            return ChrStartingOutfitList.Find(r => r.Class == character.Class && r.Gender == character.Gender && r.Race == character.Race);
         }
 
         public static ChrStartingOutfitEntry GetCharStartingOutfitString(Character character)
         {
-            return ChrStartingOutfit.ToList().Find(r => r.Class == (int)character.Class && r.Gender == (int)character.Gender && r.Race == (int)character.Race);
+            return ChrStartingOutfitList.Find(r => r.Class == (int)character.Class && r.Gender == (int)character.Gender && r.Race == (int)character.Race);
         }
 
         public static ItemTemplateEntry GetItemByName(String name)
         {
-            return ItemTemplate.ToList().Find(r => r.name == name);
+            return ItemTemplateList.Find(r => r.name == name);
         }
 
-        public static ItemTemplateEntry GetItemByID(int id)
+        public static ItemTemplateEntry GetItemByID(int id)                 
         {
-            return ItemTemplate.ToList().Find(r => r.entry == id);
+            return ItemTemplateList.Find(r => r.entry == id);
+        }
+
+        public static Dictionary<InventorySlotID, ItemTemplateEntry> GenerateInventoryByIDs(int[] ids)
+        {
+            Dictionary<InventorySlotID, ItemTemplateEntry> output = new Dictionary<InventorySlotID, ItemTemplateEntry>();
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                if (ids[i] > 0)
+                {
+                    ItemTemplateEntry item = GetItemByID(ids[i]);
+                    if (item != null && item.InventoryType > 0) output.Add((InventorySlotID)item.InventoryType, item);
+                }
+            }
+
+            return output;
         }
     }
 }

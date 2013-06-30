@@ -40,6 +40,6 @@ namespace Milkshake.Tools.Database.Tables
         public byte HairColor { get; set; }
         public byte Accessory { get; set; }
 
-        public string Items { get; set; }
+        public string Equipment { get; set; }
     }
 }
