@@ -31,7 +31,7 @@ namespace Milkshake.Communication.Outgoing.World.Spell
 
             foreach (var s in characterSpells)
             {
-                SpellEntry spell = DBC.Spells.Where(e => e.ID == s.SpellID).First();
+                SpellEntry spell = DBC.Spells.GetSpellByID(s.SpellID);
 
                 Write((uint)spell.ID);
                 Write((UInt16)0);

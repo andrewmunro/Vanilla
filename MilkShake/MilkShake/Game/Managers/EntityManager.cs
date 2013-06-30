@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System;
 using Milkshake.Game.Entitys;
 using System.Threading;
-using Microsoft.Xna.Framework;
+using Milkshake.Network;
+//using Microsoft.Xna.Framework;
 
 namespace Milkshake.Game.Managers
 {
@@ -27,17 +28,28 @@ namespace Milkshake.Game.Managers
                 {
                     if (entity.UpdateCount > 0)
                     {
-                        WorldServer.Sessions.FindAll(s => entity.GUID != null).ForEach(s => s.sendPacket(PSUpdateObject.UpdateValues(s, entity)));
+                        ServerPacket packet = PSUpdateObject.UpdateValues(entity);
+
+                        WorldServer.Sessions.FindAll(s => entity.GUID != null).ForEach(s => 
+                            {
+                                s.sendMessage("Update Packet From: " + (entity as PlayerEntity).Character.Name);
+                                s.sendPacket(packet);
+                            });
                     }
 
+
+                    
                     if (entity is PlayerEntity)
                     {
                         PlayerEntity player = entity as PlayerEntity;
 
-                        if (player.Session != null && Vector2.Distance(new Vector2(player.X, player.Y), new Vector2(player.lastUpdateX, player.lastUpdateY)) > 50)
+                        float distance = (float)Math.Sqrt(Math.Pow(player.X - player.lastUpdateX, 2) + Math.Pow(player.Y - player.lastUpdateY, 2));
+
+                        if (player.Session != null && distance > 50)
                         {
                             SpawnGameObjects(player.Session);                           
                         }
+                        
 
                     }
                 }

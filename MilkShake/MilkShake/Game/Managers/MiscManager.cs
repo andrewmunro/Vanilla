@@ -61,7 +61,7 @@ namespace Milkshake.Game.Managers
 
         public static void OnZoneUpdatePacket(WorldSession session, PCZoneUpdate packet)
         {
-            session.sendMessage("[ZoneUpdate] ID:" + packet.ZoneID + " " + DBC.AreaTable.First(a => a.ID == packet.ZoneID).Name);
+            session.sendMessage("[ZoneUpdate] ID:" + packet.ZoneID + " " + DBC.AreaTables.Find(a => a.ID == packet.ZoneID).Name);
         }
 
         public static void OnAreaTriggerPacket(WorldSession session, PCAreaTrigger packet)

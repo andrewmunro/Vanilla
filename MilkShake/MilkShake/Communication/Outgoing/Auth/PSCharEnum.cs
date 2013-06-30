@@ -51,7 +51,7 @@ namespace Milkshake.Communication.Outgoing.Auth
 				Write(0); // Pet Level
 				Write(0); // Pet FamilyID
 
-                ItemTemplateEntry[] Equipment = DBC.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+                ItemTemplateEntry[] Equipment = DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
 
 				for(int itemSlot = 0; itemSlot < 19; itemSlot++)
 				{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Tools.Database.Tables;
-using Microsoft.Xna.Framework;
+//using Microsoft.Xna.Framework;
 
 namespace Milkshake.Game.Entitys
 {
@@ -57,14 +57,14 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Y, (float)gameObject.Y);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Z, (float)gameObject.Z);
 
-            
+            /*
             Quaternion pew = Quaternion.CreateFromYawPitchRoll(0, 0, gameObject.R);
 
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 0, (float)pew.X);     // up down?       
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 1, (float)pew.Y);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 2, (float)pew.Z);
             SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 3, (float)pew.W);
-
+            */
             //SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_FACING, 0);           
 
 

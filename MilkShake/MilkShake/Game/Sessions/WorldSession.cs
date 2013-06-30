@@ -331,7 +331,7 @@ namespace Milkshake.Net
                         Y = newCharacterInfo.Y, //1427.1f, //- 257.980010986328f,
                         Z = newCharacterInfo.Z, //309.715f, //52.9967994689941f,
                         Rotation = newCharacterInfo.R,
-                        Equipment = DBC.GetCharStartingOutfitString(newCharacter).ItemID
+                        Equipment = DBC.ChrStartingOutfit.GetCharStartingOutfitString(newCharacter).ItemID
                     });
 
                 sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);

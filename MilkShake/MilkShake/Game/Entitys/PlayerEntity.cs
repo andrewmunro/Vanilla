@@ -69,7 +69,7 @@ namespace Milkshake.Game.Entitys
 
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
 
-            ChrRacesEntry Race = DBC.ChrRaces.ToList().First(r => (RaceID)r.RaceID == character.Race);
+            ChrRacesEntry Race = DBC.ChrRaces.List.Find(r => (RaceID)r.RaceID == character.Race);
 
             
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, Race.FactionID);
@@ -121,6 +121,21 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.Face, 1);
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.HairStyle, 2);
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES, character.HairColor, 3);
+
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, character.Accessory, 0);
+
+            ItemTemplateEntry[] displayItems = DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+
+            for (byte index = 0; index < 19; index++)
+            {
+                ItemTemplateEntry entry = displayItems[index];
+
+                if (entry != null)
+                {
+                    int visualBase = (int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (index * 12);
+                    SetUpdateField<byte>((int)visualBase, (byte)displayItems[index].entry);
+                }
+            }
 
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, character.Accessory, 0);
 

@@ -5,6 +5,8 @@ using System.Text;
 using Milkshake.Net;
 using Milkshake.Game.Entitys;
 using System.Reflection;
+using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Game.Constants.Character;
 
 namespace Milkshake.Tools.Chat.Commands
 {
@@ -43,6 +45,10 @@ namespace Milkshake.Tools.Chat.Commands
 
                     case "xp":
                         entity.XP = int.Parse(attributeValue);
+                        break;
+
+                    case "gender":
+                        entity.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)int.Parse(attributeValue), 2);
                         break;
 
                     default:

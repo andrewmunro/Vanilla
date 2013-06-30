@@ -42,7 +42,7 @@ namespace Milkshake.Game.Managers
             //WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
             session.sendPacket(new PSCastFailed(packet.spellID));
 
-            SpellEntry spell = DBC.Spells.First(s => s.ID == packet.spellID);
+            SpellEntry spell = DBC.Spells.GetSpellByID((int)packet.spellID);
             float spellSpeed = spell.Speed;
             
             /*

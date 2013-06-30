@@ -15,7 +15,9 @@ namespace Milkshake.Tools.Chat.Commands
         {
             string spellName = args[1];
 
-            List<SpellEntry> matchingSpells = DBC.DBC.Spells.Where(s => s.Name.Contains(spellName)).ToList();
+            
+
+            List<SpellEntry> matchingSpells = DBC.DBC.Spells.GetSpellsNameContain(spellName);
 
             matchingSpells.ForEach(s => session.sendMessage("[" + s.ID + "] " + s.Name));
         }
