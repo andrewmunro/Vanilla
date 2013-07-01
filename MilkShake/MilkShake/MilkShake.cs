@@ -69,7 +69,7 @@ namespace Milkshake
 
     public class LoginServer : MilkTCPListener
     {
-        public override ISession GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
+        public override Session GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
         {
             return new LoginSession(connectionID, connectionSocket);
         }
@@ -80,7 +80,7 @@ namespace Milkshake
         public static List<WorldSession> Sessions = new List<WorldSession>();
         public int connectionID = 0;
 
-        public override ISession GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
+        public override Session GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
         {
             connectionID++;
             WorldSession session = new WorldSession(connectionID, connectionSocket);

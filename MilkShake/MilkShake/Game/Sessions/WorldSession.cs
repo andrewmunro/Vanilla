@@ -32,16 +32,6 @@ namespace Milkshake.Net
 {
     public class WorldSession : Session
     {
-        public const int BUFFER_SIZE = 20480;
-        public const int TIMEOUT = 1000;
-
-        private int connectionID;
-        private Socket connectionSocket;
-        private byte[] dataBuffer;
-
-        public string ConnectionRemoteIP { get { return connectionSocket.RemoteEndPoint.ToString(); } }
-        public int ConnectionID { get { return connectionID; } }
-
         public UInt32 seed;
         public VanillaCrypt crypt;
         public Account Account;
@@ -52,12 +42,6 @@ namespace Milkshake.Net
 
         public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
-            connectionID = _connectionID;
-            connectionSocket = _connectionSocket;
-            dataBuffer = new byte[BUFFER_SIZE];          
-
-            connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
-
             sendPacket(Opcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
         }
 
@@ -80,7 +64,7 @@ namespace Milkshake.Net
             return header;
         }
 
-        private void dataArrival(IAsyncResult _asyncResult)
+        internal override void dataArrival(IAsyncResult _asyncResult)
         {
             int bytesRecived = 0;
 
@@ -168,20 +152,6 @@ namespace Milkshake.Net
             base.Disconnect();
             MilkShake.world.FreeConnectionID(connectionID);
         }
-        
-        public static string byteArrayToHex(byte[] data, int legnth)
-        {
-            string packetOutput = "";
-            byte[] outputData = data;
-            for (int i = 0; i < legnth; i++)
-            {
-                string append = (i == legnth - 1) ? "" : "-";
-
-                packetOutput += outputData[i].ToString("X2") + append;
-            }
-
-            return packetOutput;
-        }
 
         private void proccessHeader(byte[] header, out ushort length, out short opcode)
         {   
@@ -204,7 +174,7 @@ namespace Milkshake.Net
             }
         }
 
-        private void onPacket(byte[] data)
+        internal override void onPacket(byte[] data)
         {
                 for (int index = 0; index < data.Length; index++)
                 {

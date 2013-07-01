@@ -14,7 +14,7 @@ namespace Milkshake.Network
         private int maxConnections;
         private int acceptedConnections;
 
-        private Dictionary<int, ISession> activeConnections;
+        private Dictionary<int, Session> activeConnections;
 
         public int Port { get { return socketPort; } }
         public int AcceptedConnections { get { return acceptedConnections; } }
@@ -25,7 +25,7 @@ namespace Milkshake.Network
         {
             maxConnections = _maxConnections;
             socketPort = _portNumber;
-            activeConnections = new Dictionary<int, ISession>();
+            activeConnections = new Dictionary<int, Session>();
             socketHandler = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             Log.Print(LogType.Server, "Starting up game server...");
@@ -70,7 +70,7 @@ namespace Milkshake.Network
             socketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), socketHandler);
         }
 
-        public virtual ISession GenerateSession(int connectionID, Socket connectionSocket)
+        public virtual Session GenerateSession(int connectionID, Socket connectionSocket)
         {
             return null;
         }

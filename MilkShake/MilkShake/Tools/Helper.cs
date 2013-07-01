@@ -45,6 +45,20 @@ namespace Milkshake.Tools
             return csv.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
         }
 
+        public static string byteArrayToHex(byte[] data, int legnth)
+        {
+            string packetOutput = "";
+            byte[] outputData = data;
+            for (int i = 0; i < legnth; i++)
+            {
+                string append = (i == legnth - 1) ? "" : "-";
+
+                packetOutput += outputData[i].ToString("X2") + append;
+            }
+
+            return packetOutput;
+        }
+
     }
 
     

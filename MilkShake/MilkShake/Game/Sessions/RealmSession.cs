@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using Milkshake.Communication;
 using Milkshake.Communication.Incoming.Auth;
 using Milkshake.Game.Constants;
+using Milkshake.Game.Constants.Login;
 using Milkshake.Network;
 using Milkshake.Tools;
 using System.Security.Cryptography;
@@ -20,6 +21,7 @@ namespace Milkshake.Game.Sessions
     {
         public static SRP6 Srp6;
         private String accountName;
+        public static byte[] SessionKey;
 
         public LoginSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
@@ -80,7 +82,7 @@ namespace Milkshake.Game.Sessions
                     outPacket.Writer.Write((byte)0x00);
                     outPacket.Writer.Write((byte)0x00);
 
-                    outPacket.Writer.Write((byte)AccountStatus.Ok); // WoW_SUCCES
+                    outPacket.Writer.Write((byte)AccountStatus.Ok);
                     outPacket.Writer.Write(Srp6.B);
 
                     outPacket.Writer.Write((byte)1);
@@ -91,8 +93,6 @@ namespace Milkshake.Game.Sessions
                     outPacket.Writer.Write(Srp6.salt);
                         
                     outPacket.Writer.WriteNull(17);
-
-                    //outPacket.Writer.Write((byte)0);
                     
                     sendData(outPacket.Data);
 
@@ -159,55 +159,11 @@ namespace Milkshake.Game.Sessions
 
                            sendData(endArray);
                       }
-                    
-                      
-
-                    break;
-
-                default:
-                    break;
+                break;
             }
 
         }
 
-        
-
-        private void ReadRealms(byte[] rawData)
-        {
-            PacketReader reader = new PacketReader(new MemoryStream(rawData));
-
-            byte cmd = reader.ReadByte(); // cmd
-            short packet_Size = reader.ReadInt16();
-            UInt32 unsued = reader.ReadUInt32();
-            byte realmSize = reader.ReadByte();
-
-            for (int i = 0; i < realmSize; i++)
-            {
-                UInt32 icon = reader.ReadUInt32();
-                byte flag = reader.ReadByte();
-                string name = "S";
-                string address = "S";
-                try
-                {
-                    name = reader.ReadCString();
-                    address = reader.ReadCString();
-                }
-                catch (Exception EF)
-                {
-                }
-
-                float pop = reader.ReadSingle();
-                byte chars = reader.ReadByte();
-                byte time = reader.ReadByte();
-                byte end = reader.ReadByte();
-
-                if (name != "S") Console.WriteLine(name + " : " + address + " : " + chars);
-
-            }
-
-        }
-
-        public static byte[] SessionKey;
         public void CalculateAccountHash()
         {
             SHA1 shaM1 = new SHA1CryptoServiceProvider();
@@ -307,61 +263,5 @@ namespace Milkshake.Game.Sessions
             Buffer.BlockCopy(buf2, 0, result, buf1.Length, buf2.Length);
             return result;
         }
-
-    }
-
-      public enum RealmColor : byte
-    {
-        Green = 0x0,
-        Red = 0x1,
-        Offline = 0x2,
-    }
-
-    public enum RealmTimeZone : byte
-    {
-        Development = 1,
-        USA = 2,
-        Oceanic = 3,
-        LatinAmerica = 4,
-        Tournament = 5,
-        Korea = 6,
-        Tournament2 = 7,
-        English = 8,
-        German = 9,
-        French = 10,
-        Spanish = 11,
-        Russian = 12,
-        Tournament3 = 13,
-        Taiwan = 14,
-        Tournament4 = 15,
-        China = 16,
-        CN1 = 17,
-        CN2 = 18,
-        CN3 = 19,
-        CN4 = 20,
-        CN5 = 21,
-        CN6 = 22,
-        CN7 = 23,
-        CN8 = 24,
-        Tournament5 = 25,
-        TestServer = 26,
-        Tournament6 = 27,
-        QAServer = 28,
-        CN9 = 29,
-        TestServer2 = 30
-    }
-
-    public enum RealmStatus : byte
-    {
-        Good = 0x00,
-        Locked = 0x01,
-    }
-
-    public enum RealmType : byte
-    {
-        Normal = 0x00,
-        PVP = 0x01,
-        RP = 0x06,
-        RPPVP = 0x08,
     }
 }
