@@ -11,7 +11,7 @@ using Milkshake.Game.Constants.Game.World.Entity;
 namespace Milkshake.Game.Entitys
 {
 
-    public class PlayerEntity : EntityBase
+    public class PlayerEntity : ObjectEntity
     {
         public Character Character;
         public PlayerEntity Target;
@@ -44,16 +44,11 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
         }
 
-        public void AddItem(Character character, ItemTemplateEntry item)
-        {
-            
-        }
-
-        public PlayerEntity(Character character) : base((int)EUnitFields.PLAYER_END - 0x4)
+        public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_PLAYER), (int)EUnitFields.PLAYER_END - 0x4)
         {
             Character = character;
 
-            SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
+            //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
 

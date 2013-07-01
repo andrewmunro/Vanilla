@@ -26,15 +26,15 @@ namespace Milkshake.Communication.Outgoing.World.Spell
     {
         public PSSpellGo(PlayerEntity caster, PlayerEntity target, uint spellID) : base(Opcodes.SMSG_SPELL_GO)
         {
-            byte[] casterGUID = PSUpdateObject.GenerateGuidBytes((ulong)caster.GUID.RawGUID);
-            byte[] targetGUID = PSUpdateObject.GenerateGuidBytes((ulong)target.GUID.RawGUID);
+            byte[] casterGUID = PSUpdateObject.GenerateGuidBytes((ulong)caster.ObjectGUID.RawGUID);
+            byte[] targetGUID = PSUpdateObject.GenerateGuidBytes((ulong)target.ObjectGUID.RawGUID);
 
             PSUpdateObject.WriteBytes(this, casterGUID);
             PSUpdateObject.WriteBytes(this, casterGUID);
             Write((UInt32)spellID);
             Write((UInt16)SpellCastFlags.CAST_FLAG_UNKNOWN9); // Cast Flags!?
             Write((Byte)1); // Target Length
-            Write((UInt64)target.GUID.RawGUID);
+            Write((UInt64)target.ObjectGUID.RawGUID);
             Write((Byte)0); // End
             Write((UInt16)2); // TARGET_FLAG_UNIT
             PSUpdateObject.WriteBytes(this, targetGUID); // Packed GUID

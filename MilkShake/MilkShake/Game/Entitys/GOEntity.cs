@@ -8,7 +8,7 @@ using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Game.Entitys
 {
-    public class GOEntity : EntityBase
+    public class GOEntity : ObjectEntity
     {
         public static List<GOEntity> GOEntitys = new List<GOEntity>();
 
@@ -33,14 +33,14 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, value); }
         }
 
-        public GOEntity(GameObject gameObject, GameObjectTemplate template) : base((int)EGameObjectFields.GAMEOBJECT_END)
+        public GOEntity(GameObject gameObject, GameObjectTemplate template) : base(ObjectGUID.GetGameObjectGUID(), (int)EGameObjectFields.GAMEOBJECT_END)
         {
             GameObject = gameObject;
             GameObjectTemplate = template;
 
             //GUID = ObjectGUID.GetGameObjectGUID((uint)gameObject.GUID);
-            GUID = ObjectGUID.GetGameObjectGUID();
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)GUID.Low);
+            ObjectGUID = ObjectGUID.GetGameObjectGUID();
+            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)ObjectGUID.Low);
             SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608); // ?
 
 

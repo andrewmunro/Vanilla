@@ -1,42 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Collections;
 using System.IO;
-using Milkshake.Game.Constants.Game.Update;
-using System.Collections.Generic;
+using Milkshake.Tools.Extensions;
 
 namespace Milkshake.Game.Entitys
 {
-    public class EntityBase
+    public class Entity
     {
-        public static List<EntityBase> Entitys = new List<EntityBase>();
+        public int MaskSize { get; private set; }
+        public BitArray Mask { get; private set; }
+        public Hashtable UpdateData { get; private set; }
+        public int UpdateCount { get; private set; }
 
-        public ObjectGUID GUID;
+        //public abstract int MaxDataLength;
 
-        public int MaskSize;
-        public BitArray Mask;
-        public Hashtable UpdateData;
-
-        public float Scale
-        {
-            get { return (float)UpdateData[(int)EObjectFields.OBJECT_FIELD_SCALE_X]; }
-            set { SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, value); }
-        }
-
-        public int UpdateCount = 0;
-
-        public EntityBase(int dataLength)
+        public Entity(int dataLength)
         {
             MaskSize = ((dataLength) + 32) / 32;
             Mask = new BitArray(dataLength, false);
             UpdateData = new Hashtable();
-
-            Entitys.Add(this);
         }
-
-        internal void SetUpdateField<T>(int index, T value, byte offset = 0)
+        
+        public void SetUpdateField<T>(int index, T value, byte offset = 0)
         {
             UpdateCount++;
+
             switch (value.GetType().Name)
             {
                 case "SByte":
@@ -97,28 +88,11 @@ namespace Milkshake.Game.Entitys
             }
         }
 
-        public void WriteBytes(BinaryWriter writer, byte[] data, int count = 0)
-        {
-            if (count == 0)
-                writer.Write(data);
-            else
-                writer.Write(data, 0, count);
-        }
-
-        public void WriteBitArray(BinaryWriter writer, BitArray buffer, int Len)
-        {
-            byte[] bufferarray = new byte[Convert.ToByte((buffer.Length + 8) / 8) + 1];
-            buffer.CopyTo(bufferarray, 0);
-
-            WriteBytes(writer, bufferarray.ToArray(), Len);
-        }
-
         public void WriteUpdateFields(BinaryWriter packet)
         {
-           
             packet.Write((byte)MaskSize);
-            
-            WriteBitArray(packet, Mask, (MaskSize * 4));    // Int32 = 4 Bytes
+
+            packet.WriteBitArray(Mask, (MaskSize * 4));    // Int32 = 4 Bytes
 
             for (int i = 0; i < Mask.Count; i++)
             {

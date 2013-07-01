@@ -24,13 +24,13 @@ namespace Milkshake.Game.Managers
         {
             while (true)
             {
-                foreach (EntityBase entity in EntityBase.Entitys.ToArray())
+                foreach (ObjectEntity entity in ObjectEntity.Entitys.ToArray())
                 {
                     if (entity.UpdateCount > 0)
                     {
                         ServerPacket packet = PSUpdateObject.UpdateValues(entity);
 
-                        WorldServer.Sessions.FindAll(s => entity.GUID != null).ForEach(s => 
+                        WorldServer.Sessions.FindAll(s => entity.ObjectGUID != null).ForEach(s => 
                             {
                                 s.sendMessage("Update Packet From: " + (entity as PlayerEntity).Character.Name);
                                 s.sendPacket(packet);

@@ -10,6 +10,7 @@ using Milkshake.Tools.Database.Tables;
 using SQLite;
 using System.Diagnostics;
 using Milkshake.Tools.DBC.Helper;
+using Milkshake.Tools.Database;
 
 namespace Milkshake.Tools.DBC
 {
@@ -26,6 +27,7 @@ namespace Milkshake.Tools.DBC
         public static CachedDBC<ChrRacesEntry> ChrRaces { get; private set; }
         public static CachedDBC<AreaTableEntry> AreaTables { get; private set; }
         public static CachedDBC<AreaTriggerEntry> AreaTriggers { get; private set; }
+        public static CachedDBC<CreatureTemplateEntry> CreatureTemplates { get; private set; }
 
         public static void Boot()
         {
@@ -38,6 +40,7 @@ namespace Milkshake.Tools.DBC
             ChrRaces = new CachedDBC<ChrRacesEntry>();
             AreaTables = new CachedDBC<AreaTableEntry>();
             AreaTriggers = new CachedDBC<AreaTriggerEntry>();
+            CreatureTemplates = new CachedDBC<CreatureTemplateEntry>();
         }
     }
 }

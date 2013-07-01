@@ -252,11 +252,7 @@ namespace Milkshake.Game.Sessions
 
         }
 
-        public void WriteCString(BinaryWriter bw, string input)
-        {
-            byte[] data = Encoding.UTF8.GetBytes(input + '\0');
-            bw.Write(data);
-        }
+        
 
         private void ReadRealms(byte[] rawData)
         {

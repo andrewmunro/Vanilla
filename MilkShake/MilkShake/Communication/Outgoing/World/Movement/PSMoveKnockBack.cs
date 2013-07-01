@@ -13,7 +13,7 @@ namespace Milkshake.Communication.Outgoing.World.Movement
     {
         public PSMoveKnockBack(PlayerEntity player, float vcos, float vsin, float horizontalSpeed, float verticalSpeed) : base(Opcodes.SMSG_MOVE_KNOCK_BACK)
         {
-            byte[] packedGUID = PSUpdateObject.GenerateGuidBytes(player.GUID.RawGUID);
+            byte[] packedGUID = PSUpdateObject.GenerateGuidBytes(player.ObjectGUID.RawGUID);
             PSUpdateObject.WriteBytes(this, packedGUID);
             Write((UInt32)0); // Sequence
             Write((float)vcos); 

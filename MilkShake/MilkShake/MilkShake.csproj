@@ -117,6 +117,7 @@
     <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
     <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
+    <Compile Include="Game\Entitys\Entity.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Game\Entitys\UnitEntity.cs" />
     <Compile Include="Game\Managers\AuthManager.cs" />
@@ -132,13 +133,14 @@
     <Compile Include="Tools\Database\Tables\CreatureEntry.cs" />
     <Compile Include="Tools\DBC\Tables\CreatureTemplateEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
+    <Compile Include="Tools\Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\DataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
     <Compile Include="Game\Managers\ChatChannelManager.cs" />
     <Compile Include="Game\Managers\ChatManager.cs" />
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
-    <Compile Include="Game\Entitys\EntityBase.cs" />
+    <Compile Include="Game\Entitys\ObjectEntity.cs" />
     <Compile Include="Game\Managers\EntityManager.cs" />
     <Compile Include="Game\Managers\LogoutManager.cs" />
     <Compile Include="Game\Managers\MiscManager.cs" />

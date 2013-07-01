@@ -9,12 +9,10 @@ using Milkshake.Game.Constants.Character;
 
 namespace Milkshake.Game.Entitys
 {
-    public class UnitEntity : EntityBase
+    public class UnitEntity : ObjectEntity
     {
-        public UnitEntity() : base((int)EUnitFields.UNIT_END - 0x4)
+        public UnitEntity() : base(ObjectGUID.GetUnitGUID(), (int)EUnitFields.UNIT_END - 0x4)
         {
-            GUID = ObjectGUID.GetUnitGUID();
-
             //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, GUID.Low);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);

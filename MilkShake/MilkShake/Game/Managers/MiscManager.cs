@@ -99,7 +99,7 @@ namespace Milkshake.Game.Managers
         {
             try
             {
-                session.Entity.Target = WorldServer.Sessions.First(s => s.Entity.GUID.RawGUID == packet.GUID).Entity;
+                session.Entity.Target = WorldServer.Sessions.First(s => s.Entity.ObjectGUID.RawGUID == packet.GUID).Entity;
 
                 session.sendMessage("Targeted: " + (session.Entity.Target as PlayerEntity).Character.Name);
             }

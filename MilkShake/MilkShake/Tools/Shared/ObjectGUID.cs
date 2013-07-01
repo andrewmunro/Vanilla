@@ -10,9 +10,10 @@ namespace Milkshake.Game.Entitys
     {
         private static Dictionary<TypeID, uint> Indexes = new Dictionary<TypeID, uint>();
 
+
         public static ObjectGUID GetUnitGUID()
         {
-            return new ObjectGUID(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
+            return new ObjectGUID(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_MO_TRANSPORT);
         }
 
         public static ObjectGUID GetGameObjectGUID()

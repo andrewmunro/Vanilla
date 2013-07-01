@@ -8,6 +8,7 @@ using System.Reflection;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Managers;
+using Milkshake.Communication.Outgoing.World.Update;
 
 namespace Milkshake.Tools.Chat.Commands
 {
@@ -58,6 +59,7 @@ namespace Milkshake.Tools.Chat.Commands
                         break;
 
                     case "unit":
+                        session.sendPacket(PSUpdateObject.CreateUnitUpdate(entity));
                         break;
 
                     default:
