@@ -17,7 +17,7 @@ namespace Milkshake.Communication.Incoming.Character
         public byte Face { get; private set; }
         public byte HairStyle { get; private set; }
         public byte HairColor { get; private set; }
-        public byte Accessorie { get; private set; }
+        public byte Accessory { get; private set; }
 
         public PCCharCreate(byte[] data) : base(data)
         {
@@ -30,7 +30,7 @@ namespace Milkshake.Communication.Incoming.Character
             Face = ReadByte();
             HairStyle = ReadByte();
             HairColor = ReadByte();
-            Accessorie = ReadByte();
+            Accessory = ReadByte();
         }
     }
 }

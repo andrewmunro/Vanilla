@@ -16,7 +16,7 @@ using Milkshake.Tools;
 
 namespace Milkshake.Game.Managers
 {
-    class ChatChannelManager
+    public class ChatChannelManager
     {
         public static void Boot()
         {

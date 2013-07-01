@@ -42,8 +42,6 @@ namespace Milkshake.Game.Sessions
         public Session()
         {
         }
-
-        
     }
 
     public class LoginSession : ISession
@@ -128,7 +126,7 @@ namespace Milkshake.Game.Sessions
                 Log.Print(LogType.Server, ConnectionRemoteIP + " User Disconnected");
 
                 connectionSocket.Close();
-                //Server.FreeConnectionID(connectionID);
+                MilkShake.login.FreeConnectionID(connectionID);
             }
             catch (Exception socketException)
             {

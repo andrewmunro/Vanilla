@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Globalization;
+using Milkshake.Communication;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;

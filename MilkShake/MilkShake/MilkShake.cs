@@ -43,8 +43,8 @@ namespace Milkshake
             DB.Boot();
             DBC.Boot();
 
-            LoginServer login = new LoginServer();
-            WorldServer world = new WorldServer();
+            login = new LoginServer();
+            world = new WorldServer();
 
             login.Start(INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
             world.Start(INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
@@ -61,6 +61,9 @@ namespace Milkshake
 
             while (true) Console.ReadLine();
         }
+
+        public static LoginServer login { get; private set; }
+        public static WorldServer world { get; private set; }
 
     }
 
