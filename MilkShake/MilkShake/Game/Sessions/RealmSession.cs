@@ -12,6 +12,7 @@ using Milkshake.Tools.Config;
 using Milkshake.Tools.Cryptography;
 using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
+using Milkshake.Tools.Extensions;
 
 namespace Milkshake.Game.Sessions
 {
@@ -133,8 +134,8 @@ namespace Milkshake.Game.Sessions
                               bw.Write((UInt32)RealmType.PVP); // Icon
                               bw.Write((byte)0); // Flag
 
-                              WriteCString(bw, INI.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
-                              WriteCString(bw, INI.GetValue(ConfigValues.WORLD, ConfigValues.IP) + ":" + INI.GetValue(ConfigValues.WORLD, ConfigValues.PORT));
+                              bw.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
+                              bw.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.IP) + ":" + INI.GetValue(ConfigValues.WORLD, ConfigValues.PORT));
 
                               bw.Write((float)INI.GetValue<float>(ConfigValues.WORLD, ConfigValues.POPULATION)); // Pop
                               bw.Write((byte)3); // Chars

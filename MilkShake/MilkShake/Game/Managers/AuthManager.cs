@@ -62,7 +62,7 @@ namespace Milkshake.Game.Managers
             EntityManager.SpawnPlayer(session.Character);
             EntityManager.SendPlayers(session);
 
-            ChatManager.SendSytemMessage(session, "You logged in to: " + session.Character.Name + " " + session.Character.Class + " " + session.Character.Race + " GUID:" + Character.GUID);
+            //ChatManager.SendSytemMessage(session, "You logged in to: " + session.Character.Name + " " + session.Character.Class + " " + session.Character.Race + " GUID:" + Character.GUID);
         }
 
         private static void OnAuthSession(WorldSession session, PCAuthSession packet)
