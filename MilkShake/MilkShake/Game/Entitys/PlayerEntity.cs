@@ -16,7 +16,7 @@ namespace Milkshake.Game.Entitys
         public Character Character;
         public PlayerEntity Target;
 
-        public float X, Y, Z;
+        
 
         public float lastUpdateX, lastUpdateY;
 

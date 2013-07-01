@@ -12,6 +12,8 @@ namespace Milkshake.Game.Entitys
     {
         public static List<GOEntity> GOEntitys = new List<GOEntity>();
 
+        public override TypeID TypeID { get { return TypeID.TYPEID_GAMEOBJECT; } }
+        
         private float DegreeToRadian(float angle)
         {
             return (float)Math.PI * angle / 180.0f;

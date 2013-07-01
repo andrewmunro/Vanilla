@@ -6,6 +6,11 @@ namespace Milkshake.Tools.Extensions
 {
     static class EnumExtensions
     {
+        public static bool HasFlag(this Enum target, Enum flag)
+        {
+            return GetFlags(target).Contains(flag);
+        }
+
         public static IEnumerable<Enum> GetFlags(this Enum value)
         {
             return GetFlags(value, Enum.GetValues(value.GetType()).Cast<Enum>().ToArray());

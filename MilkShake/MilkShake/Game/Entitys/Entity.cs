@@ -5,11 +5,14 @@ using System.Text;
 using System.Collections;
 using System.IO;
 using Milkshake.Tools.Extensions;
+using Milkshake.Game.Constants.Game.Update;
 
 namespace Milkshake.Game.Entitys
 {
     public class Entity
     {
+        public virtual TypeID TypeID { get; internal set; }
+
         public int MaskSize { get; private set; }
         public BitArray Mask { get; private set; }
         public Hashtable UpdateData { get; private set; }

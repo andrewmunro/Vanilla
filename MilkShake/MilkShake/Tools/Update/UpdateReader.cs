@@ -53,13 +53,13 @@ namespace Milkshake.Tools.Update
             Console.WriteLine("  ObjectType: " + (TypeID)reader.ReadByte());
 
             Console.WriteLine("  Update Flags");
-            ObjectFlags updateFlags = (ObjectFlags)reader.ReadByte();
+            ObjectUpdateFlag updateFlags = (ObjectUpdateFlag)reader.ReadByte();
             updateFlags.GetIndividualFlags().ToList().ForEach(a => Console.WriteLine("   - " + a.ToString()));
 
-            if(updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+            if(updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_LIVING))
             {
                 MovementFlags movemenFlags = (MovementFlags)reader.ReadUInt32();
-                if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+                if (updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_LIVING))
                 {
                     Console.WriteLine("  Movement Flags");
                 
@@ -69,7 +69,7 @@ namespace Milkshake.Tools.Update
                 }
             }
 
-            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_HAS_POSITION))
+            if (updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION))
             {
                 double X = reader.ReadSingle();
                 double Y = reader.ReadSingle();
@@ -79,7 +79,7 @@ namespace Milkshake.Tools.Update
                 Console.WriteLine("  Position X:" + X + " Y:" + Y + " Z:" + Z + " R:" + R);
             }
 
-            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_LIVING))
+            if (updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_LIVING))
             {
                 reader.ReadSingle(); // >
 
@@ -91,12 +91,12 @@ namespace Milkshake.Tools.Update
                 Console.WriteLine("   MOVE_TURN_RATE:" + reader.ReadSingle());
             }
 
-            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_ALL))
+            if (updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_ALL))
             {
                 Console.WriteLine(reader.ReadUInt32());
             }
 
-            if (updateFlags.GetFlags().Contains(ObjectFlags.UPDATEFLAG_TRANSPORT))
+            if (updateFlags.GetFlags().Contains(ObjectUpdateFlag.UPDATEFLAG_TRANSPORT))
             {
                 Console.WriteLine(reader.ReadUInt32());
             }

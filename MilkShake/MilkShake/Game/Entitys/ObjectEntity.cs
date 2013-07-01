@@ -9,6 +9,8 @@ namespace Milkshake.Game.Entitys
 {
     public class ObjectEntity : Entity
     {
+        public float X, Y, Z;
+
         public static List<ObjectEntity> Entitys = new List<ObjectEntity>();
 
         public ObjectGUID ObjectGUID { get; internal set; }

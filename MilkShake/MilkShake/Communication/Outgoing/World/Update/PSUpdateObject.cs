@@ -10,6 +10,7 @@ using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.Update;
 using Milkshake.Tools;
+using Milkshake.Tools.Extensions;
 using Milkshake.Net;
 
 namespace Milkshake.Communication.Outgoing.World.Update
@@ -24,6 +25,8 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			// Write each block
 			blocks.ForEach(b => Write(b));
 		}
+
+        
 
 		/* Needs moving */
 		public static byte[] GenerateGuidBytes(ulong guid)
@@ -58,6 +61,99 @@ namespace Milkshake.Communication.Outgoing.World.Update
 				writer.Write(data, 0, count);
 		}
 
+        public static PSUpdateObject BuildCreateUpdateBlock(ObjectEntity entity)
+        {
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+
+            ObjectUpdateType updateType = ObjectUpdateType.UPDATETYPE_CREATE_OBJECT;
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL;
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION))
+            {
+                if (entity is PlayerEntity) updateType = ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2;
+            }
+            
+            writer.Write((byte)updateType);
+            writer.WriteBytes(GenerateGuidBytes(entity.ObjectGUID.RawGUID));
+            writer.Write((byte)entity.TypeID);
+
+            // Movement
+            MovementFlags moveFlags = MovementFlags.MOVEFLAG_NONE;
+
+            writer.Write((byte)updateFlags);
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_LIVING))
+            {
+                writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
+                writer.Write((UInt32)Environment.TickCount); // Time
+            }
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION))
+            {
+                writer.Write((float)entity.X);
+                writer.Write((float)entity.Y);
+                writer.Write((float)entity.Z);
+                writer.Write((float)0); // R
+            }
+
+
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_LIVING))
+            {
+                writer.Write((float)0); // Random..
+
+                if (moveFlags.HasFlag(MovementFlags.MOVEFLAG_FALLING))
+                {
+                    writer.Write((float)0);
+                    writer.Write((float)1);
+                    writer.Write((float)0);
+                    writer.Write((float)0); 
+                }
+
+                writer.Write((float)2.5f);  // MOVE_WALK
+                writer.Write((float)7);     // MOVE_RUN
+                writer.Write((float)4.5f);  // MOVE_RUN_BACK
+                writer.Write((float)4.72f); // MOVE_SWIM
+                writer.Write((float)2.5f);  // MOVE_SWIM_BACK
+                writer.Write((float)3.14f); // MOVE_TURN_RATE
+
+                if (entity is UnitEntity)
+                {
+                    byte posCount = 0;
+                    if (moveFlags.HasFlag(MovementFlags.MOVEFLAG_ASCENDING))
+                    {
+                        writer.Write((int)0x0);
+                        writer.Write((int)0x659);
+                        writer.Write((int)0xB7B);
+                        writer.Write((int)0xFDA0B4);
+                        writer.Write((int)posCount);
+
+                        for (int i = 0; i < posCount + 1; i++)
+                        {
+                            writer.Write((float)0);
+                            writer.Write((float)0);
+                            writer.Write((float)0);
+                        }
+                    }
+                }
+            }
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_ALL))
+            {
+                writer.Write((int)0x1);
+            }
+
+            if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_TRANSPORT))
+            {
+                writer.Write((float)0);
+            }
+
+            // End Movement
+            entity.WriteUpdateFields(writer);
+
+            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+        }
+
 		public static PSUpdateObject CreateOwnCharacterUpdate(Character character, out PlayerEntity entity)
 		{
 			BinaryWriter writer = new BinaryWriter(new MemoryStream());
@@ -69,10 +165,10 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			
 			writer.Write((byte)TypeID.TYPEID_PLAYER);
 
-			ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
-									  ObjectFlags.UPDATEFLAG_HAS_POSITION |
-									  ObjectFlags.UPDATEFLAG_LIVING |
-									  ObjectFlags.UPDATEFLAG_SELF;
+			ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
+									  ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION |
+									  ObjectUpdateFlag.UPDATEFLAG_LIVING |
+									  ObjectUpdateFlag.UPDATEFLAG_SELF;
 
 			writer.Write((byte)updateFlags);
 
@@ -115,9 +211,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
-                                      ObjectFlags.UPDATEFLAG_HAS_POSITION |
-                                      ObjectFlags.UPDATEFLAG_LIVING;
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
+                                      ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION |
+                                      ObjectUpdateFlag.UPDATEFLAG_LIVING;
 
             writer.Write((byte)updateFlags);
 
@@ -211,9 +307,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
 			writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
 
-			ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_TRANSPORT |
-									  ObjectFlags.UPDATEFLAG_ALL |
-									  ObjectFlags.UPDATEFLAG_HAS_POSITION;
+			ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_TRANSPORT |
+									  ObjectUpdateFlag.UPDATEFLAG_ALL |
+									  ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
 			writer.Write((byte)updateFlags);
 
@@ -311,9 +407,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write((byte)TypeID.TYPEID_UNIT);
 
-            ObjectFlags updateFlags = ObjectFlags.UPDATEFLAG_ALL |
-                                      ObjectFlags.UPDATEFLAG_HAS_POSITION |
-                                      ObjectFlags.UPDATEFLAG_LIVING;
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
+                                      ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION |
+                                      ObjectUpdateFlag.UPDATEFLAG_LIVING;
 
             writer.Write((byte)updateFlags);
 

@@ -3,7 +3,7 @@
 namespace Milkshake.Game.Constants.Game.Update
 {
     [Flags]
-    public enum ObjectFlags : byte
+    public enum ObjectUpdateFlag : byte
     {
         UPDATEFLAG_NONE = 0x0000,
         UPDATEFLAG_SELF = 0x0001,
