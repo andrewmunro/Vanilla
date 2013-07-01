@@ -122,6 +122,9 @@
     <Compile Include="Game\Entitys\UnitEntity.cs" />
     <Compile Include="Game\Managers\AuthManager.cs" />
     <Compile Include="Game\Managers\CharacterManager.cs" />
+    <Compile Include="Game\Sessions\Session.cs" />
+    <Compile Include="Network\RealmPacket.cs" />
+    <Compile Include="Network\WorldPacket.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
     <Compile Include="Tools\DBConverter.cs" />

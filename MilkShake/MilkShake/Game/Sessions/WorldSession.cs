@@ -30,7 +30,7 @@ using Milkshake.Communication.Outgoing.Players;
 
 namespace Milkshake.Net
 {
-    public class WorldSession : ISession
+    public class WorldSession : Session
     {
         public const int BUFFER_SIZE = 20480;
         public const int TIMEOUT = 1000;
@@ -50,7 +50,7 @@ namespace Milkshake.Net
         public uint OutOfSyncDelay;
         public uint Latancy;
 
-        public WorldSession(int _connectionID, Socket _connectionSocket)
+        public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
             connectionID = _connectionID;
             connectionSocket = _connectionSocket;
@@ -59,8 +59,6 @@ namespace Milkshake.Net
             connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
 
             sendPacket(Opcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
-
-           
         }
 
         private byte[] encode(int size, int opcode)
@@ -165,43 +163,10 @@ namespace Milkshake.Net
             sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
         }
 
-        private void sendData(byte[] send)
+        public override void Disconnect(object _obj = null) 
         {
-            byte[] buffer = new byte[send.Length];
-            Buffer.BlockCopy(send, 0, buffer, 0, send.Length);
-
-            try
-            {
-                connectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate(IAsyncResult result) { }, null);
-            }
-            catch (SocketException)
-            {
-                Disconnect();
-            }
-            catch (NullReferenceException)
-            {
-                Disconnect();
-            }
-            catch (ObjectDisposedException)
-            {
-                Disconnect();
-            }
-        }
-
-        private void Disconnect(object _obj = null)
-        {
-            try
-            {
-                Log.Print(LogType.Server, ConnectionRemoteIP + " User Disconnected");
-
-                connectionSocket.Close();
-                
-                MilkShake.world.FreeConnectionID(connectionID);
-            }
-            catch (Exception socketException)
-            {
-                Log.Print(LogType.Error, socketException.ToString());
-            }
+            base.Disconnect();
+            MilkShake.world.FreeConnectionID(connectionID);
         }
         
         public static string byteArrayToHex(byte[] data, int legnth)

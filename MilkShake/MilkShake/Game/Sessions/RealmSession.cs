@@ -15,57 +15,17 @@ using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Game.Sessions
 {
-    public class RealmPacket : Packet
+    public class LoginSession : Session
     {
-        public RealmPacket(byte[] data)  : base(data)
-        { }
+        public static SRP6 Srp6;
+        private String accountName;
 
-        public RealmPacket(AuthServerOpCode opCode) : base(opCode.Parse(), (byte)opCode)
-        { }
-    }
-
-    public class WorldPacket : Packet
-    {
-        public WorldPacket(byte[] data)  : base(data)
-        { }
-
-        public WorldPacket(AuthServerOpCode opCode)  : base(opCode.Parse(), (byte)opCode)
-        { }
-    }
-
-    public interface ISession
-    {
-    }
-
-    public class Session : ISession
-    {
-        public Session()
+        public LoginSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
-        }
-    }
-
-    public class LoginSession : ISession
-    {
-        public const int BUFFER_SIZE = 1024;
-        public const int TIMEOUT = 1000;
-
-        private int connectionID;
-        private Socket connectionSocket;
-        private byte[] dataBuffer;
-
-        public string ConnectionRemoteIP { get { return connectionSocket.RemoteEndPoint.ToString(); } }
-        public int ConnectionID { get { return connectionID; } }
-
-        public LoginSession(int _connectionID, Socket _connectionSocket)
-        {
-            connectionID = _connectionID;
-            connectionSocket = _connectionSocket;
-            dataBuffer = new byte[BUFFER_SIZE];
-
-            connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+            
         }
 
-        private void dataArrival(IAsyncResult _asyncResult)
+        internal override void dataArrival(IAsyncResult _asyncResult)
         {
             int bytesRecived = 0;
 
@@ -86,57 +46,14 @@ namespace Milkshake.Game.Sessions
             }
         }
 
-        private void sendData(byte[] send)
+        public override void Disconnect(object _obj = null) 
         {
-            byte[] buffer = new byte[send.Length];
-            Buffer.BlockCopy(send, 0, buffer, 0, send.Length);
-
-            try
-            {
-                Log.Print(LogType.Packet, "Sending [" + send[0].ToString("X2") + "] ");
-            }
-            catch (Exception e)
-            { }
-
-            try
-            {
-                
-                connectionSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, delegate(IAsyncResult result) { }, null);
-            }
-            catch (SocketException)
-            {
-                Disconnect();
-            }
-            catch (NullReferenceException)
-            {
-                Disconnect();
-            }
+            base.Disconnect();
+            MilkShake.login.FreeConnectionID(connectionID);
         }
 
-        private void sentData(IAsyncResult iAr)
-        {
-            try { connectionSocket.EndSend(iAr); }
-            catch { Disconnect(); }
-        }
 
-        private void Disconnect(object _obj = null)
-        {
-            try
-            {
-                Log.Print(LogType.Server, ConnectionRemoteIP + " User Disconnected");
-
-                connectionSocket.Close();
-                MilkShake.login.FreeConnectionID(connectionID);
-            }
-            catch (Exception socketException)
-            {
-                Log.Print(LogType.Error, socketException.ToString());
-            }
-        }
-        public static SRP6 Srp6;
-
-        String accountName;
-        private void onPacket(byte[] _dataBuffer)
+        internal override void onPacket(byte[] _dataBuffer)
         {
             short opCode = BitConverter.ToInt16(_dataBuffer, 0);
             Log.Print(LogType.Server, ConnectionRemoteIP + " Data Recived - OpCode:" + opCode.ToString("X2") + " " + ((AuthServerOpCode)opCode));
