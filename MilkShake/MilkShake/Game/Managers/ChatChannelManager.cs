@@ -20,9 +20,9 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
-            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
-            DataRouter.AddHandler<PCChannel>(Opcodes.CMSG_CHANNEL_LIST, OnListChannel);
+            WorldDataRouter.AddHandler<PCChannel>(Opcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
+            WorldDataRouter.AddHandler<PCChannel>(Opcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
+            WorldDataRouter.AddHandler<PCChannel>(Opcodes.CMSG_CHANNEL_LIST, OnListChannel);
             ChatManager.ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
         }
 

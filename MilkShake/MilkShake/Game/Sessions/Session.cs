@@ -12,7 +12,7 @@ namespace Milkshake.Game.Sessions
 {
     public abstract class Session
     {
-        public const int BUFFER_SIZE = 1024;
+        public const int BUFFER_SIZE = 2048;
         public const int TIMEOUT = 1000;
 
         public int connectionID { get; private set; }

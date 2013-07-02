@@ -26,8 +26,8 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            DataRouter.AddHandler<PCCastSpell>(Opcodes.CMSG_CAST_SPELL, OnCastSpell);
-            DataRouter.AddHandler<PCCancelSpell>(Opcodes.CMSG_CANCEL_CAST, OnCancelSpell);
+            WorldDataRouter.AddHandler<PCCastSpell>(Opcodes.CMSG_CAST_SPELL, OnCastSpell);
+            WorldDataRouter.AddHandler<PCCancelSpell>(Opcodes.CMSG_CANCEL_CAST, OnCancelSpell);
         }
 
         public static void SendInitialSpells(WorldSession session)

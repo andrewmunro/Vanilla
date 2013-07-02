@@ -124,6 +124,7 @@
     <Compile Include="Game\Entitys\Entity.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Game\Entitys\UnitEntity.cs" />
+    <Compile Include="Game\Handlers\LoginDataRouter.cs" />
     <Compile Include="Game\Managers\AuthManager.cs" />
     <Compile Include="Game\Managers\CharacterManager.cs" />
     <Compile Include="Game\Sessions\Session.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
     <Compile Include="Tools\Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
-    <Compile Include="Game\Handlers\DataRouter.cs" />
+    <Compile Include="Game\Handlers\WorldDataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
     <Compile Include="Game\Managers\ChatChannelManager.cs" />
     <Compile Include="Game\Managers\ChatManager.cs" />

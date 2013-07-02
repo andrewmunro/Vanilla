@@ -238,7 +238,10 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             writer.Write(0x1); // Unkown...
 
-            new PlayerEntity(character).WriteUpdateFields(writer);
+            PlayerEntity a = new PlayerEntity(character);
+            a.GUID = (uint)character.GUID;
+
+            a.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
@@ -399,7 +402,8 @@ namespace Milkshake.Communication.Outgoing.World.Update
             UnitEntity entity = new UnitEntity();
 
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT
+                );
             //character
             byte[] guidBytes = GenerateGuidBytes((ulong)entity.ObjectGUID.RawGUID);
             WriteBytes(writer, guidBytes, guidBytes.Length);

@@ -23,9 +23,9 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            DataRouter.AddHandler(Opcodes.CMSG_CHAR_ENUM, OnCharEnum);
-            DataRouter.AddHandler<PCCharCreate>(Opcodes.CMSG_CHAR_CREATE, OnCharCreate);
-            DataRouter.AddHandler<PCCharDelete>(Opcodes.CMSG_CHAR_DELETE, OnCHarDelete);
+            WorldDataRouter.AddHandler(Opcodes.CMSG_CHAR_ENUM, OnCharEnum);
+            WorldDataRouter.AddHandler<PCCharCreate>(Opcodes.CMSG_CHAR_CREATE, OnCharCreate);
+            WorldDataRouter.AddHandler<PCCharDelete>(Opcodes.CMSG_CHAR_DELETE, OnCHarDelete);
         }
 
         private static void OnCHarDelete(WorldSession session, PCCharDelete packet)

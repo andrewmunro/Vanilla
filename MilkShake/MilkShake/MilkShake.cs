@@ -57,6 +57,8 @@ namespace Milkshake
             SpellManager.Boot();
             ChatCommandParser.Boot();
             EntityManager.Boot();
+            AuthManager.Boot();
+            CharacterManager.Boot();
             //ZoneHandler.Boot();
 
             while (true) Console.ReadLine();

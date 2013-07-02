@@ -50,7 +50,7 @@ namespace Milkshake.Game.Entitys
 
             //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
-            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
+            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
 
             Health = 70;
             MaxHealth = 70;

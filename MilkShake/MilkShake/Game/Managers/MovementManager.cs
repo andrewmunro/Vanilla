@@ -44,10 +44,10 @@ namespace Milkshake.Game.Managers
 
         public static void Boot()
         {
-            MOVEMENT_CODES.ForEach(code => DataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
+            MOVEMENT_CODES.ForEach(code => WorldDataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
 
-            DataRouter.AddHandler(Opcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
-            DataRouter.AddHandler(Opcodes.MSG_MOVE_WORLDPORT_ACK, OnWorldPort);
+            WorldDataRouter.AddHandler(Opcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
+            WorldDataRouter.AddHandler(Opcodes.MSG_MOVE_WORLDPORT_ACK, OnWorldPort);
         }
 
         private static void OnWorldPort(WorldSession session, byte[] data)
@@ -84,7 +84,7 @@ namespace Milkshake.Game.Managers
             session.Entity.Z = handler.Z;
         }
 
-        private static ProcessPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
+        private static ProcessWorldPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
         {
             return delegate(WorldSession session, PCMoveInfo handler) { TransmitMovement(session, handler, opcode); };
         }

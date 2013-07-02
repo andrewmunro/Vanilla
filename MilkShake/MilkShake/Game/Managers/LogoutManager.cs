@@ -26,8 +26,8 @@ namespace Milkshake.Game.Managers
 
             Log.Print(LogType.Server, "Logout queue initialised");
 
-            DataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_REQUEST, OnLogout);
-            DataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_CANCEL, OnCancel);
+            WorldDataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_REQUEST, OnLogout);
+            WorldDataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_CANCEL, OnCancel);
         }
 
         public static void OnLogout(WorldSession session, PacketReader reader)

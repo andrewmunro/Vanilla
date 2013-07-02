@@ -192,7 +192,7 @@ namespace Milkshake.Net
                     Array.Copy(data, index + 6, packetDate, 0, length - 4);
                     Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
 
-                    DataRouter.CallHandler(this, code, packetDate);   
+                    WorldDataRouter.CallHandler(this, code, packetDate);   
 
                     index += 2 + (length - 1);
                 }

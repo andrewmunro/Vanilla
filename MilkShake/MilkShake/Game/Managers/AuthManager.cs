@@ -21,20 +21,20 @@ namespace Milkshake.Game.Managers
 {
     public class AuthManager
     {
-        public void Boot()
+        public static void Boot()
         {
-            DataRouter.AddHandler<PCAuthSession>(Opcodes.CMSG_AUTH_SESSION, OnAuthSession);
-            DataRouter.AddHandler<PCPlayerLogin>(Opcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
-            DataRouter.AddHandler(Opcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
+            WorldDataRouter.AddHandler<PCAuthSession>(Opcodes.CMSG_AUTH_SESSION, OnAuthSession);
+            WorldDataRouter.AddHandler<PCPlayerLogin>(Opcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
+            WorldDataRouter.AddHandler(Opcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
         }
 
-        private void onUpdateAccount(WorldSession session, byte[] data)
+        private static void onUpdateAccount(WorldSession session, byte[] data)
         {
             //Log.Print(LogType.Map, "Length: " + length + " Real Length: " + _dataBuffer.Length);
             //crypt.decrypt(new byte[(int)2 * 6]);
         }
 
-        private void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
+        private static void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
 
             session.Character = DBCharacters.Characters.Find(character => character.GUID == packet.GUID);
@@ -60,7 +60,7 @@ namespace Milkshake.Game.Managers
             session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity));
             session.Entity.Session = session;
             EntityManager.SpawnPlayer(session.Character);
-            EntityManager.SendPlayers(session);
+            //EntityManager.SendPlayers(session);
 
             //ChatManager.SendSytemMessage(session, "You logged in to: " + session.Character.Name + " " + session.Character.Class + " " + session.Character.Race + " GUID:" + Character.GUID);
         }
