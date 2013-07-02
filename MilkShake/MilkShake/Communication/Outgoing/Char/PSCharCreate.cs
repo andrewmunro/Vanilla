@@ -1,7 +1,7 @@
 ﻿using Milkshake.Game.Constants.Login;
 using Milkshake.Network;
 
-namespace Milkshake.Communication.Outgoing.Character
+namespace Milkshake.Communication.Outgoing.Char
 {
     class PSCharCreate : ServerPacket
     {

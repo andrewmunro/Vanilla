@@ -44,7 +44,7 @@ namespace Milkshake.Game.Sessions
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write(opcode);
-            writer.Write((byte)data.Length);
+            writer.Write((ushort)data.Length);
             writer.Write(data);
 
             Log.Print(LogType.Database, connectionID + "Server -> Client [" + (LoginOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");

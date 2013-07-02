@@ -6,7 +6,7 @@ using Milkshake.Communication;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Communication.Outgoing.Auth;
-using Milkshake.Communication.Outgoing.Character;
+using Milkshake.Communication.Outgoing.Char;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Constants.Login;

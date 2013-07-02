@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Tools.Database.Tables;
 
-
-namespace Milkshake.Communication.Outgoing.Auth
+namespace Milkshake.Communication.Outgoing.Char
 {
 	public class PSCharEnum : PacketWriter
 	{
@@ -46,14 +44,14 @@ namespace Milkshake.Communication.Outgoing.Auth
 				Write(0); // Pet Level
 				Write(0); // Pet FamilyID
 
-                ItemTemplateEntry[] Equipment = DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+				ItemTemplateEntry[] Equipment = DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
 
 				for(int itemSlot = 0; itemSlot < 19; itemSlot++)
 				{
 					if(Equipment[itemSlot] != null)
 					{
-                        Write((int)Equipment[itemSlot].displayid); // Item DisplayID
-                        Write((byte)Equipment[itemSlot].InventoryType); // Item Inventory Type
+						Write((int)Equipment[itemSlot].displayid); // Item DisplayID
+						Write((byte)Equipment[itemSlot].InventoryType); // Item Inventory Type
 					}
 					else
 					{
