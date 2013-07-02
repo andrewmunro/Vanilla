@@ -47,10 +47,8 @@ namespace Milkshake.Game.Managers
 
                         if (player.Session != null && distance > 50)
                         {
-                            SpawnGameObjects(player.Session);                           
+                            //SpawnGameObjects(player.Session);                           
                         }
-                        
-
                     }
                 }
 

@@ -70,7 +70,7 @@ namespace Milkshake.Net
             return header;
         }
 
-        public override void sendPacket(byte opcode, byte[] data)
+        public void sendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = encode(data.Length, (int)opcode);
@@ -85,7 +85,12 @@ namespace Milkshake.Net
 
         public void sendPacket(WorldOpcodes opcode, byte[] data)
         {
-            sendPacket((byte)opcode, data);
+            sendPacket((int)opcode, data);
+        }
+
+        public void sendPacket(ServerPacket packet)
+        {
+            sendPacket((int)packet.Opcode, packet.Packet);
         }
 
         public void sendMessage(String message)

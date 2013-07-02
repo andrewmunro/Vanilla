@@ -56,6 +56,11 @@ namespace Milkshake.Game.Sessions
             }
         }
 
+        public void sendData(ServerPacket packet)
+        {
+            sendData(packet.Packet);
+        }
+
         public virtual void Disconnect(object _obj = null)
         {
             try
@@ -101,11 +106,5 @@ namespace Milkshake.Game.Sessions
         }
 
         internal abstract void onPacket(byte[] data);
-        public abstract void sendPacket(byte opcode, byte[] data);
-
-        public void sendPacket(ServerPacket packet)
-        {
-            sendPacket(packet.Opcode, packet.Packet);
-        }
     }
 }

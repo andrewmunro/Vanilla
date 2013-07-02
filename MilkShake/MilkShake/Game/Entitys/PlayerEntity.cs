@@ -16,8 +16,6 @@ namespace Milkshake.Game.Entitys
         public Character Character;
         public PlayerEntity Target;
 
-        
-
         public float lastUpdateX, lastUpdateY;
 
         public int Health
@@ -44,11 +42,11 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
         }
 
-        public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_PLAYER), (int)EUnitFields.PLAYER_END - 0x4)
+        public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT), (int)EUnitFields.PLAYER_END - 0x4)
         {
             Character = character;
 
-            //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
+            SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
 

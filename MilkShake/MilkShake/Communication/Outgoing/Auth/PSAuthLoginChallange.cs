@@ -19,7 +19,7 @@ namespace Milkshake.Communication.Outgoing.Auth
             Write(Srp6.B);
             Write((byte)1);
             Write(Srp6.g[0]);
-            Write(Srp6.N.Length);
+            Write((byte)Srp6.N.Length);
             Write(Srp6.N);
             Write(Srp6.salt);
             this.WriteNull(17);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -52,7 +53,7 @@ namespace Milkshake.Game.Managers
 
             DBAccounts.SetSessionKey(session.accountName, Helper.ByteArrayToHex(sessionKey));
 
-            session.sendPacket(new PSAuthLoginProof(session.Srp6));
+            session.sendData(new PSAuthLoginProof(session.Srp6));
         }
 
         private static void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
@@ -66,7 +67,7 @@ namespace Milkshake.Game.Managers
             session.Srp6 = new SRP6(false);
             session.Srp6.CalculateX(userBytes, passBytes);
 
-            session.sendPacket(new PSAuthLoginChallange(session.Srp6));
+            session.sendData(new PSAuthLoginChallange(session.Srp6));
         }
 
         private static void onUpdateAccount(WorldSession session, byte[] data)

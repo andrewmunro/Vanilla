@@ -40,7 +40,12 @@ namespace Milkshake.Game.Sessions
             sendPacket((byte)opcode, data);
         }
 
-        public override void sendPacket(byte opcode, byte[] data)
+        public void sendPacket(ServerPacket packet)
+        {
+            sendPacket((byte)packet.Opcode, packet.Packet);
+        }
+
+        public void sendPacket(byte opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write(opcode);
