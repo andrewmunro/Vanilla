@@ -45,10 +45,11 @@ namespace Milkshake.Game.Entitys
         public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT), (int)EUnitFields.PLAYER_END - 0x4)
         {
             Character = character;
+            GUID = (uint)character.GUID;
+            //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
-            SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
-
-            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
+            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
+            //SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
 
             Health = 70;
             MaxHealth = 70;
