@@ -11,8 +11,7 @@ namespace Milkshake.Network
     {
         private readonly PacketHeaderType _headerType;
 
-        internal PacketWriter(PacketHeaderType headerType)
-            : this(headerType, new MemoryStream())
+        internal PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())
         { }
 
         internal PacketWriter(PacketHeaderType headerType, Stream output)

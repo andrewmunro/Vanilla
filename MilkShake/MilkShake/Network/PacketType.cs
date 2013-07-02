@@ -64,7 +64,7 @@ namespace Milkshake.Network
             OpCode = opCode;
         }
 
-        public PacketType(AuthServerOpCode opCode)
+        public PacketType(AuthOpcodes opCode)
             : this(PacketHandleType.Logon, (ushort)opCode)
         { }
 
@@ -100,7 +100,7 @@ namespace Milkshake.Network
 
         #endregion
 
-        public static implicit operator PacketType(AuthServerOpCode opCode)
+        public static implicit operator PacketType(AuthOpcodes opCode)
         {
             return new PacketType(opCode);
         }
@@ -115,7 +115,7 @@ namespace Milkshake.Network
             switch (Type)
             {
                 case PacketHandleType.Logon:
-                    return ((AuthServerOpCode)OpCode).ToString();
+                    return ((AuthOpcodes)OpCode).ToString();
                 case PacketHandleType.World:
                     return ((RealmServerOpCode)OpCode).ToString();
                 default:

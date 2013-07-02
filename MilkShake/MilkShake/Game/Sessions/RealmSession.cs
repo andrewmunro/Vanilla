@@ -5,6 +5,7 @@ using Milkshake.Communication;
 using Milkshake.Communication.Incoming.Auth;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Login;
+using Milkshake.Game.Handlers;
 using Milkshake.Network;
 using Milkshake.Tools;
 using System.Security.Cryptography;
@@ -19,34 +20,13 @@ namespace Milkshake.Game.Sessions
 {
     public class LoginSession : Session
     {
-        public static SRP6 Srp6;
-        private String accountName;
-        public static byte[] SessionKey;
+        public SRP6 Srp6;
+        public String accountName { get; set; };
+        public byte[] SessionKey;
 
         public LoginSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
             
-        }
-
-        internal override void dataArrival(IAsyncResult _asyncResult)
-        {
-            int bytesRecived = 0;
-
-            try { bytesRecived = connectionSocket.EndReceive(_asyncResult); }
-            catch (Exception e) { Disconnect(e.Source); }
-
-            if (bytesRecived != 0)
-            {
-                byte[] data = new byte[bytesRecived];
-                Array.Copy(dataBuffer, data, bytesRecived);
-
-                onPacket(data);
-                connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
-            }
-            else
-            {
-                Disconnect();
-            }
         }
 
         public override void Disconnect(object _obj = null) 
@@ -55,72 +35,43 @@ namespace Milkshake.Game.Sessions
             MilkShake.login.FreeConnectionID(connectionID);
         }
 
-
-        internal override void onPacket(byte[] _dataBuffer)
+        public override void sendPacket(Opcodes opcode, byte[] data)
         {
-            short opCode = BitConverter.ToInt16(_dataBuffer, 0);
-            Log.Print(LogType.Server, ConnectionRemoteIP + " Data Recived - OpCode:" + opCode.ToString("X2") + " " + ((AuthServerOpCode)opCode));
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+            byte[] header = new byte[1] { (byte)opcode };
 
-            AuthServerOpCode opcode = (AuthServerOpCode)opCode;
+            BinaryWriter length = new BinaryWriter(writer);
+            length.Write((short)array.Length);
+
+            byte[] endArray = Concat(Concat(header, lengthstream.ToArray()), array);
+
+
+            writer.Write(header);
+            writer.Write(data);
+
+            if (opcode == Opcodes.SMSG_CHAR_ENUM)
+            {
+                Log.Print(LogType.Debug, Helper.ByteArrayToHex(data));
+            }
+
+            Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
+
+            sendData(((MemoryStream) writer.BaseStream).ToArray());
+        }
+
+
+        internal override void onPacket(byte[] data)
+        {
+            short opcode = BitConverter.ToInt16(data, 0);
+            Log.Print(LogType.Server, ConnectionRemoteIP + " Data Recived - OpCode:" + opcode.ToString("X2") + " " + ((AuthOpcodes)opcode));
+
+            AuthOpcodes code = (AuthOpcodes)opcode;
+
+            DataRouter.CallHandler(this, code, data);
 
             switch (opcode)
             {
-                case AuthServerOpCode.AUTH_LOGON_CHALLENGE:
-                    AuthLogonChallenge packet = new AuthLogonChallenge(_dataBuffer);
-
-                    accountName = packet.Name;
-                    Account account = DBAccounts.GetAccount(packet.Name);
-
-                    byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
-                    byte[] passBytes = Encoding.UTF8.GetBytes(account.Password.ToUpper());
-
-                    Srp6 = new SRP6(false);
-                    Srp6.CalculateX(userBytes, passBytes);
-
-                    Packet outPacket = new RealmPacket(AuthServerOpCode.AUTH_LOGON_CHALLENGE);
-
-                    outPacket.Writer.Write((byte)0x00);
-                    outPacket.Writer.Write((byte)0x00);
-
-                    outPacket.Writer.Write((byte)AccountStatus.Ok);
-                    outPacket.Writer.Write(Srp6.B);
-
-                    outPacket.Writer.Write((byte)1);
-                    outPacket.Writer.Write(Srp6.g[0]);
-
-                    outPacket.Writer.Write((byte)Srp6.N.Length);
-                    outPacket.Writer.Write(Srp6.N);
-                    outPacket.Writer.Write(Srp6.salt);
-                        
-                    outPacket.Writer.WriteNull(17);
-                    
-                    sendData(outPacket.Data);
-
-                    break;
-
-                case AuthServerOpCode.AUTH_LOGON_PROOF:
-                    AuthLogonProof packet1 = new AuthLogonProof(_dataBuffer);
-                    Srp6.CalculateU(packet1.A);
-                    Srp6.CalculateM2(packet1.M1);
-                    CalculateAccountHash();
-
-                    byte[] sessionKey = Srp6.K;
-
-                    DBAccounts.SetSessionKey(accountName, Helper.ByteArrayToHex(sessionKey));
-
-                    Console.WriteLine("Coorect: " + IsCorrectHash(packet1.A, packet1.M1));
-
-                    Packet outPacket2 = new RealmPacket(AuthServerOpCode.AUTH_LOGON_PROOF);
-
-                    outPacket2.Writer.Write((byte)0x01); // Command
-                    outPacket2.Writer.Write((byte)AccountStatus.Ok); // Error
-                    outPacket2.Writer.Write(Srp6.M2); // 20
-                    outPacket2.Writer.WriteNull(4);
-
-                    sendData(outPacket2.Data);
-                    break;
-
-                case AuthServerOpCode.REALM_LIST:
+                case AuthOpcodes.REALM_LIST:
                     
                       using (MemoryStream ms = new MemoryStream())
                       {
@@ -162,106 +113,6 @@ namespace Milkshake.Game.Sessions
                 break;
             }
 
-        }
-
-        public void CalculateAccountHash()
-        {
-            SHA1 shaM1 = new SHA1CryptoServiceProvider();
-            byte[] S = Srp6.S;
-            var S1 = new byte[16];
-            var S2 = new byte[16];
-
-            for (int t = 0; t < 16; t++)
-            {
-                S1[t] = S[t * 2];
-                S2[t] = S[(t * 2) + 1];
-            }
-
-            byte[] hashS1 = shaM1.ComputeHash(S1);
-            byte[] hashS2 = shaM1.ComputeHash(S2);
-            SessionKey = new byte[hashS1.Length + hashS2.Length];
-            for (int t = 0; t < 20; t++)
-            {
-                SessionKey[t * 2] = hashS1[t];
-                SessionKey[(t * 2) + 1] = hashS2[t];
-            }
-
-            var opad = new byte[64];
-            var ipad = new byte[64];
-
-            //Static 16 byte Key located at 0x0088FB3C
-            var key = new byte[] { 56, 167, 131, 21, 248, 146, 37, 48, 113, 152, 103, 177, 140, 4, 226, 170 };
-
-            //Fill 64 bytes of same value
-            for (int i = 0; i <= 64 - 1; i++)
-            {
-                opad[i] = 0x05C;
-                ipad[i] = 0x036;
-            }
-
-            //XOR Values
-            for (int i = 0; i <= 16 - 1; i++)
-            {
-                opad[i] = (byte)(opad[i] ^ key[i]);
-                ipad[i] = (byte)(ipad[i] ^ key[i]);
-            }
-
-            byte[] buffer1 = Concat(ipad, SessionKey);
-            byte[] buffer2 = shaM1.ComputeHash(buffer1);
-
-            buffer1 = Concat(opad, buffer2);
-            SessionKey = shaM1.ComputeHash(buffer1);
-        }
-
-        public byte[] Concat(byte[] a, byte[] b)
-        {
-            var res = new byte[a.Length + b.Length];
-            for (int t = 0; t < a.Length; t++)
-            {
-                res[t] = a[t];
-            }
-            for (int t = 0; t < b.Length; t++)
-            {
-                res[t + a.Length] = b[t];
-            }
-            return res;
-        }
-
-        private bool IsCorrectHash(byte[] a, byte[] m1)
-        {
-            SHA1 hash = new SHA1Managed();
-            byte[] nHash = hash.ComputeHash(Srp6.N);
-            byte[] gHash = hash.ComputeHash(Srp6.g);
-            byte[] userHash = hash.ComputeHash(Encoding.UTF8.GetBytes("GRAYPE"));
-
-            var ngHash = new byte[20];
-            for (int i = 0; i < 20; i++)
-            {
-                ngHash[i] = (byte)(nHash[i] ^ gHash[i]);
-            }
-
-            // Lots of 'Append'ing
-            byte[] appended = Append(Append(Append(ngHash, userHash), Append(Srp6.salt, a)),
-                                     Append(Srp6.B, Srp6.K));
-
-            byte[] hashed = hash.ComputeHash(appended);
-
-            for (int i = 0; i < 20; i++)
-            {
-                if (hashed[i] != m1[i])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private static byte[] Append(byte[] buf1, byte[] buf2)
-        {
-            var result = new byte[buf1.Length + buf2.Length];
-            Buffer.BlockCopy(buf1, 0, result, 0, buf1.Length);
-            Buffer.BlockCopy(buf2, 0, result, buf1.Length, buf2.Length);
-            return result;
         }
     }
 }

@@ -64,35 +64,6 @@ namespace Milkshake.Net
             return header;
         }
 
-        internal override void dataArrival(IAsyncResult _asyncResult)
-        {
-            int bytesRecived = 0;
-
-            try { bytesRecived = connectionSocket.EndReceive(_asyncResult); }
-            catch (Exception e) { Disconnect(e.Source); }
-
-            if (bytesRecived != 0)
-            {
-                byte[] data = new byte[bytesRecived];
-                Array.Copy(dataBuffer, data, bytesRecived);
-
-                onPacket(data);
-
-                try
-                {
-                    connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Meh");
-                }
-            }
-            else
-            {
-                Disconnect();
-            }
-        }
-
         public void sendPacket(Opcodes opcode, byte data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
@@ -116,7 +87,7 @@ namespace Milkshake.Net
             sendPacket(packet.Opcode, packet.Packet);
         }
 
-        public void sendPacket(Opcodes opcode, byte[] data)
+        public override void sendPacket(Opcodes opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = encode(data.Length, (int)opcode);

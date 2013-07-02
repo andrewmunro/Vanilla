@@ -10,19 +10,22 @@ using Milkshake.Tools;
 
 namespace Milkshake.Game.Handlers
 {
-    public delegate void ProcessWorldPacketCallback(WorldSession Session, byte[] data);
-    public delegate void ProcessWorldPacketCallbackTypes<T>(WorldSession Session, T handler);
+    public delegate void ProcessPacketCallback(WorldSession Session, byte[] data);
+    public delegate void ProcessPacketCallbackTypes<T>(WorldSession Session, T handler);
 
-    public class WorldDataRouter
+    public class DataRouter
     {
-        private static Dictionary<Opcodes, ProcessWorldPacketCallback> mCallbacks = new Dictionary<Opcodes, ProcessWorldPacketCallback>();
+        private static Dictionary<byte, ProcessPacketCallback> mCallbacks = new Dictionary<byte, ProcessPacketCallback>();
         
-        public static void AddHandler(Opcodes opcode, ProcessWorldPacketCallback handler)
+        public static void AddHandler(byte opcode, ProcessPacketCallback handler)
         {
             mCallbacks.Add(opcode, handler);
         }
 
-        public static void AddHandler<T>(Opcodes opcode, ProcessWorldPacketCallbackTypes<T> callback)
+        public static void AddHandler(AuthOpcodes opcode, ProcessPacketCallback handler) { AddHandler((byte)opcode, handler); }
+        public static void AddHandler(Opcodes opcode, ProcessPacketCallback handler) { AddHandler((byte)opcode, handler); }
+
+        public static void AddHandler<T>(byte opcode, ProcessPacketCallbackTypes<T> callback)
         {
             AddHandler(opcode, (session, data) =>
             {
@@ -30,8 +33,11 @@ namespace Milkshake.Game.Handlers
                 callback(session, generatedHandler);
             });
         }
+        public static void AddHandler<T>(AuthOpcodes opcode, ProcessPacketCallbackTypes<T> callback) { AddHandler<T>((byte)opcode, callback); }
+        public static void AddHandler<T>(Opcodes opcode, ProcessPacketCallbackTypes<T> callback) { AddHandler<T>((byte)opcode, callback); }
 
-        public static void CallHandler(WorldSession session, Opcodes opcode, byte[] data)
+
+        public static void CallHandler(WorldSession session, byte opcode, byte[] data)
         {
             if (mCallbacks.ContainsKey(opcode))
             {

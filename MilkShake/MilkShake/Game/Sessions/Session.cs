@@ -71,8 +71,36 @@ namespace Milkshake.Game.Sessions
             }
         }
 
-        internal abstract void onPacket(byte[] data);
+        internal virtual void dataArrival(IAsyncResult _asyncResult)
+        {
+            int bytesRecived = 0;
 
-        internal abstract void dataArrival(IAsyncResult _async);
+            try { bytesRecived = connectionSocket.EndReceive(_asyncResult); }
+            catch (Exception e) { Disconnect(e.Source); }
+
+            if (bytesRecived != 0)
+            {
+                byte[] data = new byte[bytesRecived];
+                Array.Copy(dataBuffer, data, bytesRecived);
+
+                onPacket(data);
+
+                try
+                {
+                    connectionSocket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(dataArrival), null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Meh");
+                }
+            }
+            else
+            {
+                Disconnect();
+            }
+        }
+
+        internal abstract void onPacket(byte[] data);
+        public abstract void sendPacket(Opcodes opcode, byte[] data);
     }
 }

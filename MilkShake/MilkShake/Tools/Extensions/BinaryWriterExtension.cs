@@ -9,10 +9,10 @@ namespace Milkshake.Tools.Extensions
 {
     public static class BinaryWriterExtension
     {
-        public static void WriteCString(this BinaryWriter bw, string input)
+        public static void WriteCString(this BinaryWriter writer, string input)
         {
             byte[] data = Encoding.UTF8.GetBytes(input + '\0');
-            bw.Write(data);
+            writer.Write(data);
         }
 
         public static void WriteBytes(this BinaryWriter writer, byte[] data, int count = 0)
@@ -29,6 +29,14 @@ namespace Milkshake.Tools.Extensions
             buffer.CopyTo(bufferarray, 0);
 
             WriteBytes(writer, bufferarray.ToArray(), Len);
+        }
+
+        public static void WriteNull(this BinaryWriter writer, uint count)
+        {
+            for (uint i = 0; i < count; i++)
+            {
+                writer.Write((byte)0);
+            }
         }
     }
 }

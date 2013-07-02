@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using Milkshake.Communication;
+using Milkshake.Communication.Incoming.Auth;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Communication.Incoming.World;
 using Milkshake.Communication.Incoming.World.Auth;
+using Milkshake.Communication.Outgoing.Auth;
 using Milkshake.Communication.Outgoing.World;
 using Milkshake.Communication.Outgoing.World.ActionBarButton;
 using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Game.Constants;
 using Milkshake.Game.Handlers;
+using Milkshake.Game.Sessions;
 using Milkshake.Net;
+using Milkshake.Network;
 using Milkshake.Tools;
 using Milkshake.Tools.Cryptography;
 using Milkshake.Tools.Database.Helpers;
@@ -23,9 +29,44 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            WorldDataRouter.AddHandler<PCAuthSession>(Opcodes.CMSG_AUTH_SESSION, OnAuthSession);
-            WorldDataRouter.AddHandler<PCPlayerLogin>(Opcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
-            WorldDataRouter.AddHandler(Opcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
+            DataRouter.AddHandler<PCAuthSession>(Opcodes.CMSG_AUTH_SESSION, OnAuthSession);
+            DataRouter.AddHandler<PCPlayerLogin>(Opcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
+            DataRouter.AddHandler<PCAuthLoginChallenge>(AuthOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
+            DataRouter.AddHandler<PCAuthLoginProof>(AuthOpcodes.AUTH_LOGIN_PROOF, OnLoginProof);
+            DataRouter.AddHandler(AuthOpcodes.REALM_LIST, onRealmList);
+            DataRouter.AddHandler(Opcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
+        }
+
+        private static void onRealmList(WorldSession session, byte[] packet)
+        {
+            ServerPacket packet = new PSRealmList();
+        }
+
+        private static void OnLoginProof(LoginSession session, PCAuthLoginProof packet)
+        {
+            session.Srp6.CalculateU(packet.A);
+            session.Srp6.CalculateM2(packet.M1);
+            CalculateAccountHash(session);
+
+            byte[] sessionKey = session.Srp6.K;
+
+            DBAccounts.SetSessionKey(session.accountName, Helper.ByteArrayToHex(sessionKey));
+
+            session.sendData(new PSAuthLoginProof(session.Srp6));
+        }
+
+        private static void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
+        {
+            session.accountName = packet.Name;
+            Account account = DBAccounts.GetAccount(packet.Name);
+
+            byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
+            byte[] passBytes = Encoding.UTF8.GetBytes(account.Password.ToUpper());
+
+            session.Srp6 = new SRP6(false);
+            session.Srp6.CalculateX(userBytes, passBytes);
+
+            session.sendData(new PSAuthLoginChallange(session.Srp6));
         }
 
         private static void onUpdateAccount(WorldSession session, byte[] data)
@@ -60,7 +101,7 @@ namespace Milkshake.Game.Managers
             session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity));
             session.Entity.Session = session;
             EntityManager.SpawnPlayer(session.Character);
-            //EntityManager.SendPlayers(session);
+            EntityManager.SendPlayers(session);
 
             //ChatManager.SendSytemMessage(session, "You logged in to: " + session.Character.Name + " " + session.Character.Class + " " + session.Character.Race + " GUID:" + Character.GUID);
         }
@@ -74,6 +115,69 @@ namespace Milkshake.Game.Managers
             Log.Print(LogType.Debug, "Started Encryption");
 
             session.sendHexPacket(Opcodes.SMSG_AUTH_RESPONSE, "0C 00 00 00 00 00 00 00 00 00 ");
+        }
+
+        private static void CalculateAccountHash(LoginSession session)
+        {
+            SHA1 shaM1 = new SHA1CryptoServiceProvider();
+            byte[] S = session.Srp6.S;
+            var S1 = new byte[16];
+            var S2 = new byte[16];
+
+            for (int t = 0; t < 16; t++)
+            {
+                S1[t] = S[t * 2];
+                S2[t] = S[(t * 2) + 1];
+            }
+
+            byte[] hashS1 = shaM1.ComputeHash(S1);
+            byte[] hashS2 = shaM1.ComputeHash(S2);
+            session.SessionKey = new byte[hashS1.Length + hashS2.Length];
+            for (int t = 0; t < 20; t++)
+            {
+                session.SessionKey[t * 2] = hashS1[t];
+                session.SessionKey[(t * 2) + 1] = hashS2[t];
+            }
+
+            var opad = new byte[64];
+            var ipad = new byte[64];
+
+            //Static 16 byte Key located at 0x0088FB3C
+            var key = new byte[] { 56, 167, 131, 21, 248, 146, 37, 48, 113, 152, 103, 177, 140, 4, 226, 170 };
+
+            //Fill 64 bytes of same value
+            for (int i = 0; i <= 64 - 1; i++)
+            {
+                opad[i] = 0x05C;
+                ipad[i] = 0x036;
+            }
+
+            //XOR Values
+            for (int i = 0; i <= 16 - 1; i++)
+            {
+                opad[i] = (byte)(opad[i] ^ key[i]);
+                ipad[i] = (byte)(ipad[i] ^ key[i]);
+            }
+
+            byte[] buffer1 = Concat(ipad, session.SessionKey);
+            byte[] buffer2 = shaM1.ComputeHash(buffer1);
+
+            buffer1 = Concat(opad, buffer2);
+            session.SessionKey = shaM1.ComputeHash(buffer1);
+        }
+
+        private static byte[] Concat(byte[] a, byte[] b)
+        {
+            var res = new byte[a.Length + b.Length];
+            for (int t = 0; t < a.Length; t++)
+            {
+                res[t] = a[t];
+            }
+            for (int t = 0; t < b.Length; t++)
+            {
+                res[t + a.Length] = b[t];
+            }
+            return res;
         }
 
     }

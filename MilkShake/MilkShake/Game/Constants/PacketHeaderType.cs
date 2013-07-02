@@ -18,7 +18,7 @@ namespace Milkshake.Game.Constants
             return opCode.ToString().StartsWith("CMSG") ? PacketHeaderType.WorldCmsg : PacketHeaderType.WorldSmsg;
         }
 
-        public static PacketHeaderType Parse(this AuthServerOpCode opCode)
+        public static PacketHeaderType Parse(this AuthOpcodes opCode)
         {
             return PacketHeaderType.AuthSmsg;
         }

@@ -69,7 +69,9 @@
     <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
     <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSAuthLoginProof.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSRealmList.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
     <Compile Include="Communication\Outgoing\Players\PSNewWorld.cs" />
     <Compile Include="Communication\Outgoing\Players\PSTransferPending.cs" />
@@ -128,7 +130,6 @@
     <Compile Include="Game\Managers\AuthManager.cs" />
     <Compile Include="Game\Managers\CharacterManager.cs" />
     <Compile Include="Game\Sessions\Session.cs" />
-    <Compile Include="Network\RealmPacket.cs" />
     <Compile Include="Network\WorldPacket.cs" />
     <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
@@ -168,9 +169,9 @@
     <Compile Include="Tools\Cryptography\PacketCrypto.cs" />
     <Compile Include="Tools\Cryptography\RC4.cs" />
     <Compile Include="Tools\Cryptography\SRP6.cs" />
-    <Compile Include="Communication\Incoming\Auth\AuthLogonProof.cs" />
+    <Compile Include="Communication\Incoming\Auth\PCAuthLoginProof.cs" />
     <Compile Include="Communication\Outgoing\World\Opcodes.cs" />
-    <Compile Include="Communication\Incoming\Auth\AuthLogonChallenge.cs" />
+    <Compile Include="Communication\Incoming\Auth\PCAuthLoginChallenge.cs" />
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\PacketReader.cs" />
     <Compile Include="Network\PacketType.cs" />
