@@ -15,39 +15,39 @@ namespace Milkshake.Game.Managers
 {
     public class MovementManager
     {
-        private static readonly List<Opcodes> MOVEMENT_CODES = new List<Opcodes>()
+        private static readonly List<WorldOpcodes> MOVEMENT_CODES = new List<WorldOpcodes>()
         {   
-            Opcodes.MSG_MOVE_HEARTBEAT,
-            Opcodes.MSG_MOVE_JUMP,
-            Opcodes.MSG_MOVE_START_FORWARD,
-            Opcodes.MSG_MOVE_START_BACKWARD,
-            Opcodes.MSG_MOVE_SET_FACING,
-            Opcodes.MSG_MOVE_STOP,
-            Opcodes.MSG_MOVE_START_STRAFE_LEFT,
-            Opcodes.MSG_MOVE_START_STRAFE_RIGHT,
-            Opcodes.MSG_MOVE_STOP_STRAFE,
-            Opcodes.MSG_MOVE_START_TURN_LEFT,
-            Opcodes.MSG_MOVE_START_TURN_RIGHT,
-            Opcodes.MSG_MOVE_STOP_TURN,
-            Opcodes.MSG_MOVE_START_PITCH_UP,
-            Opcodes.MSG_MOVE_START_PITCH_DOWN,
-            Opcodes.MSG_MOVE_STOP_PITCH,
-            Opcodes.MSG_MOVE_SET_RUN_MODE,
-            Opcodes.MSG_MOVE_SET_WALK_MODE,
-            Opcodes.MSG_MOVE_SET_PITCH,
-            Opcodes.MSG_MOVE_START_SWIM,
-            Opcodes.MSG_MOVE_STOP_SWIM,
-            Opcodes.MSG_MOVE_FALL_LAND,
-            Opcodes.MSG_MOVE_HOVER,
-            Opcodes.MSG_MOVE_KNOCK_BACK
+            WorldOpcodes.MSG_MOVE_HEARTBEAT,
+            WorldOpcodes.MSG_MOVE_JUMP,
+            WorldOpcodes.MSG_MOVE_START_FORWARD,
+            WorldOpcodes.MSG_MOVE_START_BACKWARD,
+            WorldOpcodes.MSG_MOVE_SET_FACING,
+            WorldOpcodes.MSG_MOVE_STOP,
+            WorldOpcodes.MSG_MOVE_START_STRAFE_LEFT,
+            WorldOpcodes.MSG_MOVE_START_STRAFE_RIGHT,
+            WorldOpcodes.MSG_MOVE_STOP_STRAFE,
+            WorldOpcodes.MSG_MOVE_START_TURN_LEFT,
+            WorldOpcodes.MSG_MOVE_START_TURN_RIGHT,
+            WorldOpcodes.MSG_MOVE_STOP_TURN,
+            WorldOpcodes.MSG_MOVE_START_PITCH_UP,
+            WorldOpcodes.MSG_MOVE_START_PITCH_DOWN,
+            WorldOpcodes.MSG_MOVE_STOP_PITCH,
+            WorldOpcodes.MSG_MOVE_SET_RUN_MODE,
+            WorldOpcodes.MSG_MOVE_SET_WALK_MODE,
+            WorldOpcodes.MSG_MOVE_SET_PITCH,
+            WorldOpcodes.MSG_MOVE_START_SWIM,
+            WorldOpcodes.MSG_MOVE_STOP_SWIM,
+            WorldOpcodes.MSG_MOVE_FALL_LAND,
+            WorldOpcodes.MSG_MOVE_HOVER,
+            WorldOpcodes.MSG_MOVE_KNOCK_BACK
         };
 
         public static void Boot()
         {
             MOVEMENT_CODES.ForEach(code => WorldDataRouter.AddHandler<PCMoveInfo>(code, GenerateResponce(code)));
 
-            WorldDataRouter.AddHandler(Opcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
-            WorldDataRouter.AddHandler(Opcodes.MSG_MOVE_WORLDPORT_ACK, OnWorldPort);
+            WorldDataRouter.AddHandler(WorldOpcodes.CMSG_MOVE_TIME_SKIPPED, OnMoveTimeSkipped);
+            WorldDataRouter.AddHandler(WorldOpcodes.MSG_MOVE_WORLDPORT_ACK, OnWorldPort);
         }
 
         private static void OnWorldPort(WorldSession session, byte[] data)
@@ -84,14 +84,14 @@ namespace Milkshake.Game.Managers
             session.Entity.Z = handler.Z;
         }
 
-        private static ProcessWorldPacketCallbackTypes<PCMoveInfo> GenerateResponce(Opcodes opcode)
+        private static ProcessWorldPacketCallbackTypes<PCMoveInfo> GenerateResponce(WorldOpcodes worldOpcode)
         {
-            return delegate(WorldSession session, PCMoveInfo handler) { TransmitMovement(session, handler, opcode); };
+            return delegate(WorldSession session, PCMoveInfo handler) { TransmitMovement(session, handler, worldOpcode); };
         }
 
-        private static void TransmitMovement(WorldSession session, PCMoveInfo handler, Opcodes code)
+        private static void TransmitMovement(WorldSession session, PCMoveInfo handler, WorldOpcodes code)
         {
-            if (code == Opcodes.MSG_MOVE_HEARTBEAT)
+            if (code == WorldOpcodes.MSG_MOVE_HEARTBEAT)
             {
                 SavePosition(session, handler);
             }

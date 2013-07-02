@@ -101,6 +101,11 @@ namespace Milkshake.Game.Sessions
         }
 
         internal abstract void onPacket(byte[] data);
-        public abstract void sendPacket(Opcodes opcode, byte[] data);
+        public abstract void sendPacket(byte opcode, byte[] data);
+
+        public void sendPacket(ServerPacket packet)
+        {
+            sendPacket(packet.Opcode, packet.Packet);
+        }
     }
 }

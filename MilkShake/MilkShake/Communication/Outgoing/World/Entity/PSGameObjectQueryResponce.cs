@@ -21,7 +21,7 @@ namespace Milkshake.Communication.Outgoing.World.Entity
 
     public class PSGameObjectQueryResponce : ServerPacket
     {
-        public PSGameObjectQueryResponce(GameObjectTemplate gameObjectTemplate) : base(Opcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
+        public PSGameObjectQueryResponce(GameObjectTemplate gameObjectTemplate) : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
         {
             Write((UInt32)gameObjectTemplate.Entry);
             Write((UInt32)gameObjectTemplate.Type);

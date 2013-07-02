@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Outgoing.World.Player
 {
     public class PSPong : ServerPacket
     {
-        public PSPong(uint ping) : base(Opcodes.SMSG_PONG)
+        public PSPong(uint ping) : base(WorldOpcodes.SMSG_PONG)
         {
             Write((ulong)ping);
         }

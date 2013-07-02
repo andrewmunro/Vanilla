@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Outgoing.Players
 {
     public class PSNewWorld : ServerPacket
     {
-        public PSNewWorld(int mapID, float X, float Y, float Z, float R) : base(Opcodes.SMSG_NEW_WORLD)
+        public PSNewWorld(int mapID, float X, float Y, float Z, float R) : base(WorldOpcodes.SMSG_NEW_WORLD)
         {
             Write(mapID);
             Write(X);

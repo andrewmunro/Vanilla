@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Outgoing.World.Player
 {
     public class PSLoginSetTimeSpeed : ServerPacket
     {
-        public PSLoginSetTimeSpeed() : base(Opcodes.SMSG_LOGIN_SETTIMESPEED)
+        public PSLoginSetTimeSpeed() : base(WorldOpcodes.SMSG_LOGIN_SETTIMESPEED)
         {
             Write((UInt32)0); // Time
             Write((float)0.01666667f); // Speed

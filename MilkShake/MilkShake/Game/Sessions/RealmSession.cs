@@ -21,7 +21,7 @@ namespace Milkshake.Game.Sessions
     public class LoginSession : Session
     {
         public SRP6 Srp6;
-        public String accountName { get; set; };
+        public String accountName { get; set; }
         public byte[] SessionKey;
 
         public LoginSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
@@ -35,84 +35,32 @@ namespace Milkshake.Game.Sessions
             MilkShake.login.FreeConnectionID(connectionID);
         }
 
-        public override void sendPacket(Opcodes opcode, byte[] data)
+        public void sendPacket(LoginOpcodes opcode, byte[] data)
+        {
+            sendPacket((byte)opcode, data);
+        }
+
+        public override void sendPacket(byte opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = new byte[1] { (byte)opcode };
-
-            BinaryWriter length = new BinaryWriter(writer);
-            length.Write((short)array.Length);
-
-            byte[] endArray = Concat(Concat(header, lengthstream.ToArray()), array);
-
-
-            writer.Write(header);
+            writer.Write(opcode);
+            writer.Write((byte)data.Length);
             writer.Write(data);
 
-            if (opcode == Opcodes.SMSG_CHAR_ENUM)
-            {
-                Log.Print(LogType.Debug, Helper.ByteArrayToHex(data));
-            }
+            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (LoginOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
-            Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
-
-            sendData(((MemoryStream) writer.BaseStream).ToArray());
+            sendData(((MemoryStream)writer.BaseStream).ToArray());
         }
 
 
         internal override void onPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
-            Log.Print(LogType.Server, ConnectionRemoteIP + " Data Recived - OpCode:" + opcode.ToString("X2") + " " + ((AuthOpcodes)opcode));
+            Log.Print(LogType.Server, ConnectionRemoteIP + " Data Recived - OpCode:" + opcode.ToString("X2") + " " + ((LoginOpcodes)opcode));
 
-            AuthOpcodes code = (AuthOpcodes)opcode;
+            LoginOpcodes code = (LoginOpcodes)opcode;
 
-            DataRouter.CallHandler(this, code, data);
-
-            switch (opcode)
-            {
-                case AuthOpcodes.REALM_LIST:
-                    
-                      using (MemoryStream ms = new MemoryStream())
-                      {
-                          using (BinaryWriter bw = new BinaryWriter(ms))
-                          {
-                             // bw.Write((byte)0x10); // cmd
-                             // bw.Write((Int16)0); // size
-                              bw.Write((UInt32)0x0000); // Ender?
-                              bw.Write((byte)1); // Realm count
-
-                              bw.Write((UInt32)RealmType.PVP); // Icon
-                              bw.Write((byte)0); // Flag
-
-                              bw.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
-                              bw.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.IP) + ":" + INI.GetValue(ConfigValues.WORLD, ConfigValues.PORT));
-
-                              bw.Write((float)INI.GetValue<float>(ConfigValues.WORLD, ConfigValues.POPULATION)); // Pop
-                              bw.Write((byte)3); // Chars
-                              bw.Write((byte)1); // time
-                              bw.Write((byte)0); // time
-
-                             bw.Write((UInt16)0x0002); 
-                          }
-                          
-                          byte[] array = ms.ToArray();
-                          byte[] header = new byte[1] { 0x10 };
-
-                          MemoryStream lengthstream = new MemoryStream();
-                          BinaryWriter length = new BinaryWriter(lengthstream);
-                          length.Write((short)array.Length);
-
-                           
-                           byte[] endArray = Concat(Concat(header, lengthstream.ToArray()), array);
-
-                           //ReadRealms(endArray);
-
-                           sendData(endArray);
-                      }
-                break;
-            }
-
+            LoginDataRouter.CallHandler(this, code, data);
         }
     }
 }

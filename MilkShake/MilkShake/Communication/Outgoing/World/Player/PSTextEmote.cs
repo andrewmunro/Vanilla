@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Outgoing.World.Player
 {
     public class PSTextEmote : ServerPacket
     {
-        public PSTextEmote(int GUID, int emoteID, int textID) : base(Opcodes.SMSG_TEXT_EMOTE)
+        public PSTextEmote(int GUID, int emoteID, int textID) : base(WorldOpcodes.SMSG_TEXT_EMOTE)
         {
             Write((ulong)GUID);
             Write((uint)textID);

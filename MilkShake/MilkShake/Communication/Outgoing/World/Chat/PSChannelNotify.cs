@@ -11,7 +11,7 @@ namespace Milkshake.Communication.Outgoing.World.Chat
 {
     class PSChannelNotify : ServerPacket
     {
-        public PSChannelNotify(ChatChannelNotify type, ulong GUID, String channelName) : base(Opcodes.SMSG_CHANNEL_NOTIFY)
+        public PSChannelNotify(ChatChannelNotify type, ulong GUID, String channelName) : base(WorldOpcodes.SMSG_CHANNEL_NOTIFY)
         {
             Write((byte)type);
             Write(Encoding.UTF8.GetBytes(channelName + '\0'));

@@ -14,7 +14,7 @@ namespace Milkshake.Communication.Outgoing.World.Movement
 {
     public class PSMovement : ServerPacket
     {
-        public PSMovement(Opcodes opcode, WorldSession session, PCMoveInfo moveinfo) : base(opcode)
+        public PSMovement(WorldOpcodes worldOpcode, WorldSession session, PCMoveInfo moveinfo) : base(worldOpcode)
         {
             uint correctedMoveTime = (uint)Environment.TickCount;
 

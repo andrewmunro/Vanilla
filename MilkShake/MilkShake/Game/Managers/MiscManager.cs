@@ -27,13 +27,13 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            WorldDataRouter.AddHandler<PCNameQuery>(Opcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
-            WorldDataRouter.AddHandler<PCTextEmote>(Opcodes.CMSG_TEXT_EMOTE, OnTextEmotePacket);
-            WorldDataRouter.AddHandler<PCZoneUpdate>(Opcodes.CMSG_ZONEUPDATE, OnZoneUpdatePacket);
-            WorldDataRouter.AddHandler<PCAreaTrigger>(Opcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
-            WorldDataRouter.AddHandler<PCPing>(Opcodes.CMSG_PING, OnPingPacket);
-            WorldDataRouter.AddHandler<PCSetSelection>(Opcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
-            WorldDataRouter.AddHandler<PCGameObjectQuery>(Opcodes.CMSG_GAMEOBJECT_QUERY, OnGameObjectQuery);
+            WorldDataRouter.AddHandler<PCNameQuery>(WorldOpcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
+            WorldDataRouter.AddHandler<PCTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, OnTextEmotePacket);
+            WorldDataRouter.AddHandler<PCZoneUpdate>(WorldOpcodes.CMSG_ZONEUPDATE, OnZoneUpdatePacket);
+            WorldDataRouter.AddHandler<PCAreaTrigger>(WorldOpcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
+            WorldDataRouter.AddHandler<PCPing>(WorldOpcodes.CMSG_PING, OnPingPacket);
+            WorldDataRouter.AddHandler<PCSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
+            WorldDataRouter.AddHandler<PCGameObjectQuery>(WorldOpcodes.CMSG_GAMEOBJECT_QUERY, OnGameObjectQuery);
 
         }
 

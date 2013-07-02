@@ -70,7 +70,11 @@
     <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginProof.cs" />
-    <Compile Include="Communication\Outgoing\Auth\PSCharEnum.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharCreate.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharDelete.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharEnum.cs" />
+    <Compile Include="Communication\Outgoing\Logout\PSLogoutCancelAcknowledgement.cs" />
+    <Compile Include="Communication\Outgoing\Logout\PSLogoutComplete.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSRealmList.cs" />
     <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
     <Compile Include="Communication\Outgoing\Players\PSNewWorld.cs" />
@@ -170,7 +174,7 @@
     <Compile Include="Tools\Cryptography\RC4.cs" />
     <Compile Include="Tools\Cryptography\SRP6.cs" />
     <Compile Include="Communication\Incoming\Auth\PCAuthLoginProof.cs" />
-    <Compile Include="Communication\Outgoing\World\Opcodes.cs" />
+    <Compile Include="Communication\Outgoing\World\WorldOpcodes.cs" />
     <Compile Include="Communication\Incoming\Auth\PCAuthLoginChallenge.cs" />
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\PacketReader.cs" />

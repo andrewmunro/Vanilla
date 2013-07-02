@@ -16,9 +16,9 @@ namespace Milkshake.Network
             Opcode = opcode;
         }
 
-        public ServerPacket(Opcodes opcode) : this((byte) opcode) {}
+        public ServerPacket(WorldOpcodes worldOpcode) : this((byte) worldOpcode) {}
 
-        public ServerPacket(AuthOpcodes opcode) : this((byte) opcode) {}
+        public ServerPacket(LoginOpcodes opcode) : this((byte) opcode) {}
 
         public byte[] Packet
         {

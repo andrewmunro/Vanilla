@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Milkshake.Game.Constants.Game.World.Item;
+using System.Linq;
 using Milkshake.Network;
-using Milkshake.Game.Constants;
-using Milkshake.Game.Constants.Character;
 using Milkshake.Tools;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
-using Milkshake.Tools.Database;
-using Milkshake.Tools.Database.Tables;
+
 
 namespace Milkshake.Communication.Outgoing.Auth
 {

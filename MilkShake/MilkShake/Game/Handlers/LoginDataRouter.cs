@@ -8,19 +8,19 @@ using Milkshake.Tools;
 
 namespace Milkshake.Game.Handlers
 {
-    public delegate void ProcessPacketCallback(LoginSession Session, byte[] data);
-    public delegate void ProcessPacketCallbackTypes<T>(LoginSession Session, T handler);
+    public delegate void ProcessLoginPacketCallback(LoginSession Session, byte[] data);
+    public delegate void ProcessLoginPacketCallbackTypes<T>(LoginSession Session, T handler);
 
     public class LoginDataRouter
     {
-        private static Dictionary<AuthServerOpCode, ProcessPacketCallback> mCallbacks = new Dictionary<AuthServerOpCode, ProcessPacketCallback>();
+        private static Dictionary<LoginOpcodes, ProcessLoginPacketCallback> mCallbacks = new Dictionary<LoginOpcodes, ProcessLoginPacketCallback>();
 
-        public static void AddHandler(AuthServerOpCode opcode, ProcessPacketCallback handler)
+        public static void AddHandler(LoginOpcodes opcode, ProcessLoginPacketCallback handler)
         {
             mCallbacks.Add(opcode, handler);
         }
 
-        public static void AddHandler<T>(AuthServerOpCode opcode, ProcessPacketCallbackTypes<T> callback)
+        public static void AddHandler<T>(LoginOpcodes opcode, ProcessLoginPacketCallbackTypes<T> callback)
         {
             AddHandler(opcode, (session, data) =>
             {
@@ -29,7 +29,7 @@ namespace Milkshake.Game.Handlers
             });
         }
 
-        public static void CallHandler(LoginSession session, AuthServerOpCode opcode, byte[] data)
+        public static void CallHandler(LoginSession session, LoginOpcodes opcode, byte[] data)
         {
             if (mCallbacks.ContainsKey(opcode))
             {

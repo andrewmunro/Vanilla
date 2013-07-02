@@ -14,7 +14,7 @@ namespace Milkshake.Communication.Outgoing.World.Chat
 	{
 		private string channel;
 		
-		public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, ulong GUID, string message, string channelName = null)  : base(Opcodes.SMSG_MESSAGECHAT)
+		public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, ulong GUID, string message, string channelName = null)  : base(WorldOpcodes.SMSG_MESSAGECHAT)
 		{
 			Write((byte)type);
 

@@ -12,7 +12,7 @@ namespace Milkshake.Communication.Outgoing.World.Movement
 {
     public class PSMoveHeartbeat : ServerPacket
     {
-        public PSMoveHeartbeat(Character character) : base(Opcodes.MSG_MOVE_HEARTBEAT)
+        public PSMoveHeartbeat(Character character) : base(WorldOpcodes.MSG_MOVE_HEARTBEAT)
         {
             byte[] packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)character.GUID);
             PSUpdateObject.WriteBytes(this, packedGUID);

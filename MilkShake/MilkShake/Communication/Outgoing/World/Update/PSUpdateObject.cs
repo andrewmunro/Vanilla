@@ -17,7 +17,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 {
 	public class PSUpdateObject : ServerPacket
 	{
-		public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(Opcodes.SMSG_UPDATE_OBJECT)
+		public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
 		{
 			Write((uint)blocks.Count());
 			Write((byte)hasTansport); // Has transport

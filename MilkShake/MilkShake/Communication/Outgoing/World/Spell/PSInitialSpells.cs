@@ -13,7 +13,7 @@ namespace Milkshake.Communication.Outgoing.World.Spell
     class PSInitialSpells : ServerPacket
     {
 
-        public PSInitialSpells(Character character) : base(Opcodes.SMSG_INITIAL_SPELLS)
+        public PSInitialSpells(Character character) : base(WorldOpcodes.SMSG_INITIAL_SPELLS)
         {
             List<CharacterSpell> characterSpells = DBSpells.GetCharacterSpells(character);
             

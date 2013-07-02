@@ -11,7 +11,7 @@ namespace Milkshake.Communication.Outgoing.Auth
 {
     class PSAuthLoginProof : ServerPacket
     {
-        public PSAuthLoginProof(SRP6 Srp6) : base(AuthOpcodes.AUTH_LOGIN_PROOF)
+        public PSAuthLoginProof(SRP6 Srp6) : base(LoginOpcodes.AUTH_LOGIN_PROOF)
         {
             Write((byte)1);
             Write((byte)AccountStatus.Ok);

@@ -11,7 +11,7 @@ namespace Milkshake.Communication.Outgoing.World.ActionBarButton
 {
     class PSActionButtons : ServerPacket
     {
-        public PSActionButtons(Character character) : base(Opcodes.SMSG_ACTION_BUTTONS)
+        public PSActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
         {
             List<CharacterActionBarButton> savedButtons = DBActionBarButtons.GetActionBarButtons(character);
 

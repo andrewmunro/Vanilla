@@ -26,7 +26,7 @@ namespace Milkshake.Game.Managers
 
         public static void Boot()
         {
-            WorldDataRouter.AddHandler<PCMessageChat>(Opcodes.CMSG_MESSAGECHAT, OnMessageChatPacket);
+            WorldDataRouter.AddHandler<PCMessageChat>(WorldOpcodes.CMSG_MESSAGECHAT, OnMessageChatPacket);
 
             ChatHandlers = new Dictionary<ChatMessageType,ProcessChatCallback>();
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_SAY, OnSayYell);

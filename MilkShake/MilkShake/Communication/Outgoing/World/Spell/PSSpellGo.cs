@@ -24,7 +24,7 @@ namespace Milkshake.Communication.Outgoing.World.Spell
 
     public class PSSpellGo : ServerPacket
     {
-        public PSSpellGo(PlayerEntity caster, PlayerEntity target, uint spellID) : base(Opcodes.SMSG_SPELL_GO)
+        public PSSpellGo(PlayerEntity caster, PlayerEntity target, uint spellID) : base(WorldOpcodes.SMSG_SPELL_GO)
         {
             byte[] casterGUID = PSUpdateObject.GenerateGuidBytes((ulong)caster.ObjectGUID.RawGUID);
             byte[] targetGUID = PSUpdateObject.GenerateGuidBytes((ulong)target.ObjectGUID.RawGUID);

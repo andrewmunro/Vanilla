@@ -13,7 +13,7 @@ namespace Milkshake.Network
             : base(data)
         { }
 
-        public WorldPacket(AuthOpcodes opCode)
+        public WorldPacket(LoginOpcodes opCode)
             : base(opCode.Parse(), (byte)opCode)
         { }
     }

@@ -11,7 +11,7 @@ namespace Milkshake.Communication.Outgoing.Auth
 {
     class PSRealmList : ServerPacket
     {
-        public PSRealmList() : base(AuthOpcodes.REALM_LIST)
+        public PSRealmList() : base(LoginOpcodes.REALM_LIST)
         {
             Write((uint)0);
             Write((byte)1);

@@ -8,7 +8,7 @@ namespace Milkshake.Communication.Outgoing.World.Spell
 {
     public class PSCastFailed : ServerPacket
     {
-        public PSCastFailed(uint spellID)  : base(Opcodes.SMSG_CAST_FAILED)
+        public PSCastFailed(uint spellID)  : base(WorldOpcodes.SMSG_CAST_FAILED)
         {
             Write((uint)spellID);
         }

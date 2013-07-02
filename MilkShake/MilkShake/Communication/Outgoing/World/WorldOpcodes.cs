@@ -1,6 +1,6 @@
 ﻿namespace Milkshake.Communication
 {
-    public enum Opcodes : int
+    public enum WorldOpcodes : int
     {
         MSG_NULL_ACTION = 0x000,
         CMSG_BOOTME = 0x001,
@@ -912,7 +912,7 @@
     }
 
 
-    public enum AuthOpcodes : byte
+    public enum LoginOpcodes : byte
     {
         AUTH_LOGIN_CHALLENGE = 0x00,
         AUTH_LOGIN_PROOF = 0x01,

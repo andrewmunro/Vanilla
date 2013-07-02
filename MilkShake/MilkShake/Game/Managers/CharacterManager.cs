@@ -6,6 +6,7 @@ using Milkshake.Communication;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Communication.Incoming.World.Auth;
 using Milkshake.Communication.Outgoing.Auth;
+using Milkshake.Communication.Outgoing.Character;
 using Milkshake.Game.Constants;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Constants.Login;
@@ -23,15 +24,15 @@ namespace Milkshake.Game.Managers
     {
         public static void Boot()
         {
-            WorldDataRouter.AddHandler(Opcodes.CMSG_CHAR_ENUM, OnCharEnum);
-            WorldDataRouter.AddHandler<PCCharCreate>(Opcodes.CMSG_CHAR_CREATE, OnCharCreate);
-            WorldDataRouter.AddHandler<PCCharDelete>(Opcodes.CMSG_CHAR_DELETE, OnCHarDelete);
+            WorldDataRouter.AddHandler(WorldOpcodes.CMSG_CHAR_ENUM, OnCharEnum);
+            WorldDataRouter.AddHandler<PCCharCreate>(WorldOpcodes.CMSG_CHAR_CREATE, OnCharCreate);
+            WorldDataRouter.AddHandler<PCCharDelete>(WorldOpcodes.CMSG_CHAR_DELETE, OnCHarDelete);
         }
 
         private static void OnCHarDelete(WorldSession session, PCCharDelete packet)
         {
             DBCharacters.DeleteCharacter(packet.Character);
-            session.sendPacket(Opcodes.SMSG_CHAR_DELETE, (byte)LoginErrorCode.CHAR_DELETE_SUCCESS);
+            session.sendPacket(new PSCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 
         private static void OnCharCreate(WorldSession session, PCCharCreate packet)
@@ -67,13 +68,13 @@ namespace Milkshake.Game.Managers
                 Equipment = DBC.ChrStartingOutfit.GetCharStartingOutfitString(packet).ItemID
             });
 
-            session.sendPacket(Opcodes.SMSG_CHAR_CREATE, (byte)LoginErrorCode.CHAR_CREATE_SUCCESS);
+            session.sendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS));
         }
 
         private static void OnCharEnum(WorldSession session, byte[] packet)
         {
             List<Character> characters = DBCharacters.GetCharacters(session.Account.Username);
-            session.sendPacket(Opcodes.SMSG_CHAR_ENUM, new PSCharEnum(characters).PacketData);
+            session.sendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new PSCharEnum(characters).PacketData);
         }
     }
 }

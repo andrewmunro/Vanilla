@@ -9,7 +9,7 @@ namespace Milkshake.Communication.Outgoing.World
 {
     internal class PSPlaySound : ServerPacket
     {
-        public PSPlaySound(uint soundID) : base(Opcodes.SMSG_PLAY_SOUND)
+        public PSPlaySound(uint soundID) : base(WorldOpcodes.SMSG_PLAY_SOUND)
         {
             Write(soundID);
         }

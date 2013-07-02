@@ -11,7 +11,7 @@ namespace Milkshake.Communication.Outgoing.Auth
 {
     class PSAuthLoginChallange : ServerPacket
     {
-        public PSAuthLoginChallange(SRP6 Srp6) : base(AuthOpcodes.AUTH_LOGIN_CHALLENGE)
+        public PSAuthLoginChallange(SRP6 Srp6) : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
         {
             Write((byte)0);
             Write((byte)0);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Milkshake.Communication;
+using Milkshake.Communication.Outgoing.Auth;
 using Milkshake.Communication.Outgoing.World.Logout;
 using Milkshake.Net;
 using Milkshake.Tools;
@@ -26,8 +27,8 @@ namespace Milkshake.Game.Managers
 
             Log.Print(LogType.Server, "Logout queue initialised");
 
-            WorldDataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_REQUEST, OnLogout);
-            WorldDataRouter.AddHandler<PacketReader>(Opcodes.CMSG_LOGOUT_CANCEL, OnCancel);
+            WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_LOGOUT_REQUEST, OnLogout);
+            WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_LOGOUT_CANCEL, OnCancel);
         }
 
         public static void OnLogout(WorldSession session, PacketReader reader)
@@ -41,7 +42,7 @@ namespace Milkshake.Game.Managers
         public static void OnCancel(WorldSession session, PacketReader reader)
         {
             logoutQueue.Remove(session);
-            session.sendPacket(Opcodes.SMSG_LOGOUT_CANCEL_ACK, 0);
+            session.sendPacket(new PSLogoutCancelAcknowledgement());
         }       
 
         public static void update()
@@ -52,7 +53,7 @@ namespace Milkshake.Game.Managers
                 {
                     if (DateTime.Now.Subtract(entry.Value).Seconds >= LOGOUT_TIME)
                     {
-                        entry.Key.sendPacket(Opcodes.SMSG_LOGOUT_COMPLETE, 0);
+                        entry.Key.sendPacket(new PSLogoutComplete());
                         logoutQueue.Remove(entry.Key);
                     }                   
                 }

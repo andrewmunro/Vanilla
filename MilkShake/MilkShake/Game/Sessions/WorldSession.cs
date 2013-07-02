@@ -42,7 +42,13 @@ namespace Milkshake.Net
 
         public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
-            sendPacket(Opcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
+            sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
+        }
+
+        public override void Disconnect(object _obj = null)
+        {
+            base.Disconnect();
+            MilkShake.world.FreeConnectionID(connectionID);
         }
 
         private byte[] encode(int size, int opcode)
@@ -64,30 +70,7 @@ namespace Milkshake.Net
             return header;
         }
 
-        public void sendPacket(Opcodes opcode, byte data)
-        {
-            BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = encode(1, (int)opcode);
-
-            writer.Write(header);
-            writer.Write(data);
-
-            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
-
-            sendData(((MemoryStream) writer.BaseStream).ToArray());
-        }
-
-        public void sendMessage(String message)
-        {
-            ChatManager.SendSytemMessage(this, message);
-        }
-
-        public void sendPacket(ServerPacket packet)
-        {
-            sendPacket(packet.Opcode, packet.Packet);
-        }
-
-        public override void sendPacket(Opcodes opcode, byte[] data)
+        public override void sendPacket(byte opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = encode(data.Length, (int)opcode);
@@ -95,14 +78,19 @@ namespace Milkshake.Net
             writer.Write(header);
             writer.Write(data);
 
-            if (opcode == Opcodes.SMSG_CHAR_ENUM)
-            {
-                Log.Print(LogType.Debug, Helper.ByteArrayToHex(data));
-            }
-
-            Log.Print(LogType.Database, connectionID +  "Server -> Client [" + (Opcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
+            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (WorldOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData(((MemoryStream) writer.BaseStream).ToArray());
+        }
+
+        public void sendPacket(WorldOpcodes opcode, byte[] data)
+        {
+            sendPacket((byte)opcode, data);
+        }
+
+        public void sendMessage(String message)
+        {
+            ChatManager.SendSytemMessage(this, message);
         }
 
         public void Teleport(int mapID, float X, float Y, float Z)
@@ -116,12 +104,6 @@ namespace Milkshake.Net
 
             sendPacket(new PSTransferPending(mapID));
             sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
-        }
-
-        public override void Disconnect(object _obj = null) 
-        {
-            base.Disconnect();
-            MilkShake.world.FreeConnectionID(connectionID);
         }
 
         private void proccessHeader(byte[] header, out ushort length, out short opcode)
@@ -157,19 +139,19 @@ namespace Milkshake.Net
 
                     proccessHeader(headerData, out length, out opcode);                
 
-                    Opcodes code = (Opcodes)opcode;
+                    WorldOpcodes code = (WorldOpcodes)opcode;
 
                     byte[] packetDate = new byte[length];
                     Array.Copy(data, index + 6, packetDate, 0, length - 4);
                     Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
 
-                    WorldDataRouter.CallHandler(this, code, packetDate);   
+                    WorldDataRouter.CallHandler(this, code, packetDate);
 
                     index += 2 + (length - 1);
                 }
         }
         
-        public void sendHexPacket(Opcodes opcde, string hex)
+        public void sendHexPacket(WorldOpcodes opcde, string hex)
         {
             string end = hex.Replace(" ", "").Replace("\n", "");
 
