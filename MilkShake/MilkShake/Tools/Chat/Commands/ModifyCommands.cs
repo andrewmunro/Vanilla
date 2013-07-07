@@ -15,7 +15,7 @@ namespace Milkshake.Tools.Chat.Commands
     public class ModifyCommands
     {
 
-        [ChatCommand("modify", "Modify entity att   ributes")]
+        [ChatCommand("modify", "Modify entity attributes")]
         public static void Modify(WorldSession session, string[] args)
         {
             if (args.Length == 1 && args[0].ToLower() == "list")

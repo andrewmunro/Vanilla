@@ -28,6 +28,7 @@ namespace Milkshake
 
         static void Main(string[] args)
         {
+            UpdateReader.Boot();
             /*
             Console.WriteLine(BitConverter.ToUInt32(Helper.HexToByteArray("C7 E8 AB 02 C0 1F"), 0));
 

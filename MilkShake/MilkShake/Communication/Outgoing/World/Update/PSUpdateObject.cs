@@ -399,26 +399,31 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
         public static PSUpdateObject CreateUnitUpdate(PlayerEntity character)
         {
+            Log.Print(LogType.Debug, "Spawning Unit at X: " + character.X + " Y: " + character.Y + " Z: " + character.Z);
             UnitEntity entity = new UnitEntity();
 
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT
-                );
+            writer.Write((UInt32)1); //blockCount
+            writer.Write((byte)0); //hasTransport
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+            
             //character
-            byte[] guidBytes = GenerateGuidBytes((ulong)entity.ObjectGUID.RawGUID);
-            WriteBytes(writer, guidBytes, guidBytes.Length);
+            //byte[] guidBytes = GenerateGuidBytes((ulong)entity.ObjectGUID.RawGUID);
+            //WriteBytes(writer, guidBytes, guidBytes.Length);
+            writer.Write((UInt16)46797);
 
-
+            writer.WriteNull(4);
             writer.Write((byte)TypeID.TYPEID_UNIT);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
-                                      ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION |
-                                      ObjectUpdateFlag.UPDATEFLAG_LIVING;
+                                           ObjectUpdateFlag.UPDATEFLAG_LIVING |
+                                           ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
             writer.Write((byte)updateFlags);
+            writer.Write((UInt32)0x00000000); //MovementFlags
 
-            writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
-            writer.Write((UInt32)Environment.TickCount); // Time?
+            writer.Write((UInt32)Environment.TickCount); // Time
+            //3 bytes ahead?
 
             // Position
             writer.Write((float)character.X);
@@ -438,7 +443,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             /*
             writer.Write((uint)0x0);
-            writer.Write((uint)0x659);
+            writer.Write((unt)0x659);
             writer.Write((uint)0xB7B);
             writer.Write((uint)0xFDA0B4);    
             writer.Write((uint)0);
@@ -457,6 +462,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
             entity.WriteUpdateFields(writer);
             //new PlayerEntity(character).WriteUpdateFields(writer);
 
+            Console.WriteLine(" ");
+            Log.Print(LogType.Debug, BitConverter.ToString((writer.BaseStream as MemoryStream).ToArray()));
+            Console.WriteLine(" ");
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
 
