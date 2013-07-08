@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Milkshake.Tools.DBC
 {
@@ -32,14 +34,23 @@ namespace Milkshake.Tools.DBC
 
         private void LoadCache()
         {
+            BackgroundWorker bw = new BackgroundWorker();
             Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
 
-            _cachedList = DBC.SQLite.Table<T>().ToList();
+            bw.DoWork += (sender, args) =>
+            {
+                stopWatch.Start();
+                _cachedList = DBC.SQLite.Table<T>().ToList();
 
-            stopWatch.Stop();
+            };
 
-            Log.Print(LogType.Database, "[Cached] Table: " + typeof(T).Name + " - " + stopWatch.ElapsedMilliseconds + "ms " + List.Count);
+            bw.RunWorkerCompleted += (sender, args) =>
+            {
+                stopWatch.Stop();
+                Log.Print(LogType.Database, "[Cached] Table: " + typeof(T).Name + " - " + stopWatch.ElapsedMilliseconds + "ms " + List.Count);
+            };
+
+            bw.RunWorkerAsync();
         }
     }
 }
