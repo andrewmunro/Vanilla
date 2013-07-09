@@ -9,6 +9,33 @@ namespace Milkshake.Tools.Extensions
 {
     public static class BinaryWriterExtension
     {
+        public static int WritePackedUInt64(this BinaryWriter binWriter, ulong number)
+        {
+            var buffer = BitConverter.GetBytes(number);
+
+            byte mask = 0;
+            var startPos = binWriter.BaseStream.Position;
+
+            binWriter.Write(mask);
+
+            for (var i = 0; i < 8; i++)
+            {
+                if (buffer[i] != 0)
+                {
+                    mask |= (byte)(1 << i);
+                    binWriter.Write(buffer[i]);
+                }
+            }
+
+            var endPos = binWriter.BaseStream.Position;
+
+            binWriter.BaseStream.Position = startPos;
+            binWriter.Write(mask);
+            binWriter.BaseStream.Position = endPos;
+
+            return (int)(endPos - startPos);
+        }
+
         public static void WriteCString(this BinaryWriter writer, string input)
         {
             byte[] data = Encoding.UTF8.GetBytes(input + '\0');

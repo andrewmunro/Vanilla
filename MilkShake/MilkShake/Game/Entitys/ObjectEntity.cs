@@ -13,7 +13,7 @@ namespace Milkshake.Game.Entitys
 
         public static List<ObjectEntity> Entitys = new List<ObjectEntity>();
 
-        public ObjectGUID ObjectGUID { get; internal set; }
+        public ObjectGUID ObjectGUID { get; set; }
 
         public uint GUID
         {
@@ -21,10 +21,10 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, value); }
         }
 
-        public uint Data
+        public int Data
         {
-            get { return (uint)UpdateData[(int)EObjectFields.OBJECT_FIELD_DATA]; }
-            set { SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, value); }
+            get { return (int)UpdateData[(int)EObjectFields.OBJECT_FIELD_DATA]; }
+            set { SetUpdateField<int>((int)EObjectFields.OBJECT_FIELD_DATA, value); }
         }
 
         public byte Type
@@ -48,7 +48,7 @@ namespace Milkshake.Game.Entitys
         public ObjectEntity(ObjectGUID objectGUID, int dataLength) : base(dataLength)
         {
             ObjectGUID = objectGUID;
-            GUID = ObjectGUID.Low;
+            GUID = (uint)ObjectGUID.RawGUID;
 
             Entitys.Add(this);
         }

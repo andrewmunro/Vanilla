@@ -9,6 +9,10 @@ using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Game.Constants.Character;
 using Milkshake.Game.Managers;
 using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Tools.Update;
+using Milkshake.Communication;
+using Milkshake.Tools.Database;
+using Milkshake.Tools.Database.Tables;
 
 namespace Milkshake.Tools.Chat.Commands
 {
@@ -59,7 +63,37 @@ namespace Milkshake.Tools.Chat.Commands
                         break;
 
                     case "unit":
-                        session.sendPacket(PSUpdateObject.CreateUnitUpdate(entity));
+                        PSUpdateObject packet = PSUpdateObject.CreateUnitUpdate(entity);
+
+                        try
+                        {
+                            UpdateReader.ProccessLog(packet.Packet);
+                        }
+                        catch (Exception e) { }
+
+                        // Send Packet
+                        session.sendPacket(packet);
+
+                        List<CreatureEntry> mobs = DB.World.Table<CreatureEntry>().ToList();
+
+
+
+                        List<CreatureEntry>  AWESOME = mobs.FindAll(m => m.map == entity.Character.MapID).FindAll(m => Helper.Distance(m.position_x, m.position_y, entity.X, entity.Y) < 50);
+
+                        AWESOME.ForEach(a => 
+                            {
+                                //entity.Session.sendMessage(a.id.ToString())
+                                PSUpdateObject abaa = PSUpdateObject.CreateUnitUpdate(a);
+                                session.sendPacket(abaa);
+
+
+                            });
+
+
+
+
+
+
                         break;
 
                     default:
@@ -78,4 +112,5 @@ namespace Milkshake.Tools.Chat.Commands
             }
         }
     }
+
 }

@@ -159,9 +159,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			BinaryWriter writer = new BinaryWriter(new MemoryStream());
 			writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-			byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
-			WriteBytes(writer, guidBytes, guidBytes.Length);
-			
+			//byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+			//WriteBytes(writer, guidBytes, guidBytes.Length);
+            writer.WritePackedUInt64((ulong)character.GUID);
 			
 			writer.Write((byte)TypeID.TYPEID_PLAYER);
 
@@ -399,20 +399,12 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
         public static PSUpdateObject CreateUnitUpdate(PlayerEntity character)
         {
-            Log.Print(LogType.Debug, "Spawning Unit at X: " + character.X + " Y: " + character.Y + " Z: " + character.Z);
             UnitEntity entity = new UnitEntity();
-
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            writer.Write((UInt32)1); //blockCount
-            writer.Write((byte)0); //hasTransport
-            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
-            
-            //character
-            //byte[] guidBytes = GenerateGuidBytes((ulong)entity.ObjectGUID.RawGUID);
-            //WriteBytes(writer, guidBytes, guidBytes.Length);
-            writer.Write((UInt16)46797);
 
-            writer.WriteNull(4);
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+
+            writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
             writer.Write((byte)TypeID.TYPEID_UNIT);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
@@ -441,26 +433,77 @@ namespace Milkshake.Communication.Outgoing.World.Update
             writer.Write((float)2.5f);  // MOVE_SWIM_BACK
             writer.Write((float)3.14f); // MOVE_TURN_RATE
 
-            /*
-            writer.Write((uint)0x0);
-            writer.Write((unt)0x659);
-            writer.Write((uint)0xB7B);
-            writer.Write((uint)0xFDA0B4);    
-            writer.Write((uint)0);
+            writer.Write(0x1); // Unkown...
 
-            for (int i = 0; i < 1; i++)
-            {
-                writer.Write((float)0);
-                writer.Write((float)0);
-                writer.Write((float)0);
-            }
-            */
+            //entity.GUID = 1141440694;
+            entity.Scale = 1;
+            entity.WriteUpdateFields(writer);
+
+            Console.WriteLine(" ");
+            Log.Print(LogType.Debug, BitConverter.ToString((writer.BaseStream as MemoryStream).ToArray()));
+            Console.WriteLine(" ");
+            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static PSUpdateObject CreateUnitUpdate(CreatureEntry entry)
+        {
+            UnitEntity entity = new UnitEntity(entry);
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+
+            writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
+            writer.Write((byte)TypeID.TYPEID_UNIT);
+
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
+                                           ObjectUpdateFlag.UPDATEFLAG_LIVING |
+                                           ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
+
+            writer.Write((byte)updateFlags);
+            writer.Write((UInt32)0x00000000); //MovementFlags
+
+            writer.Write((UInt32)Environment.TickCount); // Time
+            //3 bytes ahead?
+
+            // Position
+            writer.Write((float)entry.position_x);
+            writer.Write((float)entry.position_y);
+            writer.Write((float)entry.position_z);
+            writer.Write((float)entry.orientation); // R
+
+            // Movement speeds
+            writer.Write((float)0);     // ????
+
+            writer.Write((float)2.5f);  // MOVE_WALK
+            writer.Write((float)7);     // MOVE_RUN
+            writer.Write((float)4.5f);  // MOVE_RUN_BACK
+            writer.Write((float)4.72f); // MOVE_SWIM
+            writer.Write((float)2.5f);  // MOVE_SWIM_BACK
+            writer.Write((float)3.14f); // MOVE_TURN_RATE
 
             writer.Write(0x1); // Unkown...
 
-
+            //entity.GUID = 1141440694;
+            entity.Scale = 1;
             entity.WriteUpdateFields(writer);
-            //new PlayerEntity(character).WriteUpdateFields(writer);
 
             Console.WriteLine(" ");
             Log.Print(LogType.Debug, BitConverter.ToString((writer.BaseStream as MemoryStream).ToArray()));

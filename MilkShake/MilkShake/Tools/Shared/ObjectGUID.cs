@@ -13,7 +13,7 @@ namespace Milkshake.Game.Entitys
 
         public static ObjectGUID GetUnitGUID()
         {
-            return new ObjectGUID(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_MO_TRANSPORT);
+            return new ObjectGUID(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
         }
 
         public static ObjectGUID GetGameObjectGUID()
@@ -53,7 +53,15 @@ namespace Milkshake.Game.Entitys
         public ObjectGUID(TypeID type, HighGUID high) : this(GetIndex(type), type, high) { }
 
 
+        public TypeID GetId()
+        {
+            return (TypeID)((RawGUID >> 24) & 0xFFFFF);
+        }
 
+        public HighGUID GetGuidType()
+        {
+            return (HighGUID)(RawGUID >> 48);
+        }
         
 
 

@@ -59,6 +59,11 @@ namespace Milkshake.Tools
             return packetOutput;
         }
 
+        public static float Distance(float aX, float aY, float bX, float bY)
+        {
+            return (float)Math.Sqrt(Math.Pow(aX - bX, 2) + Math.Pow(aY - bY, 2));
+        }
+
     }
 
     
