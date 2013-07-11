@@ -15,14 +15,23 @@ namespace Milkshake.Communication.Outgoing.Auth
         {
             Write((byte)0);
             Write((byte)0);
-            Write((byte)AccountStatus.Ok);
-            Write(Srp6.B);
-            Write((byte)1);
-            Write(Srp6.g[0]);
-            Write((byte)Srp6.N.Length);
-            Write(Srp6.N);
-            Write(Srp6.salt);
-            this.WriteNull(17);
+
+            if (Srp6 == null)
+            {
+                Write((byte)AccountStatus.UnknownAccount);
+                this.WriteNullByte(6);
+            }
+            else
+            {
+                Write((byte)AccountStatus.Ok);
+                Write(Srp6.B);
+                Write((byte)1);
+                Write(Srp6.g[0]);
+                Write((byte)Srp6.N.Length);
+                Write(Srp6.N);
+                Write(Srp6.salt);
+                this.WriteNullByte(17);
+            }
         }
     }
 }

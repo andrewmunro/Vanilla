@@ -18,12 +18,12 @@ namespace Milkshake.Communication.Outgoing.World.Spell
             List<CharacterSpell> characterSpells = DBSpells.GetCharacterSpells(character);
             
             Write((byte)0);
-            Write((UInt16)characterSpells.Count);
+            Write((short)characterSpells.Count);
 
             foreach (var s in characterSpells)
             {
-                Write((UInt16)s.SpellID);
-                Write((UInt16)0);
+                Write((short)s.SpellID);
+                Write((short)0);
             }
 
             Write((UInt16)characterSpells.Count); //SpellCooldowns count.
@@ -34,18 +34,18 @@ namespace Milkshake.Communication.Outgoing.World.Spell
                 SpellEntry spell = DBC.Spells.GetSpellByID(s.SpellID);
 
                 Write((uint)spell.ID);
-                Write((UInt16)0);
-                Write((UInt16)spell.Category);
+                Write((short)0);
+                Write((short)spell.Category);
 
                 if (spell.Category == 0)
                 {
-                    Write((UInt32)spell.Cooldown);
-                    Write((UInt32)0);
+                    Write((uint)spell.Cooldown);
+                    Write((uint)0);
                 }
                 else
                 {
-                    Write((UInt32)0);
-                    Write((UInt32)spell.Cooldown);
+                    Write((uint)0);
+                    Write((uint)spell.Cooldown);
                 }
             }
 

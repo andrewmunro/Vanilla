@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Milkshake.Network;
 
 namespace Milkshake.Communication.Outgoing.World
 {
-    public class LoginVerifyWorld : BinaryWriter
+    public class LoginVerifyWorld : ServerPacket
     {
-        public LoginVerifyWorld(int mapID, float X, float Y, float Z, float Rotation) : base(new MemoryStream())
+        public LoginVerifyWorld(int mapID, float X, float Y, float Z, float Rotation) : base(WorldOpcodes.SMSG_LOGIN_VERIFY_WORLD)
         {
             Write(mapID);
             Write(X);
@@ -16,7 +17,5 @@ namespace Milkshake.Communication.Outgoing.World
             Write(Z);
             Write(Rotation); // orientation
         }
-
-        public byte[] Packet { get { return (BaseStream as MemoryStream).ToArray(); } }
     }
 }

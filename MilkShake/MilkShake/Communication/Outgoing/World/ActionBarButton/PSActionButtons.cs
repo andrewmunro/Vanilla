@@ -23,13 +23,13 @@ namespace Milkshake.Communication.Outgoing.World.ActionBarButton
 
                 if (currentButton != null)
                 {
-                    UInt32 packedData = (UInt32)currentButton.Action | (UInt32)currentButton.Type << 24;
+                    uint packedData = (uint)currentButton.Action | (uint)currentButton.Type << 24;
 
-                    Write((UInt32) packedData);
+                    Write(packedData);
                 }
                 else
                 {
-                    Write((UInt32) 0);
+                    Write((uint) 0);
                 }
             }
         }

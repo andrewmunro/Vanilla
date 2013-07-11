@@ -1,4 +1,5 @@
-﻿using Milkshake.Communication.Outgoing.World.Update;
+﻿using Milkshake;
+using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Net;
 using Milkshake.Tools.Database;
@@ -22,7 +23,7 @@ namespace Milkshake.Game.Managers
 
         public static void Update()
         {
-            while (true)
+            /*while (true)
             {
                 /*
                 foreach (ObjectEntity entity in ObjectEntity.Entitys.ToArray())
@@ -48,14 +49,14 @@ namespace Milkshake.Game.Managers
 
                         if (player.Session != null && distance > 50)
                         {
-                            //SpawnGameObjects(player.Session);                           
+                            SpawnGameObjects(player.Session);                           
                         }
                     }
                 }
 
                 */
                 Thread.Sleep(100);
-            }
+            
         }
 
         public static void SpawnPlayer(Character character)

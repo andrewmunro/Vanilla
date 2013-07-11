@@ -16,7 +16,7 @@ namespace Milkshake.Communication.Outgoing.Auth
             Write((byte)1);
             Write((byte)AccountStatus.Ok);
             Write(Srp6.M2);
-            this.WriteNull(4);
+            this.WriteNullByte(4);
         }
     }
 }

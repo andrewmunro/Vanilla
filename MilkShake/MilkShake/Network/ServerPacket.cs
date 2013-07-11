@@ -9,14 +9,14 @@ namespace Milkshake.Network
 {
     public class ServerPacket : BinaryWriter
     {
-        public byte Opcode;
+        public int Opcode;
 
-        public ServerPacket(byte opcode) : base(new MemoryStream())
+        public ServerPacket(int opcode) : base(new MemoryStream())
         {
             Opcode = opcode;
         }
 
-        public ServerPacket(WorldOpcodes worldOpcode) : this((byte) worldOpcode) {}
+        public ServerPacket(WorldOpcodes worldOpcode) : this((int) worldOpcode) {}
 
         public ServerPacket(LoginOpcodes opcode) : this((byte) opcode) {}
 

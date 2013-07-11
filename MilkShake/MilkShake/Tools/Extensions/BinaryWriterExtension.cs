@@ -58,12 +58,25 @@ namespace Milkshake.Tools.Extensions
             WriteBytes(writer, bufferarray.ToArray(), Len);
         }
 
-        public static void WriteNull(this BinaryWriter writer, uint count)
+        public static void WriteNullByte(this BinaryWriter writer, uint count)
         {
             for (uint i = 0; i < count; i++)
             {
                 writer.Write((byte)0);
             }
+        }
+
+        public static void WriteNullUInt(this BinaryWriter writer, uint count)
+        {
+            for (uint i = 0; i < count; i++)
+            {
+                writer.Write((uint)0);
+            }
+        }
+
+        public static void WriteHexPacket(this BinaryWriter writer, string data)
+        {
+            WriteBytes(writer, Helper.HexToByteArray(data));
         }
     }
 }

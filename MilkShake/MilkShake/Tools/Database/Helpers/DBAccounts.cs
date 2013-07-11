@@ -15,13 +15,12 @@ namespace Milkshake.Tools.Database.Helpers
         public static Account GetAccount(String username)
         {
             if (Accounts.Count == 0) return null;
-
-            return Accounts.First(a => a.Username.ToLower() == username.ToLower());
+            return Exists(username) ? Accounts.First(a => a.Username.ToLower() == username.ToLower()) : null;
         }
 
         public static bool Exists(String username)
         {
-            return Accounts.First(a => a.Username == username) != null;
+            return Accounts.Exists(a => a.Username.ToLower() == username.ToLower());
         }
 
         public static void CreateAccount(String username, String password)

@@ -10,7 +10,7 @@ namespace Milkshake.Communication.Outgoing.World.Player
     {
         public PSLoginSetTimeSpeed() : base(WorldOpcodes.SMSG_LOGIN_SETTIMESPEED)
         {
-            Write((UInt32)0); // Time
+            Write((uint)0); // Time
             Write((float)0.01666667f); // Speed
         }
     }
