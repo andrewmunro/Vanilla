@@ -10,11 +10,17 @@ namespace Milkshake.Tools.DBC
 {
     public class CachedDBC<T> where T : new()
     {
+        
         private List<T> _cachedList;
 
         public CachedDBC(bool autoCache = true)
         {
-            if (autoCache) LoadCache();
+            if (autoCache)
+            {
+                DBC.QueuedCachedDBC.Add(typeof(T).Name);
+
+                LoadCache();
+            }
         }
 
         public T Find(Predicate<T> match)
@@ -48,6 +54,8 @@ namespace Milkshake.Tools.DBC
             {
                 stopWatch.Stop();
                 Log.Print(LogType.Database, "[Cached] Table: " + typeof(T).Name + " - " + stopWatch.ElapsedMilliseconds + "ms " + List.Count);
+
+                DBC.QueuedCachedDBC.Remove(typeof(T).Name);
             };
 
             bw.RunWorkerAsync();

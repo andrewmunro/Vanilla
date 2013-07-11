@@ -16,6 +16,8 @@ namespace Milkshake.Tools.DBC
 {
     public class DBC
     {
+        public static List<string> QueuedCachedDBC = new List<string>(); 
+
         public static SQLiteConnection SQLite { get; private set; }
 
         // [Helper]
@@ -41,6 +43,10 @@ namespace Milkshake.Tools.DBC
             AreaTables = new CachedDBC<AreaTableEntry>();
             AreaTriggers = new CachedDBC<AreaTriggerEntry>();
             CreatureTemplates = new CachedDBC<CreatureTemplateEntry>();
+
+            // Wait till DBC's are cached
+            while (DBC.QueuedCachedDBC.Count > 0) { }
+
         }
     }
 }
