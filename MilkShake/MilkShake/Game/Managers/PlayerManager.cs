@@ -5,14 +5,15 @@ using System.Text;
 using Milkshake.Game.Entitys;
 using System.Threading;
 using Milkshake.Communication.Outgoing.World.Update;
+using Milkshake.Network;
 
 namespace Milkshake.Game.Managers
 {
     public class PlayerManager
     {
-        public List<PlayerEntity> Players { get; private set; }
+        public static List<PlayerEntity> Players { get; private set; }
 
-        public PlayerManager()
+        public static void Boot()
         {
             Players = new List<PlayerEntity>();
 
@@ -22,12 +23,12 @@ namespace Milkshake.Game.Managers
             new Thread(Update).Start();
         }
 
-        private void OnPlayerDespawn(PlayerEntity player)
+        private static void OnPlayerDespawn(PlayerEntity player)
         {
             foreach (PlayerEntity remotePlayer in Players)
             {
                 // Skip own player
-                if (player != remotePlayer) continue;
+                if (player == remotePlayer) continue;
 
                 if (remotePlayer.KnownPlayers.Contains(player))
                 {
@@ -38,18 +39,17 @@ namespace Milkshake.Game.Managers
             Players.Remove(player);
         }
 
-        private void OnPlayerSpawn(PlayerEntity player)
+        private static void OnPlayerSpawn(PlayerEntity player)
         {
             // Player Requesting Spawn
             Players.Add(player);
         }
 
-        private void Update()
+        private static void Update()
         {
             while (true)
             {
-
-
+                // Spawning && Despawning
                 foreach (PlayerEntity player in Players)
                 {
                     foreach (PlayerEntity otherPlayer in Players)
@@ -74,11 +74,24 @@ namespace Milkshake.Game.Managers
                     }
                 }
 
+                // Update (Maybe have one for all entitys (GO, Unit & Players)
+                foreach (PlayerEntity player in Players)
+                {
+                    if (player.UpdateCount > 0)
+                    {
+                        // Generate update packet
+                        ServerPacket packet = PSUpdateObject.UpdateValues(player);
+
+                        player.Session.sendPacket(packet);
+                        World.SessionsWhoKnow(player).ForEach(s => s.sendPacket(packet));
+                    }
+                }
+
                 Thread.Sleep(100);
             }
         }
 
-        private void SpawnPlayer(PlayerEntity remote, PlayerEntity player)
+        private static void SpawnPlayer(PlayerEntity remote, PlayerEntity player)
         {
             // Should be sending player entity
             remote.Session.sendPacket(PSUpdateObject.CreateCharacterUpdate(player.Character));
@@ -89,7 +102,7 @@ namespace Milkshake.Game.Managers
             remote.Session.sendMessage("SpawningPlayer: " + player.Character.Name);
         }
 
-        private void DespawnPlayer(PlayerEntity remote, PlayerEntity player)
+        private static void DespawnPlayer(PlayerEntity remote, PlayerEntity player)
         {
             List<ObjectEntity> despawnPlayer = new List<ObjectEntity>();
             despawnPlayer.Add(player);
@@ -103,7 +116,7 @@ namespace Milkshake.Game.Managers
             remote.Session.sendMessage("DespawningPlayer: " + player.Character.Name);
         }
 
-        private bool InRangeCheck(PlayerEntity playerA, PlayerEntity playerB)
+        private static bool InRangeCheck(PlayerEntity playerA, PlayerEntity playerB)
         {
             // Check map
             // Check distance
@@ -115,8 +128,6 @@ namespace Milkshake.Game.Managers
 
         private static double GetDistance(float aX, float aY, float bX, float bY)
         {
-            //pythagorean theorem c^2 = a^2 + b^2
-            //thus c = square root(a^2 + b^2)
             double a = (double)(aX - bX);
             double b = (double)(bY - aY);
 

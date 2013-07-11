@@ -61,6 +61,7 @@ namespace Milkshake
             AuthManager.Boot();
             CharacterManager.Boot();
             //ZoneHandler.Boot();
+            PlayerManager.Boot();
 
             new PlayerManager();
 

@@ -194,6 +194,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
 			entity = new PlayerEntity(character);
 			entity.ObjectGUID = new ObjectGUID((ulong)character.GUID);
+
 			entity.WriteUpdateFields(writer);
 
 			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });

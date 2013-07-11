@@ -62,9 +62,6 @@ namespace Milkshake.Game.Managers
             PacketReader reader = new PacketReader(packet);
             PSUpdateObject.ReadPackedGuid(reader);
             session.OutOfSyncDelay = reader.ReadUInt32();
-
-            session.sendMessage("[MoveTimeSkipped] OutOfSyncDelay: " + session.OutOfSyncDelay);            
-            
         }
 
         private static void SavePosition(WorldSession session, PCMoveInfo handler)
@@ -96,10 +93,9 @@ namespace Milkshake.Game.Managers
                 SavePosition(session, handler);
             }
 
-
             UpdateEntity(session, handler);
 
-            WorldServer.Sessions.FindAll(s => s != session).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));
+            World.SessionsWhoKnow(session.Entity).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));
         }
     }
 }
