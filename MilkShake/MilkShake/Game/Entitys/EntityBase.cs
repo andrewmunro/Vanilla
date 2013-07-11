@@ -9,21 +9,22 @@ using Milkshake.Game.Constants.Game.Update;
 
 namespace Milkshake.Game.Entitys
 {
-    public class Entity
+    // Abstract DataLength & TypeID (Refactor due to GO containing 'TypeID')
+    // Move all MaskSize, Mask, UpdateData, UpdateCount and Functions into own class
+    public class EntityBase
     {
-        public virtual TypeID TypeID { get; internal set; }
-
         public int MaskSize { get; private set; }
         public BitArray Mask { get; private set; }
         public Hashtable UpdateData { get; private set; }
         public int UpdateCount { get; private set; }
 
-        //public abstract int MaxDataLength;
+        public virtual int DataLength { get; private set; }
+        public virtual TypeID TypeID { get; internal set; }
 
-        public Entity(int dataLength)
+        public EntityBase()
         {
-            MaskSize = ((dataLength) + 32) / 32;
-            Mask = new BitArray(dataLength, false);
+            MaskSize = ((DataLength) + 32) / 32;
+            Mask = new BitArray(DataLength, false);
             UpdateData = new Hashtable();
         }
         

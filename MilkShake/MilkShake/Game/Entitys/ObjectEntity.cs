@@ -7,13 +7,14 @@ using System.Collections.Generic;
 
 namespace Milkshake.Game.Entitys
 {
-    public class ObjectEntity : Entity
+    public class ObjectEntity : EntityBase
     {
-        public float X, Y, Z;
-
-        public static List<ObjectEntity> Entitys = new List<ObjectEntity>();
-
         public ObjectGUID ObjectGUID { get; set; }
+
+        public override int DataLength
+        {
+            get { return (int)EObjectFields.OBJECT_END; }
+        }
 
         public uint GUID
         {
@@ -45,12 +46,10 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<float>((int)EObjectFields.OBJECT_FIELD_SCALE_X, value); }
         }
 
-        public ObjectEntity(ObjectGUID objectGUID, int dataLength) : base(dataLength)
+        public ObjectEntity(ObjectGUID objectGUID)
         {
             ObjectGUID = objectGUID;
             GUID = (uint)ObjectGUID.RawGUID;
-
-            Entitys.Add(this);
         }
     }
 }

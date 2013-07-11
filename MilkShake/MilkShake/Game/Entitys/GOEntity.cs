@@ -4,30 +4,37 @@ using System.Linq;
 using System.Text;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Tools.Database.Tables;
-//using Microsoft.Xna.Framework;
 
 namespace Milkshake.Game.Entitys
 {
+    // Make static creators remove GameObject/GameObjectTemplate from variables
+    // Eg: GoEntity.CreateFromTemplate(goTemplate);
+    //
     public class GOEntity : ObjectEntity
     {
-        public static List<GOEntity> GOEntitys = new List<GOEntity>();
-
         public override TypeID TypeID { get { return TypeID.TYPEID_GAMEOBJECT; } }
-        
-        private float DegreeToRadian(float angle)
+        public override int DataLength { get { return (int)EGameObjectFields.GAMEOBJECT_END; } }
+
+        public GameObject GameObject { get; private set; }
+        public GameObjectTemplate GameObjectTemplate { get; private set; }
+
+        public GOEntity(GameObject gameObject, GameObjectTemplate template) : base(ObjectGUID.GetGameObjectGUID())
         {
-            return (float)Math.PI * angle / 180.0f;
+            GameObject = gameObject;
+            GameObjectTemplate = template;
+
+            Entry       = (byte)template.Entry;
+            Scale       = GameObjectTemplate.Size;
+            DisplayID   = GameObjectTemplate.DisplayID;
+            Flags       = template.Flag;
+            GOTypeID    = template.Type;
+            X           = gameObject.X;
+            Y           = gameObject.Y;
+            Z           = gameObject.Z;
+
+            // [Placeholder]
+            Data = 532676608;
         }
-
-        private float RadianToDegree(float angle)
-        {
-            return angle * (180.0f / (float)Math.PI);
-        }
-
-        public GameObject GameObject;
-        public GameObjectTemplate GameObjectTemplate;
-
-
 
         public int DisplayID
         {
@@ -35,53 +42,34 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EGameObjectFields.GAMEOBJECT_DISPLAYID, value); }
         }
 
-        public GOEntity(GameObject gameObject, GameObjectTemplate template) : base(ObjectGUID.GetGameObjectGUID(), (int)EGameObjectFields.GAMEOBJECT_END)
+        public int Flags
         {
-            GameObject = gameObject;
-            GameObjectTemplate = template;
+            get { return (int)UpdateData[EGameObjectFields.GAMEOBJECT_FLAGS]; }
+            set { SetUpdateField<int>((int)EGameObjectFields.GAMEOBJECT_FLAGS, value); }
+        }
 
-            //GUID = ObjectGUID.GetGameObjectGUID((uint)gameObject.GUID);
-            ObjectGUID = ObjectGUID.GetGameObjectGUID();
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, (uint)ObjectGUID.Low);
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_DATA, (uint)532676608); // ?
+        public int GOTypeID
+        {
+            get { return (int)UpdateData[EGameObjectFields.GAMEOBJECT_TYPE_ID]; }
+            set { SetUpdateField<int>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, value); }
+        }
 
+        public float X
+        {
+            get { return (float)UpdateData[EGameObjectFields.GAMEOBJECT_POS_X]; }
+            set { SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_X, value); }
+        }
 
-           
-            SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_ENTRY, (uint)template.Entry);
+        public float Y
+        {
+            get { return (float)UpdateData[EGameObjectFields.GAMEOBJECT_POS_Y]; }
+            set { SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Y, value); }
+        }
 
-            float size = GameObjectTemplate.Size;
-
-            // Some DB issue
-            Scale = GameObjectTemplate.Size != 114 ? GameObjectTemplate.Size : 1;
-            DisplayID = GameObjectTemplate.DisplayID;
-
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_X, (float)gameObject.X);
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Y, (float)gameObject.Y);
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Z, (float)gameObject.Z);
-
-            /*
-            Quaternion pew = Quaternion.CreateFromYawPitchRoll(0, 0, gameObject.R);
-
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 0, (float)pew.X);     // up down?       
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 1, (float)pew.Y);
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 2, (float)pew.Z);
-            SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_ROTATION + 3, (float)pew.W);
-            */
-            //SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_FACING, 0);           
-
-
-
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_FLAGS, (uint)template.Flag);
-            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_STATE, (uint)1);
-            
-            //SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_ANIMPROGRESS, (uint)100);
-
-
-            //SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)0x41);
-            SetUpdateField<uint>((int)EGameObjectFields.GAMEOBJECT_TYPE_ID, (uint)template.Type);
-            //SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_TYPE, (uint)TypeID.TYPEID_DYNAMICOBJECT);
-
-            GOEntitys.Add(this);
+        public float Z
+        {
+            get { return (float)UpdateData[EGameObjectFields.GAMEOBJECT_POS_Z]; }
+            set { SetUpdateField<float>((int)EGameObjectFields.GAMEOBJECT_POS_Z, value); }
         }
     }  
 }

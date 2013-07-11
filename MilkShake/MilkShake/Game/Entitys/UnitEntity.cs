@@ -14,7 +14,12 @@ namespace Milkshake.Game.Entitys
 {
     public class UnitEntity : ObjectEntity
     {
-        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID(), (int)(int)EUnitFields.UNIT_END - 0x4)
+        public override int DataLength
+        {
+            get { return (int)EUnitFields.UNIT_END - 0x4; }
+        }
+
+        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID())
         {
             if (entry == null)
             {

@@ -10,13 +10,19 @@ using Milkshake.Game.Constants.Game.World.Entity;
 
 namespace Milkshake.Game.Entitys
 {
-
+    // This should be extending UnitEntity?
+    //
     public class PlayerEntity : ObjectEntity
     {
         public Character Character;
         public PlayerEntity Target;
 
+        // public Equipment
+        // public Inventory
+        // public Spells
+
         public float lastUpdateX, lastUpdateY;
+        public float X, Y, Z;
 
         public int Health
         {
@@ -42,43 +48,31 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
         }
 
-        public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT), (int)EUnitFields.PLAYER_END - 0x4)
+        public override int DataLength
+        {
+            get { return (int)EUnitFields.PLAYER_END - 0x4; }
+        }
+
+        public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT))
         {
             Character = character;
-            GUID = (uint)character.GUID;
-            //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
-
-            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
-            //SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
-
+            Type = (byte)25;
             Health = 70;
             MaxHealth = 70;
             Level = 1;
             XP = 0;
             Scale = 1;
 
+            ChrRacesEntry Race = DBC.ChrRaces.List.Find(r => (RaceID)r.RaceID == character.Race);            
+            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, Race.FactionID);
+
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_POWER1, 1000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER1, 1000);
-            
-
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_MAXPOWER2, 1000);
-
-            ChrRacesEntry Race = DBC.ChrRaces.List.Find(r => (RaceID)r.RaceID == character.Race);
-
-            
-            SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, Race.FactionID);
-            //SetUpdateField<Int32>((int)EUnitFields, Race.FactionID);
-
-            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BYTES_0, 16777477); // Unsure
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Race, 0);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Class, 1);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)character.Gender, 2);
             SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, 0, 3); //POwer 1 = rage
-
-            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_FLAGS, 0x00000010);
-            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURA, 2457);
-            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURAFLAGS, 9);
-            //SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_AURALEVELS, 1);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_BASEATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_OFFHANDATTACKTIME, 2000);
             SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_RANGEDATTACKTIME, 2000);

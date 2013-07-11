@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
-    public enum EObjectFields
+    public enum EObjectFields : int
     {
         OBJECT_FIELD_GUID = 0x00, // Size:2
         OBJECT_FIELD_DATA = 0x01, // Size:2
@@ -16,7 +16,7 @@ namespace Milkshake.Game.Constants.Game.Update
         OBJECT_END = 0x06,
     };
 
-    public enum EItemFields
+    public enum EItemFields : int
     {
         ITEM_FIELD_OWNER = EObjectFields.OBJECT_END + 0x00, // Size:2
         ITEM_FIELD_CONTAINED = EObjectFields.OBJECT_END + 0x02, // Size:2
