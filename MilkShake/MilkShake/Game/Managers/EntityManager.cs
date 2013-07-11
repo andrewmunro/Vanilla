@@ -24,6 +24,7 @@ namespace Milkshake.Game.Managers
         {
             while (true)
             {
+                /*
                 foreach (ObjectEntity entity in ObjectEntity.Entitys.ToArray())
                 {
                     if (entity.UpdateCount > 0)
@@ -52,7 +53,7 @@ namespace Milkshake.Game.Managers
                     }
                 }
 
-
+                */
                 Thread.Sleep(100);
             }
         }

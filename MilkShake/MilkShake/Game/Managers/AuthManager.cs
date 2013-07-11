@@ -101,8 +101,11 @@ namespace Milkshake.Game.Managers
 
             session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity));
             session.Entity.Session = session;
-            EntityManager.SpawnPlayer(session.Character);
-            EntityManager.SendPlayers(session);
+            
+            //EntityManager.SpawnPlayer(session.Character);
+            //EntityManager.SendPlayers(session);
+
+            World.DispatchOnPlayerSpawn(session.Entity);
 
             //ChatManager.SendSytemMessage(session, "You logged in to: " + session.Character.Name + " " + session.Character.Class + " " + session.Character.Race + " GUID:" + Character.GUID);
         }

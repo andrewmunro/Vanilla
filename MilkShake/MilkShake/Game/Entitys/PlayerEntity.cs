@@ -7,6 +7,7 @@ using Milkshake.Tools.DBC;
 using System.Linq;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Game.Constants.Game.World.Entity;
+using System.Collections.Generic;
 
 namespace Milkshake.Game.Entitys
 {
@@ -14,6 +15,8 @@ namespace Milkshake.Game.Entitys
     //
     public class PlayerEntity : ObjectEntity
     {
+        public List<PlayerEntity> KnownPlayers { get; private set; }
+
         public Character Character;
         public PlayerEntity Target;
 
@@ -55,8 +58,18 @@ namespace Milkshake.Game.Entitys
 
         public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT))
         {
+            KnownPlayers = new List<PlayerEntity>();
+
             Character = character;
-            Type = (byte)25;
+            GUID = (uint)character.GUID;
+            //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
+
+            SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
+            //SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
+
+
+            Character = character;
+            //Type = (byte)25;
             Health = 70;
             MaxHealth = 70;
             Level = 1;

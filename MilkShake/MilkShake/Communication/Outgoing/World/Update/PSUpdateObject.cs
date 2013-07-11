@@ -90,9 +90,9 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
             if (updateFlags.HasFlag(ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION))
             {
-                writer.Write((float)entity.X);
-                writer.Write((float)entity.Y);
-                writer.Write((float)entity.Z);
+                //writer.Write((float)entity.X);
+                //writer.Write((float)entity.Y);
+                //writer.Write((float)entity.Z);
                 writer.Write((float)0); // R
             }
 
@@ -184,7 +184,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			writer.Write((float)0);     // ????
 
 			writer.Write((float)2.5f);  // MOVE_WALK
-			writer.Write((float)7 * 10);     // MOVE_RUN
+			writer.Write((float)7 * 3);     // MOVE_RUN
 			writer.Write((float)4.5f);  // MOVE_RUN_BACK
 			writer.Write((float)4.72f); // MOVE_SWIM
 			writer.Write((float)2.5f);  // MOVE_SWIM_BACK
@@ -511,5 +511,32 @@ namespace Milkshake.Communication.Outgoing.World.Update
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
 
+
+
+
+
+
+
+
+
+        public static PSUpdateObject CreateOutOfRangeUpdate(List<ObjectEntity> entitys)
+        {
+            BinaryWriter writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
+
+            writer.Write((uint)entitys.Count);
+
+            foreach (ObjectEntity entity in entitys)
+            {
+                writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
+                //WriteBytes(writer, guidBytes, guidBytes.Length);
+            }
+
+            //byte[] guidBytes = GenerateGuidBytes((ulong)character.GUID);
+            
+
+
+            return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
+        }
 	}
 }

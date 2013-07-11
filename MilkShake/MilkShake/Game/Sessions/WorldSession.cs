@@ -27,6 +27,7 @@ using Milkshake.Game.Handlers;
 using Milkshake.Game.Entitys;
 using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Communication.Outgoing.Players;
+using Milkshake.Game;
 
 namespace Milkshake.Net
 {
@@ -49,6 +50,10 @@ namespace Milkshake.Net
         {
             base.Disconnect();
             MilkShake.world.FreeConnectionID(connectionID);
+
+            World.DispatchOnPlayerDespawn(Entity);
+
+            WorldServer.Sessions.Remove(this);
         }
 
         private byte[] encode(int size, int opcode)

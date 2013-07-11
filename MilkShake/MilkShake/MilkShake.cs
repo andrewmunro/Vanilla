@@ -20,6 +20,7 @@ using Milkshake.Game.Handlers;
 using Milkshake.Communication.Incoming.Character;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Game;
 
 namespace Milkshake
 {
@@ -63,6 +64,8 @@ namespace Milkshake
             AuthManager.Boot();
             CharacterManager.Boot();
             //ZoneHandler.Boot();
+
+            new PlayerManager();
 
             while (true) Console.ReadLine();
         }
