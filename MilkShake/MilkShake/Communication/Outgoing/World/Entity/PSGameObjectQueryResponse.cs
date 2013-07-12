@@ -19,9 +19,9 @@ namespace Milkshake.Communication.Outgoing.World.Entity
         //data << float(info->size);                          // go size , to check
         SendPacket(&data);*/
 
-    public class PSGameObjectQueryResponce : ServerPacket
+    public class PSGameObjectQueryResponse : ServerPacket
     {
-        public PSGameObjectQueryResponce(GameObjectTemplate gameObjectTemplate) : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
+        public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate) : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
         {
             Write((UInt32)gameObjectTemplate.Entry);
             Write((UInt32)gameObjectTemplate.Type);

@@ -8,14 +8,13 @@ using Milkshake.Game.Entitys;
 
 namespace Milkshake.Tools.Chat.Commands
 {
-    public class SpellCommands
+    [ChatCommandNode("spell", "Spell commands")]
+    public class Spell
     {
         [ChatCommand("lookup", "Takes a spellName string and returns a spellID int.")]
         public static void Lookup(WorldSession session, string[] args)
         {
-            string spellName = args[1];
-
-            
+            string spellName = args[0];
 
             List<SpellEntry> matchingSpells = DBC.DBC.Spells.GetSpellsNameContain(spellName);
 

@@ -6,9 +6,9 @@ using Milkshake.Communication.Outgoing.World.Update;
 
 namespace Milkshake.Communication.Outgoing.World
 {
-    public class PSNameQueryResponce : ServerPacket
+    public class PSNameQueryResponse : ServerPacket
     {
-        public PSNameQueryResponce(Character character) : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)
+        public PSNameQueryResponse(Character character) : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)
         {
             Write((ulong)character.GUID);
             Write(Encoding.UTF8.GetBytes(character.Name + '\0'));

@@ -1,19 +1,13 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Milkshake.Tools.Chat
 {
-    public class ChatCommandAttribute : Attribute
+    public class ChatCommandAttribute : ChatCommandBase
     {
-        public string ChatCommand { get; set; }
-        public string Description { get; set; }
-
-        public ChatCommandAttribute(string chatCommand, string description = "")
-        {
-            ChatCommand = chatCommand;
-            Description = description;
-        }
+        public ChatCommandAttribute(string name, string description = "") : base(name,  description) { }
     }
 }

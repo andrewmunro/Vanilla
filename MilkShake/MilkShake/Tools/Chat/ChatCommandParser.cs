@@ -9,25 +9,57 @@ namespace Milkshake.Tools.Chat
 {
     public class ChatCommandParser
     {
-        private const string COMMANDS_NAMESPACE = "Milkshake.Tools.Chat.Commands";
+        private static readonly List<ChatCommandNode> chatCommandNodes = new List<ChatCommandNode>();
 
-        private static Dictionary<String, MethodInfo> CommandHandlers = new Dictionary<String, MethodInfo>();
-
+        //TODO Cleanup parser and allow ignoring case.
         public static void Boot()
         {
-            List<Type> nameSpaces = Assembly.GetExecutingAssembly().GetTypes().Where(t => String.Equals(t.Namespace, COMMANDS_NAMESPACE, StringComparison.Ordinal)).ToList();
-            nameSpaces.ForEach(n =>
+            foreach (var type in GetTypesWithChatCommandNode(Assembly.GetExecutingAssembly()))
             {
-                List<MethodInfo> methods = n.GetMethods().ToList();
-                methods.ForEach(m =>
+                ChatCommandNode node = GetNode(type);
+                node.Method = type.GetMethod("Default");
+                chatCommandNodes.Add(node);
+
+                node.CommandAttributes = new List<ChatCommandAttribute>();
+
+                foreach (var method in GetMethodsWithChatCommandAttribute(type))
                 {
-                    ChatCommandAttribute commandInfo = GetAttributes(m);
-                    if(commandInfo != null) CommandHandlers.Add(commandInfo.ChatCommand, m);
-                });
-            });
+                    ChatCommandAttribute chatCommandAttribute = GetAttribute(method);
+                    chatCommandAttribute.Method = method;
+                    node.CommandAttributes.Add(chatCommandAttribute);
+                }
+            }
         }
 
-        private static ChatCommandAttribute GetAttributes(MethodInfo method)
+        static IEnumerable<MethodInfo> GetMethodsWithChatCommandAttribute(Type type)
+        {
+            foreach (MethodInfo method in type.GetMethods())
+            {
+                if (method.GetCustomAttributes(typeof(ChatCommandAttribute), true).Length > 0)
+                {
+                    yield return method;
+                }
+            }
+        }
+
+        static IEnumerable<Type> GetTypesWithChatCommandNode(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.GetCustomAttributes(typeof(ChatCommandNode), true).Length > 0)
+                {
+                    yield return type;
+                }
+            }
+        }
+
+        private static ChatCommandNode GetNode(Type type)
+        {
+            Object[] attributes = type.GetCustomAttributes(typeof(ChatCommandNode), false);
+            return (attributes.Length > 0) ? attributes.First() as ChatCommandNode : null;
+        }
+
+        private static ChatCommandAttribute GetAttribute(MethodInfo method)
         {
             Object[] attributes = method.GetCustomAttributes(typeof (ChatCommandAttribute), false);
             return (attributes.Length > 0) ? attributes.First() as ChatCommandAttribute : null;
@@ -35,30 +67,60 @@ namespace Milkshake.Tools.Chat
 
         public static Boolean ExecuteCommand(WorldSession sender, String message)
         {
+            //Remove the chat command key
             message = message.Remove(0, INI.GetValue(ConfigValues.WORLD, ConfigValues.COMMAND_KEY).Length);
             List<String> args = message.ToLower().Split(' ').ToList();
-            
 
-            MethodInfo Command;
+            ChatCommandNode commandNode = chatCommandNodes.FirstOrDefault(node => node.Name == args[0]);
 
-            if (CommandHandlers.TryGetValue(args[0], out Command))
+            if (commandNode != null)
             {
+                //remove the command node.
                 args.RemoveAt(0);
-                object[] CommandArguments = new object[] { sender, args.ToArray() };
 
-                //Call method with null instance (all command methods are static)
-                try
+                ChatCommandAttribute commandAttribute = args.Count > 0 ? commandNode.CommandAttributes.FirstOrDefault(attribute => attribute.Name == args[0]) : null;
+
+                if (commandAttribute != null)
                 {
-                    Command.Invoke(null, CommandArguments);
+                    //remove the attribute
+                    args.RemoveAt(0);
+
+                    object[] CommandArguments = new object[] { sender, args.ToArray() };
+
+                    //Call method with null instance (all command methods are static)
+                    try
+                    {
+                        commandAttribute.Method.Invoke(null, CommandArguments);
+                        Log.Print(LogType.Debug, "Player " + sender.Character.Name + " used command " + commandNode.Name + " " + commandAttribute.Name);
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        sender.sendMessage("** " + commandNode.Name + " commands **");
+                        sendCommandMessage(sender, commandAttribute);
+                        return false;
+                    }
+                }
+                if (commandNode.Method != null)
+                {
+                    object[] CommandArguments = new object[] { sender, args.ToArray() };
+
+                    commandNode.Method.Invoke(null, CommandArguments);
+                    Log.Print(LogType.Debug, "Player " + sender.Character.Name + " used command " + commandNode.Name + " Default");
                     return true;
                 }
-                catch (Exception e)
-                {
-                    sender.sendMessage("Command Errored: " + e.Message);
-                    return false;
-                }
+                sender.sendMessage("** " + commandNode.Name + " commands **");
+                commandNode.CommandAttributes.ForEach(a => sendCommandMessage(sender, a));
+                return false;
             }
+            sender.sendMessage("** commands **");
+            chatCommandNodes.ForEach(n => sendCommandMessage(sender, n));
             return false;
+        }
+
+        public static void sendCommandMessage(WorldSession session, ChatCommandBase cmd)
+        {
+            session.sendMessage(cmd.Name + " - " + cmd.Description);
         }
     }
 }

@@ -85,7 +85,7 @@
     <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
-    <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponce.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Mail\PSMailListResult.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSLoginSetTimeSpeed.cs" />
     <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
-    <Compile Include="Communication\Outgoing\World\PSNameQueryResponce.cs" />
+    <Compile Include="Communication\Outgoing\World\PSNameQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSInitialSpells.cs" />
@@ -147,7 +147,9 @@
     <Compile Include="Game\Sessions\Session.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Network\WorldPacket.cs" />
-    <Compile Include="Tools\Chat\Commands\ModifyCommands.cs" />
+    <Compile Include="Tools\Chat\ChatCommandBase.cs" />
+    <Compile Include="Tools\Chat\ChatCommandNode.cs" />
+    <Compile Include="Tools\Chat\Commands\Modify.cs" />
     <Compile Include="Tools\Database\Helpers\DBMails.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
     <Compile Include="Tools\Database\Tables\CharacterMail.cs" />
@@ -180,7 +182,7 @@
     <Compile Include="Network\ServerPacket.cs" />
     <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
     <Compile Include="Tools\Chat\ChatCommandParser.cs" />
-    <Compile Include="Tools\Chat\Commands\SpellCommands.cs" />
+    <Compile Include="Tools\Chat\Commands\Spell.cs" />
     <Compile Include="Tools\Config\INI.cs" />
     <Compile Include="Tools\Config\ConfigValues.cs" />
     <Compile Include="Tools\Cryptography\BigInteger.cs" />
