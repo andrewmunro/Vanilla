@@ -83,8 +83,8 @@ namespace Milkshake.Tools.Chat.Commands
                         AWESOME.ForEach(a => 
                             {
                                 //entity.Session.sendMessage(a.id.ToString())
-                                PSUpdateObject abaa = PSUpdateObject.CreateUnitUpdate(a);
-                                session.sendPacket(abaa);
+                                //PSUpdateObject abaa = PSUpdateObject.CreateUnitUpdate(a);
+                               // session.sendPacket(abaa);
 
 
                             });

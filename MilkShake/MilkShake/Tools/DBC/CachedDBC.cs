@@ -9,8 +9,7 @@ using System.Threading;
 namespace Milkshake.Tools.DBC
 {
     public class CachedDBC<T> where T : new()
-    {
-        
+    {   
         private List<T> _cachedList;
 
         public CachedDBC(bool autoCache = true)

@@ -64,6 +64,7 @@ namespace Milkshake
             PlayerManager.Boot();
 
             new PlayerManager();
+            new UnitManager();
 
             while (true) Console.ReadLine();
         }

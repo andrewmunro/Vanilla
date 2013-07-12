@@ -9,17 +9,23 @@ using Milkshake.Game.Constants.Character;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Game.Managers;
 
 namespace Milkshake.Game.Entitys
 {
-    public class UnitEntity : ObjectEntity
+    public class UnitEntity : ObjectEntity, ILocation
     {
+        public float X, Y, Z;
+
         public override int DataLength
         {
             get { return (int)EUnitFields.UNIT_END - 0x4; }
         }
 
-        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID())
+        public CreatureEntry TEntry;
+        public CreatureTemplateEntry Template;
+
+        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID((uint)entry.guid))
         {
             if (entry == null)
             {
@@ -36,10 +42,21 @@ namespace Milkshake.Game.Entitys
             }
             else
             {
+                TEntry = entry;
+                //ObjectGUID = new Entitys.ObjectGUID(entry.guid, Constants.Game.Update.TypeID.TYPEID_UNIT, 
                 CreatureTemplateEntry template = DBC.CreatureTemplates.Find(a => a.entry == entry.id);
+
+                Template = template;
+
+                Console.WriteLine(template.name);
+
                 Type = (byte)template.type;
                 Entry = (byte)template.entry;
                 Data = -248512512;
+
+                X = entry.position_x;
+                Y = entry.position_y;
+                Z = entry.position_z;
 
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FLAGS, template.unit_flags);
 

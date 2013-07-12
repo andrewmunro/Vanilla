@@ -16,6 +16,7 @@ namespace Milkshake.Game.Entitys
     public class PlayerEntity : ObjectEntity
     {
         public List<PlayerEntity> KnownPlayers { get; private set; }
+        public List<UnitEntity> KnownUnits { get; private set; }
 
         public Character Character;
         public PlayerEntity Target;
@@ -59,6 +60,7 @@ namespace Milkshake.Game.Entitys
         public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT))
         {
             KnownPlayers = new List<PlayerEntity>();
+            KnownUnits = new List<UnitEntity>();
 
             Character = character;
             GUID = (uint)character.GUID;

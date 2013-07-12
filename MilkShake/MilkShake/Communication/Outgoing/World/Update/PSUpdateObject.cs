@@ -464,9 +464,8 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
 
 
-        public static PSUpdateObject CreateUnitUpdate(CreatureEntry entry)
+        public static PSUpdateObject CreateUnitUpdate(UnitEntity entity)
         {
-            UnitEntity entity = new UnitEntity(entry);
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
 
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
@@ -485,10 +484,10 @@ namespace Milkshake.Communication.Outgoing.World.Update
             //3 bytes ahead?
 
             // Position
-            writer.Write((float)entry.position_x);
-            writer.Write((float)entry.position_y);
-            writer.Write((float)entry.position_z);
-            writer.Write((float)entry.orientation); // R
+            writer.Write((float)entity.X);
+            writer.Write((float)entity.Y);
+            writer.Write((float)entity.Z);
+            writer.Write((float)0); // R
 
             // Movement speeds
             writer.Write((float)0);     // ????
@@ -516,7 +515,13 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
 
 
+        public static PSUpdateObject CreateOutOfRangeUpdate(ObjectEntity entity)
+        {
+            List<ObjectEntity> despawnEntity = new List<ObjectEntity>();
+            despawnEntity.Add(entity);
 
+            return CreateOutOfRangeUpdate(despawnEntity);
+        }
 
 
 

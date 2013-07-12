@@ -16,6 +16,11 @@ namespace Milkshake.Game.Entitys
             return new ObjectGUID(TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
         }
 
+        public static ObjectGUID GetUnitGUID(uint low)
+        {
+            return new ObjectGUID(low, TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
+        }
+
         public static ObjectGUID GetGameObjectGUID()
         {
             return new ObjectGUID(TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);

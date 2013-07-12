@@ -40,5 +40,10 @@ namespace Milkshake.Game
             return PlayersWhoKnow(player).ConvertAll<WorldSession>(p => p.Session);
         }
 
+        public static List<PlayerEntity> PlayersWhoKnowUnit(UnitEntity unit)
+        {
+            return PlayerManager.Players.FindAll(p => p.KnownUnits.Contains(unit));
+        }
+
     }
 }
