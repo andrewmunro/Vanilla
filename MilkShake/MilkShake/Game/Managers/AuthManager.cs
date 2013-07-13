@@ -102,10 +102,8 @@ namespace Milkshake.Game.Managers
             session.Account = DBAccounts.GetAccount(packet.AccountName);
             session.crypt = new VanillaCrypt();
             session.crypt.init(Helper.HexToByteArray(session.Account.SessionKey));
-
             Log.Print(LogType.Debug, "Started Encryption");
-
-            session.sendHexPacket(WorldOpcodes.SMSG_AUTH_RESPONSE, "0C 00 00 00 00 00 00 00 00 00 ");
+            session.sendPacket(new PSAuthResponse());
         }
 
         private static void CalculateAccountHash(LoginSession session)
