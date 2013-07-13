@@ -62,9 +62,8 @@ namespace Milkshake.Game.Managers
 
         public static void OnTextEmotePacket(WorldSession session, PCTextEmote packet)
         {
-            //UnitEntity target = World.GetEntityByGUID(packet.GUID);
-            //String targetName = target != null ? target.Name : null;
-            String targetName = "Andrew";
+            //TODO Get the targetname from the packet.GUID
+            String targetName = session.Entity.Target != null ? session.Entity.Target.Name : null;
 
             WorldServer.TransmitToAll(new PSTextEmote((int)session.Character.GUID, (int)packet.EmoteID, (int)packet.TextID, targetName));
             

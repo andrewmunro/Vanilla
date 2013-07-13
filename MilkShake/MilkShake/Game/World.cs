@@ -46,11 +46,5 @@ namespace Milkshake.Game
         {
             return PlayerManager.Players.FindAll(p => p.KnownUnits.Contains(unit));
         }
-
-/*        public static UnitEntity GetEntityByGUID(int guid)
-        {
-            return EntityManager.UnitManager.Entitys.FirstOrDefault(u => u.GUID == guid);
-        }*/
-
     }
 }
