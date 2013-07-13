@@ -32,10 +32,15 @@ namespace Milkshake.Game
             return PlayerManager.Players.FindAll(p => p.KnownPlayers.Contains(player));
         }
 
-        public static List<WorldSession> SessionsWhoKnow(PlayerEntity player)
+        public static List<WorldSession> SessionsWhoKnow(PlayerEntity player, bool includeSelf = false)
         {
-            return PlayersWhoKnow(player).ConvertAll<WorldSession>(p => p.Session);
+            List<WorldSession> sessions = PlayersWhoKnow(player).ConvertAll<WorldSession>(p => p.Session);
+
+            if (includeSelf == true) sessions.Add(player.Session);
+
+            return sessions;
         }
+
 
         public static List<PlayerEntity> PlayersWhoKnowUnit(UnitEntity unit)
         {

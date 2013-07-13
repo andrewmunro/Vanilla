@@ -61,6 +61,10 @@ namespace Milkshake.Tools.Chat.Commands
                         entity.SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, int.Parse(attributeValue));
                         break;
 
+                    case "state":
+                        entity.SetUpdateField<byte>((int)EUnitFields.UNIT_NPC_EMOTESTATE, (byte)int.Parse(attributeValue));
+                        break;
+
                     case "unit":
                         PSUpdateObject packet = PSUpdateObject.CreateUnitUpdate(entity);
 

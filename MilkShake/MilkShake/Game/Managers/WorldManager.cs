@@ -121,9 +121,17 @@ namespace Milkshake.Game.Managers
             }
         }
 
+        private bool Contains(T entity)
+        {
+            return Entitys.FindAll(e => (e as ObjectEntity).GUID == (entity as ObjectEntity).GUID).Count() > 0;
+        }
+
         public virtual void AddEntityToWorld(T entity)
         {
-            Entitys.Add(entity);
+            if(!Contains(entity))
+            {
+                Entitys.Add(entity);
+            }
         }
 
         public virtual void RemoveEntityFromWorld(T entity)
