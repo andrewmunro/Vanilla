@@ -31,6 +31,7 @@ namespace Milkshake.Game.Managers
             ChatHandlers = new Dictionary<ChatMessageType,ProcessChatCallback>();
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_SAY, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_YELL, OnSayYell);
+            ChatHandlers.Add(ChatMessageType.CHAT_MSG_EMOTE, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_WHISPER, OnWhisper);
         }
 

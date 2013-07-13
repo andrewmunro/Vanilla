@@ -1,5 +1,7 @@
 ﻿using System;
+using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Net;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
@@ -67,5 +69,20 @@ namespace Milkshake.Game.Entitys
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, entry.modelid);
             }
         }
+
+/*        public void PlayEmote(Emote emoteID)
+        {
+            if (emoteID == 0) EmoteState = (int)emoteID;
+            else
+            {
+                EmotesEntry emote = DBC.Emotes.List.Find(e => e.ID == (int)emoteID);
+                if (emote.EmoteType == 0) EmoteState = (int)emoteID;
+                else
+                {
+                    WorldSession session = (this as PlayerEntity).Session;
+                    if(session != null) session.sendPacket(new PSEmote((uint)emoteID, session.Character.GUID));
+                }
+            }
+        }*/
     }
 }

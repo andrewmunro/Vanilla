@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Game.Constants.Game.World.Entity;
 using Milkshake.Game.Handlers;
 using Milkshake.Communication;
 using Milkshake.Communication.Incoming.World;
@@ -29,12 +30,12 @@ namespace Milkshake.Game.Managers
         {
             WorldDataRouter.AddHandler<PCNameQuery>(WorldOpcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
             WorldDataRouter.AddHandler<PCTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, OnTextEmotePacket);
+            WorldDataRouter.AddHandler<PCEmote>(WorldOpcodes.CMSG_EMOTE, OnEmotePacket);
             WorldDataRouter.AddHandler<PCZoneUpdate>(WorldOpcodes.CMSG_ZONEUPDATE, OnZoneUpdatePacket);
             WorldDataRouter.AddHandler<PCAreaTrigger>(WorldOpcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
             WorldDataRouter.AddHandler<PCPing>(WorldOpcodes.CMSG_PING, OnPingPacket);
             WorldDataRouter.AddHandler<PCSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
             WorldDataRouter.AddHandler<PCGameObjectQuery>(WorldOpcodes.CMSG_GAMEOBJECT_QUERY, OnGameObjectQuery);
-
         }
 
         public static void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
@@ -54,9 +55,34 @@ namespace Milkshake.Game.Managers
             //session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
         }
 
+        private static void OnEmotePacket(WorldSession session, PCEmote packet)
+        {
+            session.sendPacket(new PSEmote(packet.EmoteID, session.Entity.ObjectGUID.RawGUID));
+        }
+
         public static void OnTextEmotePacket(WorldSession session, PCTextEmote packet)
         {
-            WorldServer.TransmitToAll(new PSTextEmote((int)session.Character.GUID, (int)packet.EmoteID, (int)packet.TextID));
+            //UnitEntity target = World.GetEntityByGUID(packet.GUID);
+            //String targetName = target != null ? target.Name : null;
+            String targetName = "Andrew";
+
+            WorldServer.TransmitToAll(new PSTextEmote((int)session.Character.GUID, (int)packet.EmoteID, (int)packet.TextID, targetName));
+            
+            EmotesTextEntry textEmote = DBC.EmotesText.List.Find(e => e.ID == packet.TextID);
+
+            switch ((Emote)textEmote.TextID)
+            {
+                    
+                case Emote.EMOTE_STATE_SLEEP:
+                case Emote.EMOTE_STATE_SIT:
+                case Emote.EMOTE_STATE_KNEEL:
+                case Emote.EMOTE_ONESHOT_NONE:
+                    break;
+                default:
+                    World.SessionsWhoKnow(session.Entity).ForEach(s => s.sendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID)));
+                    session.sendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID));
+                    break;
+            }
         }
 
         public static void OnZoneUpdatePacket(WorldSession session, PCZoneUpdate packet)

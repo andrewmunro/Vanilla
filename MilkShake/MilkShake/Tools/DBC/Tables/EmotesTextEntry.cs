@@ -9,7 +9,7 @@ namespace Milkshake.Tools.DBC.Tables
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int TextID { get; set; }
+        public uint TextID { get; set; }
         public int EmoteText { get; set; }
     }
 }

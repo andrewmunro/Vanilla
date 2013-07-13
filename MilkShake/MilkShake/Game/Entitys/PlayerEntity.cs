@@ -57,6 +57,12 @@ namespace Milkshake.Game.Entitys
             set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
         }
 
+        public int EmoteState
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_NPC_EMOTESTATE]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
+        }
+
         public override int DataLength
         {
             get { return (int)EUnitFields.PLAYER_END - 0x4; }

@@ -30,6 +30,8 @@ namespace Milkshake.Tools.DBC
         public static CachedDBC<AreaTableEntry> AreaTables { get; private set; }
         public static CachedDBC<AreaTriggerEntry> AreaTriggers { get; private set; }
         public static CachedDBC<CreatureTemplateEntry> CreatureTemplates { get; private set; }
+        public static CachedDBC<EmotesEntry> Emotes { get; private set; }
+        public static CachedDBC<EmotesTextEntry> EmotesText { get; private set; }
 
         public static void Boot()
         {
@@ -43,6 +45,8 @@ namespace Milkshake.Tools.DBC
             AreaTables = new CachedDBC<AreaTableEntry>();
             AreaTriggers = new CachedDBC<AreaTriggerEntry>();
             CreatureTemplates = new CachedDBC<CreatureTemplateEntry>();
+            Emotes = new CachedDBC<EmotesEntry>();
+            EmotesText = new CachedDBC<EmotesTextEntry>();
 
             // Wait till DBC's are cached
             while (DBC.QueuedCachedDBC.Count > 0) { }

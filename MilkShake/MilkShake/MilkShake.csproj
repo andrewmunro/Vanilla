@@ -57,6 +57,7 @@
     <Compile Include="Communication\Incoming\World\GameObject\PCGameObjectQuery.cs" />
     <Compile Include="Communication\Incoming\World\Mail\PCGetMailList.cs" />
     <Compile Include="Communication\Incoming\World\Movement\PCMoveInfo.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCEmote.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCNameQuery.cs" />
     <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCAreaTrigger.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveKnockBack.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PCAccountDataTimes.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSEmote.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSPong.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
     <Compile Include="Communication\Outgoing\World\Player\PSLoginSetTimeSpeed.cs" />
@@ -127,10 +129,12 @@
     <Compile Include="Game\Constants\Game\Update\ObjectFlags.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectGUID.cs" />
     <Compile Include="Game\Constants\Game\Update\ObjectUpdateType.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\Emote.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\ShapeShiftForm.cs" />
     <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitByte1Flags.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\UnitState.cs" />
     <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Constants\Login\RealmColor.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Network\WorldPacket.cs" />
     <Compile Include="Tools\Chat\ChatCommandBase.cs" />
     <Compile Include="Tools\Chat\ChatCommandNode.cs" />
+    <Compile Include="Tools\Chat\Commands\Emote.cs" />
     <Compile Include="Tools\Chat\Commands\Modify.cs" />
     <Compile Include="Tools\Database\Helpers\DBMails.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
@@ -164,6 +169,7 @@
     <Compile Include="Tools\DBC\Tables\ChrStartingOutfitEntry.cs" />
     <Compile Include="Tools\Database\Tables\CreatureEntry.cs" />
     <Compile Include="Tools\DBC\Tables\CreatureTemplateEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\EmotesEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
     <Compile Include="Tools\Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />

@@ -27,6 +27,7 @@ namespace Milkshake.Tools
             //GenerateTable<ItemTemplateEntry>(CSVToChrItemTemplateEntry, DBC_LOCATION + "item_template.csv", ConfigValues.DBC);
             //GenerateTable<CreatureTemplateEntry>(CSVToCreatureTemplateEntry, DBC_LOCATION + "creature_template.csv", ConfigValues.DBC);
             //GenerateTable<CreatureEntry>(CSVToCreatureEntry, DBC_LOCATION + "creature.csv", ConfigValues.WORLD);
+            //GenerateTable<EmotesEntry>(CSVToEmotesEntry, DBC_LOCATION + "Emotes.csv", ConfigValues.DBC);
 
             Console.Write(true);
             Console.Read();
@@ -113,6 +114,20 @@ namespace Milkshake.Tools
                     curmana = int.Parse(data[13]),
                     DeathState = int.Parse(data[14]),
                     MovementType = int.Parse(data[15])
+                };
+        }
+
+        private static EmotesEntry CSVToEmotesEntry(string[] data)
+        {
+            return new EmotesEntry()
+                {
+                    ID = uint.Parse(data[0]),
+                    Name = data[1],
+                    Flags = int.Parse(data[2]),
+                    AnimationID = int.Parse(data[3]),
+                    EmoteType = int.Parse(data[4]),
+                    UnitStandState = int.Parse(data[5]),
+                    SoundID = int.Parse(data[6])
                 };
         }
 
@@ -360,7 +375,7 @@ namespace Milkshake.Tools
             {
                 ID = int.Parse(data[0]),
                 Name = data[1].Replace("\"", ""),
-                TextID = int.Parse(data[2]),
+                TextID = uint.Parse(data[2]),
                 EmoteText = int.Parse(data[3])
             };
         }

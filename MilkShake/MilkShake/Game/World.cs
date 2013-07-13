@@ -26,9 +26,6 @@ namespace Milkshake.Game
             if (OnPlayerDespawn != null) OnPlayerDespawn(player);
         }
 
-
-
-
         // [Helpers]
         public static List<PlayerEntity> PlayersWhoKnow(PlayerEntity player)
         {
@@ -44,6 +41,11 @@ namespace Milkshake.Game
         {
             return PlayerManager.Players.FindAll(p => p.KnownUnits.Contains(unit));
         }
+
+/*        public static UnitEntity GetEntityByGUID(int guid)
+        {
+            return EntityManager.UnitManager.Entitys.FirstOrDefault(u => u.GUID == guid);
+        }*/
 
     }
 }
