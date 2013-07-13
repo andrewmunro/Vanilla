@@ -34,16 +34,7 @@ namespace Milkshake.Tools.Database.Helpers
 
         public static List<GameObject> GetGameObjects(PlayerEntity entity, float Radius)
         {
-            return GameObjects.FindAll((go) => entity.Character.MapID == go.Map && Distance(entity, go.X, go.Y, go.Z) < Radius);
-        }
-
-        public static float Distance(PlayerEntity player, float X, float Y, float Z)
-        {
-            float dx = player.X - X;
-            float dy = player.Y - Y;
-            float dz = player.Z - Z;
-
-            return (float)Math.Sqrt((dx * dx) + (dy * dy) + (dz * dz));
+            return GameObjects.FindAll((go) => go.Map == entity.Character.MapID && Helper.Distance(entity.Character.X, entity.Character.Y, go.X, go.Y) < Radius);
         }
 
         public static GameObjectTemplate GetGameObjectTemplate(uint Entry)

@@ -50,7 +50,7 @@ namespace Milkshake.Game.Managers
         public static void OnGameObjectQuery(WorldSession session, PCGameObjectQuery packet)
         {            
             GameObjectTemplate template = DBGameObject.GameObjectTemplates.Find(g => g.Entry == packet.EntryID);
-            session.sendPacket(new PSGameObjectQueryResponse(template));
+            //session.sendPacket(new PSGameObjectQueryResponse(template));
             //session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
         }
 

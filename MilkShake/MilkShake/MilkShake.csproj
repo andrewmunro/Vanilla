@@ -105,6 +105,7 @@
     <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
+    <Compile Include="Communication\Outgoing\World\Update\UpdateBuilder.cs" />
     <Compile Include="Game\Constants\Character\Class.cs" />
     <Compile Include="Game\Constants\Character\Gender.cs" />
     <Compile Include="Game\Constants\Character\Race.cs" />

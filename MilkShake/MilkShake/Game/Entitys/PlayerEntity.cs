@@ -8,6 +8,7 @@ using System.Linq;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Game.Constants.Game.World.Entity;
 using System.Collections.Generic;
+using Milkshake.Communication.Outgoing.World.Update;
 
 namespace Milkshake.Game.Entitys
 {
@@ -15,8 +16,12 @@ namespace Milkshake.Game.Entitys
     //
     public class PlayerEntity : ObjectEntity
     {
+        public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
+        public List<UpdateBlock> UpdateBlocks { get; private set; }
+
         public List<PlayerEntity> KnownPlayers { get; private set; }
         public List<UnitEntity> KnownUnits { get; private set; }
+        public List<GOEntity> KnownGameObjects { get; private set; }
 
         public Character Character;
         public PlayerEntity Target;
@@ -61,6 +66,7 @@ namespace Milkshake.Game.Entitys
         {
             KnownPlayers = new List<PlayerEntity>();
             KnownUnits = new List<UnitEntity>();
+            KnownGameObjects = new List<GOEntity>();
 
             Character = character;
             GUID = (uint)character.GUID;
@@ -69,6 +75,8 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)25);
             //SetUpdateField<byte>((int)EObjectFields.OBJECT_FIELD_TYPE, (byte)TypeID.TYPEID_UNIT);
 
+            OutOfRangeEntitys = new List<ObjectEntity>();
+            UpdateBlocks = new List<UpdateBlock>();
 
             Character = character;
             //Type = (byte)25;

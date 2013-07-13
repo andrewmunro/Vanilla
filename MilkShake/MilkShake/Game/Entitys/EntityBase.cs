@@ -20,6 +20,7 @@ namespace Milkshake.Game.Entitys
 
         public virtual int DataLength { get; private set; }
         public virtual TypeID TypeID { get; internal set; }
+        public virtual string Name { get; private set; }
 
         public EntityBase()
         {

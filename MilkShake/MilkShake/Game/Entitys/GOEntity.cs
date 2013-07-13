@@ -18,6 +18,14 @@ namespace Milkshake.Game.Entitys
         public GameObject GameObject { get; private set; }
         public GameObjectTemplate GameObjectTemplate { get; private set; }
 
+        public override string Name
+        {
+            get
+            {
+                return GameObjectTemplate.Name;
+            }
+        }
+
         public GOEntity(GameObject gameObject, GameObjectTemplate template) : base(ObjectGUID.GetGameObjectGUID())
         {
             GameObject = gameObject;

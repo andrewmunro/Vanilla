@@ -8,11 +8,60 @@ using System.Threading;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.Database;
 using Milkshake.Tools;
+using Milkshake.Tools.Database.Helpers;
 
 namespace Milkshake.Game.Managers
 {
     public class WorldManager
     {
+        public WorldManager()
+        {
+            new Thread(UpdateThread).Start();
+        }
+
+        private void UpdateThread()
+        {
+            while (true)
+            {
+                Update();
+                Thread.Sleep(500);
+            }
+        }
+
+        public void Update()
+        {
+            foreach (PlayerEntity player in PlayerManager.Players)
+            {
+                // Move this somewhere else?
+                if (player.OutOfRangeEntitys.Count() > 0 || player.UpdateBlocks.Count() > 0)
+                {
+                    List<UpdateBlock> UpdateBlocks = new List<UpdateBlock>();
+
+                    if (player.OutOfRangeEntitys.Count() > 0)
+                    {
+                        UpdateBlocks.Add(new OutOfRangeBlock(player.OutOfRangeEntitys));
+                    }
+
+                    if (player.UpdateBlocks.Count() > 0)
+                    {
+                        lock (UpdateBlocks)
+                        {
+                            UpdateBlocks.AddRange(player.UpdateBlocks);
+                        }
+                    }
+
+                    player.Session.sendPacket(new PSUpdateObject(UpdateBlocks));
+
+                    player.OutOfRangeEntitys.Clear();
+                    player.UpdateBlocks.Clear();
+
+                    // [Debug]
+                    player.Session.sendMessage("-- Update Packet --");
+                    UpdateBlocks.ForEach(ub => player.Session.sendMessage(ub.Info));
+                    player.Session.sendMessage(" ");
+                }
+            }
+        }
 
     }
 
@@ -21,7 +70,7 @@ namespace Milkshake.Game.Managers
         //float X { get; set; }
     }
 
-    public abstract class EntityComponent<T> where T : Entitys.EntityBase, ILocation
+    public abstract class EntityComponent<T> where T : Entitys.EntityBase //, ILocation - later...
     {
         public List<T> Entitys = new List<T>();
 
@@ -44,7 +93,7 @@ namespace Milkshake.Game.Managers
             while (true)
             {
                 Update();
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
         }
 
@@ -55,30 +104,29 @@ namespace Milkshake.Game.Managers
             {
                 foreach (T entity in Entitys.ToArray())
                 {
-                    if (InRange(player, entity))
+                    if (InRange(player, entity, 50))
                     {
                         if (!PlayerKnowsEntity(player, entity))
                         {
                             SpawnEntityForPlayer(player, entity);
                         }
                     }
-                    else
+                    
+                    if (!InRange(player, entity, 100) && PlayerKnowsEntity(player, entity))
                     {
-                        if (PlayerKnowsEntity(player, entity))
-                        {
-                            DespawnEntityForPlayer(player, entity);
-                        }
+                        DespawnEntityForPlayer(player, entity);
                     }
                 }
+
             }
         }
 
-        public virtual void SpawnEntity(T entity)
+        public virtual void AddEntityToWorld(T entity)
         {
             Entitys.Add(entity);
         }
 
-        public virtual void DespawnEntity(T entity)
+        public virtual void RemoveEntityFromWorld(T entity)
         {
             Entitys.Remove(entity);
 
@@ -87,23 +135,76 @@ namespace Milkshake.Game.Managers
 
         public virtual void SpawnEntityForPlayer(PlayerEntity player, T entity)
         {
-
+            EntityListFromPlayer(player).Add(entity);
         }
 
         public virtual void DespawnEntityForPlayer(PlayerEntity player, T entity)
         {
-            player.Session.sendPacket(PSUpdateObject.CreateOutOfRangeUpdate(entity as ObjectEntity));
+            EntityListFromPlayer(player).Remove(entity);
+
+            player.OutOfRangeEntitys.Add((entity as ObjectEntity));
         }
 
-        public virtual void GenerateEntitysForPlayer(PlayerEntity player)
+        public List<PlayerEntity> PlayersWhoKnow(T entity)
         {
-
+            return PlayerManager.Players.FindAll(p => EntityListFromPlayer(p).Contains(entity));
         }
 
-        public abstract List<PlayerEntity> PlayersWhoKnow(T entity);
+        public bool PlayerKnowsEntity(PlayerEntity player, T entity)
+        {
+            return EntityListFromPlayer(player).Contains(entity);
+        }
 
-        public abstract bool InRange(PlayerEntity player, T entity);
-        public abstract bool PlayerKnowsEntity(PlayerEntity player, T entity);
+        public abstract void GenerateEntitysForPlayer(PlayerEntity player);
+        public abstract bool InRange(PlayerEntity player, T entity, float range);
+        public abstract List<T> EntityListFromPlayer(PlayerEntity player);
+    }
+
+    public class GameObjectManager : EntityComponent<GOEntity>
+    {
+        public override void GenerateEntitysForPlayer(PlayerEntity player)
+        {
+            List<GameObject> gameObjects = DBGameObject.GetGameObjects(player, 100);
+
+            gameObjects.ForEach(closeGO =>
+            {
+                GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)closeGO.ID);
+
+                if (template != null)
+                {
+                    AddEntityToWorld(new GOEntity(closeGO, template));
+                }
+            });
+
+            Console.Write(1);
+        }
+
+        public override void SpawnEntityForPlayer(PlayerEntity player, GOEntity entity)
+        {
+            player.UpdateBlocks.Add(new CreateGOBlock(entity));
+
+            base.SpawnEntityForPlayer(player, entity);
+        }
+
+        public override List<GOEntity> EntityListFromPlayer(PlayerEntity player)
+        {
+            return player.KnownGameObjects;
+        }
+
+        public override bool InRange(PlayerEntity player, GOEntity entity, float range = 50)
+        {
+            double distance = GetDistance(player.X, player.Y, entity.GameObject.X, entity.GameObject.Y);
+
+            return distance < range;
+        }
+
+        private static double GetDistance(float aX, float aY, float bX, float bY)
+        {
+            double a = (double)(aX - bX);
+            double b = (double)(bY - aY);
+
+            return Math.Sqrt(a * a + b * b);
+        }
     }
 
     public class UnitManager : EntityComponent<UnitEntity>
@@ -114,43 +215,31 @@ namespace Milkshake.Game.Managers
 
             List<CreatureEntry> unitsClose = allUnits
                 .FindAll(m => m.map == player.Character.MapID)
-                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 50);
+                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);
 
             unitsClose.ForEach(closeUnit =>
             {
-                SpawnEntity(new UnitEntity(closeUnit));
+                AddEntityToWorld(new UnitEntity(closeUnit));
             });
         }
 
-
         public override void SpawnEntityForPlayer(PlayerEntity player, UnitEntity entity)
         {
-            player.KnownUnits.Add(entity);
+            player.UpdateBlocks.Add(new CreateUnitBlock(new UnitEntity(entity.TEntry)));
 
-            player.Session.sendMessage("Spawning: " + entity.Template.name);
-
-            player.Session.sendPacket(PSUpdateObject.CreateUnitUpdate(new UnitEntity(entity.TEntry)));
+            base.SpawnEntityForPlayer(player, entity);
         }
 
-        public override void DespawnEntityForPlayer(PlayerEntity player, UnitEntity entity)
+        public override List<UnitEntity> EntityListFromPlayer(PlayerEntity player)
         {
-            player.KnownUnits.Remove(entity);
-
-            player.Session.sendMessage("Despawning: " + entity.Template.name);
-
-            base.DespawnEntityForPlayer(player, entity);
+            return player.KnownUnits;
         }
 
-        public override List<PlayerEntity> PlayersWhoKnow(UnitEntity entity)
-        {
-            return World.PlayersWhoKnowUnit(entity);
-        }
-
-        public override bool InRange(PlayerEntity player, UnitEntity entity)
+        public override bool InRange(PlayerEntity player, UnitEntity entity, float range = 50)
         {
             double distance = GetDistance(player.X, player.Y, entity.X, entity.Y);
 
-            return distance < 50;
+            return distance < range;
         }
 
         private static double GetDistance(float aX, float aY, float bX, float bY)
@@ -159,11 +248,6 @@ namespace Milkshake.Game.Managers
             double b = (double)(bY - aY);
 
             return Math.Sqrt(a * a + b * b);
-        }
-
-        public override bool PlayerKnowsEntity(PlayerEntity player, UnitEntity entity)
-        {
-            return player.KnownUnits.Contains(entity);
         }
     }
 }

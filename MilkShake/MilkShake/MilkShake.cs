@@ -1,26 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Milkshake.Communication;
 using Milkshake.Game.Managers;
 using Milkshake.Game.Sessions;
 using Milkshake.Network;
-using Milkshake.Tools;
 using Milkshake.Net;
 using Milkshake.Tools.Chat;
 using Milkshake.Tools.Config;
 using Milkshake.Tools.Database;
-using Milkshake.Communication.Outgoing.World;
-using Milkshake.Tools.Database.Helpers;
-using Milkshake.Tools.Database.Tables;
-using Milkshake.Tools.Update;
-using Milkshake.Communication.Outgoing.World.Update;
-using Milkshake.Game.Handlers;
-using Milkshake.Communication.Incoming.Character;
 using Milkshake.Tools.DBC;
-using Milkshake.Tools.DBC.Tables;
-using Milkshake.Game;
 
 namespace Milkshake
 {
@@ -54,6 +41,8 @@ namespace Milkshake
 
             new PlayerManager();
             new UnitManager();
+            new GameObjectManager();
+            new WorldManager();
 
             while (true) Console.ReadLine();
         }

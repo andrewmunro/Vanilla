@@ -26,6 +26,16 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			blocks.ForEach(b => Write(b));
 		}
 
+        public PSUpdateObject(List<UpdateBlock> blocks, int hasTansport = 0)
+            : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
+        {
+            Write((uint)blocks.Count());
+            Write((byte)hasTansport); // Has transport
+
+            // Write each block
+            blocks.ForEach(block => Write(block.Data));
+        }
+
         
 
 		/* Needs moving */
@@ -505,9 +515,6 @@ namespace Milkshake.Communication.Outgoing.World.Update
             entity.Scale = 1;
             entity.WriteUpdateFields(writer);
 
-            Console.WriteLine(" ");
-            Log.Print(LogType.Debug, BitConverter.ToString((writer.BaseStream as MemoryStream).ToArray()));
-            Console.WriteLine(" ");
             return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() });
         }
 

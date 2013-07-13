@@ -94,6 +94,7 @@ namespace Milkshake.Game.Managers
 
             foreach (GameObject gameObject in gameObjects)
 	        {
+                
 		        GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)gameObject.ID);
 
                 if (template != null)
