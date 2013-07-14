@@ -162,6 +162,7 @@
     <Compile Include="Network\WorldPacket.cs" />
     <Compile Include="Tools\Chat\ChatCommandBase.cs" />
     <Compile Include="Tools\Chat\ChatCommandNode.cs" />
+    <Compile Include="Tools\Chat\Commands\Debug.cs" />
     <Compile Include="Tools\Chat\Commands\Emote.cs" />
     <Compile Include="Tools\Chat\Commands\Modify.cs" />
     <Compile Include="Tools\Database\Helpers\DBMails.cs" />

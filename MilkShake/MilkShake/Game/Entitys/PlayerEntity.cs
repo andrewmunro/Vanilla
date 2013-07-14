@@ -17,7 +17,7 @@ namespace Milkshake.Game.Entitys
 {
     // This should be extending UnitEntity?
     //
-    public class PlayerEntity : ObjectEntity
+    public class PlayerEntity : UnitEntity
     {
         public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
         public List<UpdateBlock> UpdateBlocks { get; private set; }
@@ -27,7 +27,7 @@ namespace Milkshake.Game.Entitys
         public List<GOEntity> KnownGameObjects { get; private set; }
 
         public Character Character;
-        public PlayerEntity Target;
+        public UnitEntity Target;
 
         // public Equipment
         // public Inventory

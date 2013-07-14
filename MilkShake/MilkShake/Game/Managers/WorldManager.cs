@@ -56,9 +56,9 @@ namespace Milkshake.Game.Managers
                     player.UpdateBlocks.Clear();
 
                     // [Debug]
-                    player.Session.sendMessage("-- Update Packet --");
-                    UpdateBlocks.ForEach(ub => player.Session.sendMessage(ub.Info));
-                    player.Session.sendMessage(" ");
+                    //player.Session.sendMessage("-- Update Packet --");
+                    //UpdateBlocks.ForEach(ub => player.Session.sendMessage(ub.Info));
+                    //player.Session.sendMessage(" ");
                 }
             }
         }
@@ -177,19 +177,20 @@ namespace Milkshake.Game.Managers
             gameObjects.ForEach(closeGO =>
             {
                 GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)closeGO.ID);
-
+                
                 if (template != null)
                 {
                     AddEntityToWorld(new GOEntity(closeGO, template));
                 }
             });
-
-            Console.Write(1);
         }
 
         public override void SpawnEntityForPlayer(PlayerEntity player, GOEntity entity)
         {
-            player.UpdateBlocks.Add(new CreateGOBlock(entity));
+            lock (player.UpdateBlocks)
+            {
+                player.UpdateBlocks.Add(new CreateGOBlock(entity));
+            }
 
             base.SpawnEntityForPlayer(player, entity);
         }
@@ -233,8 +234,10 @@ namespace Milkshake.Game.Managers
 
         public override void SpawnEntityForPlayer(PlayerEntity player, UnitEntity entity)
         {
-            player.UpdateBlocks.Add(new CreateUnitBlock(new UnitEntity(entity.TEntry)));
-
+            lock (player.UpdateBlocks)
+            {
+                player.UpdateBlocks.Add(new CreateUnitBlock(new UnitEntity(entity.TEntry)));
+            }
             base.SpawnEntityForPlayer(player, entity);
         }
 

@@ -31,7 +31,7 @@ namespace Milkshake.Tools.Chat.Commands
                 string attributeValue = args[1];
 
                 // If player isn't targeting. Target self
-                PlayerEntity entity = session.Entity.Target ?? session.Entity;
+                UnitEntity entity = session.Entity.Target ?? session.Entity;
 
                 bool unknownAttribute = false;
 
@@ -42,15 +42,15 @@ namespace Milkshake.Tools.Chat.Commands
                         break;
 
                     case "health":
-                        entity.Health = int.Parse(attributeValue);
+                        (entity as PlayerEntity).Health = int.Parse(attributeValue);
                         break;
 
                     case "level":
-                        entity.Level = int.Parse(attributeValue);
+                        (entity as PlayerEntity).Level = int.Parse(attributeValue);
                         break;
 
                     case "xp":
-                        entity.XP = int.Parse(attributeValue);
+                        (entity as PlayerEntity).XP = int.Parse(attributeValue);
                         break;
 
                     case "gender":
@@ -63,40 +63,6 @@ namespace Milkshake.Tools.Chat.Commands
 
                     case "state":
                         entity.SetUpdateField<byte>((int)EUnitFields.UNIT_NPC_EMOTESTATE, (byte)int.Parse(attributeValue));
-                        break;
-
-                    case "unit":
-                        PSUpdateObject packet = PSUpdateObject.CreateUnitUpdate(entity);
-
-                        try
-                        {
-                            UpdateReader.ProccessLog(packet.Packet);
-                        }
-                        catch (Exception e) { }
-
-                        // Send Packet
-                        session.sendPacket(packet);
-
-                        List<CreatureEntry> mobs = DB.World.Table<CreatureEntry>().ToList();
-
-
-
-                        List<CreatureEntry>  AWESOME = mobs.FindAll(m => m.map == entity.Character.MapID).FindAll(m => Helper.Distance(m.position_x, m.position_y, entity.X, entity.Y) < 50);
-
-                        AWESOME.ForEach(a => 
-                            {
-                                //entity.Session.sendMessage(a.id.ToString())
-                                //PSUpdateObject abaa = PSUpdateObject.CreateUnitUpdate(a);
-                               // session.sendPacket(abaa);
-
-
-                            });
-
-
-
-
-
-
                         break;
 
                     default:

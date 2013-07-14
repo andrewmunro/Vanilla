@@ -93,6 +93,10 @@ namespace Milkshake.Game.Managers
                 SavePosition(session, handler);
             }
 
+            session.Entity.X = handler.X;
+            session.Entity.Y = handler.Y;
+            session.Entity.Z = handler.Z;
+
             UpdateEntity(session, handler);
 
             World.SessionsWhoKnow(session.Entity).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));

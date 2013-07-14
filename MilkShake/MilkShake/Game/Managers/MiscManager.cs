@@ -116,20 +116,22 @@ namespace Milkshake.Game.Managers
 
         public static void OnSetSelectionPacket(WorldSession session, PCSetSelection packet)
         {
-            try
+            UnitEntity target = null;
+
+            WorldSession op = WorldServer.Sessions.Find(s => s.Entity.ObjectGUID.RawGUID == packet.GUID);
+            if(op != null) target = op.Entity;
+
+            if (target == null) target = Milkshake.MilkShake.UnitComponent.Entitys.Find(e => e.ObjectGUID != null && e.ObjectGUID.RawGUID == packet.GUID);
+
+            if (target != null)
             {
-                session.Entity.Target = WorldServer.Sessions.First(s => s.Entity.ObjectGUID.RawGUID == packet.GUID).Entity;
-
-                session.sendMessage("Targeted: " + (session.Entity.Target as PlayerEntity).Character.Name);
+                session.Entity.Target = target;
+                session.sendMessage("Target: " + target.Name);
             }
-            catch (Exception e)
+            else
             {
-
+                session.sendMessage("Couldnt find target!");
             }
-
-            //session.sendMessage("Ping: " + packet.Ping + " Latancy: " + packet.Latency);
-
-           // session.sendPacket(new PSPong(packet.Ping));
         }
     }
 }

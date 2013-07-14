@@ -19,6 +19,37 @@ namespace Milkshake.Game.Managers
         public static void Boot()
         {
             WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_ATTACKSWING, OnAttackSwing);
+            WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_CREATURE_QUERY, OnCreatureQuery);
+
+            
+
+        }
+
+        private static void OnCreatureQuery(WorldSession session, PacketReader handler)
+        {
+            uint entry = handler.ReadUInt32();
+            ulong GUID = handler.ReadUInt64();
+
+            UnitEntity entity = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
+
+            ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_CREATURE_QUERY_RESPONSE);
+            packet.Write((UInt32)entity.Template.entry);
+            packet.WriteCString(entity.Name);
+            packet.WriteNullByte(3); // Name2,3,4
+            packet.WriteCString("Lucas == MLG");
+
+            packet.Write((UInt32)entity.Template.type_flags);
+            packet.Write((UInt32)entity.Template.type);
+            packet.Write((UInt32)entity.Template.family);
+            packet.Write((UInt32)entity.Template.rank);
+            packet.WriteNullUInt(1);
+
+            packet.Write((UInt32)entity.Template.PetSpellDataId);
+            packet.Write((UInt32)entity.TEntry.modelid);
+            packet.Write((UInt16)entity.Template.Civilian);
+
+            session.sendMessage("Responce: " + entity.Template.name + " - " + entity.Template.subname);
+            session.sendPacket(packet);
         }
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)

@@ -6,9 +6,68 @@ using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Game.Managers;
+using Milkshake.Network;
+using Milkshake.Communication;
+using Milkshake.Tools.Extensions;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Milkshake.Game.Entitys
 {
+    public class AIBrainManager
+    {
+        public static List<AIBrain> AIBrains = new List<AIBrain>();
+
+        public static void Boot()
+        {
+            new Thread(UpdateThread).Start();
+        }
+
+        private static void UpdateThread()
+        {
+            while (true)
+            {
+                Update();
+                Thread.Sleep(1000);
+            }
+        }
+
+        private static void Update()
+        {
+            AIBrains.ForEach(ai => ai.Update());
+        }
+    }
+
+    public class AIBrain
+    {
+        public PlayerEntity Target;
+        public UnitEntity Entity;
+
+        public AIBrain(UnitEntity entity)
+        {
+            Entity = entity;
+
+            AIBrainManager.AIBrains.Add(this);
+        }
+
+        public void Update()
+        {
+            if (Target == null)
+            {
+                WorldSession session = WorldServer.Sessions.Find(s => Milkshake.Tools.Helper.Distance(s.Entity.X, s.Entity.Y, Entity.X, Entity.Y) < 30);
+
+                if (session != null)
+                {
+                    Target = session.Entity;
+                }
+            }
+            else
+            {
+                Entity.Move(Target.X, Target.Y, Target.Z);
+            }
+        }
+    }
+
     public class UnitEntity : ObjectEntity, ILocation
     {
         public float X, Y, Z, R;
@@ -26,8 +85,15 @@ namespace Milkshake.Game.Entitys
         public CreatureEntry TEntry;
         public CreatureTemplateEntry Template;
 
+        public UnitEntity(ObjectGUID objectGUID)
+            : base(objectGUID)
+        {
+        }
+
         public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID())
         {
+            new AIBrain(this);
+
             if (entry == null)
             {
                 Type = 9;
@@ -67,10 +133,13 @@ namespace Milkshake.Game.Entitys
 
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, template.faction_A);
                 
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, template.maxhealth);
+                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, entry.curhealth);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, template.maxhealth);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, template.maxlevel);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, entry.modelid);
+
+                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
+
             }
         }
 
@@ -88,5 +157,28 @@ namespace Milkshake.Game.Entitys
                 }
             }
         }*/
+
+        public void Move(float targetX, float targetY, float targetZ)
+        {
+            ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_MONSTER_MOVE);
+            packet.WritePackedUInt64(ObjectGUID.RawGUID);
+            packet.Write(X);
+            packet.Write(Y);
+            packet.Write(Z);
+            packet.Write((UInt32)Environment.TickCount);
+            packet.Write((byte)0); // SPLINETYPE_NORMAL
+            packet.Write(0); // sPLINE FLAG
+            packet.Write(500); // TIME
+            packet.Write(1);
+            packet.Write(targetX);
+            packet.Write(targetY);
+            packet.Write(targetZ);
+
+            World.PlayersWhoKnowUnit(this).ForEach(e => e.Session.sendPacket(packet));
+
+            X = targetX;
+            Y = targetY;
+            Z = targetZ;
+        }
     }
 }

@@ -86,7 +86,7 @@ namespace Milkshake.Game.Managers
 
         private static void PrepareSpell(WorldSession session, PCCastSpell packet)
         {
-            PlayerEntity target = session.Entity.Target ?? session.Entity;
+            UnitEntity target = session.Entity.Target ?? session.Entity;
         }
 
         public static void DoTimer(double interval, ElapsedEventHandler elapseEvent)

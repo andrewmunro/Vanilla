@@ -53,11 +53,13 @@ namespace Milkshake.Communication.Outgoing.World.Update
             {
                 Writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
             }
+
+            
         }
 
         public override string BuildInfo()
         {
-            return "[OutOfRange] " + string.Join(", ", Entitys.ConvertAll<string>(e => e.Name).ToArray());
+            return "[OutOfRange] " + string.Join(", ", Entitys.ToArray().ToList().ConvertAll<string>(e => e.Name).ToArray());
         }
     }
 
@@ -101,7 +103,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 
         public override string BuildInfo()
         {
-            return Entity.GameObjectTemplate.Name;
+            return "[CreateGO] " + Entity.GameObjectTemplate.Name;
         }
     }
 
