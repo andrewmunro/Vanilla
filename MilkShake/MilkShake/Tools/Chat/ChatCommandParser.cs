@@ -96,6 +96,8 @@ namespace Milkshake.Tools.Chat
                     }
                     catch (Exception e)
                     {
+                        Log.Print(LogType.Error, "Command Errored");
+                        Log.Print(LogType.Error, e.StackTrace);
                         sender.sendMessage("** " + commandNode.Name + " commands **");
                         sendCommandMessage(sender, commandAttribute);
                         return false;

@@ -15,6 +15,7 @@ using Milkshake.Communication.Outgoing.World.ActionBarButton;
 using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Communication.Outgoing.World.Update;
 using Milkshake.Game.Constants;
+using Milkshake.Game.Entitys;
 using Milkshake.Game.Handlers;
 using Milkshake.Game.Sessions;
 using Milkshake.Net;
@@ -82,7 +83,8 @@ namespace Milkshake.Game.Managers
         private static void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
             session.Character = DBCharacters.Characters.Find(character => character.GUID == packet.GUID);
-            session.sendPacket(new LoginVerifyWorld(session.Character.MapID, 618.518f, -4251.67f, 38.718f, 0));
+            PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
+            session.sendPacket(new LoginVerifyWorld(session.Character.MapID, session.Character.X, session.Character.Y, session.Character.Z, 0));
             session.sendPacket(new PSAccountDataTimes());
             session.sendPacket(new PSSetRestStart());
             session.sendPacket(new PSBindPointUpdate());
@@ -92,7 +94,7 @@ namespace Milkshake.Game.Managers
             session.sendPacket(new PSInitializeFactions());
             session.sendPacket(new PSLoginSetTimeSpeed());
             session.sendPacket(new PSInitWorldStates());
-            session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity));
+            session.sendPacket(playerEntity);
             session.Entity.Session = session;
             World.DispatchOnPlayerSpawn(session.Entity);
         }

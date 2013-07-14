@@ -7,7 +7,9 @@ using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Incoming.World.Spell;
 using Milkshake.Communication.Outgoing.World.Spell;
 using Milkshake.Game.Constants.Game;
+using Milkshake.Game.Constants.Game.World.Spell;
 using Milkshake.Game.Handlers;
+using Milkshake.Game.Spells;
 using Milkshake.Net;
 using Milkshake.Network;
 using Milkshake.Tools;
@@ -19,11 +21,15 @@ using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools;
 using Milkshake.Game.Entitys;
+using Milkshake.Tools.Database.Tables;
+using Spell = Milkshake.Tools.Chat.Commands.Spell;
 
 namespace Milkshake.Game.Managers
 {
     class SpellManager
     {
+        public Dictionary<Character, SpellCollection> SpellCollections = new Dictionary<Character, SpellCollection>();
+
         public static void Boot()
         {
             WorldDataRouter.AddHandler<PCCastSpell>(WorldOpcodes.CMSG_CAST_SPELL, OnCastSpell);
@@ -32,7 +38,7 @@ namespace Milkshake.Game.Managers
 
         public static void SendInitialSpells(WorldSession session)
         {
-            session.sendPacket(new PSInitialSpells(session.Character));
+            session.sendPacket(new PSInitialSpells(session.Entity.SpellCollection));
         }
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
@@ -79,6 +85,7 @@ namespace Milkshake.Game.Managers
         }
 
         private static void PrepareSpell(WorldSession session, PCCastSpell packet)
+        private static void PrepareSpell(WorldSession session, PCCastSpell packet)
         {
             PlayerEntity target = session.Entity.Target ?? session.Entity;
         }
@@ -98,8 +105,7 @@ namespace Milkshake.Game.Managers
 
         public static void OnLearnSpell(WorldSession session, int spellID)
         {
-            session.sendPacket(new PSLearnSpell((uint)spellID));
-            DBSpells.AddSpell(session.Character, spellID);
+            session.Entity.SpellCollection.AddSpell(spellID);
         }
     }
 }

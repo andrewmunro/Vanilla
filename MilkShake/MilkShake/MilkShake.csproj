@@ -136,6 +136,7 @@
     <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitState.cs" />
     <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
+    <Compile Include="Game\Constants\Game\World\Spell\SpellID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Constants\Login\RealmColor.cs" />
     <Compile Include="Game\Constants\Login\RealmStatus.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="Game\Managers\UnitManager.cs" />
     <Compile Include="Game\Managers\WorldManager.cs" />
     <Compile Include="Game\Sessions\Session.cs" />
+    <Compile Include="Game\Spells\Spell.cs" />
+    <Compile Include="Game\Spells\SpellCollection.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Network\WorldPacket.cs" />
     <Compile Include="Tools\Chat\ChatCommandBase.cs" />

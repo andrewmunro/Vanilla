@@ -43,8 +43,7 @@ namespace Milkshake.Tools.Database.Helpers
 
         public static void AddSpell(Character character, int spellID)
         {
-            if(GetCharacterSpell(character, spellID) == null) 
-                DB.Character.Insert(new CharacterSpell() { GUID = character.GUID, SpellID = spellID });
+            DB.Character.Insert(new CharacterSpell() { GUID = character.GUID, SpellID = spellID });
         }
 
         public static void RemoveSpell(Character character, int spellID)

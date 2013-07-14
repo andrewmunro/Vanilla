@@ -43,7 +43,7 @@ namespace Milkshake
 
             new PlayerManager();
             UnitComponent = new UnitComponent();
-            new GameObjectManager();
+            //new GameObjectManager();
             new WorldManager();
 
 

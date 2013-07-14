@@ -1,5 +1,8 @@
 ﻿using System;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Game.Managers;
+using Milkshake.Game.Spells;
+using Milkshake.Tools.Database.Helpers;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools;
 using Milkshake.Game.Constants;
@@ -70,11 +73,13 @@ namespace Milkshake.Game.Entitys
 
         public PlayerEntity(Character character) : base(new ObjectGUID((uint)character.GUID, TypeID.TYPEID_PLAYER, HighGUID.HIGHGUID_MO_TRANSPORT))
         {
+            Character = character;
             KnownPlayers = new List<PlayerEntity>();
             KnownUnits = new List<UnitEntity>();
             KnownGameObjects = new List<GOEntity>();
 
-            Character = character;
+            SpellCollection = new SpellCollection(this);
+
             GUID = (uint)character.GUID;
             //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);
 
@@ -197,6 +202,9 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)1221, 1065353216);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
         }
+
+
+        public SpellCollection SpellCollection { get; private set; }
 
         public Net.WorldSession Session { get; set; }
     }

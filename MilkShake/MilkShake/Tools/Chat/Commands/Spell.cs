@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Game.Managers;
 using Milkshake.Net;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Game.Entitys;
@@ -19,6 +20,31 @@ namespace Milkshake.Tools.Chat.Commands
             List<SpellEntry> matchingSpells = DBC.DBC.Spells.GetSpellsNameContain(spellName);
 
             matchingSpells.ForEach(s => session.sendMessage("[" + s.ID + "] " + s.Name));
+        }
+
+        public static List<SpellEntry> LookUp(string spellName)
+        {
+            return DBC.DBC.Spells.GetSpellsNameContain(spellName);
+        }
+
+        [ChatCommand("learn", "Takes a spellID or spellName and learns it")]
+        public static void Learn(WorldSession session, string[] args)
+        {
+            string spellNameOrID = args[0];
+            int spellID;
+            if (Int32.TryParse(spellNameOrID, out spellID))
+            {
+                session.Entity.SpellCollection.AddSpell(spellID);
+            }
+            else
+            {
+                List<SpellEntry> matchingSpells = DBC.DBC.Spells.GetSpellsNameContain(spellNameOrID);
+                if (matchingSpells.Count > 0) session.Entity.SpellCollection.AddSpell(matchingSpells.First());
+                else
+                {
+                    session.sendMessage("A spell was not found with the ID or Name '" + spellNameOrID + "'");
+                }
+            }
         }
 
         [ChatCommand("tp", "Teleport to player")]
