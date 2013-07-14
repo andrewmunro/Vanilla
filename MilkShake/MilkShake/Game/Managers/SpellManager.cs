@@ -85,7 +85,6 @@ namespace Milkshake.Game.Managers
         }
 
         private static void PrepareSpell(WorldSession session, PCCastSpell packet)
-        private static void PrepareSpell(WorldSession session, PCCastSpell packet)
         {
             PlayerEntity target = session.Entity.Target ?? session.Entity;
         }

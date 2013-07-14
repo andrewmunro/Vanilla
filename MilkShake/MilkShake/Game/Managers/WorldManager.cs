@@ -215,7 +215,7 @@ namespace Milkshake.Game.Managers
         }
     }
 
-    public class UnitManager : EntityComponent<UnitEntity>
+    public class UnitComponent : EntityComponent<UnitEntity>
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {

@@ -32,7 +32,7 @@ namespace Milkshake.Game.Managers
             ulong GUID = handler.ReadUInt64();
 
 
-            List<UnitEntity> found = Milkshake.MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID);
+            List<UnitEntity> found = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID);
 
 
             UnitEntity targer = found.First();
