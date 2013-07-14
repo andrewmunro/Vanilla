@@ -67,7 +67,7 @@ namespace Milkshake.Tools
 
             List<T> convertedEntrys = new List<T>();
 
-            csvEntrys.ForEach(e => convertedEntrys.Add(converter(Regex.Split(e, ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"))));
+            csvEntrys.ForEach(e => convertedEntrys.Add(converter(e.Split(','))));
             return convertedEntrys;
         }
 
