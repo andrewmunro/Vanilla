@@ -11,7 +11,7 @@ namespace Milkshake.Game.Entitys
 {
     public class UnitEntity : ObjectEntity, ILocation
     {
-        public float X, Y, Z;
+        public float X, Y, Z, R;
 
         public override int DataLength
         {
@@ -26,13 +26,13 @@ namespace Milkshake.Game.Entitys
         public CreatureEntry TEntry;
         public CreatureTemplateEntry Template;
 
-        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID((uint)entry.guid))
+        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID())
         {
             if (entry == null)
             {
                 Type = 9;
                 Entry = 68;
-                Data = -248512512;
+                //Data = -248512512;
 
                 //SetUpdateField<int>((int)EUnitFields.OBJECT_FIELD_SCALE_X, 1065353216);
                 //SetUpdateField<int>((int)EUnitFields.GAMEOBJECT_LEVEL, 4667);
@@ -49,16 +49,20 @@ namespace Milkshake.Game.Entitys
 
                 Template = template;
 
-                Console.WriteLine(template.name);
+                ObjectGUID = Entitys.ObjectGUID.GetUnitGUID((uint)entry.guid);
+                GUID = ObjectGUID.RawGUID;
 
-                Type = (byte)template.type;
+                Type = (byte)0x9;
                 Entry = (byte)template.entry;
-                Data = -248512512;
+                //Data = -248512512;
 
                 X = entry.position_x;
                 Y = entry.position_y;
                 Z = entry.position_z;
+                R = entry.orientation;
 
+                SetUpdateField<int>((int)EUnitFields.UNIT_NPC_FLAGS, template.npcflag);
+                SetUpdateField<int>((int)EUnitFields.UNIT_DYNAMIC_FLAGS, template.dynamicflags);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FLAGS, template.unit_flags);
 
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, template.faction_A);

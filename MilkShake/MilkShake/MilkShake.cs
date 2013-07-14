@@ -8,6 +8,7 @@ using Milkshake.Tools.Chat;
 using Milkshake.Tools.Config;
 using Milkshake.Tools.Database;
 using Milkshake.Tools.DBC;
+using Milkshake.Tools;
 
 namespace Milkshake
 {
@@ -38,14 +39,18 @@ namespace Milkshake
             CharacterManager.Boot();
             //ZoneHandler.Boot();
             PlayerManager.Boot();
+            UnitManager.Boot();
 
             new PlayerManager();
-            new UnitManager();
+            UnitComponent = new UnitComponent();
             new GameObjectManager();
             new WorldManager();
 
+
             while (true) Console.ReadLine();
         }
+
+        public static UnitComponent UnitComponent { get; private set; }
 
         public static LoginServer login { get; private set; }
         public static WorldServer world { get; private set; }

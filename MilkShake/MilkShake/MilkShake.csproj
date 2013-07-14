@@ -150,6 +150,7 @@
     <Compile Include="Game\Managers\CharacterManager.cs" />
     <Compile Include="Game\Managers\PlayerManager.cs" />
     <Compile Include="Game\Managers\MailManager.cs" />
+    <Compile Include="Game\Managers\UnitManager.cs" />
     <Compile Include="Game\Managers\WorldManager.cs" />
     <Compile Include="Game\Sessions\Session.cs" />
     <Compile Include="Game\World.cs" />

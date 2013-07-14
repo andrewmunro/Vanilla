@@ -12,7 +12,7 @@ namespace Milkshake.Game.Sessions
 {
     public abstract class Session
     {
-        public const int BUFFER_SIZE = 2048;
+        public const int BUFFER_SIZE = 2048 * 2;
         public const int TIMEOUT = 1000;
 
         public int connectionID { get; private set; }
@@ -35,8 +35,6 @@ namespace Milkshake.Game.Sessions
         {
             byte[] buffer = new byte[send.Length];
             Buffer.BlockCopy(send, 0, buffer, 0, send.Length);
-
-            Log.Print(LogType.Packet, "Sending [" + send[0].ToString("X2") + "] ");
 
             try
             {

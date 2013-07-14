@@ -24,7 +24,7 @@ namespace Milkshake.Game.Managers
             while (true)
             {
                 Update();
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
         }
 
@@ -45,6 +45,7 @@ namespace Milkshake.Game.Managers
                     if (player.UpdateBlocks.Count() > 0)
                     {
                         lock (UpdateBlocks)
+                        lock (player.UpdateBlocks)
                         {
                             UpdateBlocks.AddRange(player.UpdateBlocks);
                         }
@@ -104,7 +105,7 @@ namespace Milkshake.Game.Managers
             {
                 foreach (T entity in Entitys.ToArray())
                 {
-                    if (InRange(player, entity, 50))
+                    if (InRange(player, entity, 100))
                     {
                         if (!PlayerKnowsEntity(player, entity))
                         {
@@ -112,7 +113,7 @@ namespace Milkshake.Game.Managers
                         }
                     }
                     
-                    if (!InRange(player, entity, 100) && PlayerKnowsEntity(player, entity))
+                    if (!InRange(player, entity, 200) && PlayerKnowsEntity(player, entity))
                     {
                         DespawnEntityForPlayer(player, entity);
                     }
@@ -123,12 +124,12 @@ namespace Milkshake.Game.Managers
 
         private bool Contains(T entity)
         {
-            return Entitys.FindAll(e => (e as ObjectEntity).GUID == (entity as ObjectEntity).GUID).Count() > 0;
+            return false; // Entitys.FindAll(e => (e as ObjectEntity).GUID == (entity as ObjectEntity).GUID).Count() > 0;
         }
 
         public virtual void AddEntityToWorld(T entity)
         {
-            if(!Contains(entity))
+            if (!Contains(entity))
             {
                 Entitys.Add(entity);
             }
@@ -172,7 +173,7 @@ namespace Milkshake.Game.Managers
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {
-            List<GameObject> gameObjects = DBGameObject.GetGameObjects(player, 100);
+            List<GameObject> gameObjects = DBGameObject.GetGameObjects(player, 1500);
 
             gameObjects.ForEach(closeGO =>
             {
@@ -183,8 +184,6 @@ namespace Milkshake.Game.Managers
                     AddEntityToWorld(new GOEntity(closeGO, template));
                 }
             });
-
-            Console.Write(1);
         }
 
         public override void SpawnEntityForPlayer(PlayerEntity player, GOEntity entity)
@@ -215,7 +214,7 @@ namespace Milkshake.Game.Managers
         }
     }
 
-    public class UnitManager : EntityComponent<UnitEntity>
+    public class UnitComponent : EntityComponent<UnitEntity>
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {
@@ -223,7 +222,7 @@ namespace Milkshake.Game.Managers
 
             List<CreatureEntry> unitsClose = allUnits
                 .FindAll(m => m.map == player.Character.MapID)
-                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);
+                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 1500);
 
             unitsClose.ForEach(closeUnit =>
             {

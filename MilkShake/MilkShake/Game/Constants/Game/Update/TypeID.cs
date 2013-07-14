@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
+    [Flags]
     public enum TypeID : byte
     {
         TYPEID_OBJECT = 0,

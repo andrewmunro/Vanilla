@@ -83,7 +83,7 @@ namespace Milkshake.Net
             writer.Write(header);
             writer.Write(data);
 
-            Log.Print(LogType.Database, connectionID + "Server -> Client [" + (WorldOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
+            Log.Print(LogType.Database, "Server -> Client [" + (WorldOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
             sendData(((MemoryStream) writer.BaseStream).ToArray());
         }

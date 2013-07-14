@@ -12,7 +12,7 @@ namespace Milkshake.Tools
 {
     public class DBConverter
     {
-        public static string DBC_LOCATION = @"C:\Users\Andrew\Documents\My Dropbox\Projects\Vanilla\dbc\";
+        public static string DBC_LOCATION = @"E:\Vanilla\dbc\";
 
         public static SQLiteConnection SQLite;
 
@@ -21,7 +21,7 @@ namespace Milkshake.Tools
             //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.csv", ConfigValues.DBC);
             //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.csv", ConfigValues.DBC);
             //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.csv", ConfigValues.DBC);
-            //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.csv", ConfigValues.DBC);
+            GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.csv", ConfigValues.DBC);
             //GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv", ConfigValues.DBC);
             //GenerateTable<ChrStartingOutfitEntry>(CSVToChrStartingEntry, DBC_LOCATION + "CharStartOutfit.csv", ConfigValues.DBC);
             //GenerateTable<ItemTemplateEntry>(CSVToChrItemTemplateEntry, DBC_LOCATION + "item_template.csv", ConfigValues.DBC);

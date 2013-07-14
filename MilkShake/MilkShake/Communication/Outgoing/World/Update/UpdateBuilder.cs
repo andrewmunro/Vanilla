@@ -137,7 +137,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
             Writer.Write((float)Entity.X);
             Writer.Write((float)Entity.Y);
             Writer.Write((float)Entity.Z);
-            Writer.Write((float)0); // R
+            Writer.Write((float)Entity.R); // R
 
             // Movement speeds
             Writer.Write((float)0);     // ????

@@ -39,6 +39,8 @@ namespace Milkshake.Game.Managers
         {
             PrepareSpell(session, packet);
 
+            ObjectEntity target = (session.Entity.Target != null) ? session.Entity.Target : session.Entity;
+
             //WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
             session.sendPacket(new PSCastFailed(packet.spellID));
 
@@ -51,10 +53,10 @@ namespace Milkshake.Game.Managers
                                                (session.Entity.Z - session.Entity.Target.Z) * (session.Entity.Z - session.Entity.Target.Z));
 
             if (distance < 5) distance = 5;
-            */
-            float dx = session.Entity.X - session.Entity.Target.X;
-            float dy = session.Entity.Y - session.Entity.Target.Y;
-            float dz = session.Entity.Z - session.Entity.Target.Z;
+            
+            float dx = session.Entity.X - target.X;
+            float dy = session.Entity.Y - target.Y;
+            float dz = session.Entity.Z - target.Target.Z;
             float radius = 5;
             float distance = (float)Math.Sqrt((dx * dx) + (dy * dy) + (dz * dz)) - radius;
 
@@ -68,12 +70,12 @@ namespace Milkshake.Game.Managers
             {
                 DoTimer(timeToHit, (s, e) =>
                 {
-                    WorldServer.TransmitToAll(new PSMoveKnockBack(session.Entity.Target, (float)Math.Cos(radians), (float)Math.Sin(radians), -10, -10));
+                    WorldServer.TransmitToAll(new PSMoveKnockBack(target, (float)Math.Cos(radians), (float)Math.Sin(radians), -10, -10));
                 });
             }
            
 
-           
+           */
         }
 
         private static void PrepareSpell(WorldSession session, PCCastSpell packet)

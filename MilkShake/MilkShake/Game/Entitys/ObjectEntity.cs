@@ -16,17 +16,12 @@ namespace Milkshake.Game.Entitys
             get { return (int)EObjectFields.OBJECT_END; }
         }
 
-        public uint GUID
+        public ulong GUID
         {
-            get { return (uint)UpdateData[(int)EObjectFields.OBJECT_FIELD_GUID]; }
-            set { SetUpdateField<uint>((int)EObjectFields.OBJECT_FIELD_GUID, value); }
+            get { return (ulong)UpdateData[EObjectFields.OBJECT_FIELD_GUID]; }
+            set { SetUpdateField<ulong>((int)EObjectFields.OBJECT_FIELD_GUID, value); }
         }
 
-        public int Data
-        {
-            get { return (int)UpdateData[(int)EObjectFields.OBJECT_FIELD_DATA]; }
-            set { SetUpdateField<int>((int)EObjectFields.OBJECT_FIELD_DATA, value); }
-        }
 
         public byte Type
         {
@@ -49,7 +44,7 @@ namespace Milkshake.Game.Entitys
         public ObjectEntity(ObjectGUID objectGUID)
         {
             ObjectGUID = objectGUID;
-            GUID = (uint)ObjectGUID.RawGUID;
+            GUID = ObjectGUID.RawGUID;
         }
     }
 }

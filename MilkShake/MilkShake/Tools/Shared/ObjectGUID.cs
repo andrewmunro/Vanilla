@@ -21,9 +21,14 @@ namespace Milkshake.Game.Entitys
             return new ObjectGUID(low, TypeID.TYPEID_UNIT, HighGUID.HIGHGUID_UNIT);
         }
 
+        public static ObjectGUID GetUnitGUID(uint low, byte type)
+        {
+            return new ObjectGUID(low, type, HighGUID.HIGHGUID_UNIT);
+        }
+
         public static ObjectGUID GetGameObjectGUID()
         {
-            return new ObjectGUID(TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
+            return new ObjectGUID(TypeID.TYPEID_GAMEOBJECT, HighGUID.HIGHGUID_GAMEOBJECT);
         }
 
         public static ObjectGUID GetGameObjectGUID(uint index)
@@ -61,6 +66,16 @@ namespace Milkshake.Game.Entitys
                       ((ulong)high << 48));
         }
 
+        public ObjectGUID(uint index, byte type, HighGUID high)
+        {
+            TypeID = (TypeID)type;
+            HighGUID = high;
+
+            RawGUID = (ulong)((byte)index |
+                      ((byte)type << 24) |
+                      ((byte)high << 48));
+        }
+
         public ObjectGUID(TypeID type, HighGUID high) : this(GetIndex(type), type, high) { }
 
 
@@ -73,8 +88,5 @@ namespace Milkshake.Game.Entitys
         {
             return (HighGUID)(RawGUID >> 48);
         }
-        
-
-
     }
 }
