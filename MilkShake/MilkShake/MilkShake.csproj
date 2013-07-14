@@ -38,6 +38,7 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Librarys\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SQLite">
       <HintPath>Librarys\SQLite.dll</HintPath>
     </Reference>
@@ -105,6 +106,7 @@
     <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSInitialSpells.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSRemoveSpell.cs" />
     <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
     <Compile Include="Communication\Outgoing\World\Update\UpdateBuilder.cs" />

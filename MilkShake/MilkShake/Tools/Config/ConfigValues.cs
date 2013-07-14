@@ -20,6 +20,9 @@ namespace Milkshake.Tools.Config
 
         public const String CHARACTER = "CHARACTER";
         public const String DBC = "DBC";
+        
+        public const String DEV = "DEV";
+        public const String DBC_LOCATION = "DBC_LOCATION";
 
         public static readonly Dictionary<String, Dictionary<String, String>> DEFAULT_VALUES = new Dictionary<string, Dictionary<string, string>>
             {
@@ -48,6 +51,12 @@ namespace Milkshake.Tools.Config
                         {CHARACTER, "database/character.db3"},
                         {WORLD, "database/world.db3"},
                         {DBC, "database/dbc.db3"}
+                    }
+                },
+                {
+                    DEV, new Dictionary<String, String>
+                    {
+                        {DBC_LOCATION, @"C:\Users\Andrew\Documents\My Dropbox\Projects\Vanilla\dbc\"},
                     }
                 },
             };

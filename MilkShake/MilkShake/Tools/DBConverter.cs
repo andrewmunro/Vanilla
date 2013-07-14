@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 using Milkshake.Tools.Config;
 using Milkshake.Tools.DBC.Tables;
 using Milkshake.Tools.Database.Tables;
@@ -12,7 +13,7 @@ namespace Milkshake.Tools
 {
     public class DBConverter
     {
-        public static string DBC_LOCATION = @"E:\Vanilla\dbc\";
+        public static string DBC_LOCATION = INI.GetValue(ConfigValues.DEV, ConfigValues.DBC_LOCATION);
 
         public static SQLiteConnection SQLite;
 
@@ -21,13 +22,14 @@ namespace Milkshake.Tools
             //GenerateTable<ChrRacesEntry>(CSVToChrRacesEntry, DBC_LOCATION + "ChrRaces.csv", ConfigValues.DBC);
             //GenerateTable<EmotesTextEntry>(CSVToEmotesTextEntry, DBC_LOCATION + "EmotesText.csv", ConfigValues.DBC);
             //GenerateTable<AreaTableEntry>(CSVToAreaTableEntry, DBC_LOCATION + "AreaTable.csv", ConfigValues.DBC);
-            GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.csv", ConfigValues.DBC);
-            //GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv", ConfigValues.DBC);
+            //GenerateTable<AreaTriggerEntry>(CSVToAreaTriggerEntry, DBC_LOCATION + "AreaTrigger.csv", ConfigValues.DBC);
             //GenerateTable<ChrStartingOutfitEntry>(CSVToChrStartingEntry, DBC_LOCATION + "CharStartOutfit.csv", ConfigValues.DBC);
             //GenerateTable<ItemTemplateEntry>(CSVToChrItemTemplateEntry, DBC_LOCATION + "item_template.csv", ConfigValues.DBC);
             //GenerateTable<CreatureTemplateEntry>(CSVToCreatureTemplateEntry, DBC_LOCATION + "creature_template.csv", ConfigValues.DBC);
             //GenerateTable<CreatureEntry>(CSVToCreatureEntry, DBC_LOCATION + "creature.csv", ConfigValues.WORLD);
             //GenerateTable<EmotesEntry>(CSVToEmotesEntry, DBC_LOCATION + "Emotes.csv", ConfigValues.DBC);
+            GenerateTable<SpellEntry>(CSVToSpellEntry, DBC_LOCATION + "Spell.csv", ConfigValues.DBC);
+            //GenerateTable<SpellAuraNamesEntry>(CSVToSpellAuraNamesEntry, DBC_LOCATION + "SpellAuraNames.csv", ConfigValues.DBC);
 
             Console.Write(true);
             Console.Read();
@@ -65,17 +67,7 @@ namespace Milkshake.Tools
 
             List<T> convertedEntrys = new List<T>();
 
-            csvEntrys.ForEach(e =>
-                {
-                    try
-                    {
-                        convertedEntrys.Add(converter(e.Split(',')));
-                    }
-                    catch (Exception ed)
-                    {
-                    }
-                }
-            );
+            csvEntrys.ForEach(e => convertedEntrys.Add(converter(Regex.Split(e, ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"))));
             return convertedEntrys;
         }
 
@@ -411,19 +403,367 @@ namespace Milkshake.Tools
             };
         }
 
+        static float ParseOrDefault(string text)
+        {
+            float tmp;
+            float.TryParse(text, out tmp);
+            return tmp;
+        }
 
         private static SpellEntry CSVToSpellEntry(string[] data)
         {
-            return new SpellEntry()
-            {
-                ID = int.Parse(data[0]),
-                School = int.Parse(data[1]),
-                Category = int.Parse(data[2]),
-                Name = data[120].Replace("\"", ""),
-                Cooldown = int.Parse(data[19]),
-                CooldownCatagory = int.Parse(data[20]),
-                Speed = float.Parse(data[37])
-            };
+            SpellEntry se = new SpellEntry();
+            se.ID = (int)ParseOrDefault(data[(int)SpellEntryColumn.Id]);
+            se.School = (int)ParseOrDefault(data[(int)SpellEntryColumn.School]);
+            se.Category = (int)ParseOrDefault(data[(int)SpellEntryColumn.Category]);
+            se.castUI = (int)ParseOrDefault(data[(int)SpellEntryColumn.castUI]);
+            se.Dispel = (int)ParseOrDefault(data[(int)SpellEntryColumn.Dispel]);
+            se.Mechanic = (int)ParseOrDefault(data[(int)SpellEntryColumn.Mechanic]);
+            se.Attributes = (int)ParseOrDefault(data[(int)SpellEntryColumn.Attributes]);
+            se.AttributesEx = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx]);
+            se.AttributesEx2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx2]);
+            se.AttributesEx3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx3]);
+            se.AttributesEx4 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx4]);
+            se.Stances = (int)ParseOrDefault(data[(int)SpellEntryColumn.Stances]);
+            se.StancesNot = (int)ParseOrDefault(data[(int)SpellEntryColumn.StancesNot]);
+            se.Targets = (int)ParseOrDefault(data[(int)SpellEntryColumn.Targets]);
+            se.TargetCreatureType = (int)ParseOrDefault(data[(int)SpellEntryColumn.TargetCreatureType]);
+            se.RequiresSpellFocus = (int)ParseOrDefault(data[(int)SpellEntryColumn.RequiresSpellFocus]);
+            se.CasterAuraState = (int)ParseOrDefault(data[(int)SpellEntryColumn.CasterAuraState]);
+            se.TargetAuraState = (int)ParseOrDefault(data[(int)SpellEntryColumn.TargetAuraState]);
+            se.CastingTimeIndex = (int)ParseOrDefault(data[(int)SpellEntryColumn.CastingTimeIndex]);
+            se.RecoveryTime = (int)ParseOrDefault(data[(int)SpellEntryColumn.RecoveryTime]);
+            se.CategoryRecoveryTime = (int)ParseOrDefault(data[(int)SpellEntryColumn.CategoryRecoveryTime]);
+            se.InterruptFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.InterruptFlags]);
+            se.AuraInterruptFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.AuraInterruptFlags]);
+            se.ChannelInterruptFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.ChannelInterruptFlags]);
+            se.procFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.procFlags]);
+            se.procChance = (int)ParseOrDefault(data[(int)SpellEntryColumn.procChance]);
+            se.procCharges = (int)ParseOrDefault(data[(int)SpellEntryColumn.procCharges]);
+            se.maxLevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.maxLevel]);
+            se.baseLevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.baseLevel]);
+            se.spellLevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.spellLevel]);
+            se.DurationIndex = (int)ParseOrDefault(data[(int)SpellEntryColumn.DurationIndex]);
+            se.powerType = (int)ParseOrDefault(data[(int)SpellEntryColumn.powerType]);
+            se.manaCost = (int)ParseOrDefault(data[(int)SpellEntryColumn.manaCost]);
+            se.manaCostPerlevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.manaCostPerlevel]);
+            se.manaPerSecond = (int)ParseOrDefault(data[(int)SpellEntryColumn.manaPerSecond]);
+            se.manaPerSecondPerLevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.manaPerSecondPerLevel]);
+            se.rangeIndex = (int)ParseOrDefault(data[(int)SpellEntryColumn.rangeIndex]);
+            se.speed = ParseOrDefault(data[(int)SpellEntryColumn.speed]);
+            se.modalNextSpell = (int)ParseOrDefault(data[(int)SpellEntryColumn.modalNextSpell]);
+            se.StackAmount = (int)ParseOrDefault(data[(int)SpellEntryColumn.StackAmount]);
+            se.Totem1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Totem1]);
+            se.Totem2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Totem2]);
+            se.Reagent1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent1]);
+            se.Reagent2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent2]);
+            se.Reagent3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent3]);
+            se.Reagent4 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent4]);
+            se.Reagent5 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent5]);
+            se.Reagent6 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent6]);
+            se.Reagent7 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent7]);
+            se.Reagent8 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Reagent8]);
+            se.ReagentCount1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount1]);
+            se.ReagentCount2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount2]);
+            se.ReagentCount3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount3]);
+            se.ReagentCount4 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount4]);
+            se.ReagentCount5 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount5]);
+            se.ReagentCount6 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount6]);
+            se.ReagentCount7 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount7]);
+            se.ReagentCount8 = (int)ParseOrDefault(data[(int)SpellEntryColumn.ReagentCount8]);
+            se.EquippedItemClass = 0;
+            se.EquippedItemSubClassMask = (int)ParseOrDefault(data[(int)SpellEntryColumn.EquippedItemSubClassMask]);
+            se.EquippedItemInventoryTypeMask = (int)ParseOrDefault(data[(int)SpellEntryColumn.EquippedItemInventoryTypeMask]);
+            se.Effect1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Effect1]);
+            se.Effect2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Effect2]);
+            se.Effect3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.Effect3]);
+            se.EffectDieSides1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectDieSides1]);
+            se.EffectDieSides2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectDieSides2]);
+            se.EffectDieSides3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectDieSides3]);
+            se.EffectBaseDice1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBaseDice1]);
+            se.EffectBaseDice2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBaseDice2]);
+            se.EffectBaseDice3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBaseDice3]);
+            se.EffectDicePerLevel1 = ParseOrDefault(data[(int)SpellEntryColumn.EffectDicePerLevel1]);
+            se.EffectDicePerLevel2 = ParseOrDefault(data[(int)SpellEntryColumn.EffectDicePerLevel2]);
+            se.EffectDicePerLevel3 = ParseOrDefault(data[(int)SpellEntryColumn.EffectDicePerLevel3]);
+            se.EffectRealPointsPerLevel1 = ParseOrDefault(data[(int)SpellEntryColumn.EffectRealPointsPerLevel1]);
+            se.EffectRealPointsPerLevel2 = ParseOrDefault(data[(int)SpellEntryColumn.EffectRealPointsPerLevel2]);
+            se.EffectRealPointsPerLevel3 = ParseOrDefault(data[(int)SpellEntryColumn.EffectRealPointsPerLevel3]);
+            se.EffectBasePoints1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBasePoints1]);
+            se.EffectBasePoints2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBasePoints2]);
+            se.EffectBasePoints3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectBasePoints3]);
+            se.EffectMechanic1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMechanic1]);
+            se.EffectMechanic2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMechanic2]);
+            se.EffectMechanic3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMechanic3]);
+            se.EffectImplicitTargetA1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetA1]);
+            se.EffectImplicitTargetA2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetA2]);
+            se.EffectImplicitTargetA3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetA3]);
+            se.EffectImplicitTargetB1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetB1]);
+            se.EffectImplicitTargetB2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetB2]);
+            se.EffectImplicitTargetB3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectImplicitTargetB3]);
+            se.EffectRadiusIndex1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectRadiusIndex1]);
+            se.EffectRadiusIndex2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectRadiusIndex2]);
+            se.EffectRadiusIndex3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectRadiusIndex3]);
+            se.EffectApplyAuraName1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectApplyAuraName1]);
+            se.EffectApplyAuraName2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectApplyAuraName2]);
+            se.EffectApplyAuraName3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectApplyAuraName3]);
+            se.EffectAmplitude1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectAmplitude1]);
+            se.EffectAmplitude2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectAmplitude2]);
+            se.EffectAmplitude3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectAmplitude3]);
+            se.EffectMultipleValue1 = ParseOrDefault(data[(int)SpellEntryColumn.EffectMultipleValue1]);
+            se.EffectMultipleValue2 = ParseOrDefault(data[(int)SpellEntryColumn.EffectMultipleValue2]);
+            se.EffectMultipleValue3 = ParseOrDefault(data[(int)SpellEntryColumn.EffectMultipleValue3]);
+            se.EffectChainTarget1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectChainTarget1]);
+            se.EffectChainTarget2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectChainTarget2]);
+            se.EffectChainTarget3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectChainTarget3]);
+            se.EffectItemType1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectItemType1]);
+            se.EffectItemType2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectItemType2]);
+            se.EffectItemType3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectItemType3]);
+            se.EffectMiscValue1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMiscValue1]);
+            se.EffectMiscValue2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMiscValue2]);
+            se.EffectMiscValue3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectMiscValue3]);
+            se.EffectTriggerSpell1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectTriggerSpell1]);
+            se.EffectTriggerSpell2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectTriggerSpell2]);
+            se.EffectTriggerSpell3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.EffectTriggerSpell3]);
+            se.EffectPointsPerComboPoint1 = ParseOrDefault(data[(int)SpellEntryColumn.EffectPointsPerComboPoint1]);
+            se.EffectPointsPerComboPoint2 = ParseOrDefault(data[(int)SpellEntryColumn.EffectPointsPerComboPoint2]);
+            se.EffectPointsPerComboPoint3 = ParseOrDefault(data[(int)SpellEntryColumn.EffectPointsPerComboPoint3]);
+            se.SpellVisual = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellVisual]);
+            se.SpellVisual2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellVisual2]);
+            se.SpellIconID = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellIconID]);
+            se.activeIconID = (int)ParseOrDefault(data[(int)SpellEntryColumn.activeIconID]);
+            se.spellPriority = (int)ParseOrDefault(data[(int)SpellEntryColumn.spellPriority]);
+            se.SpellName1 = data[(int)SpellEntryColumn.SpellName1];
+            se.SpellName2 = data[(int)SpellEntryColumn.SpellName2];
+            se.SpellName3 = data[(int)SpellEntryColumn.SpellName3];
+            se.SpellName4 = data[(int)SpellEntryColumn.SpellName4];
+            se.SpellName5 = data[(int)SpellEntryColumn.SpellName5];
+            se.SpellName6 = data[(int)SpellEntryColumn.SpellName6];
+            se.SpellName7 = data[(int)SpellEntryColumn.SpellName7];
+            se.SpellName8 = data[(int)SpellEntryColumn.SpellName8];
+            se.SpellNameFlag = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellNameFlag]);
+            se.Rank1 = data[(int)SpellEntryColumn.Rank1];
+            se.Rank2 = data[(int)SpellEntryColumn.Rank2];
+            se.Rank3 = data[(int)SpellEntryColumn.Rank3];
+            se.Rank4 = data[(int)SpellEntryColumn.Rank4];
+            se.Rank5 = data[(int)SpellEntryColumn.Rank5];
+            se.Rank6 = data[(int)SpellEntryColumn.Rank6];
+            se.Rank7 = data[(int)SpellEntryColumn.Rank7];
+            se.Rank8 = data[(int)SpellEntryColumn.Rank8];
+            se.RankFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.RankFlags]);
+            se.Description1 = data[(int)SpellEntryColumn.Description1];
+            se.Description2 = data[(int)SpellEntryColumn.Description2];
+            se.Description3 = data[(int)SpellEntryColumn.Description3];
+            se.Description4 = data[(int)SpellEntryColumn.Description4];
+            se.Description5 = data[(int)SpellEntryColumn.Description5];
+            se.Description6 = data[(int)SpellEntryColumn.Description6];
+            se.Description7 = data[(int)SpellEntryColumn.Description7];
+            se.Description8 = data[(int)SpellEntryColumn.Description8];
+            se.DescriptionFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.DescriptionFlags]);
+            se.ToolTip1 = data[(int)SpellEntryColumn.ToolTip1];
+            se.ToolTip2 = data[(int)SpellEntryColumn.ToolTip2];
+            se.ToolTip3 = data[(int)SpellEntryColumn.ToolTip3];
+            se.ToolTip4 = data[(int)SpellEntryColumn.ToolTip4];
+            se.ToolTip5 = data[(int)SpellEntryColumn.ToolTip5];
+            se.ToolTip6 = data[(int)SpellEntryColumn.ToolTip6];
+            se.ToolTip7 = data[(int)SpellEntryColumn.ToolTip7];
+            se.ToolTip8 = data[(int)SpellEntryColumn.ToolTip8];
+            se.ToolTipFlags = (int)ParseOrDefault(data[(int)SpellEntryColumn.ToolTipFlags]);
+            se.ManaCostPercentage = (int)ParseOrDefault(data[(int)SpellEntryColumn.ManaCostPercentage]);
+            se.StartRecoveryCategory = (int)ParseOrDefault(data[(int)SpellEntryColumn.StartRecoveryCategory]);
+            se.StartRecoveryTime = (int)ParseOrDefault(data[(int)SpellEntryColumn.StartRecoveryTime]);
+            se.MaxTargetLevel = (int)ParseOrDefault(data[(int)SpellEntryColumn.MaxTargetLevel]);
+            se.SpellFamilyName = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellFamilyName]);
+            se.SpellFamilyFlags1 = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellFamilyFlags1]);
+            se.SpellFamilyFlags2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.SpellFamilyFlags2]);
+            se.MaxAffectedTargets = (int)ParseOrDefault(data[(int)SpellEntryColumn.MaxAffectedTargets]);
+            se.DmgClass = (int)ParseOrDefault(data[(int)SpellEntryColumn.DmgClass]);
+            se.PreventionType = (int)ParseOrDefault(data[(int)SpellEntryColumn.PreventionType]);
+            se.StanceBarOrder = (int)ParseOrDefault(data[(int)SpellEntryColumn.StanceBarOrder]);
+            se.DmgMultiplier1 = ParseOrDefault(data[(int)SpellEntryColumn.DmgMultiplier1]);
+            se.DmgMultiplier2 = ParseOrDefault(data[(int)SpellEntryColumn.DmgMultiplier2]);
+            se.DmgMultiplier3 = ParseOrDefault(data[(int)SpellEntryColumn.DmgMultiplier3]);
+            se.MinFactionId = (int)ParseOrDefault(data[(int)SpellEntryColumn.MinFactionId]);
+            se.MinReputation = (int)ParseOrDefault(data[(int)SpellEntryColumn.MinReputation]);
+            se.RequiredAuraVision = (int)ParseOrDefault(data[(int)SpellEntryColumn.RequiredAuraVision]);
+            return se;
+        }
+
+        public enum SpellEntryColumn
+        {
+            Id,
+            School,
+            Category,
+            castUI,
+            Dispel,
+            Mechanic,
+            Attributes,
+            AttributesEx,
+            AttributesEx2,
+            AttributesEx3,
+            AttributesEx4,
+            Stances,
+            StancesNot,
+            Targets,
+            TargetCreatureType,
+            RequiresSpellFocus,
+            CasterAuraState,
+            TargetAuraState,
+            CastingTimeIndex,
+            RecoveryTime,
+            CategoryRecoveryTime,
+            InterruptFlags,
+            AuraInterruptFlags,
+            ChannelInterruptFlags,
+            procFlags,
+            procChance,
+            procCharges,
+            maxLevel,
+            baseLevel,
+            spellLevel,
+            DurationIndex,
+            powerType,
+            manaCost,
+            manaCostPerlevel,
+            manaPerSecond,
+            manaPerSecondPerLevel,
+            rangeIndex,
+            speed,
+            modalNextSpell,
+            StackAmount,
+            Totem1,
+            Totem2,
+            Reagent1,
+            Reagent2,
+            Reagent3,
+            Reagent4,
+            Reagent5,
+            Reagent6,
+            Reagent7,
+            Reagent8,
+            ReagentCount1,
+            ReagentCount2,
+            ReagentCount3,
+            ReagentCount4,
+            ReagentCount5,
+            ReagentCount6,
+            ReagentCount7,
+            ReagentCount8,
+            EquippedItemClass,
+            EquippedItemSubClassMask,
+            EquippedItemInventoryTypeMask,
+            Effect1,
+            Effect2,
+            Effect3,
+            EffectDieSides1,
+            EffectDieSides2,
+            EffectDieSides3,
+            EffectBaseDice1,
+            EffectBaseDice2,
+            EffectBaseDice3,
+            EffectDicePerLevel1,
+            EffectDicePerLevel2,
+            EffectDicePerLevel3,
+            EffectRealPointsPerLevel1,
+            EffectRealPointsPerLevel2,
+            EffectRealPointsPerLevel3,
+            EffectBasePoints1,
+            EffectBasePoints2,
+            EffectBasePoints3,
+            EffectMechanic1,
+            EffectMechanic2,
+            EffectMechanic3,
+            EffectImplicitTargetA1,
+            EffectImplicitTargetA2,
+            EffectImplicitTargetA3,
+            EffectImplicitTargetB1,
+            EffectImplicitTargetB2,
+            EffectImplicitTargetB3,
+            EffectRadiusIndex1,
+            EffectRadiusIndex2,
+            EffectRadiusIndex3,
+            EffectApplyAuraName1,
+            EffectApplyAuraName2,
+            EffectApplyAuraName3,
+            EffectAmplitude1,
+            EffectAmplitude2,
+            EffectAmplitude3,
+            EffectMultipleValue1,
+            EffectMultipleValue2,
+            EffectMultipleValue3,
+            EffectChainTarget1,
+            EffectChainTarget2,
+            EffectChainTarget3,
+            EffectItemType1,
+            EffectItemType2,
+            EffectItemType3,
+            EffectMiscValue1,
+            EffectMiscValue2,
+            EffectMiscValue3,
+            EffectTriggerSpell1,
+            EffectTriggerSpell2,
+            EffectTriggerSpell3,
+            EffectPointsPerComboPoint1,
+            EffectPointsPerComboPoint2,
+            EffectPointsPerComboPoint3,
+            SpellVisual,
+            SpellVisual2,
+            SpellIconID,
+            activeIconID,
+            spellPriority,
+            SpellName1,
+            SpellName2,
+            SpellName3,
+            SpellName4,
+            SpellName5,
+            SpellName6,
+            SpellName7,
+            SpellName8,
+            SpellNameFlag,
+            Rank1,
+            Rank2,
+            Rank3,
+            Rank4,
+            Rank5,
+            Rank6,
+            Rank7,
+            Rank8,
+            RankFlags,
+            Description1,
+            Description2,
+            Description3,
+            Description4,
+            Description5,
+            Description6,
+            Description7,
+            Description8,
+            DescriptionFlags,
+            ToolTip1,
+            ToolTip2,
+            ToolTip3,
+            ToolTip4,
+            ToolTip5,
+            ToolTip6,
+            ToolTip7,
+            ToolTip8,
+            ToolTipFlags,
+            ManaCostPercentage,
+            StartRecoveryCategory,
+            StartRecoveryTime,
+            MaxTargetLevel,
+            SpellFamilyName,
+            SpellFamilyFlags1,
+            SpellFamilyFlags2,
+            MaxAffectedTargets,
+            DmgClass,
+            PreventionType,
+            StanceBarOrder,
+            DmgMultiplier1,
+            DmgMultiplier2,
+            DmgMultiplier3,
+            MinFactionId,
+            MinReputation,
+            RequiredAuraVision,
         }
 
         public enum CreatureTemplateColumn

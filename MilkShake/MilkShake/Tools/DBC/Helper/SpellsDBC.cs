@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Milkshake.Tools.DBC.Tables;
 
 namespace Milkshake.Tools.DBC.Helper
@@ -20,7 +18,7 @@ namespace Milkshake.Tools.DBC.Helper
 
         public List<SpellEntry> GetSpellsNameContain(string text)
         {
-            return List.FindAll((se) => se.Name.Contains(text));
+            return List.FindAll((se) => se.Name.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }

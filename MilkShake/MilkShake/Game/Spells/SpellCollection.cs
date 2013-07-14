@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Communication;
 using Milkshake.Communication.Outgoing.World.Spell;
 using Milkshake.Game.Constants.Game.World.Spell;
 using Milkshake.Game.Entitys;
@@ -46,6 +47,15 @@ namespace Milkshake.Game.Spells
             DBSpells.AddSpell(Owner.Character, (int)Spell.SpellID);
             
             Owner.Session.sendPacket(new PSLearnSpell((uint)Spell.SpellID));
+        }
+
+        public void RemoveSpell(Spell Spell)
+        {
+            if (!Collection.ContainsKey(Spell.SpellID)) return;
+            Collection.Remove(Spell.SpellID);
+            DBSpells.RemoveSpell(Owner.Character, (int)Spell.SpellID);
+
+            Owner.Session.sendPacket(new PSRemoveSpell((uint)Spell.SpellID));
         }
 
         private Spell CreateSpell(int spellID)

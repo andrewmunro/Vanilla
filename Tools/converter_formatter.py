@@ -8,4 +8,4 @@ with open(file_name, "r") as f:
 	output = open("output.txt", "w")
 	for line in f:
 		entry = line.split(",")[0]
-		output.write(entry + " = int.Parse(data[(int)CreatureTemplateColumn." + entry + "]),\n")
+		output.write(entry + " = int.Parse(data[(int)SpellEntryColumn." + entry + "]),\n")

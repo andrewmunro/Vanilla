@@ -10,7 +10,6 @@ namespace Milkshake.Game.Spells
 {
     public class Spell
     {
-
         public SpellID SpellID { get; private set; }
 
         public int Catagory { get; private set; }
@@ -25,8 +24,8 @@ namespace Milkshake.Game.Spells
         {
             SpellID = spellID;
             Name = spellEntry.Name;
-            Cooldown = spellEntry.Cooldown;
-            CooldownCatagory = spellEntry.CooldownCatagory;
+            Cooldown = spellEntry.RecoveryTime;
+            CooldownCatagory = spellEntry.CategoryRecoveryTime;
             Catagory = spellEntry.Category;
         }
     }

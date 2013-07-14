@@ -18,6 +18,7 @@ namespace Milkshake
         static void Main(string[] args)
         {
             INI.Boot();
+            DBConverter.Convert();
             DB.Boot();
             DBC.Boot();
 

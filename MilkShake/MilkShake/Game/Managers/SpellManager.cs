@@ -51,7 +51,7 @@ namespace Milkshake.Game.Managers
             session.sendPacket(new PSCastFailed(packet.spellID));
 
             SpellEntry spell = DBC.Spells.GetSpellByID((int)packet.spellID);
-            float spellSpeed = spell.Speed;
+            float spellSpeed = spell.speed;
             
             /*
             float distance =  (float)Math.Sqrt((session.Entity.X - session.Entity.Target.X) * (session.Entity.X - session.Entity.Target.X) +
