@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Milkshake.Game.Constants.Game.World.Spell;
 
 namespace Milkshake.Tools.DBC.Tables
 {
@@ -13,11 +14,11 @@ namespace Milkshake.Tools.DBC.Tables
         public int castUI { get; set; } 
         public int Dispel { get; set; } 
         public int Mechanic { get; set; } 
-        public int Attributes { get; set; } 
-        public int AttributesEx { get; set; } 
-        public int AttributesEx2 { get; set; } 
-        public int AttributesEx3 { get; set; } 
-        public int AttributesEx4 { get; set; } 
+        public SpellAttributes Attributes { get; set; }
+        public SpellAttributesEx AttributesEx { get; set; }
+        public SpellAttributesEx2 AttributesEx2 { get; set; }
+        public SpellAttributesEx3 AttributesEx3 { get; set; }
+        public SpellAttributesEx4 AttributesEx4 { get; set; } 
         public int Stances { get; set; } 
         public int StancesNot { get; set; } 
         public int Targets { get; set; } 

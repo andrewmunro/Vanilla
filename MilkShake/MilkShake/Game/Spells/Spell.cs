@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Milkshake.Game.Constants.Game.World.Spell;
 using Milkshake.Tools.DBC.Tables;
+using Milkshake.Tools.Extensions;
 
 namespace Milkshake.Game.Spells
 {
@@ -18,6 +19,10 @@ namespace Milkshake.Game.Spells
 
         public int Cooldown { get; private set; }
 
+        public int Range { get; private set; }
+
+        public bool IsPassive { get; private set; }
+
         public string Name { get; private set; }
 
         public Spell(SpellID spellID, SpellEntry spellEntry)
@@ -27,6 +32,8 @@ namespace Milkshake.Game.Spells
             Cooldown = spellEntry.RecoveryTime;
             CooldownCatagory = spellEntry.CategoryRecoveryTime;
             Catagory = spellEntry.Category;
+            Range = spellEntry.rangeIndex > 0 ? spellEntry.rangeIndex : 30;
+            IsPassive = spellEntry.Attributes.HasFlag(SpellAttributes.SPELL_ATTR_PASSIVE);
         }
     }
 }

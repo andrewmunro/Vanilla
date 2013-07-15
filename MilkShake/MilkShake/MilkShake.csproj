@@ -138,6 +138,7 @@
     <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
     <Compile Include="Game\Constants\Game\World\Entity\UnitState.cs" />
     <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
+    <Compile Include="Game\Constants\Game\World\Spell\SpellConstants.cs" />
     <Compile Include="Game\Constants\Game\World\Spell\SpellID.cs" />
     <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Game\Constants\Login\RealmColor.cs" />
