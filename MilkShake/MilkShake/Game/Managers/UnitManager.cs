@@ -36,7 +36,7 @@ namespace Milkshake.Game.Managers
             packet.Write((UInt32)entity.Template.entry);
             packet.WriteCString(entity.Name);
             packet.WriteNullByte(3); // Name2,3,4
-            packet.WriteCString("Lucas == MLG");
+            packet.WriteCString("Lucas == SHIT AT SPELLING");
 
             packet.Write((UInt32)entity.Template.type_flags);
             packet.Write((UInt32)entity.Template.type);
@@ -48,7 +48,7 @@ namespace Milkshake.Game.Managers
             packet.Write((UInt32)entity.TEntry.modelid);
             packet.Write((UInt16)entity.Template.Civilian);
 
-            session.sendMessage("Responce: " + entity.Template.name + " - " + entity.Template.subname);
+            session.sendMessage("Response: " + entity.Template.name + " - " + entity.Template.subname);
             session.sendPacket(packet);
         }
 

@@ -17,9 +17,9 @@ namespace Milkshake.Communication.Outgoing.Auth
             Write((byte)1);
             Write((uint)RealmType.PVP);
             Write((byte)0);
-            this.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.NAME));
-            this.WriteCString(INI.GetValue(ConfigValues.WORLD, ConfigValues.IP) + ":" + INI.GetValue(ConfigValues.WORLD, ConfigValues.PORT));
-            Write((float)INI.GetValue<float>(ConfigValues.WORLD, ConfigValues.POPULATION)); // Pop
+            this.WriteCString(INI.GetValue(ConfigSections.WORLD, ConfigValues.NAME));
+            this.WriteCString(INI.GetValue(ConfigSections.WORLD, ConfigValues.IP) + ":" + INI.GetValue(ConfigSections.WORLD, ConfigValues.PORT));
+            Write((float)INI.GetValue<float>(ConfigSections.WORLD, ConfigValues.POPULATION)); // Pop
             Write((byte)3); // Chars
             Write((byte)1); // time
             Write((byte)0); // time

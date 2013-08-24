@@ -78,7 +78,8 @@ namespace Milkshake.Game.Entitys
             KnownUnits = new List<UnitEntity>();
             KnownGameObjects = new List<GOEntity>();
 
-            SpellCollection = new SpellCollection(this);
+            //TODO Fix spellCollection DBC
+            //SpellCollection = new SpellCollection(this);
 
             GUID = (uint)character.GUID;
             //SetUpdateField<Int32>((int)EObjectFields.OBJECT_FIELD_GUID, character.GUID);

@@ -35,9 +35,10 @@ namespace Milkshake.Tools.DBC
 
         public static void Boot()
         {
-            SQLite = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.DBC));
+            SQLite = new SQLiteConnection(INI.GetValue(ConfigSections.DB, ConfigValues.DBC));
 
-            Spells = new SpellsDBC();
+            //TODO Fix Spells DBC and re-enable spellcollections
+            //Spells = new SpellsDBC();
             ItemTemplates = new ItemTemplaceDBC();
             ChrStartingOutfit = new ChrStartingOutfitDBC();
 

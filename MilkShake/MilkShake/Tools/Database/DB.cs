@@ -13,7 +13,7 @@ namespace Milkshake.Tools.Database
 		public static void Boot()
 		{
 
-			Character = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.CHARACTER));
+			Character = new SQLiteConnection(INI.GetValue(ConfigSections.DB, ConfigValues.CHARACTER));
 			//TODO these values should be removed when we have finished with the databases
 			Character.CreateTable(typeof(Account));
 			Character.CreateTable(typeof(Character));
@@ -26,7 +26,7 @@ namespace Milkshake.Tools.Database
 			DBAccounts.CreateAccount("Graype", "password");
 			DBAccounts.CreateAccount("Andrew", "password");
 
-			World = new SQLiteConnection(INI.GetValue(ConfigValues.DB, ConfigValues.WORLD));
+			World = new SQLiteConnection(INI.GetValue(ConfigSections.DB, ConfigSections.WORLD));
 			World.CreateTable(typeof(CharacterCreationSpell));
 			World.CreateTable(typeof(CharacterCreationActionBarButton));
 			World.CreateTable(typeof(CharacterCreationInfo));

@@ -5,11 +5,17 @@ using System.Text;
 
 namespace Milkshake.Tools.Config
 {
-    static class ConfigValues
+
+    static class ConfigSections
     {
         public const String LOGIN = "LOGIN";
         public const String WORLD = "WORLD";
+        public const String DEV = "DEV";
         public const String DB = "DB";
+    }
+
+    static class ConfigValues
+    {
         public const String IP = "IP";
         public const String PORT = "PORT";
         public const String MAX_CONNECTIONS = "MAX_CONNECTIONS";
@@ -20,14 +26,14 @@ namespace Milkshake.Tools.Config
 
         public const String CHARACTER = "CHARACTER";
         public const String DBC = "DBC";
-        
-        public const String DEV = "DEV";
+
         public const String DBC_LOCATION = "DBC_LOCATION";
+        public const String SCRIPT_LOCATION = "SCRIPT_LOCATION";
 
         public static readonly Dictionary<String, Dictionary<String, String>> DEFAULT_VALUES = new Dictionary<string, Dictionary<string, string>>
             {
                 {   
-                    LOGIN, new Dictionary<String, String>
+                    ConfigSections.LOGIN, new Dictionary<String, String>
                     {
                         {IP, "127.0.0.1"},
                         {PORT, "3724"},
@@ -35,7 +41,7 @@ namespace Milkshake.Tools.Config
                     }
                 },
                 {
-                    WORLD, new Dictionary<String, String>
+                    ConfigSections.WORLD, new Dictionary<String, String>
                     {
                         {IP, "127.0.0.1"},
                         {PORT, "120"},
@@ -46,17 +52,18 @@ namespace Milkshake.Tools.Config
                     }
                 },
                 {
-                    DB, new Dictionary<String, String>
+                    ConfigSections.DB, new Dictionary<String, String>
                     {
                         {CHARACTER, "database/character.db3"},
-                        {WORLD, "database/world.db3"},
+                        {ConfigSections.WORLD, "database/world.db3"},
                         {DBC, "database/dbc.db3"}
                     }
                 },
                 {
-                    DEV, new Dictionary<String, String>
+                    ConfigSections.DEV, new Dictionary<String, String>
                     {
-                        {DBC_LOCATION, @"C:\Users\Andrew\Documents\My Dropbox\Projects\Vanilla\dbc\"},
+                        {DBC_LOCATION, @"C:\Users\Andrew\Dropbox\Projects\Vanilla\dbc\"},
+                        {SCRIPT_LOCATION, @"C:\Users\Andrew\Dropbox\Projects\Vanilla\Milkshake\VanillaScript\Scripts"},
                     }
                 },
             };

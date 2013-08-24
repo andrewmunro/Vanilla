@@ -38,7 +38,8 @@ namespace Milkshake.Game.Managers
 
         public static void SendInitialSpells(WorldSession session)
         {
-            session.sendPacket(new PSInitialSpells(session.Entity.SpellCollection));
+            //TODO Fix spellCollection DBC
+            //session.sendPacket(new PSInitialSpells(session.Entity.SpellCollection));
         }
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)

@@ -13,7 +13,7 @@ namespace Milkshake.Tools
 {
     public class DBConverter
     {
-        public static string DBC_LOCATION = INI.GetValue(ConfigValues.DEV, ConfigValues.DBC_LOCATION);
+        public static string DBC_LOCATION = INI.GetValue(ConfigSections.DEV, ConfigValues.DBC_LOCATION);
 
         public static SQLiteConnection SQLite;
 
@@ -37,7 +37,7 @@ namespace Milkshake.Tools
 
         public static void GenerateTable<T>(Func<string[], T> Converter, string url, string database)
         {
-            SQLite = new SQLiteConnection(INI.GetValue(ConfigValues.DB, database));
+            SQLite = new SQLiteConnection(INI.GetValue(ConfigSections.DB, database));
             Log.Print(LogType.Debug, "Dropping table " + typeof(T).Name);
             SQLite.DropTable<T>();
 
@@ -419,11 +419,11 @@ namespace Milkshake.Tools
             se.castUI = (int)ParseOrDefault(data[(int)SpellEntryColumn.castUI]);
             se.Dispel = (int)ParseOrDefault(data[(int)SpellEntryColumn.Dispel]);
             se.Mechanic = (int)ParseOrDefault(data[(int)SpellEntryColumn.Mechanic]);
-            se.Attributes = (int)ParseOrDefault(data[(int)SpellEntryColumn.Attributes]);
+/*            se.Attributes = (int)ParseOrDefault(data[(int)SpellEntryColumn.Attributes]);
             se.AttributesEx = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx]);
             se.AttributesEx2 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx2]);
             se.AttributesEx3 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx3]);
-            se.AttributesEx4 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx4]);
+            se.AttributesEx4 = (int)ParseOrDefault(data[(int)SpellEntryColumn.AttributesEx4]);*/
             se.Stances = (int)ParseOrDefault(data[(int)SpellEntryColumn.Stances]);
             se.StancesNot = (int)ParseOrDefault(data[(int)SpellEntryColumn.StancesNot]);
             se.Targets = (int)ParseOrDefault(data[(int)SpellEntryColumn.Targets]);

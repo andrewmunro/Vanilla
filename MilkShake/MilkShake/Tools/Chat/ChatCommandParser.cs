@@ -68,7 +68,7 @@ namespace Milkshake.Tools.Chat
         public static Boolean ExecuteCommand(WorldSession sender, String message)
         {
             //Remove the chat command key
-            message = message.Remove(0, INI.GetValue(ConfigValues.WORLD, ConfigValues.COMMAND_KEY).Length);
+            message = message.Remove(0, INI.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY).Length);
             List<String> args = message.ToLower().Split(' ').ToList();
 
             ChatCommandNode commandNode = chatCommandNodes.FirstOrDefault(node => node.Name == args[0]);

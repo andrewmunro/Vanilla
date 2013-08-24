@@ -18,15 +18,14 @@ namespace Milkshake
         static void Main(string[] args)
         {
             INI.Boot();
-            DBConverter.Convert();
             DB.Boot();
             DBC.Boot();
 
             login = new LoginServer();
             world = new WorldServer();
 
-            login.Start(INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.LOGIN, ConfigValues.MAX_CONNECTIONS));
-            world.Start(INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.PORT), INI.GetValue<int>(ConfigValues.WORLD, ConfigValues.MAX_CONNECTIONS));
+            login.Start(INI.GetValue<int>(ConfigSections.LOGIN, ConfigValues.PORT), INI.GetValue<int>(ConfigSections.LOGIN, ConfigValues.MAX_CONNECTIONS));
+            world.Start(INI.GetValue<int>(ConfigSections.WORLD, ConfigValues.PORT), INI.GetValue<int>(ConfigSections.WORLD, ConfigValues.MAX_CONNECTIONS));
             
             LogoutManager.Boot();
             ChatManager.Boot();
@@ -48,6 +47,7 @@ namespace Milkshake
             UnitComponent = new UnitComponent();
             new GameObjectManager();
             new WorldManager();
+            ScriptManager.Boot();
 
 
             while (true) Console.ReadLine();
