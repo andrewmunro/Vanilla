@@ -116,7 +116,7 @@ namespace Milkshake.Net
             sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
         }
 
-        private void proccessHeader(byte[] header, out ushort length, out short opcode)
+        private void decode(byte[] header, out ushort length, out short opcode)
         {   
             if (crypt != null)
             {
@@ -147,7 +147,7 @@ namespace Milkshake.Net
                     ushort length = 0;
                     short opcode = 0;
 
-                    proccessHeader(headerData, out length, out opcode);                
+                    decode(headerData, out length, out opcode);                
 
                     WorldOpcodes code = (WorldOpcodes)opcode;
 

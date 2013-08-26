@@ -94,7 +94,7 @@ namespace Milkshake.Game.Sessions
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Meh");
+                    Console.WriteLine("Error occured recieving packet!");
                 }
             }
             else

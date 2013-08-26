@@ -1,22 +1,28 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Linq;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using Microsoft.CSharp;
 
 namespace Milkshake.Tools
 {
     public class ScriptCompiler : MarshalByRefObject
     {
-        private Assembly assembly;
         private Type type;
+        private Object instance;
 
-        public void Compile(string filepath)
+        public String Name;
+
+        public bool Compile(string filepath)
         {
+            Name = Path.GetFileNameWithoutExtension(filepath);
+            Thread.Sleep(100);
             string code = File.ReadAllText(filepath);
 
             CSharpCodeProvider codeProvider = new CSharpCodeProvider(new Dictionary<String, String> { { "CompilerVersion", "v3.5" } });
@@ -36,7 +42,7 @@ namespace Milkshake.Tools
             CompilerResults results = codeProvider.CompileAssemblyFromSource(parameters, code);
             if (results.Errors.HasErrors)
             {
-                string error = "Error in script: " + Path.GetFileNameWithoutExtension(filepath);
+                string error = "Error in script: " + Name;
 
                 foreach (CompilerError e in results.Errors)
                 {
@@ -44,23 +50,39 @@ namespace Milkshake.Tools
                 }
 
                 Log.Print(LogType.Error, error);
+                return false;
             }
             else
             {
                 //Successful Compile
-                Log.Print(LogType.Debug, "Script Loaded: " + Path.GetFileNameWithoutExtension(filepath));
+                Log.Print(LogType.Debug, "Script Loaded: " + Name);
 
-                assembly = results.CompiledAssembly;
-                type = assembly.GetTypes()[0];
+                type = results.CompiledAssembly.GetTypes()[0];
 
                 //Instansiate script class.
-                Activator.CreateInstance(type);
+                try
+                {
+                    instance = Activator.CreateInstance(type);
+                }
+                catch (Exception)
+                {
+                    Log.Print(LogType.Error ,"Error instantiating " + Name);
+                    return false;
+                }
+                
+                return true;
             }
         }
 
-        public object Run(string methodName, object[] args)
+        public object RunMethod(string methodName, object[] args = null)
         {
-            return type.InvokeMember(methodName, BindingFlags.InvokeMethod, null, assembly, args);
+            return type.InvokeMember(methodName, BindingFlags.InvokeMethod, null, instance, args);
+            //return type.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static).Invoke(null, null);
+        }
+
+        public object RunStaticMethod(string methodName, object[] args = null)
+        {
+            return type.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static).Invoke(null, null);
         }
     }
 }

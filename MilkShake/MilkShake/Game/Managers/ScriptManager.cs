@@ -12,7 +12,7 @@ namespace Milkshake.Game.Managers
 {
     public class ScriptManager
     {
-        private static List<AppDomain> domains = new List<AppDomain>();
+        private static List<ScriptCompiler> scripts = new List<ScriptCompiler>();
         private static FileSystemWatcher watcher;
 
         public static void Boot()
@@ -26,6 +26,7 @@ namespace Milkshake.Game.Managers
 
             watcher.Changed += ReloadScript;
             watcher.Created += LoadScript;
+            watcher.Renamed += LoadScript;
             watcher.Deleted += UnloadScript;
 
             watcher.EnableRaisingEvents = true;
@@ -59,50 +60,30 @@ namespace Milkshake.Game.Managers
 
         private static void LoadScript(object sender, FileSystemEventArgs e)
         {
-            try
-            {
-                watcher.EnableRaisingEvents = false;
-
-                LoadScript(e.FullPath);
-            }
-
-            finally
-            {
-                watcher.EnableRaisingEvents = true;
-            }
+            LoadScript(e.FullPath);
         }
 
         private static void LoadScript(string scriptPath)
         {
-            string scriptName = Path.GetFileNameWithoutExtension(scriptPath);
-            AppDomain domain = AppDomain.CreateDomain(scriptName);
-            domains.Add(domain);
-            ScriptCompiler scriptCompiler = (ScriptCompiler)domain.CreateInstanceFromAndUnwrap(Assembly.GetExecutingAssembly().Location, "Milkshake.Tools.ScriptCompiler");
-
-            scriptCompiler.Compile(scriptPath);
+            ScriptCompiler script = new ScriptCompiler();
+            if(script.Compile(scriptPath)) scripts.Add(script);
         }
 
         private static void UnloadScript(object sender, FileSystemEventArgs e)
         {
-            try
-            {
-                watcher.EnableRaisingEvents = false;
-
-                UnloadScript(Path.GetFileNameWithoutExtension(e.FullPath));
-                Log.Print(LogType.Debug, "Script Unloaded: " + Path.GetFileNameWithoutExtension(e.FullPath));
-            }
-
-            finally
-            {
-                watcher.EnableRaisingEvents = true;
-            }
+            UnloadScript(Path.GetFileNameWithoutExtension(e.FullPath));
         }
 
         private static void UnloadScript(string scriptName)
         {
-            AppDomain domain = domains.First(d => d.FriendlyName == scriptName);
-            domains.Remove(domain);
-            AppDomain.Unload(domain);
+            ScriptCompiler script = scripts.FirstOrDefault(s => s.Name == scriptName);
+
+            if (script != null)
+            {
+                scripts.Remove(script);
+                script.RunMethod("Unload");
+                Log.Print(LogType.Debug, "Script Unloaded: " + scriptName);
+            }
         }
     }
 }

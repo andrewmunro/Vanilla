@@ -41,7 +41,7 @@ namespace Milkshake
             PlayerManager.Boot();
             UnitManager.Boot();
 
-            Milkshake.Game.Entitys.AIBrainManager.Boot();
+//            Milkshake.Game.Entitys.AIBrainManager.Boot();
 
             new PlayerManager();
             UnitComponent = new UnitComponent();

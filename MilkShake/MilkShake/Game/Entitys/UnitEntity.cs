@@ -2,6 +2,7 @@
 using Milkshake.Communication.Outgoing.World.Player;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Net;
+using Milkshake.Tools;
 using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.DBC;
 using Milkshake.Tools.DBC.Tables;
