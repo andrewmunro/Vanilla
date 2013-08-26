@@ -1,4 +1,6 @@
-﻿using Milkshake.Communication.Incoming.World.Chat;
+﻿using System;
+using System.Reflection;
+using Milkshake.Communication.Incoming.World.Chat;
 using Milkshake.Communication.Outgoing.World.Chat;
 using Milkshake.Game.Constants.Game;
 using Milkshake.Net;
@@ -11,6 +13,8 @@ using Milkshake.Tools.Config;
 namespace Milkshake.Game.Managers
 {
     public delegate void ProcessChatCallback(WorldSession Session, PCMessageChat message);
+
+    public delegate void ChatCommandDelegate(WorldSession Session, String[] args);
 
     public class ChatManager
     {
@@ -25,6 +29,18 @@ namespace Milkshake.Game.Managers
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_YELL, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_EMOTE, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_WHISPER, OnWhisper);
+        }
+
+        public static void AddChatCommand(String commandName, String commandDescription, ChatCommandDelegate method)
+        {
+            ChatCommandNode node = new ChatCommandNode(commandName, commandDescription);
+            node.Method = method.Method;
+            ChatCommandParser.AddNode(node);
+        }
+
+        public static void RemoveChatCommand(String commandName)
+        {
+            ChatCommandParser.RemoveNode(commandName);
         }
 
         public static void OnMessageChatPacket(WorldSession session, PCMessageChat packet)
@@ -56,19 +72,14 @@ namespace Milkshake.Game.Managers
             }
         }        
 
-       
         public static void SendSytemMessage(WorldSession session, string message)
         {
             session.sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_SYSTEM, ChatMessageLanguage.LANG_COMMON, 0, message));
         }
 
-       
-
         public static WorldSession GetSessionByCharacterName(string characterName)
         {
             return WorldServer.Sessions.Find(character => character.Character.Name.ToLower() == characterName.ToLower());
         }
-
-
     }
 }

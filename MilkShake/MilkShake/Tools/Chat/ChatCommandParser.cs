@@ -9,7 +9,7 @@ namespace Milkshake.Tools.Chat
 {
     public class ChatCommandParser
     {
-        private static readonly List<ChatCommandNode> chatCommandNodes = new List<ChatCommandNode>();
+        private static readonly List<ChatCommandNode> ChatCommandNodes = new List<ChatCommandNode>();
 
         //TODO Cleanup parser and allow ignoring case.
         public static void Boot()
@@ -18,7 +18,7 @@ namespace Milkshake.Tools.Chat
             {
                 ChatCommandNode node = GetNode(type);
                 node.Method = type.GetMethod("Default");
-                chatCommandNodes.Add(node);
+                AddNode(node);
 
                 node.CommandAttributes = new List<ChatCommandAttribute>();
 
@@ -29,6 +29,21 @@ namespace Milkshake.Tools.Chat
                     node.CommandAttributes.Add(chatCommandAttribute);
                 }
             }
+        }
+
+        public static void AddNode(ChatCommandNode node)
+        {
+            ChatCommandNodes.Add(node);
+        }
+
+        public static void RemoveNode(ChatCommandNode node)
+        {
+            ChatCommandNodes.Remove(node);
+        }
+
+        public static void RemoveNode(String nodeName)
+        {
+            ChatCommandNodes.Remove(ChatCommandNodes.FirstOrDefault(n => n.Name == nodeName));
         }
 
         static IEnumerable<MethodInfo> GetMethodsWithChatCommandAttribute(Type type)
@@ -71,7 +86,7 @@ namespace Milkshake.Tools.Chat
             message = message.Remove(0, INI.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY).Length);
             List<String> args = message.ToLower().Split(' ').ToList();
 
-            ChatCommandNode commandNode = chatCommandNodes.FirstOrDefault(node => node.Name == args[0]);
+            ChatCommandNode commandNode = ChatCommandNodes.FirstOrDefault(node => node.Name == args[0]);
 
             if (commandNode != null)
             {
@@ -85,12 +100,12 @@ namespace Milkshake.Tools.Chat
                     //remove the attribute
                     args.RemoveAt(0);
 
-                    object[] CommandArguments = new object[] { sender, args.ToArray() };
+                    object[] commandArguments = { sender, args.ToArray() };
 
                     //Call method with null instance (all command methods are static)
                     try
                     {
-                        commandAttribute.Method.Invoke(null, CommandArguments);
+                        commandAttribute.Method.Invoke(null, commandArguments);
                         Log.Print(LogType.Debug, "Player " + sender.Character.Name + " used command " + commandNode.Name + " " + commandAttribute.Name);
                         return true;
                     }
@@ -105,18 +120,27 @@ namespace Milkshake.Tools.Chat
                 }
                 if (commandNode.Method != null)
                 {
-                    object[] CommandArguments = new object[] { sender, args.ToArray() };
+                    object[] commandArguments = { sender, args.ToArray() };
 
-                    commandNode.Method.Invoke(null, CommandArguments);
-                    Log.Print(LogType.Debug, "Player " + sender.Character.Name + " used command " + commandNode.Name + " Default");
-                    return true;
+                    try
+                    {
+                        commandNode.Method.Invoke(null, commandArguments);
+                        Log.Print(LogType.Debug, "Player " + sender.Character.Name + " used command " + commandNode.Name + " Default");
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        Log.Print(LogType.Error, "Error using command: " + commandNode.Name);
+                        Log.Print(LogType.Error, "Make sure the method passed in AddChatCommand is static!");
+                        return false;
+                    }
                 }
                 sender.sendMessage("** " + commandNode.Name + " commands **");
                 commandNode.CommandAttributes.ForEach(a => sendCommandMessage(sender, a));
                 return false;
             }
             sender.sendMessage("** commands **");
-            chatCommandNodes.ForEach(n => sendCommandMessage(sender, n));
+            ChatCommandNodes.ForEach(n => sendCommandMessage(sender, n));
             return false;
         }
 
