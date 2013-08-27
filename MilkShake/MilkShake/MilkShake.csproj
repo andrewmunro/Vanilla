@@ -86,6 +86,7 @@
     <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSCreatureQueryResponce.cs" />
     <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />

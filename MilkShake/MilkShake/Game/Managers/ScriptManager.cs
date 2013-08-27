@@ -34,7 +34,15 @@ namespace Milkshake.Game.Managers
 
         private static void LoadScripts()
         {
-            String[] scripts = Directory.GetFiles(INI.GetValue(ConfigSections.DEV, ConfigValues.SCRIPT_LOCATION));
+			if (!Directory.Exists(ScriptLocation))
+			{
+				Log.Print(LogType.Script, "Script location (" + ScriptLocation + ") dosn't exist. Creating...");
+
+				Directory.CreateDirectory(ScriptLocation);
+			}
+
+            String[] scripts = Directory.GetFiles(ScriptLocation);
+
             foreach (String script in scripts)
             {
                 LoadScript(script);
@@ -81,9 +89,16 @@ namespace Milkshake.Game.Managers
             if (script != null)
             {
                 scripts.Remove(script);
-                script.RunMethod("Unload");
-                Log.Print(LogType.Debug, "Script Unloaded: " + scriptName);
+                
+				script.RunMethod("Unload");
+
+                Log.Print(LogType.Script, "Script Unloaded: " + scriptName);
             }
         }
+
+		public static string ScriptLocation
+		{
+			get { return INI.GetValue(ConfigSections.DEV, ConfigValues.SCRIPT_LOCATION); }
+		}
     }
 }

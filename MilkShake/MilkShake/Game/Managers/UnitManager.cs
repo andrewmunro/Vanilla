@@ -11,6 +11,7 @@ using Milkshake.Tools.Extensions;
 using Milkshake.Game.Entitys;
 using System.IO;
 using Milkshake.Game.Constants.Game.Update;
+using Milkshake.Communication.Outgoing.World.Entity;
 
 namespace Milkshake.Game.Managers
 {
@@ -32,24 +33,7 @@ namespace Milkshake.Game.Managers
 
             UnitEntity entity = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
 
-            ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_CREATURE_QUERY_RESPONSE);
-            packet.Write((UInt32)entity.Template.entry);
-            packet.WriteCString(entity.Name);
-            packet.WriteNullByte(3); // Name2,3,4
-            packet.WriteCString("Lucas == SHIT AT SPELLING");
-
-            packet.Write((UInt32)entity.Template.type_flags);
-            packet.Write((UInt32)entity.Template.type);
-            packet.Write((UInt32)entity.Template.family);
-            packet.Write((UInt32)entity.Template.rank);
-            packet.WriteNullUInt(1);
-
-            packet.Write((UInt32)entity.Template.PetSpellDataId);
-            packet.Write((UInt32)entity.TEntry.modelid);
-            packet.Write((UInt16)entity.Template.Civilian);
-
-            session.sendMessage("Response: " + entity.Template.name + " - " + entity.Template.subname);
-            session.sendPacket(packet);
+            session.sendPacket(new PSCreatureQueryResponce(entry, entity));
         }
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)

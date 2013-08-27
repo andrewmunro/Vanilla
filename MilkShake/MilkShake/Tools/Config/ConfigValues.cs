@@ -62,8 +62,8 @@ namespace Milkshake.Tools.Config
                 {
                     ConfigSections.DEV, new Dictionary<String, String>
                     {
-                        {DBC_LOCATION, @"C:\Users\Andrew\Dropbox\Projects\Vanilla\dbc\"},
-                        {SCRIPT_LOCATION, @"C:\Users\Andrew\Dropbox\Projects\Vanilla\Milkshake\VanillaScript\Scripts"},
+                        {DBC_LOCATION, @"dbc"},
+                        {SCRIPT_LOCATION, @"Scripts"},
                     }
                 },
             };

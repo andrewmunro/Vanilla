@@ -13,7 +13,8 @@ namespace Milkshake.Tools
         Warning,
         Database,
         Status,
-        Map
+        Map,
+		Script
     }
 
     public class Log
@@ -27,7 +28,8 @@ namespace Milkshake.Tools
             { LogType.Database, ConsoleColor.Magenta },
             { LogType.Map,      ConsoleColor.Cyan },
             { LogType.Packet,   ConsoleColor.Cyan },
-            { LogType.Warning,  ConsoleColor.Yellow }
+            { LogType.Warning,  ConsoleColor.Yellow },
+			{ LogType.Script,  ConsoleColor.Cyan }
         };
 
         public static void Print(LogType _type, object _obj)

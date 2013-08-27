@@ -39,8 +39,6 @@ namespace Milkshake.Communication.Incoming.Auth
             TimeZone = ReadUInt32();            
             IP = ReadIpAddress();
             Name = ReadPascalString(1);
-
-            Console.WriteLine(Name + ' ' + GameName + ' ' + Build + ' ' + Country + ' ' + OS + ' ' + IP.ToString() + " - " + Version);
         }
     }
 }
