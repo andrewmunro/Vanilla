@@ -344,7 +344,7 @@ namespace Milkshake.Communication.Outgoing.World.Update
 			return new PSUpdateObject(new List<byte[]> { (writer.BaseStream as MemoryStream).ToArray() }, 1);
 		}
 
-        public static PSUpdateObject UpdateValues( ObjectEntity entity)
+        public static PSUpdateObject UpdateValues(ObjectEntity entity)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);

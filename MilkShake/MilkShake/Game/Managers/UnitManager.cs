@@ -21,9 +21,6 @@ namespace Milkshake.Game.Managers
         {
             WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_ATTACKSWING, OnAttackSwing);
             WorldDataRouter.AddHandler<PacketReader>(WorldOpcodes.CMSG_CREATURE_QUERY, OnCreatureQuery);
-
-            
-
         }
 
         private static void OnCreatureQuery(WorldSession session, PacketReader handler)
@@ -38,30 +35,17 @@ namespace Milkshake.Game.Managers
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)
         {
-            
-            //ulong GUID = Milkshake.Communication.Outgoing.World.Update.PSUpdateObject.ReadPackedGuid(handler);
-            //ObjectGUID OBJ = new ObjectGUID(GUID);
-            //handler.ReadUInt32();
-            //uint low = handler.ReadUInt32();
+			ulong GUID = handler.ReadUInt64();
 
-            ulong GUID = handler.ReadUInt64();
+			UnitEntity target = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
 
-
-            List<UnitEntity> found = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID);
-
-
-            UnitEntity targer = found.First();
-
-            if(targer != null)
+			if (target != null)
             {
-                session.sendMessage("Attacking:" + targer.Name);
+				session.sendMessage("Attacking:" + target.Name);
+
                 ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_ATTACKSTART);
                 packet.Write(session.Entity.ObjectGUID.RawGUID);
-                packet.Write(targer.ObjectGUID.RawGUID);
-
-                //entity.SetUpdateField<byte>((int)EUnitFields.UNIT_NPC_EMOTESTATE, (byte)int.Parse(attributeValue));
-
-                //ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_ATTACKERSTATEUPDATE);
+				packet.Write(target.ObjectGUID.RawGUID);
 
                 session.sendPacket(packet);
             }

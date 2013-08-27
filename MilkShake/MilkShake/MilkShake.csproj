@@ -166,6 +166,7 @@
     <Compile Include="Tools\Chat\Commands\Debug.cs" />
     <Compile Include="Tools\Chat\Commands\Emote.cs" />
     <Compile Include="Tools\Chat\Commands\Modify.cs" />
+    <Compile Include="Tools\Chat\Commands\Teleport.cs" />
     <Compile Include="Tools\Database\Helpers\DBMails.cs" />
     <Compile Include="Tools\Database\Tables\CharacterInventory.cs" />
     <Compile Include="Tools\Database\Tables\CharacterMail.cs" />

@@ -9,6 +9,7 @@ using Milkshake.Tools.Database.Tables;
 using Milkshake.Tools.Database;
 using Milkshake.Tools;
 using Milkshake.Tools.Database.Helpers;
+using Milkshake.Network;
 
 namespace Milkshake.Game.Managers
 {
@@ -117,8 +118,8 @@ namespace Milkshake.Game.Managers
                         DespawnEntityForPlayer(player, entity);
                     }
                 }
-
             }
+
         }
 
         private bool Contains(T entity)
@@ -240,6 +241,23 @@ namespace Milkshake.Game.Managers
             }
             base.SpawnEntityForPlayer(player, entity);
         }
+
+		public override void Update()
+		{
+			base.Update();
+
+
+			foreach (UnitEntity entity in Entitys.ToArray().ToList())
+			{
+				if (entity.UpdateCount > 0)
+				{
+					// Generate update packet
+					ServerPacket packet = PSUpdateObject.UpdateValues(entity as ObjectEntity);
+
+					PlayersWhoKnow(entity).ForEach(e => e.Session.sendPacket(packet));
+				}
+			}
+		}
 
         public override List<UnitEntity> EntityListFromPlayer(PlayerEntity player)
         {

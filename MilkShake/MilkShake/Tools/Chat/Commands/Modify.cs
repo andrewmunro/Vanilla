@@ -42,11 +42,11 @@ namespace Milkshake.Tools.Chat.Commands
                         break;
 
                     case "health":
-                        (entity as PlayerEntity).Health = int.Parse(attributeValue);
+                        entity.Health = int.Parse(attributeValue);
                         break;
 
                     case "level":
-                        (entity as PlayerEntity).Level = int.Parse(attributeValue);
+                        entity.Level = int.Parse(attributeValue);
                         break;
 
                     case "xp":

@@ -36,35 +36,19 @@ namespace Milkshake.Game.Entitys
         public float lastUpdateX, lastUpdateY;
         public float X, Y, Z;
 
-        public int Health
-        {
-            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_HEALTH]; }
-            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, value); }
-        }
+		public override string Name
+		{
+			get
+			{
+				return Character.Name;
+			}
+		}
 
-        public int MaxHealth
-        {
-            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_MAXHEALTH]; }
-            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, value); }
-        }
-
-        public int Level
-        {
-            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_LEVEL]; }
-            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, value); }
-        }
-
-        public int XP
-        {
-            get { return (int)UpdateData[(int)EUnitFields.PLAYER_XP]; }
-            set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
-        }
-
-        public int EmoteState
-        {
-            get { return (int)UpdateData[(int)EUnitFields.UNIT_NPC_EMOTESTATE]; }
-            set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
-        }
+		public int XP
+		{
+			get { return (int)UpdateData[(int)EUnitFields.PLAYER_XP]; }
+			set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
+		}
 
         public override int DataLength
         {
