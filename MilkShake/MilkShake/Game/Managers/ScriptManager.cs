@@ -90,7 +90,7 @@ namespace Milkshake.Game.Managers
             {
                 scripts.Remove(script);
                 
-				script.RunMethod("Unload");
+				script.Plugin.Unload();
 
                 Log.Print(LogType.Script, "Script Unloaded: " + scriptName);
             }

@@ -131,6 +131,7 @@ namespace Milkshake.Game.Managers
             else
             {
                 session.sendMessage("Couldnt find target!");
+                session.Entity.Target = null;
             }
         }
     }
