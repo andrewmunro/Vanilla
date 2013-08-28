@@ -12,10 +12,20 @@ using Microsoft.CSharp;
 
 namespace Milkshake.Tools
 {
+    public class VanillaPlugin
+    {
+        public virtual void Unload()
+        {
+
+        }
+    }
+
     public class ScriptCompiler : MarshalByRefObject
     {
+        public VanillaPlugin Plugin { get { return instance; } }
+
         private Type type;
-        private Object instance;
+        private VanillaPlugin instance;
 
         public String Name;
 
@@ -62,7 +72,16 @@ namespace Milkshake.Tools
                 //Instansiate script class.
                 try
                 {
-                    instance = Activator.CreateInstance(type);
+                    if (type.BaseType == typeof(VanillaPlugin))
+                    {
+                        instance = Activator.CreateInstance(type) as VanillaPlugin;
+                    }
+                    else
+                    {
+                        Log.Print(LogType.Error, "Warning! " + Name + " isn't VanillaPlugin");
+                        return false;
+                    }
+                    
                 }
                 catch (Exception)
                 {

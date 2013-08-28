@@ -108,6 +108,11 @@ namespace Milkshake.Game.Entitys
 			set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
 		}
 
+        public int DisplayID
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }
+        }
 
         public CreatureEntry TEntry;
         public CreatureTemplateEntry Template;
@@ -160,7 +165,7 @@ namespace Milkshake.Game.Entitys
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, entry.curhealth);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, template.maxhealth);
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, template.maxlevel);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, entry.modelid);
+                DisplayID = (entry.modelid != 0) ? entry.modelid : TEntry.modelid;
 
                 SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
             }

@@ -35,6 +35,7 @@ namespace Milkshake.Game.Managers
         {
             ChatCommandNode node = new ChatCommandNode(commandName, commandDescription);
             node.Method = method.Method;
+            node.CommandAttributes = new List<ChatCommandAttribute>();
             ChatCommandParser.AddNode(node);
         }
 
