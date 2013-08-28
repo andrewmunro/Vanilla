@@ -22,6 +22,7 @@ namespace Milkshake.Tools.Database
 			Character.CreateTable(typeof(CharacterSpell));
 			Character.CreateTable(typeof(CharacterActionBarButton));
 			Character.CreateTable(typeof(CharacterInventory));
+			Character.CreateTable(typeof(CharacterMail));
 
 			DBAccounts.CreateAccount("Graype", "password");
 			DBAccounts.CreateAccount("Andrew", "password");

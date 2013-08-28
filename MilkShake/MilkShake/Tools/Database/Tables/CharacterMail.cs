@@ -25,5 +25,6 @@ namespace Milkshake.Tools.Database.Tables
         public int Money { get; set; }
         public int COD { get; set; } // CASH ON DELIVERY
         public MailCheckMask Checked { get; set; }
+        public string Body { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Milkshake.Tools.Database.Tables
         public ClassID Class { get; set; }
 
         public byte Level { get; set; }
+        public int Money { get; set; }
         public int Health { get; set; }
         public int Mana { get; set; }
         public int Rage { get; set; }
@@ -41,5 +42,19 @@ namespace Milkshake.Tools.Database.Tables
         public byte Accessory { get; set; }
 
         public string Equipment { get; set; }
+
+        public string Faction
+        {
+            //Temporary hack to get faction
+            get
+            {
+                if (Race == RaceID.Human ||
+                    Race == RaceID.Dwarf ||
+                    Race == RaceID.Gnome ||
+                    Race == RaceID.NightElf)
+                    return "Alliance";
+                return "Horde";
+            }
+        }
     }
 }

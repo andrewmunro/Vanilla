@@ -35,6 +35,11 @@ namespace Milkshake.Tools.Database.Helpers
             return Characters.FindAll(a => a.AccountID == accountID);
         }
 
+        public static Character GetCharacter(string name)
+        {
+            return Characters.Find(c => String.Equals(c.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        }
+
         public static Character GetCharacter(int guid)
         {
             return Characters.Find(c => c.GUID == guid);

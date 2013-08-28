@@ -50,6 +50,7 @@ namespace Milkshake.Game.Managers
                 HairStyle = packet.HairStyle,
                 HairColor = packet.HairColor,
                 Accessory = packet.Accessory,
+                Money = 100000,
                 Level = 1,
                 Health = 1000,
                 Mana = 1000,

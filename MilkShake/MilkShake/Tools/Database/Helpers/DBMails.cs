@@ -19,6 +19,16 @@ namespace Milkshake.Tools.Database.Helpers
             return MailQuery.ToList().FindAll(s => s.Reciever == Character.GUID);
         }
 
+        public static void AddMail(CharacterMail Mail)
+        {
+            DB.Character.Insert(Mail);
+        }
+
+        public static void AddMail()
+        {
+            AddMail(new CharacterMail() {  });
+        }
+
         public static void RemoveMail(CharacterMail Mail)
         {
             DB.Character.Delete(Mail);

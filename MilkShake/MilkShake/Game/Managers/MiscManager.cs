@@ -121,7 +121,7 @@ namespace Milkshake.Game.Managers
             WorldSession op = WorldServer.Sessions.Find(s => s.Entity.ObjectGUID.RawGUID == packet.GUID);
             if(op != null) target = op.Entity;
 
-            if (target == null) target = Milkshake.MilkShake.UnitComponent.Entitys.Find(e => e.ObjectGUID != null && e.ObjectGUID.RawGUID == packet.GUID);
+            if (target == null) target = MilkShake.UnitComponent.Entitys.Find(e => e.ObjectGUID != null && e.ObjectGUID.RawGUID == packet.GUID);
 
             if (target != null)
             {

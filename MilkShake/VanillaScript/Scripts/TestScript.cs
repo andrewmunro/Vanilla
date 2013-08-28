@@ -15,9 +15,7 @@ namespace VanillaScript.Scripts
         public TestScript()
         {
             Log.Print(LogType.Debug, WorldServer.Sessions.Count);
-            WorldServer.Sessions.ForEach(s => s.sendMessage("Hello World!!"));
-
-            ChatManager.AddChatCommand("knockback", "knockbacks all players", Knockback);
+            ChatManager.AddChatCommand("test", "test", Knockback);
         }
 
         private static void Knockback(WorldSession session, string[] args)
@@ -28,7 +26,7 @@ namespace VanillaScript.Scripts
         public void Unload()
         {
             Log.Print(LogType.Debug, "Unloading script...");
-            ChatManager.RemoveChatCommand("knockback");
+            ChatManager.RemoveChatCommand("test");
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Communication\Chat\PCMessageChat.cs" />
     <Compile Include="Communication\Incoming\World\GameObject\PCGameObjectQuery.cs" />
     <Compile Include="Communication\Incoming\World\Mail\PCGetMailList.cs" />
+    <Compile Include="Communication\Incoming\World\Mail\PCSendMail.cs" />
     <Compile Include="Communication\Incoming\World\Movement\PCMoveInfo.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCEmote.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCNameQuery.cs" />
@@ -86,11 +87,12 @@
     <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
     <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
-    <Compile Include="Communication\Outgoing\World\Entity\PSCreatureQueryResponce.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSCreatureQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
     <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Mail\PSMailListResult.cs" />
+    <Compile Include="Communication\Outgoing\World\Mail\PSSendMailResult.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveKnockBack.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
@@ -118,9 +120,12 @@
     <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
     <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
     <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelNotify.cs" />
+    <Compile Include="Game\Constants\Game\GameUnits.cs" />
     <Compile Include="Game\Constants\Game\Mail\MailAuctionAnswers.cs" />
     <Compile Include="Game\Constants\Game\Mail\MailCheckMask.cs" />
     <Compile Include="Game\Constants\Game\Mail\MailMessageType.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailResponseResult.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailResponseType.cs" />
     <Compile Include="Game\Constants\Game\Mail\MailState.cs" />
     <Compile Include="Game\Constants\Game\Mail\MailStationery.cs" />
     <Compile Include="Game\Constants\Game\Update\EUpdateFields.cs" />

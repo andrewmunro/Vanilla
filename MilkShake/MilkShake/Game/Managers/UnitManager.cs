@@ -30,7 +30,7 @@ namespace Milkshake.Game.Managers
 
             UnitEntity entity = MilkShake.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
 
-            session.sendPacket(new PSCreatureQueryResponce(entry, entity));
+            session.sendPacket(new PSCreatureQueryResponse(entry, entity));
         }
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)

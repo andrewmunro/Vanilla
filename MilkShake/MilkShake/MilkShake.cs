@@ -40,6 +40,7 @@ namespace Milkshake
             //ZoneHandler.Boot();
             PlayerManager.Boot();
             UnitManager.Boot();
+            MailManager.Boot();
 
 //            Milkshake.Game.Entitys.AIBrainManager.Boot();
 

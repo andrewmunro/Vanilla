@@ -186,6 +186,7 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<Int32>((int)1220, 1065353216);
             SetUpdateField<Int32>((int)1221, 1065353216);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
+            SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_COINAGE, character.Money);
         }
 
 
