@@ -12,6 +12,7 @@ using Milkshake.Communication;
 using Milkshake.Tools.Extensions;
 using System.Collections.Generic;
 using System.Threading;
+using Milkshake.Game.Constants.Game.World.Entity;
 
 namespace Milkshake.Game.Entitys
 {
@@ -108,11 +109,11 @@ namespace Milkshake.Game.Entitys
 			set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
 		}
 
-        public int DisplayID
-        {
-            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
-            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }
-        }
+		public int DisplayID
+		{
+			get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
+			set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }
+		}
 
         public CreatureEntry TEntry;
         public CreatureTemplateEntry Template;
@@ -155,6 +156,18 @@ namespace Milkshake.Game.Entitys
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
             
         }
+
+		public void SetStandState(UnitStandStateType state)
+		{
+			SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)state, 0);
+
+			if(this is PlayerEntity)
+			{
+				ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_STANDSTATE_UPDATE);
+				packet.Write((byte)state);
+				(this as PlayerEntity).Session.sendPacket(packet);
+			}
+		}
 
 /*        public void PlayEmote(Emote emoteID)
         {
