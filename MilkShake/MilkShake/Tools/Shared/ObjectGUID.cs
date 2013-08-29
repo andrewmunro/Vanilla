@@ -33,7 +33,7 @@ namespace Milkshake.Game.Entitys
 
         private static uint GetIndex(TypeID type)
         {
-            if (!Indexes.ContainsKey(type)) Indexes.Add(type, 0);
+            if (!Indexes.ContainsKey(type)) Indexes.Add(type, 1);
 
             return Indexes[type]++;
         }

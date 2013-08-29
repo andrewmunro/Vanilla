@@ -53,18 +53,13 @@ namespace VanillaScript.Scripts
             if (!follow)
             {
                 if (guidCount == entryList.Count() - 1) return;
-                taurenEntry.guid = entryList[guidCount++].guid;
                 taurenEntry.position_x = taurenPos.x;
                 taurenEntry.position_y = taurenPos.y;
                 taurenEntry.position_z = player.Z + random.Next(5, 30);
 
-                UnitEntity tauren = new UnitEntity(taurenEntry);
+                UnitEntity tauren = new UnitEntity(taurenEntry, ObjectGUID.GetUnitGUID());
                 MilkShake.UnitComponent.AddEntityToWorld(tauren);
                 taurens.Add(tauren);
-                player.Session.sendMessage("-----------");
-                player.Session.sendMessage("DB: " + tauren.ObjectGUID.RawGUID + " | " + tauren.ObjectGUID.Low + " | " + tauren.ObjectGUID.TypeID + " | " + tauren.ObjectGUID.HighGUID);
-                player.Session.sendMessage("LB: " + new ObjectGUID(tauren.ObjectGUID.Low, tauren.ObjectGUID.TypeID, tauren.ObjectGUID.HighGUID).RawGUID);
-                player.Session.sendMessage("LB: " + ObjectGUID.GetUnitGUID().RawGUID);
 
                 if (taurens.Count > 30)
                 {

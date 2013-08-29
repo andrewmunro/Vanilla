@@ -234,7 +234,8 @@ namespace Milkshake.Game.Managers
         {
             lock (player.UpdateBlocks)
             {
-                player.UpdateBlocks.Add(new CreateUnitBlock(entity));
+				// We need to create a new UnitEntity to push all the UpdateData
+                player.UpdateBlocks.Add(new CreateUnitBlock(new UnitEntity(entity.TEntry)));
             }
             base.SpawnEntityForPlayer(player, entity);
         }
