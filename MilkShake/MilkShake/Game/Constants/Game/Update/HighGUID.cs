@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
-    [Flags]
     public enum HighGUID
     {
         HIGHGUID_ITEM = 0x4700,

@@ -34,16 +34,16 @@ namespace Milkshake.Game.Managers
             foreach (PlayerEntity player in PlayerManager.Players)
             {
                 // Move this somewhere else?
-                if (player.OutOfRangeEntitys.Count() > 0 || player.UpdateBlocks.Count() > 0)
+                if (player.OutOfRangeEntitys.Any() || player.UpdateBlocks.Any())
                 {
                     List<UpdateBlock> UpdateBlocks = new List<UpdateBlock>();
 
-                    if (player.OutOfRangeEntitys.Count() > 0)
+                    if (player.OutOfRangeEntitys.Any())
                     {
                         UpdateBlocks.Add(new OutOfRangeBlock(player.OutOfRangeEntitys));
                     }
 
-                    if (player.UpdateBlocks.Count() > 0)
+                    if (player.UpdateBlocks.Any())
                     {
                         lock (UpdateBlocks)
                         {
@@ -81,10 +81,10 @@ namespace Milkshake.Game.Managers
 
             new Thread(UpdateThread).Start();
 
-            World.OnPlayerSpawn += new PlayerEvent(World_OnPlayerSpawn);
+            World.OnPlayerSpawn += World_OnPlayerSpawn;
         }
 
-        void World_OnPlayerSpawn(PlayerEntity player)
+        private void World_OnPlayerSpawn(PlayerEntity player)
         {
             GenerateEntitysForPlayer(player);
         }
@@ -124,7 +124,7 @@ namespace Milkshake.Game.Managers
 
         private bool Contains(T entity)
         {
-            return Entitys.FindAll(e => (e as ObjectEntity).ObjectGUID.RawGUID == (entity as ObjectEntity).ObjectGUID.RawGUID).Count() > 0;
+            return Entitys.FindAll(e => (e as ObjectEntity).ObjectGUID.RawGUID == (entity as ObjectEntity).ObjectGUID.RawGUID).Any();
         }
 
         public virtual void AddEntityToWorld(T entity)
@@ -201,7 +201,7 @@ namespace Milkshake.Game.Managers
             return player.KnownGameObjects;
         }
 
-        public override bool InRange(PlayerEntity player, GOEntity entity, float range = 50)
+        public override bool InRange(PlayerEntity player, GOEntity entity, float range)
         {
             double distance = GetDistance(player.X, player.Y, entity.GameObject.X, entity.GameObject.Y);
 
@@ -210,8 +210,8 @@ namespace Milkshake.Game.Managers
 
         private static double GetDistance(float aX, float aY, float bX, float bY)
         {
-            double a = (double)(aX - bX);
-            double b = (double)(bY - aY);
+            double a = aX - bX;
+            double b = bY - aY;
 
             return Math.Sqrt(a * a + b * b);
         }
@@ -225,12 +225,9 @@ namespace Milkshake.Game.Managers
 
             List<CreatureEntry> unitsClose = allUnits
                 .FindAll(m => m.map == player.Character.MapID)
-                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);
+                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);   
 
-            unitsClose.ForEach(closeUnit =>
-            {
-                AddEntityToWorld(new UnitEntity(closeUnit));
-            });
+            unitsClose.ForEach(closeUnit => AddEntityToWorld(new UnitEntity(closeUnit)));
         }
 
         public override void SpawnEntityForPlayer(PlayerEntity player, UnitEntity entity)
@@ -249,12 +246,13 @@ namespace Milkshake.Game.Managers
 
 			foreach (UnitEntity entity in Entitys.ToArray().ToList())
 			{
-				if (entity.UpdateCount > 0)
+			    List<PlayerEntity> playersWhoKnowEntity = PlayersWhoKnow(entity);
+
+                if (entity.UpdateCount > 0 && playersWhoKnowEntity.Count > 0)
 				{
 					// Generate update packet
-					ServerPacket packet = PSUpdateObject.UpdateValues(entity as ObjectEntity);
-
-					PlayersWhoKnow(entity).ForEach(e => e.Session.sendPacket(packet));
+					ServerPacket packet = PSUpdateObject.UpdateValues(entity);
+					playersWhoKnowEntity.ForEach(e => e.Session.sendPacket(packet));
 				}
 			}
 		}
@@ -264,7 +262,7 @@ namespace Milkshake.Game.Managers
             return player.KnownUnits;
         }
 
-        public override bool InRange(PlayerEntity player, UnitEntity entity, float range = 50)
+        public override bool InRange(PlayerEntity player, UnitEntity entity, float range)
         {
             double distance = GetDistance(player.X, player.Y, entity.X, entity.Y);
 
@@ -273,8 +271,8 @@ namespace Milkshake.Game.Managers
 
         private static double GetDistance(float aX, float aY, float bX, float bY)
         {
-            double a = (double)(aX - bX);
-            double b = (double)(bY - aY);
+            double a = aX - bX;
+            double b = bY - aY;
 
             return Math.Sqrt(a * a + b * b);
         }
