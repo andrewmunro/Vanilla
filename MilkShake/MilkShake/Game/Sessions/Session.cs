@@ -63,7 +63,7 @@ namespace Milkshake.Game.Sessions
         {
             try
             {
-                Log.Print(LogType.Server, ConnectionRemoteIP + " User Disconnected");
+                Log.Print(LogType.Server, "User Disconnected");
 
                 connectionSocket.Close();
                 MilkShake.login.FreeConnectionID(connectionID);
@@ -79,7 +79,10 @@ namespace Milkshake.Game.Sessions
             int bytesRecived = 0;
 
             try { bytesRecived = connectionSocket.EndReceive(_asyncResult); }
-            catch (Exception e) { Disconnect(e.Source); }
+            catch (Exception) 
+            { 
+                //Client quit unexpectantly 
+            }
 
             if (bytesRecived != 0)
             {

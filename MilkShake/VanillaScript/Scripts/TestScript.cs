@@ -23,7 +23,6 @@ namespace VanillaScript.Scripts
         private static List<UnitEntity> taurens;
         private static List<CreatureEntry> entryList;
         private static bool follow;
-        private static int guidCount = 0;
 
         public TestScript()
         {
@@ -52,7 +51,6 @@ namespace VanillaScript.Scripts
             Vector2 taurenPos = RandomRadiusPoint(playerPos, 5, (float)(random.Next() * (Math.PI * 2)));
             if (!follow)
             {
-                if (guidCount == entryList.Count() - 1) return;
                 taurenEntry.position_x = taurenPos.x;
                 taurenEntry.position_y = taurenPos.y;
                 taurenEntry.position_z = player.Z + random.Next(5, 30);
@@ -65,7 +63,7 @@ namespace VanillaScript.Scripts
                 player.Session.sendMessage("DB: " + tauren.ObjectGUID.RawGUID + " | " + tauren.ObjectGUID.Low + " | " + tauren.ObjectGUID.TypeID + " | " + tauren.ObjectGUID.HighGUID);
 
 
-                if (taurens.Count > 30)
+                if (taurens.Count > 60)
                 {
                     MilkShake.UnitComponent.RemoveEntityFromWorld(taurens.First());
                     taurens.RemoveAt(0);
