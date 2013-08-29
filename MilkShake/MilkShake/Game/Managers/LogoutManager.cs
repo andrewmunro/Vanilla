@@ -55,6 +55,7 @@ namespace Milkshake.Game.Managers
                     {
                         entry.Key.sendPacket(new PSLogoutComplete());
                         logoutQueue.Remove(entry.Key);
+                        World.DispatchOnPlayerDespawn(entry.Key.Entity);
                     }                   
                 }
 

@@ -61,6 +61,10 @@ namespace VanillaScript.Scripts
                 MilkShake.UnitComponent.AddEntityToWorld(tauren);
                 taurens.Add(tauren);
 
+                player.Session.sendMessage("-----------");
+                player.Session.sendMessage("DB: " + tauren.ObjectGUID.RawGUID + " | " + tauren.ObjectGUID.Low + " | " + tauren.ObjectGUID.TypeID + " | " + tauren.ObjectGUID.HighGUID);
+
+
                 if (taurens.Count > 30)
                 {
                     MilkShake.UnitComponent.RemoveEntityFromWorld(taurens.First());

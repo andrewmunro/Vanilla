@@ -14,8 +14,8 @@ namespace VanillaScript.Scripts
     {
         public NPCCommands()
         {
-            ChatManager.AddChatCommand("npc", "move", Move);
-            ChatManager.AddChatCommand("npc", "info", Info);
+            ChatManager.AddChatCommand("move", "move", Move);
+            ChatManager.AddChatCommand("info", "info", Info);
 
             WorldServer.Sessions.ForEach(s => s.sendMessage("NPC Commands"));
         }

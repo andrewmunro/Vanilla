@@ -47,7 +47,10 @@ namespace Milkshake.Game.Managers
                     {
                         lock (UpdateBlocks)
                         {
-                            UpdateBlocks.AddRange(player.UpdateBlocks);
+                            lock (player.UpdateBlocks)
+                            {
+                                UpdateBlocks.AddRange(player.UpdateBlocks);
+                            }
                         }
                     }
 
@@ -235,7 +238,7 @@ namespace Milkshake.Game.Managers
             lock (player.UpdateBlocks)
             {
 				// We need to create a new UnitEntity to push all the UpdateData
-                player.UpdateBlocks.Add(new CreateUnitBlock(new UnitEntity(entity.TEntry)));
+                player.UpdateBlocks.Add(new CreateUnitBlock(entity));
             }
             base.SpawnEntityForPlayer(player, entity);
         }
