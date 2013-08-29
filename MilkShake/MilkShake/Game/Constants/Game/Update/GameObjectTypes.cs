@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Milkshake.Game.Constants.Game.Update
 {
-    public enum GameobjectTypes
+    public enum GameObjectTypes
     {
         GAMEOBJECT_TYPE_DOOR = 0,
         GAMEOBJECT_TYPE_BUTTON = 1,

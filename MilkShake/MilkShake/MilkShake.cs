@@ -46,7 +46,7 @@ namespace Milkshake
 
             new PlayerManager();
             UnitComponent = new UnitComponent();
-            new GameObjectManager();
+            GameObjectComponent =  new GameObjectComponent();
             new WorldManager();
             ScriptManager.Boot();
 
@@ -55,6 +55,7 @@ namespace Milkshake
         }
 
         public static UnitComponent UnitComponent { get; private set; }
+        public static GameObjectComponent GameObjectComponent { get; private set; }
 
         public static LoginServer login { get; private set; }
         public static WorldServer world { get; private set; }

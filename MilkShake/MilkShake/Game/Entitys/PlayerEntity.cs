@@ -1,4 +1,5 @@
 ﻿using System;
+using Milkshake.Communication.Outgoing.Players;
 using Milkshake.Game.Constants.Game.Update;
 using Milkshake.Game.Managers;
 using Milkshake.Game.Spells;
@@ -193,5 +194,19 @@ namespace Milkshake.Game.Entitys
         public SpellCollection SpellCollection { get; private set; }
 
         public Net.WorldSession Session { get; set; }
+
+        public void TeleportTo(int mapID, float x, float y, float z)
+        {
+            if(Character.MapID != mapID) Session.sendPacket(new PSTransferPending(mapID));
+
+            Character.MapID = mapID;
+            Character.X = x;
+            Character.Y = y;
+            Character.Z = z;
+            Character.Rotation = 0;
+            DBCharacters.UpdateCharacter(Character);
+
+            Session.sendPacket(new PSNewWorld(mapID, x, y, z, 0));
+        }
     }
 }

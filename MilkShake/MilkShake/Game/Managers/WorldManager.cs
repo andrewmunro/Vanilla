@@ -172,7 +172,7 @@ namespace Milkshake.Game.Managers
         public abstract List<T> EntityListFromPlayer(PlayerEntity player);
     }
 
-    public class GameObjectManager : EntityComponent<GOEntity>
+    public class GameObjectComponent : EntityComponent<GOEntity>
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {
