@@ -13,6 +13,7 @@ using Milkshake.Tools.Update;
 using Milkshake.Communication;
 using Milkshake.Tools.Database;
 using Milkshake.Tools.Database.Tables;
+using Milkshake.Game.Constants.Game.World.Entity;
 
 namespace Milkshake.Tools.Chat.Commands
 {
@@ -69,6 +70,9 @@ namespace Milkshake.Tools.Chat.Commands
                         entity.SetUpdateField<Int32>((int) EUnitFields.PLAYER_FIELD_COINAGE, moneyToAdd);
                         session.Character.Money = moneyToAdd;
                         break;
+					case "standstate":
+						entity.SetStandState((UnitStandStateType)int.Parse(attributeValue));
+						break;
                     default:
                         unknownAttribute = true;
                         break;
