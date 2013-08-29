@@ -122,7 +122,7 @@ namespace Milkshake.Game.Entitys
         {
         }
 
-        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID())
+        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID((uint)entry.guid))
         {
             new AIBrain(this);
 
@@ -144,7 +144,7 @@ namespace Milkshake.Game.Entitys
 
                 Template = template;
 
-                ObjectGUID = Entitys.ObjectGUID.GetUnitGUID((uint)entry.guid);
+               // ObjectGUID = Entitys.ObjectGUID.GetUnitGUID((uint)entry.guid);
                 GUID = ObjectGUID.RawGUID;
 
                 Type = (byte)0x9;

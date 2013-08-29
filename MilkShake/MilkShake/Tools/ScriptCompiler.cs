@@ -20,7 +20,7 @@ namespace Milkshake.Tools
         }
     }
 
-    public class ScriptCompiler : MarshalByRefObject
+    public class ScriptCompiler
     {
         public VanillaPlugin Plugin { get { return instance; } }
 
@@ -39,6 +39,7 @@ namespace Milkshake.Tools
             CompilerParameters parameters = new CompilerParameters();
             parameters.GenerateInMemory = true;
             parameters.GenerateExecutable = false;
+            parameters.IncludeDebugInformation = true;
 
             //Add references used in scripts
             parameters.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location); //Current application ('using milkshake;')
@@ -62,35 +63,32 @@ namespace Milkshake.Tools
                 Log.Print(LogType.Error, error);
                 return false;
             }
-            else
+            //Successful Compile
+            Log.Print(LogType.Debug, "Script Loaded: " + Name);
+
+            type = results.CompiledAssembly.GetTypes()[0];
+
+            //Instansiate script class.
+            try
             {
-                //Successful Compile
-                Log.Print(LogType.Debug, "Script Loaded: " + Name);
-
-                type = results.CompiledAssembly.GetTypes()[0];
-
-                //Instansiate script class.
-                try
+                if (type.BaseType == typeof(VanillaPlugin))
                 {
-                    if (type.BaseType == typeof(VanillaPlugin))
-                    {
-                        instance = Activator.CreateInstance(type) as VanillaPlugin;
-                    }
-                    else
-                    {
-                        Log.Print(LogType.Error, "Warning! " + Name + " isn't VanillaPlugin");
-                        return false;
-                    }
-                    
+                    instance = Activator.CreateInstance(type) as VanillaPlugin;
                 }
-                catch (Exception)
+                else
                 {
-                    Log.Print(LogType.Error ,"Error instantiating " + Name);
+                    Log.Print(LogType.Error, "Warning! " + Name + " isn't VanillaPlugin");
                     return false;
                 }
-                
-                return true;
+                    
             }
+            catch (Exception)
+            {
+                Log.Print(LogType.Error ,"Error instantiating " + Name);
+                return false;
+            }
+                
+            return true;
         }
 
         public object RunMethod(string methodName, object[] args = null)
