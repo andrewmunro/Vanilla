@@ -122,53 +122,41 @@ namespace Milkshake.Game.Entitys
         {
         }
 
-        public UnitEntity(CreatureEntry entry = null) : base(ObjectGUID.GetUnitGUID((uint)entry.guid))
+        public UnitEntity(CreatureEntry entry = null, ObjectGUID guid = null) : base((guid == null) ? ObjectGUID.GetUnitGUID((uint)entry.guid) : guid)
         {
             new AIBrain(this);
 
-            if (entry == null)
-            {
-                Type = 9;
-                Entry = 68;
+            TEntry = entry;
 
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, 4667);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, 4667);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, 55);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, 5446);
-            }
-            else
-            {
-                TEntry = entry;
+            CreatureTemplateEntry template = DBC.CreatureTemplates.Find(a => a.entry == entry.id);
 
-                CreatureTemplateEntry template = DBC.CreatureTemplates.Find(a => a.entry == entry.id);
+            Template = template;
 
-                Template = template;
+            ObjectGUID = Entitys.ObjectGUID.GetUnitGUID((uint)entry.guid);
+            GUID = ObjectGUID.RawGUID;
 
-               // ObjectGUID = Entitys.ObjectGUID.GetUnitGUID((uint)entry.guid);
-                GUID = ObjectGUID.RawGUID;
+            Type = (byte)0x9;
+            Entry = (byte)template.entry;
+            //Data = -248512512;
 
-                Type = (byte)0x9;
-                Entry = (byte)template.entry;
-                //Data = -248512512;
+            X = entry.position_x;
+            Y = entry.position_y;
+            Z = entry.position_z;
+            R = entry.orientation;
 
-                X = entry.position_x;
-                Y = entry.position_y;
-                Z = entry.position_z;
-                R = entry.orientation;
+            SetUpdateField<int>((int)EUnitFields.UNIT_NPC_FLAGS, template.npcflag);
+            SetUpdateField<int>((int)EUnitFields.UNIT_DYNAMIC_FLAGS, template.dynamicflags);
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FLAGS, template.unit_flags);
 
-                SetUpdateField<int>((int)EUnitFields.UNIT_NPC_FLAGS, template.npcflag);
-                SetUpdateField<int>((int)EUnitFields.UNIT_DYNAMIC_FLAGS, template.dynamicflags);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FLAGS, template.unit_flags);
-
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, template.faction_A);
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, template.faction_A);
                 
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, entry.curhealth);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, template.maxhealth);
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, template.maxlevel);
-                DisplayID = (entry.modelid != 0) ? entry.modelid : TEntry.modelid;
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, entry.curhealth);
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, template.maxhealth);
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, template.maxlevel);
+            DisplayID = (entry.modelid != 0) ? entry.modelid : TEntry.modelid;
 
-                SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
-            }
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
+            
         }
 
 /*        public void PlayEmote(Emote emoteID)
