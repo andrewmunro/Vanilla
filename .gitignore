@@ -13,7 +13,6 @@
 *_p.c
 *.ncb
 *.suo
-*.sln
 *.tlb
 *.tlh
 *.bak
