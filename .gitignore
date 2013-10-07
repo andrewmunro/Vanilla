@@ -56,3 +56,5 @@ packages/
 #ncrunch
 *ncrunch*
 *crunch*.local.xml
+/src/*.suo
+/src/*.suo
