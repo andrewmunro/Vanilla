@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A97AC046-F332-4AAA-827B-A2286950839E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vanilla.World</RootNamespace>
+    <AssemblyName>Vanilla.World</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;USE_CSHARP_SQLITE=true</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;USE_CSHARP_SQLITE=true</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Vanilla.World.VanillaWorld</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Librarys\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\MySQL.Data.Entities.6.7.4.1\lib\net45\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite">
+      <HintPath>Librarys\SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Communication\Incoming\Character\PCCharCreate.cs" />
+    <Compile Include="Communication\Incoming\Character\PCCharDelete.cs" />
+    <Compile Include="Communication\Incoming\World\Auth\PCAuthSession.cs" />
+    <Compile Include="Communication\Chat\Channel\PCChannel.cs" />
+    <Compile Include="Communication\Chat\PCMessageChat.cs" />
+    <Compile Include="Communication\Incoming\World\GameObject\PCGameObjectQuery.cs" />
+    <Compile Include="Communication\Incoming\World\GameObject\PCGameObjectUse.cs" />
+    <Compile Include="Communication\Incoming\World\Mail\PCGetMailList.cs" />
+    <Compile Include="Communication\Incoming\World\Mail\PCSendMail.cs" />
+    <Compile Include="Communication\Incoming\World\Movement\PCMoveInfo.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCEmote.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCNameQuery.cs" />
+    <Compile Include="Communication\Incoming\World\PCPlayerLogin.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCAreaTrigger.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCPing.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCSetSelection.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
+    <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
+    <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSAccountDataTimes.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSAuthLoginProof.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSAuthResponse.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSBindPointUpdate.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSInitializeFactions.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSSetRestStart.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSTutorialFlags.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharCreate.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharDelete.cs" />
+    <Compile Include="Communication\Outgoing\Char\PSCharEnum.cs" />
+    <Compile Include="Communication\Outgoing\Logout\PSLogoutCancelAcknowledgement.cs" />
+    <Compile Include="Communication\Outgoing\Logout\PSLogoutComplete.cs" />
+    <Compile Include="Communication\Outgoing\Auth\PSRealmList.cs" />
+    <Compile Include="Communication\Outgoing\Players\ForceRunSpeedChange.cs" />
+    <Compile Include="Communication\Outgoing\Players\PSNewWorld.cs" />
+    <Compile Include="Communication\Outgoing\Players\PSTransferPending.cs" />
+    <Compile Include="Communication\Outgoing\Weather\Weather.cs" />
+    <Compile Include="Communication\Outgoing\World\ActionBarButton\PSActionButtons.cs" />
+    <Compile Include="Communication\Outgoing\World\Chat\PSMessageChat.cs" />
+    <Compile Include="Communication\Outgoing\World\Chat\PSChannelNotify.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSCreatureQueryResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
+    <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\Mail\PSMailListResult.cs" />
+    <Compile Include="Communication\Outgoing\World\Mail\PSSendMailResult.cs" />
+    <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />
+    <Compile Include="Communication\Outgoing\World\Movement\PSMoveKnockBack.cs" />
+    <Compile Include="Communication\Outgoing\World\Movement\PSMovement.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PCAccountDataTimes.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSEmote.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSPong.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSTextEmote.cs" />
+    <Compile Include="Communication\Outgoing\World\Player\PSLoginSetTimeSpeed.cs" />
+    <Compile Include="Communication\Outgoing\World\PSInitWorldStates.cs" />
+    <Compile Include="Communication\Outgoing\World\PSNameQueryResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\PSPlaySound.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSCastFailed.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSInitialSpells.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSLearnSpell.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSRemoveSpell.cs" />
+    <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
+    <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
+    <Compile Include="Communication\Outgoing\World\Update\UpdateBuilder.cs" />
+    <Compile Include="Game\Constants\Character\Class.cs" />
+    <Compile Include="Game\Constants\Character\Gender.cs" />
+    <Compile Include="Game\Constants\Character\Race.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelFlags.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelDBCFlags.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelMemberFlags.cs" />
+    <Compile Include="Game\Constants\Game\Chat\ChatMessageLanguage.cs" />
+    <Compile Include="Game\Constants\Game\Chat\ChatMessageType.cs" />
+    <Compile Include="Game\Constants\Game\Chat\Channel\ChatChannelNotify.cs" />
+    <Compile Include="Game\Constants\Game\GameUnits.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailAuctionAnswers.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailCheckMask.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailMessageType.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailResponseResult.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailResponseType.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailState.cs" />
+    <Compile Include="Game\Constants\Game\Mail\MailStationery.cs" />
+    <Compile Include="Game\Constants\Game\Update\EUpdateFields.cs" />
+    <Compile Include="Game\Constants\Game\Update\GameObjectTypes.cs" />
+    <Compile Include="Game\Constants\Game\Update\HighGUID.cs" />
+    <Compile Include="Game\Constants\Game\Update\MovementFlags.cs" />
+    <Compile Include="Game\Constants\Game\Update\ObjectFlags.cs" />
+    <Compile Include="Game\Constants\Game\Update\ObjectGUID.cs" />
+    <Compile Include="Game\Constants\Game\Update\ObjectUpdateType.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\Emote.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\ShapeShiftForm.cs" />
+    <Compile Include="Game\Constants\Game\Update\TypeID.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\UnitByte1Flags.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\UnitStandStateType.cs" />
+    <Compile Include="Game\Constants\Game\World\Entity\UnitState.cs" />
+    <Compile Include="Game\Constants\Game\World\Item\InventorySlotID.cs" />
+    <Compile Include="Game\Constants\Game\World\Spell\SpellConstants.cs" />
+    <Compile Include="Game\Constants\Game\World\Spell\SpellID.cs" />
+    <Compile Include="Game\Constants\Login\LoginErrorCode.cs" />
+    <Compile Include="Game\Constants\Login\RealmColor.cs" />
+    <Compile Include="Game\Constants\Login\RealmStatus.cs" />
+    <Compile Include="Game\Constants\Login\RealmTimeZone.cs" />
+    <Compile Include="Game\Constants\Login\RealmType.cs" />
+    <Compile Include="Game\Constants\Login\ResponseCodes.cs" />
+    <Compile Include="Game\Entitys\EntityBase.cs" />
+    <Compile Include="Game\Entitys\GOEntity.cs" />
+    <Compile Include="Game\Entitys\UnitEntity.cs" />
+    <Compile Include="Game\Handlers\LoginDataRouter.cs" />
+    <Compile Include="Game\Managers\AuthManager.cs" />
+    <Compile Include="Game\Managers\CharacterManager.cs" />
+    <Compile Include="Game\Managers\GameObjectManager.cs" />
+    <Compile Include="Game\Managers\PlayerManager.cs" />
+    <Compile Include="Game\Managers\MailManager.cs" />
+    <Compile Include="Game\Managers\ScriptManager.cs" />
+    <Compile Include="Game\Managers\UnitManager.cs" />
+    <Compile Include="Game\Managers\WorldManager.cs" />
+    <Compile Include="Game\Spells\Spell.cs" />
+    <Compile Include="Game\Spells\SpellCollection.cs" />
+    <Compile Include="Game\World.cs" />
+    <Compile Include="Network\WorldPacket.cs" />
+    <Compile Include="Tools\Chat\ChatCommandBase.cs" />
+    <Compile Include="Tools\Chat\ChatCommandNode.cs" />
+    <Compile Include="Tools\Chat\Commands\Debug.cs" />
+    <Compile Include="Tools\Chat\Commands\Emote.cs" />
+    <Compile Include="Tools\Chat\Commands\Modify.cs" />
+    <Compile Include="Tools\Chat\Commands\Teleport.cs" />
+    <Compile Include="Tools\Database\Helpers\DBMails.cs" />
+    <Compile Include="Tools\DBConverter.cs" />
+    <Compile Include="Tools\DBC\CachedDBC.cs" />
+    <Compile Include="Tools\DBC\Helper\ChrStartingOutfitDBC.cs" />
+    <Compile Include="Tools\DBC\Helper\ItemTemplaceDBC.cs" />
+    <Compile Include="Tools\DBC\Helper\SpellsDBC.cs" />
+    <Compile Include="Tools\DBC\Tables\ChrStartingOutfitEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\CreatureTemplateEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\EmotesEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
+    <Compile Include="Tools\Extensions\BinaryWriterExtension.cs" />
+    <Compile Include="Tools\ScriptCompiler.cs" />
+    <Compile Include="Tools\Shared\ObjectGUID.cs" />
+    <Compile Include="Game\Handlers\WorldDataRouter.cs" />
+    <Compile Include="Game\Handlers\ZoneHandler.cs" />
+    <Compile Include="Game\Managers\ChatChannelManager.cs" />
+    <Compile Include="Game\Managers\ChatManager.cs" />
+    <Compile Include="Game\Entitys\PlayerEntity.cs" />
+    <Compile Include="Game\Entitys\ObjectEntity.cs" />
+    <Compile Include="Game\Managers\EntityManager.cs" />
+    <Compile Include="Game\Managers\LogoutManager.cs" />
+    <Compile Include="Game\Managers\MiscManager.cs" />
+    <Compile Include="Game\Managers\MovementManager.cs" />
+    <Compile Include="Game\Managers\SpellManager.cs" />
+    <Compile Include="Game\Constants\Globals.cs" />
+    <Compile Include="Game\Constants\Login\AccountStatus.cs" />
+    <Compile Include="Game\Constants\PacketHeaderType.cs" />
+    <Compile Include="Network\ServerPacket.cs" />
+    <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
+    <Compile Include="Tools\Chat\ChatCommandParser.cs" />
+    <Compile Include="Tools\Chat\Commands\Spell.cs" />
+    <Compile Include="Tools\Cryptography\BigInteger.cs" />
+    <Compile Include="Tools\Cryptography\PacketCrypto.cs" />
+    <Compile Include="Tools\Cryptography\RC4.cs" />
+    <Compile Include="Tools\Cryptography\SRP6.cs" />
+    <Compile Include="Communication\Incoming\Auth\PCAuthLoginProof.cs" />
+    <Compile Include="Communication\Outgoing\World\WorldOpcodes.cs" />
+    <Compile Include="Communication\Incoming\Auth\PCAuthLoginChallenge.cs" />
+    <Compile Include="Network\Packet.cs" />
+    <Compile Include="Network\PacketReader.cs" />
+    <Compile Include="Network\PacketType.cs" />
+    <Compile Include="Network\PacketWriter.cs" />
+    <Compile Include="Tools\Cryptography\VanillaCrypt.cs" />
+    <Compile Include="Network\Server.cs" />
+    <Compile Include="VanillaWorld.cs" />
+    <Compile Include="WorldSession.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Database\Helpers\DBAccounts.cs" />
+    <Compile Include="Tools\Database\Helpers\DBActionBarButtons.cs" />
+    <Compile Include="Tools\Database\Helpers\DBAreaTriggers.cs" />
+    <Compile Include="Tools\Database\Helpers\DBChannels.cs" />
+    <Compile Include="Tools\Database\Helpers\DBCharacters.cs" />
+    <Compile Include="Tools\Database\Helpers\DBGameObject.cs" />
+    <Compile Include="Tools\Database\Helpers\DBSpells.cs" />
+    <Compile Include="Tools\DBC.cs" />
+    <Compile Include="Tools\DBC\DBC.cs" />
+    <Compile Include="Tools\DBC\Tables\AreaTableEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\AreaTriggerEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\ChrRacesEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\EmotesTextEntry.cs" />
+    <Compile Include="Tools\DBC\Tables\SpellEntry.cs" />
+    <Compile Include="Tools\Extensions\EnumExtensions.cs" />
+    <Compile Include="Tools\Helper.cs" />
+    <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\Update\UpdateMask.cs" />
+    <Compile Include="Tools\Update\UpdateReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
+      <Project>{16c131af-91aa-480a-a441-d37f3e9259ab}</Project>
+      <Name>Vanilla.World.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vanilla.Character.Database</RootNamespace>
+    <AssemblyName>Vanilla.Character.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\auction.cs" />
+    <Compile Include="Models\bugreport.cs" />
+    <Compile Include="Models\character.cs" />
+    <Compile Include="Models\CharacterDatabase.cs" />
+    <Compile Include="Models\character_action.cs" />
+    <Compile Include="Models\character_aura.cs" />
+    <Compile Include="Models\character_battleground_data.cs" />
+    <Compile Include="Models\character_gifts.cs" />
+    <Compile Include="Models\character_homebind.cs" />
+    <Compile Include="Models\character_honor_cp.cs" />
+    <Compile Include="Models\character_instance.cs" />
+    <Compile Include="Models\character_inventory.cs" />
+    <Compile Include="Models\character_pet.cs" />
+    <Compile Include="Models\character_queststatus.cs" />
+    <Compile Include="Models\character_reputation.cs" />
+    <Compile Include="Models\character_skills.cs" />
+    <Compile Include="Models\character_social.cs" />
+    <Compile Include="Models\character_spell.cs" />
+    <Compile Include="Models\character_spell_cooldown.cs" />
+    <Compile Include="Models\character_stats.cs" />
+    <Compile Include="Models\character_ticket.cs" />
+    <Compile Include="Models\character_tutorial.cs" />
+    <Compile Include="Models\corpse.cs" />
+    <Compile Include="Models\creature_respawn.cs" />
+    <Compile Include="Models\gameobject_respawn.cs" />
+    <Compile Include="Models\game_event_status.cs" />
+    <Compile Include="Models\group.cs" />
+    <Compile Include="Models\group_instance.cs" />
+    <Compile Include="Models\group_member.cs" />
+    <Compile Include="Models\guild.cs" />
+    <Compile Include="Models\guild_eventlog.cs" />
+    <Compile Include="Models\guild_member.cs" />
+    <Compile Include="Models\guild_rank.cs" />
+    <Compile Include="Models\instance.cs" />
+    <Compile Include="Models\instance_reset.cs" />
+    <Compile Include="Models\item_instance.cs" />
+    <Compile Include="Models\item_loot.cs" />
+    <Compile Include="Models\item_text.cs" />
+    <Compile Include="Models\mail.cs" />
+    <Compile Include="Models\mail_items.cs" />
+    <Compile Include="Models\Mapping\auctionMap.cs" />
+    <Compile Include="Models\Mapping\bugreportMap.cs" />
+    <Compile Include="Models\Mapping\characterMap.cs" />
+    <Compile Include="Models\Mapping\character_actionMap.cs" />
+    <Compile Include="Models\Mapping\character_auraMap.cs" />
+    <Compile Include="Models\Mapping\character_battleground_dataMap.cs" />
+    <Compile Include="Models\Mapping\character_giftsMap.cs" />
+    <Compile Include="Models\Mapping\character_homebindMap.cs" />
+    <Compile Include="Models\Mapping\character_honor_cpMap.cs" />
+    <Compile Include="Models\Mapping\character_instanceMap.cs" />
+    <Compile Include="Models\Mapping\character_inventoryMap.cs" />
+    <Compile Include="Models\Mapping\character_petMap.cs" />
+    <Compile Include="Models\Mapping\character_queststatusMap.cs" />
+    <Compile Include="Models\Mapping\character_reputationMap.cs" />
+    <Compile Include="Models\Mapping\character_skillsMap.cs" />
+    <Compile Include="Models\Mapping\character_socialMap.cs" />
+    <Compile Include="Models\Mapping\character_spellMap.cs" />
+    <Compile Include="Models\Mapping\character_spell_cooldownMap.cs" />
+    <Compile Include="Models\Mapping\character_statsMap.cs" />
+    <Compile Include="Models\Mapping\character_ticketMap.cs" />
+    <Compile Include="Models\Mapping\character_tutorialMap.cs" />
+    <Compile Include="Models\Mapping\corpseMap.cs" />
+    <Compile Include="Models\Mapping\creature_respawnMap.cs" />
+    <Compile Include="Models\Mapping\gameobject_respawnMap.cs" />
+    <Compile Include="Models\Mapping\game_event_statusMap.cs" />
+    <Compile Include="Models\Mapping\groupMap.cs" />
+    <Compile Include="Models\Mapping\group_instanceMap.cs" />
+    <Compile Include="Models\Mapping\group_memberMap.cs" />
+    <Compile Include="Models\Mapping\guildMap.cs" />
+    <Compile Include="Models\Mapping\guild_eventlogMap.cs" />
+    <Compile Include="Models\Mapping\guild_memberMap.cs" />
+    <Compile Include="Models\Mapping\guild_rankMap.cs" />
+    <Compile Include="Models\Mapping\instanceMap.cs" />
+    <Compile Include="Models\Mapping\instance_resetMap.cs" />
+    <Compile Include="Models\Mapping\item_instanceMap.cs" />
+    <Compile Include="Models\Mapping\item_lootMap.cs" />
+    <Compile Include="Models\Mapping\item_textMap.cs" />
+    <Compile Include="Models\Mapping\mailMap.cs" />
+    <Compile Include="Models\Mapping\mail_itemsMap.cs" />
+    <Compile Include="Models\Mapping\petitionMap.cs" />
+    <Compile Include="Models\Mapping\petition_signMap.cs" />
+    <Compile Include="Models\Mapping\pet_auraMap.cs" />
+    <Compile Include="Models\Mapping\pet_spellMap.cs" />
+    <Compile Include="Models\Mapping\pet_spell_cooldownMap.cs" />
+    <Compile Include="Models\Mapping\saved_variablesMap.cs" />
+    <Compile Include="Models\Mapping\worldMap.cs" />
+    <Compile Include="Models\petition.cs" />
+    <Compile Include="Models\petition_sign.cs" />
+    <Compile Include="Models\pet_aura.cs" />
+    <Compile Include="Models\pet_spell.cs" />
+    <Compile Include="Models\pet_spell_cooldown.cs" />
+    <Compile Include="Models\saved_variables.cs" />
+    <Compile Include="Models\world.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Context.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Entity.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Mapping.tt" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
