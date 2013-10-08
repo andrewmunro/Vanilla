@@ -2,42 +2,37 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Vanilla.Core.Logging;
 
 namespace Vanilla.Core.Network
 {
-    using Vanilla.Core.Logging;
-
     public class Server
     {
-        private Socket socketHandler;
-        private int socketPort;
-        private int maxConnections;
-        private int acceptedConnections;
+        public const int MAX_CONNECTION_QUEUE = 20;
 
-        private Dictionary<int, Session> activeConnections;
+        public Socket SocketHandler { get; protected set; }
+        public Dictionary<int, Session> ActiveConnections { get; protected set; }
 
-        public int Port { get { return socketPort; } }
-        public int AcceptedConnections { get { return acceptedConnections; } }
-        public int ConnectionCount { get { return activeConnections.Count; } }
-        public int MaxConnections { get { return maxConnections; } }
+        public int Port { get; private set; }
+        public int ConnectionsCount { get { return ActiveConnections.Count; } }
+        public int MaxConnections { get; protected set; }
 
-        public bool Start(int _portNumber, int _maxConnections)
+        public bool Start(int portNumber, int maxConnections)
         {
-            maxConnections = _maxConnections;
-            socketPort = _portNumber;
-            activeConnections = new Dictionary<int, Session>();
-            socketHandler = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            MaxConnections = maxConnections;
+            Port = portNumber;
 
-            Log.Print(LogType.Server, "Starting up game server...");
+            ActiveConnections = new Dictionary<int, Session>();
+
+            SocketHandler = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
-                socketHandler.Bind(new IPEndPoint(IPAddress.Any, socketPort));
-                socketHandler.Listen(25);
-                socketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), socketHandler);
+                SocketHandler.Bind(new IPEndPoint(IPAddress.Any, Port));
+                SocketHandler.Listen(MAX_CONNECTION_QUEUE);
+                SocketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), SocketHandler);
 
-                Log.Print(LogType.Server, "Server Port: " + socketPort);
-                Log.Print(LogType.Server, "Max connections: " + maxConnections);
+                Log.Print(LogType.Server, "Server listening on port " + Port);
 
                 return true;
             }
@@ -49,45 +44,44 @@ namespace Vanilla.Core.Network
             }
         }
 
-        private void ConnectionRequest(IAsyncResult _asyncResult)
+        private void ConnectionRequest(IAsyncResult asyncResult)
         {
-            Socket connectionSocket = ((Socket)_asyncResult.AsyncState).EndAccept(_asyncResult);
+            Socket connectionSocket = ((Socket)asyncResult.AsyncState).EndAccept(asyncResult);
 
-            if (activeConnections.Count == maxConnections)
+            if (ActiveConnections.Count == MaxConnections)
             {
                 Log.Print(LogType.Server, "User Disconnected - Server Full");
 
                 connectionSocket.Close();
-                socketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), socketHandler);
+                
+                SocketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), SocketHandler);
                 return;
             }
 
-            int connectionID = GetFreeID();
+            int connectionID = GenerateFreeID();
+            ActiveConnections.Add(connectionID, GenerateSession(connectionID, connectionSocket));
 
-            activeConnections.Add(connectionID, GenerateSession(connectionID, connectionSocket));
-            acceptedConnections++;
-
-            socketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), socketHandler);
+            SocketHandler.BeginAccept(new AsyncCallback(ConnectionRequest), SocketHandler);
         }
 
         public virtual Session GenerateSession(int connectionID, Socket connectionSocket)
         {
-            return null;
+            throw new Exception("Couldn't find free ID");
         }
 
-        private int GetFreeID()
+        private int GenerateFreeID()
         {
-            for (int i = 0; i < maxConnections; i++)
+            for (int i = 0; i < MaxConnections; i++)
             {
-                if (!activeConnections.ContainsKey(i)) return i;
+                if (!ActiveConnections.ContainsKey(i)) return i;
             }
 
-            return -1;
+            throw new Exception("Couldn't find free ID");
         }
 
         public void FreeConnectionID(int _connectionID)
         {
-            if (activeConnections.ContainsKey(_connectionID)) activeConnections.Remove(_connectionID);
+            if (ActiveConnections.ContainsKey(_connectionID)) ActiveConnections.Remove(_connectionID);
         }
 
     }

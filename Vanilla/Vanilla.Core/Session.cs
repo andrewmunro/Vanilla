@@ -17,13 +17,20 @@ namespace Vanilla.Core
         public string ConnectionRemoteIP { get { return ConnectionSocket.RemoteEndPoint.ToString(); } }
         public int ConnectionID { get { return pConnectionID; } }
 
-        protected Session(int connectionID, Socket connectionSocket)
+        public Session(int connectionID, Socket connectionSocket)
         {
             pConnectionID = connectionID;
             ConnectionSocket = connectionSocket;
             DataBuffer = new byte[BufferSize];
 
-            ConnectionSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, DataArrival, null);
+            try
+            {
+                ConnectionSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, DataArrival, null);
+            }
+            catch (SocketException)
+            {
+                Disconnect();
+            }
         }
 
         public void SendData(byte[] send)
