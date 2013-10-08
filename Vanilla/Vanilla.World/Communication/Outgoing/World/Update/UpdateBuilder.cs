@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using Vanilla.World.Game.Constants.Game.Update;
 using Vanilla.World.Game.Entitys;
-using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.World.Update
 {
+    using Vanilla.Core.Extensions;
+
     public abstract class UpdateBlock
     {
         public string Info { get; internal set; }

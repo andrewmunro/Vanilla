@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Vanilla.World.Tools.Extensions
+﻿namespace Vanilla.Core.Extensions
 {
-    static class EnumExtensions
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public static class EnumExtensions
     {
         public static bool HasFlag(this Enum target, Enum flag)
         {

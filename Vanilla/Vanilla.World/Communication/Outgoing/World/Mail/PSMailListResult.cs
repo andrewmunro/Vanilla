@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Vanilla.World.Game.Constants.Game.Mail;
 using Vanilla.World.Network;
 using Vanilla.World.Tools.Database.Helpers;
-using Vanilla.World.Tools.Extensions;
 using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Communication.Outgoing.World.Mail

@@ -1,33 +1,17 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PSCharEnum.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The ps char enum.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Vanilla.Login.Communication.Outgoing.Char
+﻿namespace Vanilla.Login.Communication.Outgoing.Char
 {
     using System.Collections.Generic;
     using System.IO;
 
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core;
     using Vanilla.Core.Constants;
     using Vanilla.Core.Network;
 
-    /// <summary>
-    /// The ps char enum.
-    /// </summary>
-    public class PSCharEnum : PacketWriter
+    public sealed class PSCharEnum : PacketWriter
     {
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PSCharEnum"/> class.
-        /// </summary>
-        /// <param name="characters">
-        /// The characters.
-        /// </param>
         public PSCharEnum(List<Character> characters)
             : base(PacketHeaderType.WorldSmsg)
         {
@@ -48,11 +32,11 @@ namespace Vanilla.Login.Communication.Outgoing.Char
                 Write((byte)character.Accessory);
                 Write((byte)character.Level);
 
-                Write(0); // Zone ID
-                Write(character.MapID);
-                Write(character.X);
-                Write(character.Y);
-                Write(character.Z);
+                Write(character.Zone); // Zone ID
+                Write(character.Map);
+                Write(character.PositionX);
+                Write(character.PositionY);
+                Write(character.PositionZ);
 
                 Write(0); // Guild ID
                 Write(0); // Character Flags
@@ -63,15 +47,15 @@ namespace Vanilla.Login.Communication.Outgoing.Char
                 Write(0); // Pet Level
                 Write(0); // Pet FamilyID
 
-                ItemTemplateEntry[] Equipment =
-                    DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+                ItemTemplateEntry[] equipment =
+                    DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.EquipmentCache));
 
                 for (int itemSlot = 0; itemSlot < 19; itemSlot++)
                 {
-                    if (Equipment[itemSlot] != null)
+                    if (equipment[itemSlot] != null)
                     {
-                        Write((int)Equipment[itemSlot].displayid); // Item DisplayID
-                        Write((byte)Equipment[itemSlot].InventoryType); // Item Inventory Type
+                        Write((int)equipment[itemSlot].displayid); // Item DisplayID
+                        Write((byte)equipment[itemSlot].InventoryType); // Item Inventory Type
                     }
                     else
                     {
@@ -89,14 +73,16 @@ namespace Vanilla.Login.Communication.Outgoing.Char
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets the packet.
-        /// </summary>
         public byte[] Packet
         {
             get
             {
-                return (BaseStream as MemoryStream).ToArray();
+                var memoryStream = this.BaseStream as MemoryStream;
+                if (memoryStream != null)
+                {
+                    return memoryStream.ToArray();
+                }
+                return null;
             }
         }
 

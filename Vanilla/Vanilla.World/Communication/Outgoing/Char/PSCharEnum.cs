@@ -7,6 +7,7 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Communication.Outgoing.Char
 {
+    using Vanilla.Core;
     using Vanilla.Core.Constants;
 
     public class PSCharEnum : PacketWriter

@@ -6,11 +6,11 @@ using Vanilla.World.Game.Constants.Game.Update;
 using Vanilla.World.Game.Entitys;
 using Vanilla.World.Network;
 using Vanilla.World.Tools;
-using Vanilla.World.Tools.Extensions;
 using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Communication.Outgoing.World.Update
 {
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Opcodes;
 
     public class PSUpdateObject : ServerPacket

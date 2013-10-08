@@ -1,33 +1,17 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PSAuthLoginChallange.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The ps auth login challange.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Vanilla.Login.Communication.Outgoing.Auth
+﻿namespace Vanilla.Login.Communication.Outgoing.Auth
 {
     using Vanilla.Core.Cryptography;
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Constants.Login;
 
-    /// <summary>
-    /// The ps auth login challange.
-    /// </summary>
-    internal class PSAuthLoginChallange : ServerPacket
+    internal sealed class PSAuthLoginChallange : ServerPacket
     {
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PSAuthLoginChallange"/> class.
-        /// </summary>
-        /// <param name="Srp6">
-        /// The srp 6.
-        /// </param>
         public PSAuthLoginChallange(SRP6 Srp6)
-            : base((LoginOpcodes)LoginOpcodes.AUTH_LOGIN_CHALLENGE)
+            : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
         {
             Write((byte)0);
             Write((byte)0);

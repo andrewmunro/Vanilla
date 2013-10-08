@@ -2,10 +2,11 @@
 using System.Collections;
 using System.IO;
 using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Game.Entitys
 {
+    using Vanilla.Core.Extensions;
+
     // Abstract DataLength & TypeID (Refactor due to GO containing 'TypeID')
     // Move all MaskSize, Mask, UpdateData, UpdateCount and Functions into own class
     public class EntityBase

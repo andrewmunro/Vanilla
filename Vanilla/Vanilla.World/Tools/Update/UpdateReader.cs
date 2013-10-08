@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Vanilla.World.Game.Constants.Game.Update;
 using Vanilla.World.Network;
-using Vanilla.World.Tools.Extensions;
 using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Tools.Update
 {
+    using Vanilla.Core;
+
     public class UpdateReader
     {
         public static void Boot()

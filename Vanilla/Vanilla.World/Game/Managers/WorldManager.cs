@@ -10,6 +10,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core;
+
     public class WorldManager
     {
         public WorldManager()
@@ -234,29 +236,29 @@ namespace Vanilla.World.Game.Managers
         {
             lock (player.UpdateBlocks)
             {
-				// We need to create a new UnitEntity to push all the UpdateData
+                // We need to create a new UnitEntity to push all the UpdateData
                 player.UpdateBlocks.Add(new CreateUnitBlock(entity));
             }
             base.SpawnEntityForPlayer(player, entity);
         }
 
-		public override void Update()
-		{
-			base.Update();
+        public override void Update()
+        {
+            base.Update();
 
 
-			foreach (UnitEntity entity in Entitys.ToArray().ToList())
-			{
-			    List<PlayerEntity> playersWhoKnowEntity = PlayersWhoKnow(entity);
+            foreach (UnitEntity entity in Entitys.ToArray().ToList())
+            {
+                List<PlayerEntity> playersWhoKnowEntity = PlayersWhoKnow(entity);
 
                 if (entity.UpdateCount > 0 && playersWhoKnowEntity.Count > 0)
-				{
-					// Generate update packet
-					ServerPacket packet = PSUpdateObject.UpdateValues(entity);
-					playersWhoKnowEntity.ForEach(e => e.Session.sendPacket(packet));
-				}
-			}
-		}
+                {
+                    // Generate update packet
+                    ServerPacket packet = PSUpdateObject.UpdateValues(entity);
+                    playersWhoKnowEntity.ForEach(e => e.Session.sendPacket(packet));
+                }
+            }
+        }
 
         public override List<UnitEntity> EntityListFromPlayer(PlayerEntity player)
         {

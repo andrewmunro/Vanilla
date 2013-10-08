@@ -12,20 +12,17 @@ namespace Vanilla.Core.Network
     public class PacketWriter : BinaryWriter
     {
         private readonly PacketHeaderType _headerType;
+        private PacketHeaderType header;
 
-        internal PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())
+        public PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())
         { }
 
-        internal PacketWriter(PacketHeaderType headerType, Stream output)
+        protected PacketWriter(PacketHeaderType headerType, Stream output)
             : base(output, Encoding.UTF8)
         {
             _headerType = headerType;
         }
 
-        /// <summary>
-        /// Gets the packet data of this <see cref="PacketWriter"/>.
-        /// </summary>
-        /// <value>The packet data.</value>
         public byte[] PacketData
         {
             get
@@ -34,18 +31,11 @@ namespace Vanilla.Core.Network
             }
         }
 
-        /// <summary>
-        /// Writes a null byte to the stream.
-        /// </summary>
         public void Write()
         {
             Write((byte)0x0);
         }
 
-        /// <summary>
-        /// Writes the specified number of null bytes.
-        /// </summary>
-        /// <param name="count">The count.</param>
         public void WriteNull(uint count)
         {
             for (uint i = 0; i < count; i++)
@@ -54,21 +44,12 @@ namespace Vanilla.Core.Network
             }
         }
 
-        /// <summary>
-        /// Writes a C-style string. (Ends with a null terminator)
-        /// </summary>
-        /// <param name="input">The input.</param>
         public void WriteCString(string input)
         {
             byte[] data = Encoding.UTF8.GetBytes(input + '\0');
             Write(data);
         }
 
-        /// <summary>
-        /// Writes the packet header.
-        /// </summary>
-        /// <param name="opcode">The opcode.</param>
-        /// <param name="length">The length.</param>
         public void WritePacketHeader(short opcode, ushort length)
         {
             long curPos = BaseStream.Position;
@@ -99,10 +80,6 @@ namespace Vanilla.Core.Network
             BaseStream.Seek(curPos, SeekOrigin.Begin);
         }
 
-        /// <summary>
-        /// Writes the packet header.
-        /// </summary>
-        /// <param name="opcode">The opcode.</param>
         public void WritePacketHeader(short opcode)
         {
             // Awesomely lazy!
@@ -110,9 +87,6 @@ namespace Vanilla.Core.Network
             WritePacketHeader(opcode, length);
         }
 
-        /// <summary>
-        /// Compresses this instance.
-        /// </summary>
         public void Compress()
         {
             var deflater = new Deflater();

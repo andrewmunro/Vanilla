@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Constants.Character
+﻿namespace Vanilla.Core.Constants.Character
 {
     public enum ClassID : int
     {
