@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Vanilla.World.Tools.Extensions
+﻿namespace Vanilla.Core.Extensions
 {
+    using System;
+    using System.Collections;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     public static class BinaryWriterExtension
     {
         public static int WritePackedUInt64(this BinaryWriter binWriter, ulong number)

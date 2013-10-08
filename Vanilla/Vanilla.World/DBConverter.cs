@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SQLite;
-using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Tools
 {
+    using Vanilla.Core.Config;
+    using Vanilla.Core.Logging;
+
     public class DBConverter
     {
-        public static string DBC_LOCATION = INI.GetValue(ConfigSections.DEV, ConfigValues.DBC_LOCATION);
+        public static string DBC_LOCATION = Config.GetValue(ConfigSections.DEV, ConfigValues.DBC_LOCATION);
 
         public static SQLiteConnection SQLite;
 
@@ -33,7 +35,7 @@ namespace Vanilla.World.Tools
 
         public static void GenerateTable<T>(Func<string[], T> Converter, string url, string database)
         {
-            SQLite = new SQLiteConnection(INI.GetValue(ConfigSections.DB, database));
+            SQLite = new SQLiteConnection(Config.GetValue(ConfigSections.DB, database));
             Log.Print(LogType.Debug, "Dropping table " + typeof(T).Name);
             SQLite.DropTable<T>();
 

@@ -1,31 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using Vanilla.World.Communication.Outgoing.Players;
-using Vanilla.World.Communication.Outgoing.World.Update;
-using Vanilla.World.Game.Constants.Character;
-using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Game.Constants.Game.World.Entity;
-using Vanilla.World.Game.Spells;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.Database.Helpers;
-using Vanilla.World.Tools.DBC;
-using Vanilla.World.Tools.DBC.Tables;
-using Vanilla.World.Tools.Shared;
-
-namespace Vanilla.World.Game.Entitys
+﻿namespace Vanilla.World.Game.Entitys
 {
+    using System;
+    using System.Collections.Generic;
+    using Vanilla.Core;
+    using Vanilla.Core.Constants.Character;
+    using Vanilla.World.Communication.Outgoing.Players;
+    using Vanilla.World.Communication.Outgoing.World.Update;
+    using Vanilla.World.Game.Constants.Game.Update;
+    using Vanilla.World.Game.Constants.Game.World.Entity;
+    using Vanilla.World.Game.Spells;
+    using Vanilla.World.Tools;
+    using Vanilla.World.Tools.Database.Helpers;
+    using Vanilla.World.Tools.DBC;
+    using Vanilla.World.Tools.DBC.Tables;
+    using Vanilla.World.Tools.Shared;
+
     // This should be extending UnitEntity?
     //
     public class PlayerEntity : UnitEntity
     {
         public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
+
         public List<UpdateBlock> UpdateBlocks { get; private set; }
 
         public List<PlayerEntity> KnownPlayers { get; private set; }
+
         public List<UnitEntity> KnownUnits { get; private set; }
+
         public List<GOEntity> KnownGameObjects { get; private set; }
 
         public Character Character;
+
         public UnitEntity Target;
 
         // public Equipment
@@ -35,19 +40,19 @@ namespace Vanilla.World.Game.Entitys
         public float lastUpdateX, lastUpdateY;
         public float X, Y, Z;
 
-		public override string Name
-		{
-			get
-			{
-				return Character.Name;
-			}
-		}
+        public override string Name
+        {
+            get
+            {
+                return Character.Name;
+            }
+        }
 
-		public int XP
-		{
-			get { return (int)UpdateData[(int)EUnitFields.PLAYER_XP]; }
-			set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
-		}
+        public int XP
+        {
+            get { return (int)UpdateData[(int)EUnitFields.PLAYER_XP]; }
+            set { SetUpdateField<int>((int)EUnitFields.PLAYER_XP, value); }
+        }
 
         public override int DataLength
         {

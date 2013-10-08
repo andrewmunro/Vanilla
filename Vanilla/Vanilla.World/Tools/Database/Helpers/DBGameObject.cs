@@ -4,6 +4,8 @@ using Vanilla.World.Game.Entitys;
 
 namespace Vanilla.World.Tools.Database.Helpers
 {
+    using Vanilla.Core;
+
     public class DBGameObject
     {
         private static List<GameObject> GameObjectCache;

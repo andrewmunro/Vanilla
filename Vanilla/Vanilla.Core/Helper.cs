@@ -1,14 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-
-namespace Vanilla.World.Tools
+﻿namespace Vanilla.Core
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+
     public class Helper
     {
         public static string ByteArrayToHex(byte[] data)
         {
-            string packetOutput = "";
+            string packetOutput = string.Empty;
 
             for (int i = 0; i < data.Length; i++)
             {
@@ -21,7 +21,7 @@ namespace Vanilla.World.Tools
         public static byte[] HexToByteArray(string hex)
         {
             // Cleanup string
-            hex = hex.Replace(" ", "").Replace("\n", "").Replace("\r", "");
+            hex = hex.Replace(" ", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty);
 
             return Enumerable.Range(0, hex.Length)
                              .Where(x => x % 2 == 0)
@@ -41,11 +41,11 @@ namespace Vanilla.World.Tools
 
         public static string byteArrayToHex(byte[] data, int legnth)
         {
-            string packetOutput = "";
+            string packetOutput = string.Empty;
             byte[] outputData = data;
             for (int i = 0; i < legnth; i++)
             {
-                string append = (i == legnth - 1) ? "" : "-";
+                string append = (i == legnth - 1) ? string.Empty : "-";
 
                 packetOutput += outputData[i].ToString("X2") + append;
             }

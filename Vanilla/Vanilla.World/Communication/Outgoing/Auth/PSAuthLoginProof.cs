@@ -2,7 +2,6 @@
 using Vanilla.World.Game.Constants.Login;
 using Vanilla.World.Network;
 using Vanilla.World.Tools.Cryptography;
-using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {

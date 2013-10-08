@@ -9,11 +9,11 @@ using Vanilla.World.Network;
 using Vanilla.World.Tools;
 using Vanilla.World.Tools.DBC;
 using Vanilla.World.Tools.DBC.Tables;
-using Vanilla.World.Tools.Extensions;
 using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Game.Entitys
 {
+    using Vanilla.Core;
     using Vanilla.Core.Opcodes;
 
     public class AIBrainManager

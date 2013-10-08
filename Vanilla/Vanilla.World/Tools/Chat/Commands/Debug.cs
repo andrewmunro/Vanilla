@@ -2,7 +2,6 @@
 using Vanilla.World.Communication.Outgoing.World;
 using Vanilla.World.Game.Entitys;
 using Vanilla.World.Network;
-using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Tools.Chat.Commands
 {

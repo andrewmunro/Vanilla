@@ -1,21 +1,13 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using Vanilla.World.Communication.Incoming.Auth;
-using Vanilla.World.Communication.Incoming.World;
-using Vanilla.World.Communication.Incoming.World.Auth;
-using Vanilla.World.Communication.Outgoing.Auth;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Communication.Outgoing.World.ActionBarButton;
-using Vanilla.World.Communication.Outgoing.World.Player;
-using Vanilla.World.Communication.Outgoing.World.Update;
-using Vanilla.World.Game.Handlers;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.Cryptography;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System.Security.Cryptography;
+    using System.Text;
+
+    using Vanilla.Core;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Login;
+    using Vanilla.Login.Communication.Incoming.Auth;
+    using Vanilla.Login.Communication.Outgoing.Auth;
 
     public class AuthManager
     {

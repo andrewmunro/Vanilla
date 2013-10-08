@@ -1,6 +1,5 @@
 ﻿using Vanilla.World.Communication.Outgoing.World;
 using Vanilla.World.Network;
-using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {

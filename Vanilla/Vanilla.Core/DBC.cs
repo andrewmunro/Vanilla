@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using Vanilla.World.Game.Constants.Character;
-
-namespace Vanilla.World.Tools
+﻿namespace Vanilla.Core
 {
+    using System.Collections.Generic;
+
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core.Constants.Character;
+
     public struct GenderModelEntry
     {
         public int Male;
@@ -10,8 +12,8 @@ namespace Vanilla.World.Tools
 
         public GenderModelEntry(int male, int female)
         {
-            Male = male;
-            Female = female;
+            this.Male = male;
+            this.Female = female;
         }
     }
 
@@ -29,9 +31,10 @@ namespace Vanilla.World.Tools
             { RaceID.Troll, new GenderModelEntry(1478, 1479) },
         };
 
+        //This shouldnt be here!!! Refactor later. Core should not need to reference database!
         public static int GetModel(Character character)
         {
-            return character.Gender == Gender.Male ? MODELS[character.Race].Male : MODELS[character.Race].Female;
+            return character.Gender == (byte)Gender.Male ? (byte)MODELS[(RaceID)character.Race].Male : (byte)MODELS[(RaceID)character.Race].Female;
         }
     }
 }

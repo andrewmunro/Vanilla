@@ -1,11 +1,8 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Vanilla.Character.Database.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
 
-        [Table("characters", Schema="characters")]
-
+    [Table("characters", Schema = "characters")]
     public class Character
     {
  
@@ -182,5 +179,20 @@ namespace Vanilla.Character.Database.Models
  
         [Column("deleteDate")] 
                 public decimal? DeleteDate { get; set; }
+
+        [Column("skin")] 
+        public byte Skin { get; set; }
+
+        [Column("face")] 
+        public byte Face { get; set; }
+
+        [Column("hair_style")] 
+        public byte HairStyle { get; set; }
+
+        [Column("hair_color")] 
+        public byte HairColor { get; set; }
+
+        [Column("accessory")] 
+        public byte Accessory { get; set; }
     }
 }

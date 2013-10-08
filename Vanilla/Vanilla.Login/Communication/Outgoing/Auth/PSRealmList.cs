@@ -1,44 +1,31 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PSRealmList.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The ps realm list.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Vanilla.Login.Communication.Outgoing.Auth
+﻿namespace Vanilla.Login.Communication.Outgoing.Auth
 {
-    using System;
-
+    using Vanilla.Core.Config;
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
+    using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Constants.Login;
 
-    /// <summary>
-    /// The ps realm list.
-    /// </summary>
-    internal class PSRealmList : ServerPacket
+    internal sealed class PSRealmList : ServerPacket
     {
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PSRealmList"/> class.
-        /// </summary>
         public PSRealmList()
-            : base((LoginOpcodes)LoginOpcodes.REALM_LIST)
+            : base(LoginOpcodes.REALM_LIST)
         {
             Write((uint)0x0000);
             Write((byte)1);
             Write((uint)RealmType.PVP);
             Write((byte)0);
-            this.WriteCString(INI.GetValue(ConfigSections.WORLD, ConfigValues.NAME));
+            this.WriteCString(Config.GetValue(ConfigSections.WORLD, ConfigValues.NAME));
             this.WriteCString(
-                INI.GetValue(ConfigSections.WORLD, ConfigValues.IP) + ":"
-                + INI.GetValue(ConfigSections.WORLD, ConfigValues.PORT));
-            Write((float)INI.GetValue<float>(ConfigSections.WORLD, ConfigValues.POPULATION)); // Pop
+                Config.GetValue(ConfigSections.WORLD, ConfigValues.IP) + ":"
+                + Config.GetValue(ConfigSections.WORLD, ConfigValues.PORT));
+            Write(Config.GetValue<float>(ConfigSections.WORLD, ConfigValues.POPULATION)); // Pop
             Write((byte)3); // Chars
             Write((byte)1); // time
             Write((byte)0); // time
-            Write((UInt16)0x0002);
+            Write((ushort)0x0002);
         }
 
         #endregion

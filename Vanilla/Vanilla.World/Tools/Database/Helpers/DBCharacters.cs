@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using SQLite;
-using Vanilla.World.Game.Constants.Character;
 
 namespace Vanilla.World.Tools.Database.Helpers
 {
+    using Vanilla.Core.Constants.Character;
+
     public class DBCharacters
     {
         public static TableQuery<Character> CharacterQuery
