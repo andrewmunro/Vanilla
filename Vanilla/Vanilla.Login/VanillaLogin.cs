@@ -5,26 +5,18 @@
 
     public class VanillaLogin
     {
-        #region Public Properties
+        public static int PORT              { get { return Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.PORT); } }
+        public static int MAX_CONNECTION    { get { return Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.MAX_CONNECTIONS); } }
 
         public static LoginServer Login { get; private set; }
-
         public static CharacterDatabase CharacterDatabase { get; private set; }
-
-        #endregion
-
-        #region Methods
 
         private static void Main(string[] args)
         {
-            Login = new LoginServer();
-            Login.Start(
-                Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.PORT), 
-                Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.MAX_CONNECTIONS));
-
             CharacterDatabase = new CharacterDatabase();
-        }
 
-        #endregion
+            Login = new LoginServer();
+            Login.Start(PORT, MAX_CONNECTION);
+        }
     }
 }
