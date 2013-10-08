@@ -10,7 +10,7 @@
 
     public delegate void ProcessLoginPacketCallbackTypes<T>(LoginSession Session, T handler);
 
-    public class LoginDataRouter
+    public class LoginRouter
     {
         #region Static Fields
 

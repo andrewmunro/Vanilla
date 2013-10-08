@@ -6,13 +6,9 @@
 
     public class LoginServer : Server
     {
-        #region Public Methods and Operators
-
         public override Session GenerateSession(int connectionID, Socket connectionSocket)
         {
             return new LoginSession(connectionID, connectionSocket);
         }
-
-        #endregion
     }
 }

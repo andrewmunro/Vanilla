@@ -1,4 +1,11 @@
-﻿namespace Vanilla.World.Game.Managers
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using Vanilla.Core.Cryptography;
+using Vanilla.Core.Logging;
+using Vanilla.Login.Database.Models;
+
+namespace Vanilla.World.Game.Managers
 {
     using System.Security.Cryptography;
     using System.Text;
@@ -9,21 +16,22 @@
     using Vanilla.Login.Communication.Incoming.Auth;
     using Vanilla.Login.Communication.Outgoing.Auth;
 
-    public class AuthManager
+    // Remove?
+    public class LoginHandler
     {
         public static void Boot()
         {
-            WorldDataRouter.AddHandler<PCAuthSession>(WorldOpcodes.CMSG_AUTH_SESSION, OnAuthSession);
-            WorldDataRouter.AddHandler<PCPlayerLogin>(WorldOpcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
-            LoginDataRouter.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
-            LoginDataRouter.AddHandler<PCAuthLoginProof>(LoginOpcodes.AUTH_LOGIN_PROOF, OnLoginProof);
-            LoginDataRouter.AddHandler(LoginOpcodes.REALM_LIST, onRealmList);
-            WorldDataRouter.AddHandler(WorldOpcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
+            //WorldDataRouter.AddHandler<PCAuthSession>(WorldOpcodes.CMSG_AUTH_SESSION, OnAuthSession);
+            //WorldDataRouter.AddHandler<PCPlayerLogin>(WorldOpcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
+            LoginRouter.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
+            LoginRouter.AddHandler<PCAuthLoginProof>(LoginOpcodes.AUTH_LOGIN_PROOF, OnLoginProof);
+            LoginRouter.AddHandler(LoginOpcodes.REALM_LIST, onRealmList);
+            //WorldDataRouter.AddHandler(WorldOpcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
         }
 
         private static void onRealmList(LoginSession session, byte[] packet)
         {
-            session.sendPacket(new PSRealmList());
+            session.SendData(new PSRealmList());
         }
 
         private static void OnLoginProof(LoginSession session, PCAuthLoginProof packet)
@@ -34,34 +42,41 @@
 
             byte[] sessionKey = session.Srp6.K;
 
-            DBAccounts.SetSessionKey(session.accountName, Helper.ByteArrayToHex(sessionKey));
-
-            session.sendData(new PSAuthLoginProof(session.Srp6));
+            //DBAccounts.SetSessionKey(session.accountName, Helper.ByteArrayToHex(sessionKey));
+            session.SendData(new PSAuthLoginProof(session.Srp6));
         }
 
         private static void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            session.accountName = packet.Name;
-            Account account = DBAccounts.GetAccount(packet.Name);
+            List<Account> hey = VanillaLogin.LoginDatabase.Accounts.ToList();
 
+            Account account = VanillaLogin.LoginDatabase.Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Name.ToUpper());
+
+            if (account == null)
+            {
+                Log.Print(LogType.Server, "Account missin");
+            }
+            
             if (account != null)
             {
+                session.AccountName = packet.Name;
+
                 byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
-                byte[] passBytes = Encoding.UTF8.GetBytes(account.Password.ToUpper());
+                byte[] passBytes = Encoding.UTF8.GetBytes(account.ShaPassHash.ToUpper());
 
                 session.Srp6 = new SRP6(false);
                 session.Srp6.CalculateX(userBytes, passBytes);
             }
 
-            session.sendData(new PSAuthLoginChallange(session.Srp6));
+            session.SendData(new PSAuthLoginChallange(session.Srp6));
         }
-
+        /*
         private static void onUpdateAccount(WorldSession session, byte[] data)
         {
             //Log.Print(LogType.Map, "Length: " + length + " Real Length: " + _dataBuffer.Length);
             //crypt.decrypt(new byte[(int)2 * 6]);
         }
-
+        
         private static void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
             session.Character = DBCharacters.Characters.Find(character => character.GUID == packet.GUID);
@@ -80,7 +95,7 @@
             session.Entity.Session = session;
             World.DispatchOnPlayerSpawn(session.Entity);
         }
-
+        
         private static void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
             session.Account = DBAccounts.GetAccount(packet.AccountName);
@@ -89,7 +104,7 @@
             Log.Print(LogType.Debug, "Started Encryption");
             session.sendPacket(new PSAuthResponse());
         }
-
+        */
         private static void CalculateAccountHash(LoginSession session)
         {
             SHA1 shaM1 = new SHA1CryptoServiceProvider();

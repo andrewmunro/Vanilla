@@ -8,7 +8,7 @@ namespace Vanilla.Login.Database.Models.Mapping
         public RealmCharacterMap()
         {
             // Primary Key
-            this.HasKey(t => new { realmid = t.RealmId, acctid = t.AccountID });
+            this.HasKey(t => new { t.RealmId, t.AccountID });
 
             // Properties
             this.Property(t => t.RealmId)

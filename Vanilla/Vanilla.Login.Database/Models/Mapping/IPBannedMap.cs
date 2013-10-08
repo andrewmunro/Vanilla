@@ -8,7 +8,7 @@ namespace Vanilla.Login.Database.Models.Mapping
         public IPBannedMap()
         {
             // Primary Key
-            this.HasKey(t => new { ip = t.Ip, bandate = t.Bandate });
+            this.HasKey(t => new { t.Ip, t.Bandate });
 
             // Properties
             this.Property(t => t.Ip)

@@ -13,37 +13,17 @@
 
     public class LoginSession : Session
     {
-        #region Fields
+        public byte[] SessionKey;
+        public SRP6 Srp6;
 
-        private byte[] SessionKey;
-
-        private SRP6 srp6;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        public LoginSession(int connectionID, Socket connectionSocket)
-            : base(connectionID, connectionSocket)
-        {
-        }
-
-        #endregion
-
-        #region Public Properties
-
+        public LoginSession(int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket) { }
         public string AccountName { get; set; }
-
-        #endregion
-
-        #region Public Methods and Operators
 
         public override void Disconnect(object obj = null)
         {
             base.Disconnect();
-            VanillaLogin.Login.FreeConnectionID(this.pConnectionID);
+            VanillaLogin.Server.FreeConnectionID(this.pConnectionID);
         }
-
 
         public void SendPacket(LoginOpcodes opcode, byte[] data)
         {
@@ -69,11 +49,6 @@
             this.SendData(((MemoryStream)writer.BaseStream).ToArray());
         }
 
-        #endregion
-
-        #region Methods
-
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         protected override void OnPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
@@ -84,9 +59,8 @@
 
             var code = (LoginOpcodes)opcode;
 
-            LoginDataRouter.CallHandler(this, code, data);
+            LoginRouter.CallHandler(this, code, data);
         }
 
-        #endregion
     }
 }

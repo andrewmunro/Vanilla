@@ -26,7 +26,7 @@ namespace Vanilla.Login.Database.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new AccountMap());
-            modelBuilder.Configurations.Add(new AccountBannedMap());
+            //modelBuilder.Configurations.Add(new AccountBannedMap());
             modelBuilder.Configurations.Add(new IPBannedMap());
             modelBuilder.Configurations.Add(new RealmCharacterMap());
             modelBuilder.Configurations.Add(new RealmListMap());

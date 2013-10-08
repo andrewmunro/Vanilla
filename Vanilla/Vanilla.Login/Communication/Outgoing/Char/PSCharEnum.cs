@@ -46,7 +46,7 @@
                 Write(0); // Pet DisplayID
                 Write(0); // Pet Level
                 Write(0); // Pet FamilyID
-
+                /*
                 ItemTemplateEntry[] equipment =
                     DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.EquipmentCache));
 
@@ -66,6 +66,7 @@
 
                 Write(0); // first bag display id
                 Write((byte)0); // first bag inventory type
+                 * */
             }
         }
 
