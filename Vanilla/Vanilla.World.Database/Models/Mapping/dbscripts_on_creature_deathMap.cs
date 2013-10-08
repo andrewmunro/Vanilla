@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace VanillaDB.Models.Mapping
+namespace Vanilla.World.Database.Models.Mapping
 {
     public class dbscripts_on_creature_deathMap : EntityTypeConfiguration<dbscripts_on_creature_death>
     {

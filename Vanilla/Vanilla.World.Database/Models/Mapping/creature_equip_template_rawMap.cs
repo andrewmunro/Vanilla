@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace VanillaDB.Models.Mapping
+namespace Vanilla.World.Database.Models.Mapping
 {
     public class creature_equip_template_rawMap : EntityTypeConfiguration<creature_equip_template_raw>
     {

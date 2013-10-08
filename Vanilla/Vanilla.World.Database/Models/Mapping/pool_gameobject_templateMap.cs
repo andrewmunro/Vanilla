@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace VanillaDB.Models.Mapping
+namespace Vanilla.World.Database.Models.Mapping
 {
     public class pool_gameobject_templateMap : EntityTypeConfiguration<pool_gameobject_template>
     {

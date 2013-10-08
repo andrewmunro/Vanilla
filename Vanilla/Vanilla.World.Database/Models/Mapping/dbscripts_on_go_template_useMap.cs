@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace VanillaDB.Models.Mapping
+namespace Vanilla.World.Database.Models.Mapping
 {
     public class dbscripts_on_go_template_useMap : EntityTypeConfiguration<dbscripts_on_go_template_use>
     {

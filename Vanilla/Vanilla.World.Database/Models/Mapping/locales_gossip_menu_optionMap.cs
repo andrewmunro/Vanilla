@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace VanillaDB.Models.Mapping
+namespace Vanilla.World.Database.Models.Mapping
 {
     public class locales_gossip_menu_optionMap : EntityTypeConfiguration<locales_gossip_menu_option>
     {

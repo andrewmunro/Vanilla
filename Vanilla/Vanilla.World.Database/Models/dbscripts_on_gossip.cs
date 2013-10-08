@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VanillaDB.Models
+namespace Vanilla.World.Database.Models
 {
 
 	    [Table("dbscripts_on_gossip", Schema="mangos")]

@@ -12,7 +12,7 @@ namespace Vanilla.Login.Database.Models
         }
 
         public LoginDatabase()
-            : base("Name=realmdContext")
+            : base("Name=LoginDatabase")
         {
         }
 

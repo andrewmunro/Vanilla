@@ -268,10 +268,6 @@
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
-      <Project>{16c131af-91aa-480a-a441-d37f3e9259ab}</Project>
-      <Name>Vanilla.World.Database</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

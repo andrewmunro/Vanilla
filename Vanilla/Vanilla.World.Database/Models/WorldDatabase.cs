@@ -1,18 +1,18 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using VanillaDB.Models.Mapping;
+using Vanilla.World.Database.Models.Mapping;
 
-namespace VanillaDB.Models
+namespace Vanilla.World.Database.Models
 {
-    public partial class WorldDatabase : DbContext
+    public class WorldDatabase : DbContext
     {
         static WorldDatabase()
         {
-            Database.SetInitializer<WorldDB>(null);
+            System.Data.Entity.Database.SetInitializer<WorldDatabase>(null);
         }
 
         public WorldDatabase()
-            : base("Name=mangosContext")
+            : base("Name=WorldDatabase")
         {
         }
 

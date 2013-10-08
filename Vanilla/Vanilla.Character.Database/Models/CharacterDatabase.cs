@@ -12,7 +12,7 @@ namespace Vanilla.Character.Database.Models
         }
 
         public CharacterDatabase()
-            : base("Name=charactersContext")
+            : base("Name=CharacterDatabase")
         {
         }
 
