@@ -5,6 +5,8 @@ using System.Net.Sockets;
 
 namespace Vanilla.Core.Network
 {
+    using Vanilla.Core.Logging;
+
     public class Server
     {
         private Socket socketHandler;

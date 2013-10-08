@@ -13,6 +13,8 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class MiscManager
     {
         public static void Boot()

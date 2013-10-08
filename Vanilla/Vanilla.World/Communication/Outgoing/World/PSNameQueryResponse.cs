@@ -3,6 +3,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSNameQueryResponse : ServerPacket
     {
         public PSNameQueryResponse(Character character) : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)

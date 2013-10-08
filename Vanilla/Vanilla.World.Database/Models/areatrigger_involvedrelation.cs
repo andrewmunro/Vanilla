@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.World.Database.Models
 {
 
-	    [Table("areatrigger_involvedrelation", Schema="mangos")]
+		[Table("areatrigger_involvedrelation", Schema="mangos")]
 
-    public partial class areatrigger_involvedrelation
-    {
+	public class AreatriggerInvolvedrelation
+	{
  
-        [Column("id")] 
-		        public int id { get; set; }
+		[Column("id")] 
+				public int ID { get; set; }
  
-        [Column("quest")] 
-		        public int quest { get; set; }
-    }
+		[Column("quest")] 
+				public int Quest { get; set; }
+	}
 }

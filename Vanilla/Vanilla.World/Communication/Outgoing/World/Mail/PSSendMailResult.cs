@@ -3,6 +3,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Mail
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSSendMailResult : ServerPacket
     {
         public PSSendMailResult(uint mailID, MailResponseType mailAction, MailResponseResult mailError, uint equipError = 0, uint itemGUID = 0, uint itemCount = 0)

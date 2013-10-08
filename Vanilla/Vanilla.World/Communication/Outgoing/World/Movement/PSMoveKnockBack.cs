@@ -5,6 +5,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Movement
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSMoveKnockBack : ServerPacket
     {
         public PSMoveKnockBack(PlayerEntity player, float vcos, float vsin, float horizontalSpeed, float verticalSpeed) : base(WorldOpcodes.SMSG_MOVE_KNOCK_BACK)

@@ -39,7 +39,7 @@ namespace Vanilla.Character.Database.Models
         public DbSet<Character> Characters { get; set; }
         public DbSet<corpse> Corpses { get; set; }
         public DbSet<creature_respawn> CreatureRespawn { get; set; }
-        public DbSet<game_event_status> GameEventStatus { get; set; }
+        public DbSet<GameEventStatus> GameEventStatus { get; set; }
         public DbSet<gameobject_respawn> GameobjectRespawn { get; set; }
         public DbSet<group_instance> GroupInstance { get; set; }
         public DbSet<group_member> GroupMember { get; set; }

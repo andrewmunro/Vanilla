@@ -4,6 +4,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    using Vanilla.Core.Opcodes;
+
     class PSInitialSpells : ServerPacket
     {
 

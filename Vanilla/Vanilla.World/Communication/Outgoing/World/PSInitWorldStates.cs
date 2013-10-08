@@ -3,6 +3,8 @@ using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.World
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSInitWorldStates : ServerPacket
     {
         //TODO Implement this, found at https://github.com/mangoszero/server/blob/master/src/game/Player.cpp#L7676

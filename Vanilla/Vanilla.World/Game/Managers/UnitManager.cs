@@ -7,6 +7,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class UnitManager
     {
         public static void Boot()

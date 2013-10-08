@@ -1,8 +1,8 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Game.Constants
+﻿namespace Vanilla.Core.Constants
 {
+    using Vanilla.Core.Network;
+    using Vanilla.Core.Opcodes;
+
     public enum PacketHeaderType : byte
     {
         AuthCmsg = 1,

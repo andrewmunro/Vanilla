@@ -100,6 +100,6 @@ namespace Vanilla.Core
             }
         }
 
-        internal abstract void OnPacket(byte[] data);
+        protected abstract void OnPacket(byte[] data);
     }
 }

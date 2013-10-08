@@ -6,6 +6,8 @@ using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Tools.Chat.Commands
 {
+    using Vanilla.Core.Opcodes;
+
     [ChatCommandNode("debug", "Debug Commands")]
     public class Debug
     {

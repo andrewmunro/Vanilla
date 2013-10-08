@@ -5,7 +5,9 @@ using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.World.Entity
 {
-	public class PSCreatureQueryResponse : ServerPacket
+    using Vanilla.Core.Opcodes;
+
+    public class PSCreatureQueryResponse : ServerPacket
 	{
 		public PSCreatureQueryResponse(uint entry, UnitEntity entity) : base(WorldOpcodes.SMSG_CREATURE_QUERY_RESPONSE)
 		{

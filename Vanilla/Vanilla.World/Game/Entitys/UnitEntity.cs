@@ -14,6 +14,8 @@ using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Game.Entitys
 {
+    using Vanilla.Core.Opcodes;
+
     public class AIBrainManager
     {
         public static List<AIBrain> AIBrains = new List<AIBrain>();

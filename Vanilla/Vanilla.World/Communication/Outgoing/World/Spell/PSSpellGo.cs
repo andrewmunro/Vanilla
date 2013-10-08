@@ -5,6 +5,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    using Vanilla.Core.Opcodes;
+
     enum SpellCastFlags
     {
         CAST_FLAG_NONE = 0x00000000,

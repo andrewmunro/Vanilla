@@ -2,6 +2,8 @@
 
 namespace Vanilla.Core.Network
 {
+    using Vanilla.Core.Opcodes;
+
     public enum PacketHandleType
     {
         None,

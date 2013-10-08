@@ -11,6 +11,8 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     class SpellManager
     {
         public Dictionary<Character, SpellCollection> SpellCollections = new Dictionary<Character, SpellCollection>();

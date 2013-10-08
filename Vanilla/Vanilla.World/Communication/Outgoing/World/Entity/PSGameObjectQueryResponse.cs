@@ -4,6 +4,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Entity
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSGameObjectQueryResponse : ServerPacket
     {
         public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate) : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)

@@ -7,9 +7,11 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Communication.Outgoing.Char
 {
-	public class PSCharEnum : PacketWriter
+    using Vanilla.Core.Constants;
+
+    public class PSCharEnum : PacketWriter
 	{
-		public PSCharEnum(List<Character> characters) : base(Game.Constants.PacketHeaderType.WorldSmsg)
+		public PSCharEnum(List<Character> characters) : base(PacketHeaderType.WorldSmsg)
 		{
 			Write((byte)characters.Count);
 

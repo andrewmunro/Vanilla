@@ -3,6 +3,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Opcodes;
+
     class PSSetRestStart : ServerPacket
     {
         //TODO Implement

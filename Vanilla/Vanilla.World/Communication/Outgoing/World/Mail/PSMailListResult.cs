@@ -8,6 +8,8 @@ using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Communication.Outgoing.World.Mail
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSMailListResult : ServerPacket
     {
         public PSMailListResult(List<CharacterMail> MailList) : base(WorldOpcodes.SMSG_MAIL_LIST_RESULT)

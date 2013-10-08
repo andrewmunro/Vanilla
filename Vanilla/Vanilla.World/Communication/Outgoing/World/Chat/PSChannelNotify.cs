@@ -5,6 +5,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Chat
 {
+    using Vanilla.Core.Opcodes;
+
     class PSChannelNotify : ServerPacket
     {
         public PSChannelNotify(ChatChannelNotify type, ulong GUID, String channelName) : base(WorldOpcodes.SMSG_CHANNEL_NOTIFY)

@@ -4,7 +4,9 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Chat
 {
-	public class PSMessageChat : ServerPacket
+    using Vanilla.Core.Opcodes;
+
+    public class PSMessageChat : ServerPacket
 	{
 		private string channel;
 		

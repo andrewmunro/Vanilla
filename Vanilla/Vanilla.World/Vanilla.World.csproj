@@ -173,7 +173,6 @@
     <Compile Include="Game\Entitys\EntityBase.cs" />
     <Compile Include="Game\Entitys\GOEntity.cs" />
     <Compile Include="Game\Entitys\UnitEntity.cs" />
-    <Compile Include="Game\Handlers\LoginDataRouter.cs" />
     <Compile Include="Game\Managers\AuthManager.cs" />
     <Compile Include="Game\Managers\CharacterManager.cs" />
     <Compile Include="Game\Managers\GameObjectManager.cs" />
@@ -215,9 +214,7 @@
     <Compile Include="Game\Managers\MiscManager.cs" />
     <Compile Include="Game\Managers\MovementManager.cs" />
     <Compile Include="Game\Managers\SpellManager.cs" />
-    <Compile Include="Game\Constants\Globals.cs" />
     <Compile Include="Game\Constants\Login\AccountStatus.cs" />
-    <Compile Include="Game\Constants\PacketHeaderType.cs" />
     <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
     <Compile Include="Tools\Chat\ChatCommandParser.cs" />
     <Compile Include="Tools\Chat\Commands\Spell.cs" />
@@ -226,7 +223,6 @@
     <Compile Include="Tools\Cryptography\RC4.cs" />
     <Compile Include="Tools\Cryptography\SRP6.cs" />
     <Compile Include="Communication\Incoming\Auth\PCAuthLoginProof.cs" />
-    <Compile Include="Communication\Outgoing\World\WorldOpcodes.cs" />
     <Compile Include="Communication\Incoming\Auth\PCAuthLoginChallenge.cs" />
     <Compile Include="Tools\Cryptography\VanillaCrypt.cs" />
     <Compile Include="VanillaWorld.cs" />

@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vanilla.Character.Database</RootNamespace>
     <AssemblyName>Vanilla.Character.Database</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -72,7 +73,7 @@
     <Compile Include="Models\corpse.cs" />
     <Compile Include="Models\creature_respawn.cs" />
     <Compile Include="Models\gameobject_respawn.cs" />
-    <Compile Include="Models\game_event_status.cs" />
+    <Compile Include="Models\GameEventStatus.cs" />
     <Compile Include="Models\group.cs" />
     <Compile Include="Models\group_instance.cs" />
     <Compile Include="Models\group_member.cs" />

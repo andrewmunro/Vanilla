@@ -11,7 +11,9 @@ using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Communication.Outgoing.World.Update
 {
-	public class PSUpdateObject : ServerPacket
+    using Vanilla.Core.Opcodes;
+
+    public class PSUpdateObject : ServerPacket
 	{
 		public PSUpdateObject(List<byte[]> blocks, int hasTansport = 0) : base(WorldOpcodes.SMSG_UPDATE_OBJECT)
 		{

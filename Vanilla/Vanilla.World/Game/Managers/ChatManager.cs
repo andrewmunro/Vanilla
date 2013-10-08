@@ -9,6 +9,8 @@ using Vanilla.World.Tools.Chat;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public delegate void ProcessChatCallback(WorldSession Session, PCMessageChat message);
 
     public delegate void ChatCommandDelegate(WorldSession Session, String[] args);

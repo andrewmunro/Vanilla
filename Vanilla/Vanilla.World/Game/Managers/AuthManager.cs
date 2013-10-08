@@ -15,6 +15,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class AuthManager
     {
         public static void Boot()

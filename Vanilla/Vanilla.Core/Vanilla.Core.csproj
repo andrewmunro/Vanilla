@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vanilla.Core</RootNamespace>
     <AssemblyName>Vanilla.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Vanilla.World\Librarys\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,12 +45,14 @@
   <ItemGroup>
     <Compile Include="Config\ConfigValues.cs" />
     <Compile Include="Config\Config.cs" />
+    <Compile Include="Constants\PacketHeaderType.cs" />
     <Compile Include="Cryptography\BigInteger.cs" />
     <Compile Include="Cryptography\PacketCrypto.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\SRP6.cs" />
     <Compile Include="Cryptography\VanillaCrypt.cs" />
     <Compile Include="Logging\Log.cs" />
+    <Compile Include="Opcodes\LoginOpcodes.cs" />
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\PacketReader.cs" />
     <Compile Include="Network\PacketType.cs" />
@@ -54,6 +60,7 @@
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerPacket.cs" />
     <Compile Include="Network\WorldPacket.cs" />
+    <Compile Include="Opcodes\WorldOpcodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
   </ItemGroup>

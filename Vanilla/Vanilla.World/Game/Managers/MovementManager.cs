@@ -10,6 +10,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class MovementManager
     {
         private static readonly List<WorldOpcodes> MOVEMENT_CODES = new List<WorldOpcodes>()

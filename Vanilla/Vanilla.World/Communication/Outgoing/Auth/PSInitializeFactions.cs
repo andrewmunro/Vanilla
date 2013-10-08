@@ -4,6 +4,8 @@ using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Opcodes;
+
     class PSInitializeFactions : ServerPacket
     {
         //TODO Pull factions from dbc and write using struct for each one

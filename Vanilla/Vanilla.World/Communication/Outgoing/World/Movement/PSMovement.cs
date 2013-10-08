@@ -6,6 +6,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Movement
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSMovement : ServerPacket
     {
         public PSMovement(WorldOpcodes worldOpcode, WorldSession session, PCMoveInfo moveinfo) : base(worldOpcode)

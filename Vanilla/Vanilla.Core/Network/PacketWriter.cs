@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Vanilla.Core.Network
 {
+    using ICSharpCode.SharpZipLib.Zip.Compression;
+
+    using Vanilla.Core.Constants;
+
     public class PacketWriter : BinaryWriter
     {
         private readonly PacketHeaderType _headerType;

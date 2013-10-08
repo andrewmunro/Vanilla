@@ -5,6 +5,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Movement
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSMoveHeartbeat : ServerPacket
     {
         public PSMoveHeartbeat(Character character) : base(WorldOpcodes.MSG_MOVE_HEARTBEAT)

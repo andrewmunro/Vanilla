@@ -5,6 +5,8 @@ using Vanilla.World.Tools;
 
 namespace Vanilla.World.Game.Handlers
 {
+    using Vanilla.Core.Opcodes;
+
     public delegate void ProcessWorldPacketCallback(WorldSession Session, byte[] data);
     public delegate void ProcessWorldPacketCallbackTypes<T>(WorldSession Session, T handler);
 

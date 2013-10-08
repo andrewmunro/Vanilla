@@ -4,6 +4,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
 {
+    using Vanilla.Core.Opcodes;
+
     class PSActionButtons : ServerPacket
     {
         public PSActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)

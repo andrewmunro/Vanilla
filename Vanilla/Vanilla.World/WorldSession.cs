@@ -15,6 +15,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World
 {
+    using Vanilla.Core.Opcodes;
+
     public class WorldSession : Session
     {
         public UInt32 seed;

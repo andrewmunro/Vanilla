@@ -6,6 +6,8 @@ using Vanilla.Core.Cryptography;
 
 namespace Vanilla.Core.Network
 {
+    using Vanilla.Core.Constants;
+
     public class PacketReader : BinaryReader
     {
         /// <summary>

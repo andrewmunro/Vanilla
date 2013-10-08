@@ -4,6 +4,8 @@ using Vanilla.World.Tools.Extensions;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Opcodes;
+
     class PSTutorialFlags : ServerPacket
     {
         //TODO Write the uint ids of 8 tutorial values

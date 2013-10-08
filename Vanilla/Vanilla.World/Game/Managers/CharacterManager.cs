@@ -11,6 +11,8 @@ using Vanilla.World.Tools.DBC;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class CharacterManager
     {
         public static void Boot()

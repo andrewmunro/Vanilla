@@ -4,6 +4,10 @@ using System.IO;
 
 namespace Vanilla.Core.Network
 {
+    using ICSharpCode.SharpZipLib.Zip.Compression;
+
+    using Vanilla.Core.Constants;
+
     public class Packet
     {
         /// <summary>

@@ -16,7 +16,7 @@ namespace Vanilla.World.Database.Models
         {
         }
 
-        public DbSet<areatrigger_involvedrelation> areatrigger_involvedrelation { get; set; }
+        public DbSet<AreatriggerInvolvedrelation> areatrigger_involvedrelation { get; set; }
         public DbSet<areatrigger_tavern> areatrigger_tavern { get; set; }
         public DbSet<areatrigger_teleport> areatrigger_teleport { get; set; }
         public DbSet<battleground_events> battleground_events { get; set; }

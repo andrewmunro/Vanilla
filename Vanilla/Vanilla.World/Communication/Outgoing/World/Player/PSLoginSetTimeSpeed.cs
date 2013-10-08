@@ -3,6 +3,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.World.Player
 {
+    using Vanilla.Core.Opcodes;
+
     public class PSLoginSetTimeSpeed : ServerPacket
     {
         public PSLoginSetTimeSpeed() : base(WorldOpcodes.SMSG_LOGIN_SETTIMESPEED)

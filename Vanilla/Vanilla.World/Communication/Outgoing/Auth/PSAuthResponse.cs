@@ -4,6 +4,8 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Opcodes;
+
     class PSAuthResponse : ServerPacket
     {
         public PSAuthResponse() : base((WorldOpcodes) WorldOpcodes.SMSG_AUTH_RESPONSE)

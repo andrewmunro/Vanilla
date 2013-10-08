@@ -2,6 +2,8 @@
 
 namespace Vanilla.Core.Network
 {
+    using Vanilla.Core.Opcodes;
+
     public class ServerPacket : BinaryWriter
     {
         public int Opcode;

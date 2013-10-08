@@ -11,6 +11,8 @@ using Vanilla.World.Tools;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Opcodes;
+
     public class LogoutManager
     {
         public const int LOGOUT_TIME = 1;
