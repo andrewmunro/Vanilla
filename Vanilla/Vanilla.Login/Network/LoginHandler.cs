@@ -46,8 +46,6 @@
 
         private static void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            List<Account> hey = VanillaLogin.LoginDatabase.Accounts.ToList();
-
             Account account = VanillaLogin.LoginDatabase.Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Name.ToUpper());
 
             if (account == null)
