@@ -26,7 +26,7 @@
 
         private static void OnRealmList(LoginSession session, byte[] packet)
         {
-            session.SendData(new PSRealmList());
+            session.SendPacket(new PSRealmList());
         }
 
         private static void OnLoginProof(LoginSession session, PCAuthLoginProof packet)
