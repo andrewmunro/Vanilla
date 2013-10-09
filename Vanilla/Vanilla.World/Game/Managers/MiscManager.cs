@@ -7,13 +7,13 @@ using Vanilla.World.Communication.Outgoing.World.Player;
 using Vanilla.World.Game.Constants.Game.World.Entity;
 using Vanilla.World.Game.Entitys;
 using Vanilla.World.Game.Handlers;
-using Vanilla.World.Tools.Database.Helpers;
 using Vanilla.World.Tools.DBC;
 using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Database.Models;
     using Vanilla.World.Network;
 
     public class MiscManager
@@ -83,7 +83,7 @@ namespace Vanilla.World.Game.Managers
 
         public static void OnAreaTriggerPacket(WorldSession session, PCAreaTrigger packet)
         {
-            AreaTriggerTeleport areaTrigger = DBAreaTriggers.AreaTriggerTeleport.Find(at => at.ID == packet.TriggerID);
+            areatrigger_teleport areaTrigger = DBAreaTriggers.AreaTriggerTeleport.Find(at => at.ID == packet.TriggerID);
 
             if (areaTrigger != null)
             {

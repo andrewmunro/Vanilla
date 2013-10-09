@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.Auth
 {
+    using Vanilla.Core.Network;
+
     public class PCAuthLoginProof : PacketReader
     {
         #region Constructors and Destructors

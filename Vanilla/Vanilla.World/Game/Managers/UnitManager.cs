@@ -7,6 +7,7 @@ using Vanilla.World.Network;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
     public class UnitManager
@@ -29,17 +30,17 @@ namespace Vanilla.World.Game.Managers
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)
         {
-			ulong GUID = handler.ReadUInt64();
+            ulong GUID = handler.ReadUInt64();
 
-			UnitEntity target = VanillaWorld.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
+            UnitEntity target = VanillaWorld.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
 
-			if (target != null)
+            if (target != null)
             {
-				session.sendMessage("Attacking:" + target.Name);
+                session.sendMessage("Attacking:" + target.Name);
 
                 ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_ATTACKSTART);
                 packet.Write(session.Entity.ObjectGUID.RawGUID);
-				packet.Write(target.ObjectGUID.RawGUID);
+                packet.Write(target.ObjectGUID.RawGUID);
 
                 session.SendPacket(packet);
             }

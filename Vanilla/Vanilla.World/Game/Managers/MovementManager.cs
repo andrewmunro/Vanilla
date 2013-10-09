@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Vanilla.World.Communication.Incoming.World.Movement;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Communication.Outgoing.World.Movement;
-using Vanilla.World.Communication.Outgoing.World.Update;
-using Vanilla.World.Game.Entitys;
-using Vanilla.World.Game.Handlers;
-using Vanilla.World.Network;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System.Collections.Generic;
+
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Incoming.World.Movement;
+    using Vanilla.World.Communication.Outgoing.World.Movement;
+    using Vanilla.World.Communication.Outgoing.World.Update;
+    using Vanilla.World.Game.Entitys;
+    using Vanilla.World.Game.Handlers;
+    using Vanilla.World.Network;
 
     public class MovementManager
     {
@@ -65,12 +64,12 @@ namespace Vanilla.World.Game.Managers
 
         private static void SavePosition(WorldSession session, PCMoveInfo handler)
         {
-            session.Character.X = handler.X;
-            session.Character.Y = handler.Y;
-            session.Character.Z = handler.Z;
-            session.Character.Rotation = handler.R;
+            session.Character.PositionX = handler.X;
+            session.Character.PositionY = handler.Y;
+            session.Character.PositionZ = handler.Z;
+            session.Character.Orientation = handler.R;
 
-            DBCharacters.UpdateCharacter(session.Character);
+            VanillaWorld.CharacterDatabase.SaveChanges();
         }
 
         private static void UpdateEntity(WorldSession session, PCMoveInfo handler)
@@ -82,7 +81,7 @@ namespace Vanilla.World.Game.Managers
 
         private static ProcessWorldPacketCallbackTypes<PCMoveInfo> GenerateResponse(WorldOpcodes worldOpcode)
         {
-            return delegate(WorldSession session, PCMoveInfo handler) { TransmitMovement(session, handler, worldOpcode); };
+            return (session, handler) => TransmitMovement(session, handler, worldOpcode);
         }
 
         private static void TransmitMovement(WorldSession session, PCMoveInfo handler, WorldOpcodes code)

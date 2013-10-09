@@ -148,7 +148,6 @@
     <Compile Include="Game\Constants\Mail\MailState.cs" />
     <Compile Include="Game\Constants\Mail\MailStationery.cs" />
     <Compile Include="Game\Constants\Update\EUpdateFields.cs" />
-    <Compile Include="Game\Constants\Update\GameObjectTypes.cs" />
     <Compile Include="Game\Constants\Update\HighGUID.cs" />
     <Compile Include="Game\Constants\Update\MovementFlags.cs" />
     <Compile Include="Game\Constants\Update\ObjectFlags.cs" />

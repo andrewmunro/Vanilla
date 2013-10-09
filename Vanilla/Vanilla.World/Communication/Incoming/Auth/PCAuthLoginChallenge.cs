@@ -5,6 +5,8 @@
     using System;
     using System.Net;
 
+    using Vanilla.Core.Network;
+
     #endregion
 
     public class PCAuthLoginChallenge : PacketReader

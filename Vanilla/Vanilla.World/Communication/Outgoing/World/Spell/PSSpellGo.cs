@@ -4,6 +4,7 @@
 
     using System;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Communication.Outgoing.World.Update;
     using Vanilla.World.Game.Entitys;
@@ -33,7 +34,7 @@
         CAST_FLAG_UNKNOWN9 = 0x00000100, 
     };
 
-    public class PSSpellGo : ServerPacket
+    public sealed class PSSpellGo : ServerPacket
     {
         #region Constructors and Destructors
 
@@ -46,11 +47,11 @@
             PSUpdateObject.WriteBytes(this, casterGUID);
             PSUpdateObject.WriteBytes(this, casterGUID);
             Write(spellID);
-            Write((UInt16)SpellCastFlags.CAST_FLAG_UNKNOWN9); // Cast Flags!?
-            Write((Byte)1); // Target Length
+            Write((ushort)SpellCastFlags.CAST_FLAG_UNKNOWN9); // Cast Flags!?
+            Write((byte)1); // Target Length
             Write(target.ObjectGUID.RawGUID);
-            Write((Byte)0); // End
-            Write((UInt16)2); // TARGET_FLAG_UNIT
+            Write((byte)0); // End
+            Write((ushort)2); // TARGET_FLAG_UNIT
             PSUpdateObject.WriteBytes(this, targetGUID); // Packed GUID
         }
 

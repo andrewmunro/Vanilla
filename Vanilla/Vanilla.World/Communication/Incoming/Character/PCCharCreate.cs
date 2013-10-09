@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.Character
 {
+    using Vanilla.Core.Network;
+
     public class PCCharCreate : PacketReader
     {
         #region Constructors and Destructors

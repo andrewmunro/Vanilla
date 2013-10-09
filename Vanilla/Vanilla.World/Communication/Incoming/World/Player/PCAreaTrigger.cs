@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.World.Player
 {
+    using Vanilla.Core.Network;
+
     public class PCAreaTrigger : PacketReader
     {
         #region Constructors and Destructors

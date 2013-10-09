@@ -5,6 +5,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Game.Constants.Game.Mail;
@@ -12,11 +14,11 @@
 
     #endregion
 
-    public class PSMailListResult : ServerPacket
+    public sealed class PSMailListResult : ServerPacket
     {
         #region Constructors and Destructors
 
-        public PSMailListResult(List<CharacterMail> MailList)
+        public PSMailListResult(List<mail> MailList)
             : base(WorldOpcodes.SMSG_MAIL_LIST_RESULT)
         {
             if (MailList.Count > 254)
@@ -26,35 +28,35 @@
 
             for (int i = 0; i < MailList.Count; i++)
             {
-                CharacterMail Mail = MailList[i];
+                mail Mail = MailList[i];
 
-                if (Mail.Expire_Time < Environment.TickCount)
+                if (Mail.expire_time < Environment.TickCount)
                 {
-                    DBMails.RemoveMail(Mail);
+                    VanillaWorld.CharacterDatabase.Mails.Remove(Mail);
                     continue;
                 }
 
-                Write((uint)Mail.MailTemplateID);
-                Write((byte)Mail.MessageType);
+                Write((uint)Mail.messageType);
+                Write(Mail.messageType);
 
-                switch (Mail.MessageType)
+                switch ((MailMessageType)Mail.messageType)
                 {
                     case MailMessageType.MAIL_NORMAL: // sender guid
-                        Write((int)new ObjectGUID((ulong)Mail.Sender).HighGUID);
+                        Write((int)new ObjectGUID((ulong)Mail.sender).HighGUID);
                         break;
                     case MailMessageType.MAIL_CREATURE:
                     case MailMessageType.MAIL_GAMEOBJECT:
                     case MailMessageType.MAIL_AUCTION:
-                        Write((uint)Mail.Sender); // creature/gameobject entry, auction id
+                        Write((uint)Mail.sender); // creature/gameobject entry, auction id
                         break;
                     case MailMessageType.MAIL_ITEM: // item entry (?) sender = "Unknown", NYI
                         break;
                 }
 
-                this.WriteCString(Mail.Subject);
-                Write((uint)Mail.ItemTextID);
+                this.WriteCString(Mail.subject);
+                Write((uint)Mail.itemTextId);
                 Write((uint)0);
-                Write((uint)Mail.Stationery);
+                Write((uint)Mail.stationery);
 
                 // TODO Send Item in messages
                 /*                Item* item = (*itr)->items.size() > 0 ? _player->GetMItem((*itr)->items[0].item_guid) : NULL;
@@ -80,12 +82,13 @@
                 Write((byte)0);
                 this.WriteNullUInt(3);
 
-                Write((uint)Mail.Money);
-                Write((uint)Mail.COD);
-                Write((uint)Mail.Checked);
-                Write((float)(Mail.Expire_Time - Environment.TickCount) / 86400000);
-                Write((uint)Mail.MailTemplateID);
+                Write((uint)Mail.money);
+                Write((uint)Mail.cod);
+                Write((uint)Mail.@checked);
+                Write((float)(Mail.expire_time - Environment.TickCount) / 86400000);
+                Write((uint)Mail.mailTemplateId);
             }
+            VanillaWorld.CharacterDatabase.SaveChanges();
         }
 
         #endregion

@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.World.Spell
 {
+    using Vanilla.Core.Network;
+
     internal class PCCastSpell : PacketReader
     {
         #region Constructors and Destructors

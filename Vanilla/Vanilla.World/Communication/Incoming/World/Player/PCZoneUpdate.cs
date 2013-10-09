@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.World.Player
 {
+    using Vanilla.Core.Network;
+
     public class PCZoneUpdate : PacketReader
     {
         #region Constructors and Destructors

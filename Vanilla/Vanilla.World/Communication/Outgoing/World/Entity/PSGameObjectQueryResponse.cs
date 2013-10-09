@@ -5,22 +5,24 @@
     using System;
     using System.Text;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Database.Models;
 
     #endregion
 
-    public class PSGameObjectQueryResponse : ServerPacket
+    public sealed class PSGameObjectQueryResponse : ServerPacket
     {
         #region Constructors and Destructors
 
         public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate)
             : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
         {
-            Write((UInt32)gameObjectTemplate.Entry);
-            Write((UInt32)gameObjectTemplate.Type);
-            Write((UInt32)gameObjectTemplate.DisplayID);
+            Write((uint)gameObjectTemplate.Entry);
+            Write((uint)gameObjectTemplate.Type);
+            Write((uint)gameObjectTemplate.DisplayId);
             Write(Encoding.UTF8.GetBytes(gameObjectTemplate.Name));
-            Write((UInt16)0);
+            Write((ushort)0);
             Write((byte)0);
             Write((byte)0);
 

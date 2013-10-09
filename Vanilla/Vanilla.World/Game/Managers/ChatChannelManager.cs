@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using Vanilla.World.Communication.Chat;
-using Vanilla.World.Communication.Chat.Channel;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Communication.Outgoing.World.Chat;
-using Vanilla.World.Game.Constants.Game.Chat;
-using Vanilla.World.Game.Constants.Game.Chat.Channel;
-using Vanilla.World.Game.Handlers;
-using Vanilla.World.Network;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System;
+    using System.Collections.Generic;
+
     using Vanilla.Core;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Chat;
+    using Vanilla.World.Communication.Chat.Channel;
+    using Vanilla.World.Communication.Outgoing.World.Chat;
+    using Vanilla.World.Game.Constants.Game.Chat;
+    using Vanilla.World.Game.Constants.Game.Chat.Channel;
+    using Vanilla.World.Game.Handlers;
+    using Vanilla.World.Network;
 
     public class ChatChannelManager
     {
+        //TODO Fix channel db
         public static void Boot()
         {
             WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
@@ -33,19 +32,19 @@ namespace Vanilla.World.Game.Managers
 
         private static void OnLeaveChannel(WorldSession session, PCChannel packet)
         {
-            DBChannels.LeaveChannel(session.Character.GUID, packet.ChannelName);
+            //DBChannels.LeaveChannel(session.Character.GUID, packet.ChannelName);
         }
 
         private static void OnJoinChannel(WorldSession session, PCChannel packet)
         {
-            DBChannels.JoinChannel(session.Character.GUID, packet.ChannelName);
+            //DBChannels.JoinChannel(session.Character.GUID, packet.ChannelName);
             session.SendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.GUID, packet.ChannelName));
         }
 
         //When channel gets a message!
         private static void OnChannelMessage(WorldSession session, PCMessageChat packet)
         {
-            List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
+            //List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
             //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
 
             ServerPacket outPacket = new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName);

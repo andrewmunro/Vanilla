@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.World.Mail
 {
+    using Vanilla.Core.Network;
+
     public class PCGetMailList : PacketReader
     {
         #region Constructors and Destructors

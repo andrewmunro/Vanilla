@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Communication.Incoming.World.GameObject
 {
+    using Vanilla.Core.Network;
+
     public class PCGameObjectQuery : PacketReader
     {
         #region Constructors and Destructors

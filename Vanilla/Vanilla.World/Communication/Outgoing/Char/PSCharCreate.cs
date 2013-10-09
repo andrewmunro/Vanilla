@@ -2,6 +2,8 @@
 {
     #region
 
+    using Vanilla.Core.Constants;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
     #endregion
@@ -11,7 +13,7 @@
         #region Constructors and Destructors
 
         public PSCharCreate(LoginErrorCode code)
-            : base((WorldOpcodes)WorldOpcodes.SMSG_CHAR_CREATE)
+            : base(WorldOpcodes.SMSG_CHAR_CREATE)
         {
             Write((byte)code);
         }

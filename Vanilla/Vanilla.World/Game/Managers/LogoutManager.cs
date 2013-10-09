@@ -11,6 +11,7 @@ using Vanilla.World.Tools;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
     public class LogoutManager

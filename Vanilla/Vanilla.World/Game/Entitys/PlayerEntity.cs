@@ -195,9 +195,12 @@
 
         public WorldSession Session { get; set; }
 
-        public void TeleportTo(int mapID, float x, float y, float z, float r = 0)
+        public void TeleportTo(long mapID, float x, float y, float z, float r = 0)
         {
-            if(Character.Map != mapID) Session.SendPacket(new PSTransferPending(mapID));
+            if (Character.Map != mapID)
+            {
+                Session.SendPacket(new PSTransferPending((int)mapID));
+            }
 
             Character.Map = mapID;
             Character.PositionX = x;
@@ -206,7 +209,7 @@
             Character.Orientation = r;
             VanillaWorld.CharacterDatabase.SaveChanges();
 
-            Session.SendPacket(new PSNewWorld(mapID, x, y, z, r));
+            Session.SendPacket(new PSNewWorld((int)mapID, x, y, z, r));
         }
     }
 }

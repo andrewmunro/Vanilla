@@ -4,6 +4,7 @@
 
     using System.Text;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
     #endregion

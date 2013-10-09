@@ -5,7 +5,6 @@
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Login.Constants.Login;
 
     internal sealed class PSAuthLoginChallange : ServerPacket
     {

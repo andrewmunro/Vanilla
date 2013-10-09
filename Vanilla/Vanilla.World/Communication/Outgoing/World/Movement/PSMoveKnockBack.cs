@@ -4,6 +4,7 @@
 
     using System;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Communication.Outgoing.World.Update;
     using Vanilla.World.Game.Entitys;
@@ -19,7 +20,7 @@
         {
             byte[] packedGUID = PSUpdateObject.GenerateGuidBytes(player.ObjectGUID.RawGUID);
             PSUpdateObject.WriteBytes(this, packedGUID);
-            Write((UInt32)0); // Sequence
+            Write((uint)0); // Sequence
             Write(vcos);
             Write(vsin);
             Write(horizontalSpeed);

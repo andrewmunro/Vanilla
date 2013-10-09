@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Vanilla.World.Communication.Outgoing.Players;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Tools.Chat.Commands
+﻿namespace Vanilla.World.Tools.Chat.Commands
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Vanilla.World.Communication.Outgoing.Players;
     using Vanilla.World.Network;
 
     public class TeleportEntry
@@ -46,12 +45,13 @@ namespace Vanilla.World.Tools.Chat.Commands
 
             DistanceTeleportEntry location = FetchList(locationName).First();
 
-            session.Character.MapID = location.Entry.MapID;
-            session.Character.X = location.Entry.X;
-            session.Character.Y = location.Entry.Y;
-            session.Character.Z = location.Entry.Z;
-            session.Character.Rotation = 0;
-            DBCharacters.UpdateCharacter(session.Character);
+            session.Character.Map = location.Entry.MapID;
+            session.Character.PositionX = location.Entry.X;
+            session.Character.PositionY = location.Entry.Y;
+            session.Character.PositionZ = location.Entry.Z;
+            session.Character.Orientation = 0;
+
+            VanillaWorld.CharacterDatabase.SaveChanges();
 
             session.SendPacket(new PSTransferPending(location.Entry.MapID));
             session.SendPacket(new PSNewWorld(location.Entry.MapID, location.Entry.X, location.Entry.Y, location.Entry.Z, 0));

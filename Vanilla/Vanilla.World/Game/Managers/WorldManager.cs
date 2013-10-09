@@ -4,13 +4,11 @@ using System.Linq;
 using System.Threading;
 using Vanilla.World.Communication.Outgoing.World.Update;
 using Vanilla.World.Game.Entitys;
-using Vanilla.World.Network;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core;
+    using Vanilla.World.Database.Models;
 
     public class WorldManager
     {
@@ -53,7 +51,7 @@ namespace Vanilla.World.Game.Managers
                         }
                     }
 
-                    player.Session.sendPacket(new PSUpdateObject(UpdateBlocks));
+                    player.Session.SendPacket(new PSUpdateObject(UpdateBlocks));
 
                     player.OutOfRangeEntitys.Clear();
                     player.UpdateBlocks.Clear();
@@ -175,17 +173,22 @@ namespace Vanilla.World.Game.Managers
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {
-            List<GameObject> gameObjects = DBGameObject.GetGameObjects(player, 100);
+            List<GameObject> gameObjects = GetNearbyGameObjects(player, 100);
 
             gameObjects.ForEach(closeGO =>
             {
-                GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)closeGO.ID);
+                GameObjectTemplate template = VanillaWorld.WorldDatabase.GameobjectTemplates.Single(got => got.Entry == closeGO.ID);
                 
                 if (template != null)
                 {
                     AddEntityToWorld(new GOEntity(closeGO, template));
                 }
             });
+        }
+
+        private static List<GameObject> GetNearbyGameObjects(PlayerEntity entity, float Radius)
+        {
+            return VanillaWorld.WorldDatabase.GameObjects.Where(go => go.Map == entity.Character.Map && Utils.Distance(entity.Character.PositionX, entity.Character.PositionY, go.PositionX, go.PositionY) < Radius).ToList();
         }
 
         public override void SpawnEntityForPlayer(PlayerEntity player, GOEntity entity)
@@ -205,7 +208,7 @@ namespace Vanilla.World.Game.Managers
 
         public override bool InRange(PlayerEntity player, GOEntity entity, float range)
         {
-            double distance = GetDistance(player.X, player.Y, entity.GameObject.X, entity.GameObject.Y);
+            double distance = GetDistance(player.X, player.Y, entity.GameObject.PositionX, entity.GameObject.PositionY);
 
             return distance < range;
         }
@@ -223,13 +226,14 @@ namespace Vanilla.World.Game.Managers
     {
         public override void GenerateEntitysForPlayer(PlayerEntity player)
         {
-            List<CreatureEntry> allUnits = DB.World.Table<CreatureEntry>().ToList();
+            //TODO Fix for new DB format.
+/*            List<CreatureEntry> allUnits = DB.World.Table<CreatureEntry>().ToList();
 
             List<CreatureEntry> unitsClose = allUnits
                 .FindAll(m => m.map == player.Character.MapID)
                 .FindAll(m => Utils.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);   
 
-            unitsClose.ForEach(closeUnit => AddEntityToWorld(new UnitEntity(closeUnit)));
+            unitsClose.ForEach(closeUnit => AddEntityToWorld(new UnitEntity(closeUnit)));*/
         }
 
         public override void SpawnEntityForPlayer(PlayerEntity player, UnitEntity entity)

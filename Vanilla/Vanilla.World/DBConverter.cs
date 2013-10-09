@@ -85,7 +85,7 @@ namespace Vanilla.World.Tools
             };
         }
 
-        private static CreatureEntry CSVToCreatureEntry(string[] data)
+/*        private static CreatureEntry CSVToCreatureEntry(string[] data)
         {
             return new CreatureEntry()
                 {
@@ -106,7 +106,7 @@ namespace Vanilla.World.Tools
                     DeathState = int.Parse(data[14]),
                     MovementType = int.Parse(data[15])
                 };
-        }
+        }*/
 
         private static EmotesEntry CSVToEmotesEntry(string[] data)
         {

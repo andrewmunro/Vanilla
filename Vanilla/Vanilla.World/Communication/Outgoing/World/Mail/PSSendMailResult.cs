@@ -2,6 +2,7 @@
 {
     #region
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Game.Constants.Game.Mail;
 

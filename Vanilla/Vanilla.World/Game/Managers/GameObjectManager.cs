@@ -1,29 +1,29 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Vanilla.World.Communication.Incoming.World.GameObject;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Game.Constants.Game.World.Entity;
-using Vanilla.World.Game.Entitys;
-using Vanilla.World.Game.Handlers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Incoming.World.GameObject;
+    using Vanilla.World.Database.Models;
+    using Vanilla.World.Game.Constants;
+    using Vanilla.World.Game.Constants.Game.World.Entity;
+    using Vanilla.World.Game.Entitys;
+    using Vanilla.World.Game.Handlers;
     using Vanilla.World.Network;
 
     public delegate void ProcessGameObjectUseCallback(WorldSession Session, GOEntity gameObject);
 
     public class GameObjectManager
     {
-        public static Dictionary<GameObjectTypes, ProcessGameObjectUseCallback> GameObjectUseHandlers;
+        public static Dictionary<GameObjectType, ProcessGameObjectUseCallback> GameObjectUseHandlers;
 
         public static void Boot()
         {
             WorldDataRouter.AddHandler<PCGameObjectUse>(WorldOpcodes.CMSG_GAMEOBJ_USE, OnGameObjectUsePacket);
-            GameObjectUseHandlers = new Dictionary<GameObjectTypes, ProcessGameObjectUseCallback>();
+            GameObjectUseHandlers = new Dictionary<GameObjectType, ProcessGameObjectUseCallback>();
 
-            GameObjectUseHandlers.Add(GameObjectTypes.GAMEOBJECT_TYPE_CHAIR, OnUseChair);
+            GameObjectUseHandlers.Add(GameObjectType.GAMEOBJECT_TYPE_CHAIR, OnUseChair);
         }
 
         private static void OnGameObjectUsePacket(WorldSession session, PCGameObjectUse packet)
@@ -32,9 +32,9 @@ namespace Vanilla.World.Game.Managers
 
             GameObjectTemplate template = gameObject.GameObjectTemplate;
 
-            if (gameObject != null && GameObjectUseHandlers.ContainsKey((GameObjectTypes)template.Type))
+            if (gameObject != null && GameObjectUseHandlers.ContainsKey((GameObjectType)template.Type))
             {
-                GameObjectUseHandlers[(GameObjectTypes)template.Type](session, gameObject);
+                GameObjectUseHandlers[(GameObjectType)template.Type](session, gameObject);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Vanilla.World.Game.Managers
         {
             GameObject go = gameObject.GameObject;
 
-            session.Entity.TeleportTo(session.Character.MapID, go.X, go.Y, go.Z);
+            session.Entity.TeleportTo(session.Character.Map, go.PositionX, go.PositionY, go.PositionZ, go.Orientation);
             session.Entity.SetStandState(UnitStandStateType.UNIT_STAND_STATE_SIT_CHAIR);
         }
     }

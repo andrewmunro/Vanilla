@@ -5,6 +5,7 @@
     using System;
     using System.IO;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Communication.Incoming.World.Movement;
     using Vanilla.World.Communication.Outgoing.World.Update;

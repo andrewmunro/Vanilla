@@ -11,5 +11,5 @@ namespace Vanilla.World.Database.Models.Mapping
 
             // Properties
         }
-    ;
+    }
 }

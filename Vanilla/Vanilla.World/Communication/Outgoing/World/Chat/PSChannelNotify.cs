@@ -5,6 +5,7 @@
     using System;
     using System.Text;
 
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Game.Constants.Game.Chat.Channel;
 

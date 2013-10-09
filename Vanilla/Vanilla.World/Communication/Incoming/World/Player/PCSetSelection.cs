@@ -4,6 +4,8 @@
 
     using System;
 
+    using Vanilla.Core.Network;
+
     #endregion
 
     public class PCSetSelection : PacketReader

@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Vanilla.World.Communication.Incoming.World.Mail;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Communication.Outgoing.World.Mail;
-using Vanilla.World.Game.Constants.Game;
-using Vanilla.World.Game.Constants.Game.Mail;
-using Vanilla.World.Game.Handlers;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Character.Database.Models;
+
+    using Vanilla.Core.Constants.Character;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Incoming.World.Mail;
+    using Vanilla.World.Communication.Outgoing.World.Mail;
+    using Vanilla.World.Game.Constants.Game;
+    using Vanilla.World.Game.Constants.Game.Mail;
+    using Vanilla.World.Game.Handlers;
     using Vanilla.World.Network;
 
     public class MailManager
@@ -29,13 +31,28 @@ namespace Vanilla.World.Game.Managers
 
         private static void OnSendMail(WorldSession session, PCSendMail mail)
         {
-            Character reciever = DBCharacters.GetCharacter(mail.Reciever);
-            MailResponseResult result = MailResponseResult.MAIL_OK;
-            if (reciever == null) result = MailResponseResult.MAIL_ERR_RECIPIENT_NOT_FOUND;
-            else if (reciever.Name == session.Character.Name) result = MailResponseResult.MAIL_ERR_CANNOT_SEND_TO_SELF;
-            else if (session.Character.Money < mail.Money + 30) result = MailResponseResult.MAIL_ERR_NOT_ENOUGH_MONEY;
-            else if (DBMails.GetCharacterMails(reciever).Count > 100) result = MailResponseResult.MAIL_ERR_RECIPIENT_CAP_REACHED;
-            else if (reciever.Faction != session.Character.Faction) result = MailResponseResult.MAIL_ERR_NOT_YOUR_TEAM;
+            Character reciever = VanillaWorld.CharacterDatabase.Characters.Single(cs => cs.Name == mail.Reciever);
+            var result = MailResponseResult.MAIL_OK;
+            if (reciever == null)
+            {
+                result = MailResponseResult.MAIL_ERR_RECIPIENT_NOT_FOUND;
+            }
+            else if (reciever.Name == session.Character.Name)
+            {
+                result = MailResponseResult.MAIL_ERR_CANNOT_SEND_TO_SELF;
+            }
+            else if (session.Character.Money < mail.Money + 30)
+            {
+                result = MailResponseResult.MAIL_ERR_NOT_ENOUGH_MONEY;
+            }
+            else if (VanillaWorld.CharacterDatabase.Mails.Where(m => m.receiver == reciever.GUID).ToArray().Length > 100)
+            {
+                result = MailResponseResult.MAIL_ERR_RECIPIENT_CAP_REACHED;
+            }
+            else if (GetFaction(reciever) != GetFaction(session.Character))
+            {
+                result = MailResponseResult.MAIL_ERR_NOT_YOUR_TEAM;
+            }
 
             if (mail.ItemGUID > 0)
             {
@@ -47,30 +64,44 @@ namespace Vanilla.World.Game.Managers
             if (result == MailResponseResult.MAIL_OK)
             {
                 session.Character.Money -= (int)(mail.Money + 30);
+                //TODO Implement
+/*                VanillaWorld.CharacterDatabase.Mails.Add(
+                    new mail(
+                        {
+                            messageType = (byte)MailMessageType.MAIL_NORMAL,
+                            deliver_time = 0,
+                            expire_time = (int)GameUnits.DAY * 30,
+                            @checked =
+                                mail.Body != ""
+                                    ? (byte)MailCheckMask.MAIL_CHECK_MASK_HAS_BODY
+                                    : (byte)MailCheckMask.MAIL_CHECK_MASK_COPIED,
+                            cod = (int)mail.COD,
+                            has_items = 0,
+                            itemTextId = 0,
+                            money = (int)mail.Money,
+                            sender = session.Character.GUID,
+                            receiver = reciever.GUID,
+                            subject = mail.Subject,
+                            stationery = (sbyte)MailStationery.MAIL_STATIONERY_DEFAULT,
+                            mailTemplateId = 0
+                        }
+                    )
+                );*/
 
-                DBMails.AddMail(new CharacterMail()
-                {
-                    MessageType = MailMessageType.MAIL_NORMAL,
-                    Deliver_Time = 0,
-                    Expire_Time = (int)GameUnits.DAY * 30,
-                    Checked = mail.Body != "" ? MailCheckMask.MAIL_CHECK_MASK_HAS_BODY : MailCheckMask.MAIL_CHECK_MASK_COPIED,
-                    COD = (int)mail.COD,
-                    Has_Items = 0,
-                    ItemTextID = 0,
-                    Money = (int)mail.Money,
-                    Sender = session.Character.GUID,
-                    Reciever = reciever.GUID,
-                    Subject = mail.Subject,
-                    Stationery = MailStationery.MAIL_STATIONERY_DEFAULT,
-                    MailTemplateID = 0,
-                    Body = mail.Body
-                });
             }
+        }
+
+        private static string GetFaction(Character character)
+        {
+            if (character.Race == (byte)RaceID.Human ||
+            character.Race == (byte)RaceID.Dwarf || character.Race == (byte)RaceID.Gnome
+            || character.Race == (byte)RaceID.NightElf) return "Alliance";
+            return "Horde";
         }
 
         private static void OnGetMailList(WorldSession session, PCGetMailList handler)
         {
-            List<CharacterMail> Mails = DBMails.GetCharacterMails(session.Character);
+            List<mail> Mails = VanillaWorld.CharacterDatabase.Mails.Where(m => m.receiver == session.Character.GUID).ToList();
             session.SendPacket(new PSMailListResult(Mails));
         }
     }

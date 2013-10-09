@@ -8,6 +8,7 @@ using Vanilla.World.Tools.Shared;
 namespace Vanilla.World.Tools.Update
 {
     using Vanilla.Core;
+    using Vanilla.Core.Network;
 
     public class UpdateReader
     {

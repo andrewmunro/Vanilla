@@ -103,6 +103,7 @@
             }
         }
 
+
         private static List<GameObject> GetNearbyGameObjects(PlayerEntity entity, float Radius)
         {
             return VanillaWorld.WorldDatabase.GameObjects.Where(go => go.Map == entity.Character.Map && Utils.Distance(entity.Character.PositionX, entity.Character.PositionY, go.PositionX, go.PositionY) < Radius).ToList();

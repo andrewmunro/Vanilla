@@ -4,6 +4,8 @@
 
     using System;
 
+    using Vanilla.Core.Network;
+
     #endregion
 
     internal class PSRealmList : ServerPacket
