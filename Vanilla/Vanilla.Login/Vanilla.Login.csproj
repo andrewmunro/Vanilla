@@ -54,21 +54,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Login\Packets\Incoming\PCAuthLoginChallenge.cs" />
-    <Compile Include="Components\Login\Packets\Incoming\PCAuthLoginProof.cs" />
-    <Compile Include="Components\Login\Packets\Outgoing\PSAuthLoginChallange.cs" />
-    <Compile Include="Components\Login\Packets\Outgoing\PSAuthLoginProof.cs" />
-    <Compile Include="Components\Login\Packets\Outgoing\PSAuthResponse.cs" />
+    <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginChallenge.cs" />
+    <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginProof.cs" />
+    <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginChallange.cs" />
+    <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginProof.cs" />
+    <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Realm\Packets\Outgoing\PSRealmList.cs" />
     <Compile Include="Network\LoginRouter.cs" />
-    <Compile Include="Components\Login\Constants\LoginErrorCode.cs" />
+    <Compile Include="Components\Auth\Constants\LoginErrorCode.cs" />
     <Compile Include="Components\Realm\Constants\RealmColor.cs" />
     <Compile Include="Components\Realm\Constants\RealmStatus.cs" />
     <Compile Include="Components\Realm\Constants\RealmTimeZone.cs" />
     <Compile Include="Components\Realm\Constants\RealmType.cs" />
     <Compile Include="Network\LoginServer.cs" />
     <Compile Include="Components\LoginServerComponent.cs" />
-    <Compile Include="Components\Login\AuthComponent.cs" />
+    <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Realm\RealmComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Network\LoginSession.cs" />
