@@ -1,35 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using Vanilla.Core.Cryptography;
-using Vanilla.Core.Logging;
-using Vanilla.Login.Database.Models;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.Login.Network
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
 
     using Vanilla.Core;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.Logging;
     using Vanilla.Core.Opcodes;
     using Vanilla.Login;
     using Vanilla.Login.Communication.Incoming.Auth;
     using Vanilla.Login.Communication.Outgoing.Auth;
+    using Vanilla.Login.Database.Models;
 
     // Remove?
     public class LoginHandler
     {
         public static void Boot()
         {
-            //WorldDataRouter.AddHandler<PCAuthSession>(WorldOpcodes.CMSG_AUTH_SESSION, OnAuthSession);
-            //WorldDataRouter.AddHandler<PCPlayerLogin>(WorldOpcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
             LoginRouter.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
             LoginRouter.AddHandler<PCAuthLoginProof>(LoginOpcodes.AUTH_LOGIN_PROOF, OnLoginProof);
-            LoginRouter.AddHandler(LoginOpcodes.REALM_LIST, onRealmList);
-            //WorldDataRouter.AddHandler(WorldOpcodes.CMSG_UPDATE_ACCOUNT_DATA, onUpdateAccount);
+            LoginRouter.AddHandler(LoginOpcodes.REALM_LIST, OnRealmList);
         }
 
-        private static void onRealmList(LoginSession session, byte[] packet)
+        private static void OnRealmList(LoginSession session, byte[] packet)
         {
             session.SendData(new PSRealmList());
         }
@@ -42,7 +37,10 @@ namespace Vanilla.World.Game.Managers
 
             byte[] sessionKey = session.Srp6.K;
 
-            //DBAccounts.SetSessionKey(session.accountName, Helper.ByteArrayToHex(sessionKey));
+            var account = VanillaLogin.LoginDatabase.Accounts.Single(a => a.Username.ToUpper() == session.AccountName.ToUpper());
+            account.SessionKey = Helper.ByteArrayToHex(sessionKey);
+            VanillaLogin.LoginDatabase.SaveChanges();
+
             session.SendData(new PSAuthLoginProof(session.Srp6));
         }
 
@@ -54,7 +52,7 @@ namespace Vanilla.World.Game.Managers
 
             if (account == null)
             {
-                Log.Print(LogType.Server, "Account missin");
+                Log.Print(LogType.Server, "Account missing");
             }
             
             if (account != null)

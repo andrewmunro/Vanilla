@@ -13,6 +13,7 @@ namespace Vanilla.World.Game.Managers
     using Vanilla.Core;
     using Vanilla.Core.Constants.Character;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Network;
 
     public class CharacterManager
     {

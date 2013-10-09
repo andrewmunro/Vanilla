@@ -1,42 +1,39 @@
-﻿using System;
-using System.Net.Sockets;
-using System.IO;
-using Vanilla.Character.Database.Models;
-using Vanilla.Core;
-using Vanilla.World.Communication.Outgoing.Players;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Game.Entitys;
-using Vanilla.World.Game.Handlers;
-using Vanilla.World.Game.Managers;
-using Vanilla.World.Network;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.Cryptography;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World
+﻿namespace Vanilla.World.Network
 {
+    using System;
+    using System.IO;
+    using System.Net.Sockets;
+
+    using Vanilla.Core;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Outgoing.Players;
+    using Vanilla.World.Game.Entitys;
+    using Vanilla.World.Game.Handlers;
+    using Vanilla.World.Game.Managers;
+    using Vanilla.World.Tools;
+    using Vanilla.World.Tools.Cryptography;
+    using Vanilla.World.Tools.Database.Helpers;
 
     public class WorldSession : Session
     {
         public UInt32 seed;
         public VanillaCrypt crypt;
-        public Character.Database.Models.Character Character;
+        public Vanilla.Character.Database.Models.Character Character;
         public PlayerEntity Entity;
         public uint OutOfSyncDelay;
         public uint Latancy;
 
         public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
         {
-            sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
+            this.sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
         }
 
         public override void Disconnect(object obj = null)
         {
             base.Disconnect();
-            VanillaWorld.World.FreeConnectionID(pConnectionID);
+            VanillaWorld.World.FreeConnectionID(this.pConnectionID);
 
-            World.DispatchOnPlayerDespawn(Entity);
+            World.DispatchOnPlayerDespawn(this.Entity);
 
             WorldServer.Sessions.Remove(this);
         }
@@ -55,7 +52,7 @@ namespace Vanilla.World
             header[index] = (byte)(0xFF & (opcode >> 8));
 
 
-            if (crypt != null) header = crypt.encrypt(header);
+            if (this.crypt != null) header = this.crypt.encrypt(header);
 
             return header;
         }
@@ -63,24 +60,24 @@ namespace Vanilla.World
         public void sendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = encode(data.Length, (int)opcode);
+            byte[] header = this.encode(data.Length, (int)opcode);
 
             writer.Write(header);
             writer.Write(data);
 
             Log.Print(LogType.Database, "Server -> Client [" + (WorldOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
 
-            SendData(((MemoryStream) writer.BaseStream).ToArray());
+            this.SendData(((MemoryStream) writer.BaseStream).ToArray());
         }
 
         public void sendPacket(WorldOpcodes opcode, byte[] data)
         {
-            sendPacket((int)opcode, data);
+            this.sendPacket((int)opcode, data);
         }
 
         public void sendPacket(ServerPacket packet)
         {
-            sendPacket((int)packet.Opcode, packet.Packet);
+            this.sendPacket((int)packet.Opcode, packet.Packet);
         }
 
         public void sendMessage(String message)
@@ -90,12 +87,12 @@ namespace Vanilla.World
 
         public void Teleport(int mapID, float X, float Y, float Z)
         {
-            Character.MapID = mapID;
-            Character.X = X;
-            Character.Y = Y;
-            Character.Z = Z;
-            Character.Rotation = 0;
-            DBCharacters.UpdateCharacter(Character);
+            this.Character.MapID = mapID;
+            this.Character.X = X;
+            this.Character.Y = Y;
+            this.Character.Z = Z;
+            this.Character.Rotation = 0;
+            DBCharacters.UpdateCharacter(this.Character);
 
             sendPacket(new PSTransferPending(mapID));
             sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
@@ -103,14 +100,14 @@ namespace Vanilla.World
 
         private void decode(byte[] header, out ushort length, out short opcode)
         {   
-            if (crypt != null)
+            if (this.crypt != null)
             {
-                crypt.decrypt(header, 6);
+                this.crypt.decrypt(header, 6);
             }
 
             PacketReader reader = new PacketReader(header);
 
-            if (crypt == null)
+            if (this.crypt == null)
             {
                 length = BitConverter.ToUInt16(new byte[] { header[1], header[0] }, 0);
                 opcode = BitConverter.ToInt16(header, 2);
@@ -132,7 +129,7 @@ namespace Vanilla.World
                     ushort length = 0;
                     short opcode = 0;
 
-                    decode(headerData, out length, out opcode);                
+                    this.decode(headerData, out length, out opcode);                
 
                     WorldOpcodes code = (WorldOpcodes)opcode;
 
@@ -152,7 +149,7 @@ namespace Vanilla.World
 
             byte[] data = Helper.HexToByteArray(end);
 
-            sendPacket(opcde, data);
+            this.sendPacket(opcde, data);
         }
     }
 }

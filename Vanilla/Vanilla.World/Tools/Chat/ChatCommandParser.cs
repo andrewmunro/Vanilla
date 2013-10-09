@@ -5,6 +5,8 @@ using System.Reflection;
 
 namespace Vanilla.World.Tools.Chat
 {
+    using Vanilla.World.Network;
+
     public class ChatCommandParser
     {
         private static readonly List<ChatCommandNode> ChatCommandNodes = new List<ChatCommandNode>();

@@ -6,6 +6,8 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Tools.Chat.Commands
 {
+    using Vanilla.World.Network;
+
     [ChatCommandNode("spell", "Spell commands")]
     public class Spell
     {

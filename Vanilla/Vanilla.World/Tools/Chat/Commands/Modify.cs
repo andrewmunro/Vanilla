@@ -5,6 +5,8 @@ using Vanilla.World.Game.Entitys;
 
 namespace Vanilla.World.Tools.Chat.Commands
 {
+    using Vanilla.World.Network;
+
     [ChatCommandNode("modify", "Modify commands")]
     public class Modify
     {
@@ -58,9 +60,9 @@ namespace Vanilla.World.Tools.Chat.Commands
                         entity.SetUpdateField<Int32>((int) EUnitFields.PLAYER_FIELD_COINAGE, moneyToAdd);
                         session.Character.Money = moneyToAdd;
                         break;
-					case "standstate":
-						entity.SetStandState((UnitStandStateType)int.Parse(attributeValue));
-						break;
+                    case "standstate":
+                        entity.SetStandState((UnitStandStateType)int.Parse(attributeValue));
+                        break;
                     default:
                         unknownAttribute = true;
                         break;

@@ -10,6 +10,7 @@ using Vanilla.World.Tools.Chat;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Network;
 
     public delegate void ProcessChatCallback(WorldSession Session, PCMessageChat message);
 

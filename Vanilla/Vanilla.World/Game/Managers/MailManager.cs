@@ -11,6 +11,7 @@ using Vanilla.World.Tools.Database.Helpers;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Network;
 
     public class MailManager
     {

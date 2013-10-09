@@ -14,6 +14,7 @@ using Vanilla.World.Tools.DBC.Tables;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Network;
 
     public class MiscManager
     {

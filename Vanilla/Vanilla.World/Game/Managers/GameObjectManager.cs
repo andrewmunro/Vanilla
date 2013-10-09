@@ -10,6 +10,7 @@ using Vanilla.World.Game.Handlers;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Network;
 
     public delegate void ProcessGameObjectUseCallback(WorldSession Session, GOEntity gameObject);
 

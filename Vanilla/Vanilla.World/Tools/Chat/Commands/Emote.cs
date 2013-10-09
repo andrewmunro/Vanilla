@@ -2,6 +2,8 @@
 
 namespace Vanilla.World.Tools.Chat.Commands
 {
+    using Vanilla.World.Network;
+
     [ChatCommandNode("emote", "Emote Commands")]
     public class Emote
     {

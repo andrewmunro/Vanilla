@@ -7,6 +7,8 @@ using Vanilla.World.Tools.Database.Helpers;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.World.Network;
+
     public class EntityManager
     {
         public static void Boot()
@@ -87,15 +89,15 @@ namespace Vanilla.World.Game.Managers
             worldSession.sendMessage("Sending " + gameObjects.Count + " in " + mills);
 
             foreach (GameObject gameObject in gameObjects)
-	        {
+            {
                 
-		        GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)gameObject.ID);
+                GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)gameObject.ID);
 
                 if (template != null)
                 {
                     worldSession.sendPacket(PSUpdateObject.CreateGameObject(gameObject.X, gameObject.Y, gameObject.Z, gameObject, template));
                 }
-	        }
+            }
 
             
         }

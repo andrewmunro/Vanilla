@@ -4,6 +4,8 @@ using Vanilla.World.Game.Managers;
 
 namespace Vanilla.World.Game
 {
+    using Vanilla.World.Network;
+
     public delegate void PlayerEvent(PlayerEntity player);
 
     // Temp name...

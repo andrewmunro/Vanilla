@@ -9,6 +9,8 @@ using Vanilla.World.Tools.DBC;
 
 namespace Vanilla.World
 {
+    using Vanilla.World.Network;
+
     public class VanillaWorld
     {
         static void Main(string[] args)
