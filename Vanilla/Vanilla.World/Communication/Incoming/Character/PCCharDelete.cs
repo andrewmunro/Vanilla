@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Communication.Incoming.Character
+﻿namespace Vanilla.Login.Communication.Incoming.Character
 {
     using System.Linq;
 
@@ -12,9 +12,9 @@
         public PCCharDelete(byte[] data)
             : base(data)
         {
-            var GUID = (int)ReadUInt64();
+            var guid = (int)this.ReadUInt64();
 
-            this.Character = VanillaWorld.CharacterDatabase.Characters.Single(c => c.GUID == GUID);
+            //this.Character = VanillaLogin.CharacterDatabase.Characters.First(c => c.GUID == guid);
         }
 
         #endregion

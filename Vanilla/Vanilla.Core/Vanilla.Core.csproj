@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\GenericServerComponent.cs" />
+    <Compile Include="Components\VanillaComponentBasedCore.cs" />
+    <Compile Include="Components\VanillaCore.cs" />
     <Compile Include="Constants\AccountStatus.cs" />
     <Compile Include="Config\ConfigValues.cs" />
     <Compile Include="Config\Config.cs" />
@@ -72,6 +75,11 @@
     <Compile Include="DBC.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Intercommunication\Network\VanillaOpcodes.cs" />
+    <Compile Include="Intercommunication\Network\VanillaRouter.cs" />
+    <Compile Include="Intercommunication\VanillaServer.cs" />
+    <Compile Include="Intercommunication\Network\VanillaSession.cs" />
+    <Compile Include="Network\PacketRouter.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Opcodes\LoginOpcodes.cs" />

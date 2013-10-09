@@ -1,24 +1,24 @@
-﻿namespace Vanilla.World.Communication.Incoming.Character
+﻿namespace Vanilla.Login.Communication.Incoming.Character
 {
     using Vanilla.Core.Network;
 
-    public class PCCharCreate : PacketReader
+    public sealed class PCCharCreate : PacketReader
     {
         #region Constructors and Destructors
 
         public PCCharCreate(byte[] data)
             : base(data)
         {
-            this.Name = ReadCString();
-            this.Race = ReadByte();
-            this.Class = ReadByte();
+            this.Name = this.ReadCString();
+            this.Race = this.ReadByte();
+            this.Class = this.ReadByte();
 
-            this.Gender = ReadByte();
-            this.Skin = ReadByte();
-            this.Face = ReadByte();
-            this.HairStyle = ReadByte();
-            this.HairColor = ReadByte();
-            this.Accessory = ReadByte();
+            this.Gender = this.ReadByte();
+            this.Skin = this.ReadByte();
+            this.Face = this.ReadByte();
+            this.HairStyle = this.ReadByte();
+            this.HairColor = this.ReadByte();
+            this.Accessory = this.ReadByte();
         }
 
         #endregion
@@ -30,11 +30,17 @@
         public byte Class { get; private set; }
 
         public byte Face { get; private set; }
+
         public byte Gender { get; private set; }
+
         public byte HairColor { get; private set; }
+
         public byte HairStyle { get; private set; }
+
         public string Name { get; private set; }
+
         public byte Race { get; private set; }
+
         public byte Skin { get; private set; }
 
         #endregion

@@ -1,48 +1,26 @@
-﻿namespace Vanilla.Login
+﻿using Vanilla.Core.Components;
+using Vanilla.Login.Components;
+using Vanilla.Login.Components.Login;
+using Vanilla.Login.Components.Realm;
+using Vanilla.Login.Database.Models;
+using Vanilla.Login.Network;
+
+namespace Vanilla.Login
 {
-    using System;
-    using Vanilla.Character.Database.Models;
-    using Vanilla.Core.Config;
-    using Vanilla.Login.Database.Models;
-    using Vanilla.Login.Network;
-
-    public class VanillaLogin
+    public class VanillaLogin : VanillaComponentBasedCore<LoginServerComponent>
     {
-        public static int Port
+        public LoginServer Server { get; private set; }
+        public LoginDatabase LoginDB { get; private set; }
+
+        public VanillaLogin(int port, int maxConnection) : base()
         {
-            get
-            {
-                return Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.PORT);
-            }
-        }
-
-        public static int MaxConnection
-        {
-            get
-            {
-                return Config.GetValue<int>(ConfigSections.LOGIN, ConfigValues.MAX_CONNECTIONS);
-            }
-        }
-
-        public static LoginServer Server { get; private set; }
-
-        public static LoginDatabase LoginDatabase { get; private set; }
-
-        public static CharacterDatabase CharacterDatabase { get; private set; }
-
-        private static void Main(string[] args)
-        {
-            Config.Boot();
-
-            LoginDatabase = new LoginDatabase();
-            CharacterDatabase = new CharacterDatabase();
-
+            LoginDB = new LoginDatabase();
             Server = new LoginServer();
-            Server.Start(Port, MaxConnection);
 
-            LoginHandler.Boot();
+            Components.Add(new AuthComponent(this));
+            Components.Add(new RealmComponent(this));
 
-            Console.Read();
+            Server.Start(port, maxConnection);
         }
     }
 }

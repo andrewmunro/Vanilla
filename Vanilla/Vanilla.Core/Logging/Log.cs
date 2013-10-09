@@ -14,7 +14,8 @@ namespace Vanilla.Core.Logging
         Database,
         Status,
         Map,
-		Script
+		Script,
+        Router
     }
 
     public class Log
@@ -29,7 +30,8 @@ namespace Vanilla.Core.Logging
             { LogType.Map,      ConsoleColor.Cyan },
             { LogType.Packet,   ConsoleColor.Cyan },
             { LogType.Warning,  ConsoleColor.Yellow },
-			{ LogType.Script,  ConsoleColor.Cyan }
+			{ LogType.Script,  ConsoleColor.Cyan },
+            { LogType.Router,  ConsoleColor.DarkCyan }
         };
 
         public static void Print(LogType _type, object _obj)

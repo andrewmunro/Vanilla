@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.World", "Vanilla.Wo
 		{D9CB81C5-3471-45E2-915B-C9E87A3C6D93} = {D9CB81C5-3471-45E2-915B-C9E87A3C6D93}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Script", "Vanilla.Script\Vanilla.Script.csproj", "{8CE70CE3-C50F-4B84-B314-97F1C067C39B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.World.Script", "Vanilla.Script\Vanilla.World.Script.csproj", "{8CE70CE3-C50F-4B84-B314-97F1C067C39B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Core", "Vanilla.Core\Vanilla.Core.csproj", "{D9CB81C5-3471-45E2-915B-C9E87A3C6D93}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Character.Database", "Vanilla.Character.Database\Vanilla.Character.Database.csproj", "{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.World.Database", "Vanilla.World.Database\Vanilla.World.Database.csproj", "{ABE214F4-31BB-4471-968B-932CDF169CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Server", "Vanilla.Server\Vanilla.Server.csproj", "{C3053DF2-FBD9-401E-B676-86448071B086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,6 +112,16 @@ Global
 		{ABE214F4-31BB-4471-968B-932CDF169CE1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{ABE214F4-31BB-4471-968B-932CDF169CE1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ABE214F4-31BB-4471-968B-932CDF169CE1}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C3053DF2-FBD9-401E-B676-86448071B086}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
