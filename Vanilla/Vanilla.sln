@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "World", "World", "{4730646C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Login", "Login", "{FFD883BD-C785-4E74-9DF3-F25A7023DFCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Database.Login", "Vanilla.Login.Database\Vanilla.Database.Login.csproj", "{ACD5CFD3-2F64-4488-9489-66A8416287DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Login.Database", "Vanilla.Login.Database\Vanilla.Login.Database.csproj", "{ACD5CFD3-2F64-4488-9489-66A8416287DA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7104DC81-ACC0-4EED-9E92-08A64617393E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7104DC81-ACC0-4EED-9E92-08A64617393E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.Character.Database", "Vanilla.Character.Database\Vanilla.Character.Database.csproj", "{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}"
 EndProject

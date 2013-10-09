@@ -1,16 +1,21 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Game.Constants.Login;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Char
+﻿namespace Vanilla.World.Communication.Outgoing.Char
 {
+    #region
+
     using Vanilla.Core.Opcodes;
 
-    class PSCharCreate : ServerPacket
+    #endregion
+
+    internal class PSCharCreate : ServerPacket
     {
-        public PSCharCreate(LoginErrorCode code) : base((WorldOpcodes) WorldOpcodes.SMSG_CHAR_CREATE)
+        #region Constructors and Destructors
+
+        public PSCharCreate(LoginErrorCode code)
+            : base((WorldOpcodes)WorldOpcodes.SMSG_CHAR_CREATE)
         {
             Write((byte)code);
         }
+
+        #endregion
     }
 }

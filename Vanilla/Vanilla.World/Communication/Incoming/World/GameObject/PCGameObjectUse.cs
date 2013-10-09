@@ -1,14 +1,21 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World.GameObject
+﻿namespace Vanilla.World.Communication.Incoming.World.GameObject
 {
     public class PCGameObjectUse : PacketReader
     {
-        public PCGameObjectUse(byte[] data) : base(data)
+        #region Constructors and Destructors
+
+        public PCGameObjectUse(byte[] data)
+            : base(data)
         {
-            GUID = ReadUInt64();
+            this.GUID = ReadUInt64();
         }
 
+        #endregion
+
+        #region Public Properties
+
         public ulong GUID { get; set; }
+
+        #endregion
     }
 }

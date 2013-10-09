@@ -81,7 +81,7 @@ namespace Vanilla.World.Game.Managers
                         ServerPacket packet = PSUpdateObject.UpdateValues(player);
 
                         player.Session.sendPacket(packet);
-                        World.SessionsWhoKnow(player).ForEach(s => s.sendPacket(packet));
+                        World.SessionsWhoKnow(player).ForEach(s => s.SendPacket(packet));
                     }
                 }
 

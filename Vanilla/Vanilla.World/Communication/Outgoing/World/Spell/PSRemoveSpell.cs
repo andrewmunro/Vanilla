@@ -1,16 +1,24 @@
-﻿using System;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    #region
+
+    using System;
+
     using Vanilla.Core.Opcodes;
 
-    class PSRemoveSpell : ServerPacket
+    #endregion
+
+    internal class PSRemoveSpell : ServerPacket
     {
-        public PSRemoveSpell(uint spellID) : base(WorldOpcodes.SMSG_REMOVED_SPELL)
+        #region Constructors and Destructors
+
+        public PSRemoveSpell(uint spellID)
+            : base(WorldOpcodes.SMSG_REMOVED_SPELL)
         {
-            Write((uint)spellID);
+            Write(spellID);
             Write((UInt16)0);
         }
+
+        #endregion
     }
 }

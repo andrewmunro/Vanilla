@@ -42,7 +42,7 @@ namespace Vanilla.World.Game.Managers
                 throw new NotImplementedException();
             }
 
-            session.sendPacket(new PSSendMailResult(0, MailResponseType.MAIL_SEND, result));
+            session.SendPacket(new PSSendMailResult(0, MailResponseType.MAIL_SEND, result));
 
             if (result == MailResponseResult.MAIL_OK)
             {
@@ -71,7 +71,7 @@ namespace Vanilla.World.Game.Managers
         private static void OnGetMailList(WorldSession session, PCGetMailList handler)
         {
             List<CharacterMail> Mails = DBMails.GetCharacterMails(session.Character);
-            session.sendPacket(new PSMailListResult(Mails));
+            session.SendPacket(new PSMailListResult(Mails));
         }
     }
 }

@@ -1,19 +1,35 @@
-﻿using System;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World.Auth
+﻿namespace Vanilla.World.Communication.Incoming.World.Auth
 {
-    class PCAuthSession : PacketReader
-    {
-        public Int32 ClientBuild { get; private set; }
-        public Int32 Unk2 { get; private set; }
-        public string AccountName { get; private set; }
+    #region
 
-        public PCAuthSession(byte[] data) : base(data)
+    using System;
+
+    using Vanilla.Core.Network;
+
+    #endregion
+
+    internal class PCAuthSession : PacketReader
+    {
+        #region Constructors and Destructors
+
+        public PCAuthSession(byte[] data)
+            : base(data)
         {
-            ClientBuild = ReadInt32();
-            Unk2 = ReadInt32();
-            AccountName = ReadCString();
+            this.ClientBuild = ReadInt32();
+            this.Unk2 = ReadInt32();
+            this.Username = ReadCString();
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public string Username { get; private set; }
+
+        public int ClientBuild { get; private set; }
+
+        public int Unk2 { get; private set; }
+
+        #endregion
     }
 }

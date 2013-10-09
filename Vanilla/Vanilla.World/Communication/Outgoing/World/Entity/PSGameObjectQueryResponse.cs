@@ -1,14 +1,20 @@
-﻿using System;
-using System.Text;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Entity
+﻿namespace Vanilla.World.Communication.Outgoing.World.Entity
 {
+    #region
+
+    using System;
+    using System.Text;
+
     using Vanilla.Core.Opcodes;
+
+    #endregion
 
     public class PSGameObjectQueryResponse : ServerPacket
     {
-        public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate) : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
+        #region Constructors and Destructors
+
+        public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate)
+            : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
         {
             Write((UInt32)gameObjectTemplate.Entry);
             Write((UInt32)gameObjectTemplate.Type);
@@ -20,7 +26,8 @@ namespace Vanilla.World.Communication.Outgoing.World.Entity
 
             // 24 byte clear
             Write((short)0);
-            Write((byte)0); //
         }
+
+        #endregion
     }
 }

@@ -1,20 +1,28 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Auth
+﻿namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    #region
+
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    class PSBindPointUpdate : ServerPacket
+    #endregion
+
+    internal sealed class PSBindPointUpdate : ServerPacket
     {
-        public PSBindPointUpdate() : base((WorldOpcodes) WorldOpcodes.SMSG_BINDPOINTUPDATE)
+        #region Constructors and Destructors
+
+        public PSBindPointUpdate()
+            : base(WorldOpcodes.SMSG_BINDPOINTUPDATE)
         {
-            //TODO Pull hearthstone info from DB.
-            Write((float)1); //X
-            Write((float)1); //Y
-            Write((float)1); //Z
-            Write((uint)1); //MAPID
-            Write((short)1); //AREAID
+            // TODO Pull information from spell location and set hearthstone
+            Write((float)1); // X
+            Write((float)1); // Y
+            Write((float)1); // Z
+            Write((uint)1); // MAPID
+            Write((short)1); // AREAID
         }
+
+        #endregion
     }
 }

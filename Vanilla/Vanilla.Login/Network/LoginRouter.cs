@@ -1,4 +1,4 @@
-﻿namespace Vanilla.Login
+﻿namespace Vanilla.Login.Network
 {
     using System;
     using System.Collections.Generic;

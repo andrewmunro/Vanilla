@@ -1,13 +1,20 @@
-﻿using System.Text;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World
+﻿namespace Vanilla.World.Communication.Outgoing.World
 {
+    #region
+
+    using System.Text;
+    using Character.Database.Models;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+
+    #endregion
 
     public class PSNameQueryResponse : ServerPacket
     {
-        public PSNameQueryResponse(Character character) : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)
+        #region Constructors and Destructors
+
+        public PSNameQueryResponse(Character character)
+            : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)
         {
             Write((ulong)character.GUID);
             Write(Encoding.UTF8.GetBytes(character.Name + '\0'));
@@ -15,6 +22,8 @@ namespace Vanilla.World.Communication.Outgoing.World
             Write((uint)character.Race);
             Write((uint)character.Gender);
             Write((uint)character.Class);
-        } 
+        }
+
+        #endregion
     }
 }

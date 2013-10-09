@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Game.Constants.Game.World.Entity;
-using Vanilla.World.Game.Managers;
-using Vanilla.World.Network;
-using Vanilla.World.Tools;
-using Vanilla.World.Tools.DBC;
-using Vanilla.World.Tools.DBC.Tables;
-using Vanilla.World.Tools.Shared;
-
-namespace Vanilla.World.Game.Entitys
+﻿namespace Vanilla.World.Game.Entitys
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+
     using Vanilla.Core;
+    using Vanilla.Core.Extensions;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Database.Models;
+    using Vanilla.World.Game.Constants.Game.Update;
+    using Vanilla.World.Game.Constants.Game.World.Entity;
+    using Vanilla.World.Game.Managers;
+    using Vanilla.World.Network;
+    using Vanilla.World.Tools.DBC;
+    using Vanilla.World.Tools.DBC.Tables;
+    using Vanilla.World.Tools.Shared;
 
     public class AIBrainManager
     {
@@ -56,7 +57,7 @@ namespace Vanilla.World.Game.Entitys
         {
             if (Target == null)
             {
-                WorldSession session = WorldServer.Sessions.Find(s => Helper.Distance(s.Entity.X, s.Entity.Y, Entity.X, Entity.Y) < 30);
+                WorldSession session = WorldServer.Sessions.Find(s => Utils.Distance(s.Entity.X, s.Entity.Y, Entity.X, Entity.Y) < 30);
 
                 if (session != null)
                 {
@@ -85,37 +86,38 @@ namespace Vanilla.World.Game.Entitys
         }
 
 
-		public int Health
-		{
-			get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_HEALTH]; }
-			set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, value); }
-		}
+        public int Health
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_HEALTH]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, value); }
+        }
 
-		public int MaxHealth
-		{
-			get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_MAXHEALTH]; }
-			set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, value); }
-		}
+        public int MaxHealth
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_MAXHEALTH]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, value); }
+        }
 
-		public int Level
-		{
-			get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_LEVEL]; }
-			set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, value); }
-		}
+        public int Level
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_LEVEL]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, value); }
+        }
 
-		public int EmoteState
-		{
-			get { return (int)UpdateData[(int)EUnitFields.UNIT_NPC_EMOTESTATE]; }
-			set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
-		}
+        public int EmoteState
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_NPC_EMOTESTATE]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_NPC_EMOTESTATE, value); }
+        }
 
-		public int DisplayID
-		{
-			get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
-			set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }
-		}
+        public int DisplayID
+        {
+            get { return (int)UpdateData[(int)EUnitFields.UNIT_FIELD_DISPLAYID]; }
+            set { SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_DISPLAYID, value); }
+        }
 
-        public CreatureEntry TEntry;
+        public Creature Creature;
+
         public CreatureTemplateEntry Template;
 
         public UnitEntity(ObjectGUID objectGUID)
@@ -123,51 +125,50 @@ namespace Vanilla.World.Game.Entitys
         {
         }
 
-        public UnitEntity(CreatureEntry entry = null, ObjectGUID guid = null) : base((guid == null) ? ObjectGUID.GetUnitGUID((uint)entry.guid) : guid)
+        public UnitEntity(Creature creature, ObjectGUID guid = null) : base(guid ?? ObjectGUID.GetUnitGUID((uint)creature.GUID))
         {
             new AIBrain(this);
 
-            TEntry = entry;
+            Creature = creature;
 
-            CreatureTemplateEntry template = DBC.CreatureTemplates.Find(a => a.entry == entry.id);
+            CreatureTemplateEntry template = DBC.CreatureTemplates.Find(a => a.entry == creature.ID);
 
             Template = template;
 
-            Type = (byte)0x9;
+            Type = 0x9;
             Entry = (byte)template.entry;
-            //Data = -248512512;
 
-            X = entry.position_x;
-            Y = entry.position_y;
-            Z = entry.position_z;
-            R = entry.orientation;
+            X = creature.PositionX;
+            Y = creature.PositionY;
+            Z = creature.PositionZ;
+            R = creature.Orientation;
 
             SetUpdateField<int>((int)EUnitFields.UNIT_NPC_FLAGS, template.npcflag);
             SetUpdateField<int>((int)EUnitFields.UNIT_DYNAMIC_FLAGS, template.dynamicflags);
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FLAGS, template.unit_flags);
 
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_FACTIONTEMPLATE, template.faction_A);
-                
-            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_HEALTH, entry.curhealth);
+
+            SetUpdateField<long>((int)EUnitFields.UNIT_FIELD_HEALTH, creature.Curhealth); //May need casting to int.
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_MAXHEALTH, template.maxhealth);
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_LEVEL, template.maxlevel);
-            DisplayID = (entry.modelid != 0) ? entry.modelid : TEntry.modelid;
+            DisplayID = creature.ModelID;
 
             SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_CREATEDBY, 0);
             
         }
 
-		public void SetStandState(UnitStandStateType state)
-		{
-			SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)state, 0);
+        public void SetStandState(UnitStandStateType state)
+        {
+            SetUpdateField<int>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)state, 0);
 
-			if(this is PlayerEntity)
-			{
-				ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_STANDSTATE_UPDATE);
-				packet.Write((byte)state);
-				(this as PlayerEntity).Session.sendPacket(packet);
-			}
-		}
+            if(this is PlayerEntity)
+            {
+                ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_STANDSTATE_UPDATE);
+                packet.Write((byte)state);
+                (this as PlayerEntity).Session.SendPacket(packet);
+            }
+        }
 
 /*        public void PlayEmote(Emote emoteID)
         {
@@ -179,7 +180,7 @@ namespace Vanilla.World.Game.Entitys
                 else
                 {
                     WorldSession session = (this as PlayerEntity).Session;
-                    if(session != null) session.sendPacket(new PSEmote((uint)emoteID, session.Character.GUID));
+                    if(session != null) session.SendPacket(new PSEmote((uint)emoteID, session.Character.GUID));
                 }
             }
         }*/
@@ -200,7 +201,7 @@ namespace Vanilla.World.Game.Entitys
             packet.Write(targetY);
             packet.Write(targetZ);
 
-            World.PlayersWhoKnowUnit(this).ForEach(e => e.Session.sendPacket(packet));
+            World.PlayersWhoKnowUnit(this).ForEach(e => e.Session.SendPacket(packet));
 
             X = targetX;
             Y = targetY;

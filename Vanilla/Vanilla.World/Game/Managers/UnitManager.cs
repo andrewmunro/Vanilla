@@ -24,7 +24,7 @@ namespace Vanilla.World.Game.Managers
 
             UnitEntity entity = VanillaWorld.UnitComponent.Entitys.FindAll(u => u.ObjectGUID.RawGUID == GUID).First();
 
-            session.sendPacket(new PSCreatureQueryResponse(entry, entity));
+            session.SendPacket(new PSCreatureQueryResponse(entry, entity));
         }
 
         private static void OnAttackSwing(WorldSession session, PacketReader handler)
@@ -41,7 +41,7 @@ namespace Vanilla.World.Game.Managers
                 packet.Write(session.Entity.ObjectGUID.RawGUID);
 				packet.Write(target.ObjectGUID.RawGUID);
 
-                session.sendPacket(packet);
+                session.SendPacket(packet);
             }
             else
             {

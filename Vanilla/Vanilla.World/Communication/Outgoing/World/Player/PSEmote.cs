@@ -1,15 +1,22 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Player
+﻿namespace Vanilla.World.Communication.Outgoing.World.Player
 {
+    #region
+
     using Vanilla.Core.Opcodes;
 
-    class PSEmote : ServerPacket
+    #endregion
+
+    internal class PSEmote : ServerPacket
     {
-        public PSEmote(uint emoteID, ulong GUID) : base(WorldOpcodes.SMSG_EMOTE)
+        #region Constructors and Destructors
+
+        public PSEmote(uint emoteID, ulong GUID)
+            : base(WorldOpcodes.SMSG_EMOTE)
         {
             Write(emoteID);
             Write(GUID);
         }
+
+        #endregion
     }
 }

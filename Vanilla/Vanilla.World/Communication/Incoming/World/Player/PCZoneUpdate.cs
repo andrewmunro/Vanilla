@@ -1,14 +1,21 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World.Player
+﻿namespace Vanilla.World.Communication.Incoming.World.Player
 {
     public class PCZoneUpdate : PacketReader
     {
+        #region Constructors and Destructors
+
+        public PCZoneUpdate(byte[] data)
+            : base(data)
+        {
+            this.ZoneID = ReadUInt32();
+        }
+
+        #endregion
+
+        #region Public Properties
+
         public uint ZoneID { get; private set; }
 
-        public PCZoneUpdate(byte[] data) : base(data)
-        {
-            ZoneID = ReadUInt32();
-        }
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace Vanilla.World.Tools.Chat.Commands
          [ChatCommand("chicken", "Sends chicken emote")]
          public static void Send(WorldSession session, string[] args)
          {
-             session.sendPacket(new PSEmote(19, session.Entity.ObjectGUID.RawGUID));
+             session.SendPacket(new PSEmote(19, session.Entity.ObjectGUID.RawGUID));
          }
     }
 }

@@ -1,16 +1,24 @@
-﻿using System;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Logout
+﻿namespace Vanilla.World.Communication.Outgoing.World.Logout
 {
+    #region
+
+    using System;
+
     using Vanilla.Core.Opcodes;
 
-    class SCLogoutResponse : ServerPacket
+    #endregion
+
+    internal class SCLogoutResponse : ServerPacket
     {
-        public SCLogoutResponse(): base(WorldOpcodes.SMSG_LOGOUT_RESPONSE)
+        #region Constructors and Destructors
+
+        public SCLogoutResponse()
+            : base(WorldOpcodes.SMSG_LOGOUT_RESPONSE)
         {
-            Write((UInt32) 0);
-            Write((byte) 0);
+            Write((UInt32)0);
+            Write((byte)0);
         }
+
+        #endregion
     }
 }

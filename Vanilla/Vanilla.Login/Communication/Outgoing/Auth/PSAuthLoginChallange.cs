@@ -1,5 +1,6 @@
 ﻿namespace Vanilla.Login.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Constants;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;

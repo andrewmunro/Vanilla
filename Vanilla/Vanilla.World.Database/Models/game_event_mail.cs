@@ -1,29 +1,24 @@
-using System;
-using System.Collections.Generic;
-
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Vanilla.World.Database.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
 
-	    [Table("game_event_mail", Schema="mangos")]
-
-    public partial class game_event_mail
+    [Table("game_event_mail", Schema = "mangos")]
+    public class GameEventMail
     {
  
         [Column("event")] 
-		        public short @event { get; set; }
+                public short Event { get; set; }
  
         [Column("raceMask")] 
-		        public int raceMask { get; set; }
+                public int RaceMask { get; set; }
  
         [Column("quest")] 
-		        public int quest { get; set; }
+                public int Quest { get; set; }
  
         [Column("mailTemplateId")] 
-		        public int mailTemplateId { get; set; }
+                public int MailTemplateId { get; set; }
  
         [Column("senderEntry")] 
-		        public int senderEntry { get; set; }
+                public int SenderEntry { get; set; }
     }
 }

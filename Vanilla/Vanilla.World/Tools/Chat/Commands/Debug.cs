@@ -33,7 +33,7 @@ namespace Vanilla.World.Tools.Chat.Commands
                 packet.Write(session.Character.Y);
                 packet.Write(session.Character.Z);
 
-                session.sendPacket(packet);
+                session.SendPacket(packet);
 
 
 

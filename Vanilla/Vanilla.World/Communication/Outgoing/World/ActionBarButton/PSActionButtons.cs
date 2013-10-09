@@ -1,16 +1,24 @@
-﻿using System.Collections.Generic;
-using Vanilla.World.Network;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
+﻿namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
 {
-    using Vanilla.Core.Opcodes;
+    #region
 
-    class PSActionButtons : ServerPacket
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Vanilla.Core.Network;
+    using Vanilla.Core.Opcodes;
+    using Character.Database.Models;
+
+    #endregion
+
+    internal sealed class PSActionButtons : ServerPacket
     {
-        public PSActionButtons(Character character) : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
+        #region Constructors and Destructors
+
+        public PSActionButtons(Character character)
+            : base(WorldOpcodes.SMSG_ACTION_BUTTONS)
         {
-            List<CharacterActionBarButton> savedButtons = DBActionBarButtons.GetActionBarButtons(character);
+            List<CharacterAction> savedButtons = VanillaWorld.CharacterDatabase.CharacterActions.Where(ca => ca.GUID == character.GUID).ToList();
 
             for (int button = 0; button < 120; button++)
             {
@@ -26,9 +34,11 @@ namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
                 }
                 else
                 {
-                    Write((uint) 0);
+                    Write((uint)0);
                 }
             }
         }
+
+        #endregion
     }
 }

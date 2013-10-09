@@ -3,12 +3,12 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Vanilla.World.Database.Models.Mapping
 {
-    public class playercreateinfoMap : EntityTypeConfiguration<playercreateinfo>
+    public class PlayerCreateInfoMap : EntityTypeConfiguration<PlayerCreateInfo>
     {
-        public playercreateinfoMap()
+        public PlayerCreateInfoMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.race, t.class });
+            this.HasKey(t => new { t.Race, t.Class });
 
             // Properties
         }

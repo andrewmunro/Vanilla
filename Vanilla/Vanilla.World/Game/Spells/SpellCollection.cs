@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Vanilla.World.Communication.Outgoing.World.Spell;
-using Vanilla.World.Game.Constants.Game.World.Spell;
-using Vanilla.World.Game.Entitys;
-using Vanilla.World.Tools.Database.Helpers;
-using Vanilla.World.Tools.DBC;
-using Vanilla.World.Tools.DBC.Tables;
-
-namespace Vanilla.World.Game.Spells
+﻿namespace Vanilla.World.Game.Spells
 {
+    using System.Linq;
+    using System.Collections;
+    using System.Collections.Generic;
+    using Vanilla.Character.Database.Models;
+    using Vanilla.World.Communication.Outgoing.World.Spell;
+    using Vanilla.World.Game.Constants.Game.World.Spell;
+    using Vanilla.World.Game.Entitys;
+    using Vanilla.World.Tools.DBC;
+    using Vanilla.World.Tools.DBC.Tables;
+
     public class SpellCollection : IEnumerable<Spell>
     {
         protected Dictionary<SpellID, Spell> Collection;
@@ -38,18 +39,20 @@ namespace Vanilla.World.Game.Spells
         {
             if (Collection.ContainsKey(Spell.SpellID)) return;
             Collection.Add(Spell.SpellID, Spell);
-            DBSpells.AddSpell(Owner.Character, (int)Spell.SpellID);
+
+
+            //DBSpells.AddSpell(Owner.Character, (int)Spell.SpellID);
             
-            Owner.Session.sendPacket(new PSLearnSpell((uint)Spell.SpellID));
+            //Owner.Session.sendPacket(new PSLearnSpell((uint)Spell.SpellID));
         }
 
         public void RemoveSpell(Spell Spell)
         {
             if (!Collection.ContainsKey(Spell.SpellID)) return;
             Collection.Remove(Spell.SpellID);
-            DBSpells.RemoveSpell(Owner.Character, (int)Spell.SpellID);
+            //DBSpells.RemoveSpell(Owner.Character, (int)Spell.SpellID);
 
-            Owner.Session.sendPacket(new PSRemoveSpell((uint)Spell.SpellID));
+            //Owner.Session.sendPacket(new PSRemoveSpell((uint)Spell.SpellID));
         }
 
         private Spell CreateSpell(int spellID)
@@ -61,7 +64,10 @@ namespace Vanilla.World.Game.Spells
         private List<Spell> GetDBSpells(Character character)
         {
             List<Spell> Spells = new List<Spell>();
-            DBSpells.GetCharacterSpells(character).ForEach(characterSpell => Spells.Add(CreateSpell(characterSpell.SpellID)));
+
+            var spells = VanillaWorld.CharacterDatabase.CharacterSpell.Where(cs => cs.GUID == character.GUID).ToList();
+
+            //DBSpells.GetCharacterSpells(character).ForEach(characterSpell => Spells.Add(CreateSpell(characterSpell.SpellID)));
             return Spells;
         }
 

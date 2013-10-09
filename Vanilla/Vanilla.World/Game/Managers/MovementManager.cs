@@ -52,7 +52,7 @@ namespace Vanilla.World.Game.Managers
         private static void OnWorldPort(WorldSession session, byte[] data)
         {
             PlayerEntity a;
-            session.sendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out a));
+            session.SendPacket(PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out a));
             a.Session = session;
         }
 
@@ -98,7 +98,7 @@ namespace Vanilla.World.Game.Managers
 
             UpdateEntity(session, handler);
 
-            World.SessionsWhoKnow(session.Entity).ForEach(s => s.sendPacket(new PSMovement(code, session, handler)));
+            World.SessionsWhoKnow(session.Entity).ForEach(s => s.SendPacket(new PSMovement(code, session, handler)));
         }
     }
 }

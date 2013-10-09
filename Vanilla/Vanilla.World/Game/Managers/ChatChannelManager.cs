@@ -39,18 +39,18 @@ namespace Vanilla.World.Game.Managers
         private static void OnJoinChannel(WorldSession session, PCChannel packet)
         {
             DBChannels.JoinChannel(session.Character.GUID, packet.ChannelName);
-            session.sendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.GUID, packet.ChannelName));
+            session.SendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, (ulong)session.Character.GUID, packet.ChannelName));
         }
 
         //When channel gets a message!
         private static void OnChannelMessage(WorldSession session, PCMessageChat packet)
         {
             List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
-            //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).sendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
+            //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
 
             ServerPacket outPacket = new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName);
 
-            Console.WriteLine(Helper.ByteArrayToHex(outPacket.Packet));
+            Console.WriteLine(Utils.ByteArrayToHex(outPacket.Packet));
 
             WorldServer.TransmitToAll(outPacket);
         }

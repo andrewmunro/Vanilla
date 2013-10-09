@@ -1,13 +1,19 @@
-﻿using System.Text;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Player
+﻿namespace Vanilla.World.Communication.Outgoing.World.Player
 {
+    #region
+
+    using System.Text;
+
     using Vanilla.Core.Opcodes;
+
+    #endregion
 
     public class PSTextEmote : ServerPacket
     {
-        public PSTextEmote(int GUID, int emoteID, int textID, string targetName = null) : base(WorldOpcodes.SMSG_TEXT_EMOTE)
+        #region Constructors and Destructors
+
+        public PSTextEmote(int GUID, int emoteID, int textID, string targetName = null)
+            : base(WorldOpcodes.SMSG_TEXT_EMOTE)
         {
             Write((ulong)GUID);
             Write((uint)textID);
@@ -24,5 +30,7 @@ namespace Vanilla.World.Communication.Outgoing.World.Player
                 Write((byte)0);
             }
         }
+
+        #endregion
     }
 }

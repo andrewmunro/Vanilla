@@ -11,10 +11,11 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Character.Database.Models;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Network;
 
-    class SpellManager
+    public class SpellManager
     {
         public Dictionary<Character, SpellCollection> SpellCollections = new Dictionary<Character, SpellCollection>();
 
@@ -27,7 +28,7 @@ namespace Vanilla.World.Game.Managers
         public static void SendInitialSpells(WorldSession session)
         {
             //TODO Fix spellCollection DBC
-            //session.sendPacket(new PSInitialSpells(session.Entity.SpellCollection));
+            //session.SendPacket(new PSInitialSpells(session.Entity.SpellCollection));
         }
 
         private static void OnCastSpell(WorldSession session, PCCastSpell packet)
@@ -37,7 +38,7 @@ namespace Vanilla.World.Game.Managers
             ObjectEntity target = (session.Entity.Target != null) ? session.Entity.Target : session.Entity;
 
             //WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
-            session.sendPacket(new PSCastFailed(packet.spellID));
+            session.SendPacket(new PSCastFailed(packet.spellID));
 
             SpellEntry spell = DBC.Spells.GetSpellByID((int)packet.spellID);
             float spellSpeed = spell.speed;

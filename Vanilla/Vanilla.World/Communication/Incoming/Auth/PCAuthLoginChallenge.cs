@@ -1,44 +1,64 @@
-﻿using System;
-using System.Net;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.Auth
+﻿namespace Vanilla.World.Communication.Incoming.Auth
 {
+    #region
+
+    using System;
+    using System.Net;
+
+    #endregion
+
     public class PCAuthLoginChallenge : PacketReader
     {
-        public byte OptCode;
-        public byte Error;
-        public UInt16 Size;
+        #region Fields
 
-        public string GameName;
-        public string Version;
-        public UInt16 Build;
+        public ushort Build;
 
-        public string Platform;
-        public string OS;
         public string Country;
 
-        public UInt32 TimeZone;
+        public byte Error;
+
+        public string GameName;
+
         public IPAddress IP;
+
         public string Name;
 
-        public PCAuthLoginChallenge(byte[] data) : base(data)
+        public string OS;
+
+        public byte OptCode;
+
+        public string Platform;
+
+        public ushort Size;
+
+        public uint TimeZone;
+
+        public string Version;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public PCAuthLoginChallenge(byte[] data)
+            : base(data)
         {
-            OptCode = ReadByte();
-            Error = ReadByte();
-            Size = ReadUInt16();
+            this.OptCode = ReadByte();
+            this.Error = ReadByte();
+            this.Size = ReadUInt16();
 
-            GameName = ReadStringReversed(4);
-            Version = ReadByte().ToString() + '.' + ReadByte().ToString() + '.' + ReadByte().ToString();
-            
-            Build = ReadUInt16();
-            Platform = ReadStringReversed(4);
-            OS = ReadStringReversed(4);
-            Country = ReadStringReversed(4);
+            this.GameName = ReadStringReversed(4);
+            this.Version = ReadByte().ToString() + '.' + ReadByte().ToString() + '.' + ReadByte().ToString();
 
-            TimeZone = ReadUInt32();            
-            IP = ReadIpAddress();
-            Name = ReadPascalString(1);
+            this.Build = ReadUInt16();
+            this.Platform = ReadStringReversed(4);
+            this.OS = ReadStringReversed(4);
+            this.Country = ReadStringReversed(4);
+
+            this.TimeZone = ReadUInt32();
+            this.IP = ReadIpAddress();
+            this.Name = ReadPascalString(1);
         }
+
+        #endregion
     }
 }

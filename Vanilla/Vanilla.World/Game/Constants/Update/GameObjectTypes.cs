@@ -1,6 +1,6 @@
 ﻿namespace Vanilla.World.Game.Constants.Game.Update
 {
-    public enum GameObjectTypes
+    public enum GameObjectType
     {
         GAMEOBJECT_TYPE_DOOR = 0,
         GAMEOBJECT_TYPE_BUTTON = 1,

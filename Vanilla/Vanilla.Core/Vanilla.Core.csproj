@@ -55,12 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AccountStatus.cs" />
     <Compile Include="Config\ConfigValues.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Constants\Character\Class.cs" />
     <Compile Include="Constants\Character\Gender.cs" />
     <Compile Include="Constants\Character\Race.cs" />
     <Compile Include="Constants\PacketHeaderType.cs" />
+    <Compile Include="Constants\ResponseCodes.cs" />
     <Compile Include="Cryptography\BigInteger.cs" />
     <Compile Include="Cryptography\PacketCrypto.cs" />
     <Compile Include="Cryptography\RC4.cs" />
@@ -69,7 +71,7 @@
     <Compile Include="DBC.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Opcodes\LoginOpcodes.cs" />
     <Compile Include="Network\Packet.cs" />

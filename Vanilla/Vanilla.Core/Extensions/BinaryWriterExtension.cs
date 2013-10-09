@@ -75,7 +75,7 @@
 
         public static void WriteHexPacket(this BinaryWriter writer, string data)
         {
-            WriteBytes(writer, Helper.HexToByteArray(data));
+            WriteBytes(writer, Utils.HexToByteArray(data));
         }
     }
 }

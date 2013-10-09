@@ -1,9 +1,8 @@
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using Vanilla.World.Database.Models.Mapping;
-
 namespace Vanilla.World.Database.Models
 {
+    using System.Data.Entity;
+    using Vanilla.World.Database.Models.Mapping;
+
     public class WorldDatabase : DbContext
     {
         static WorldDatabase()
@@ -24,7 +23,7 @@ namespace Vanilla.World.Database.Models
         public DbSet<battlemaster_entry> battlemaster_entry { get; set; }
         public DbSet<command> commands { get; set; }
         public DbSet<condition> conditions { get; set; }
-        public DbSet<creature> creatures { get; set; }
+        public DbSet<Creature> creatures { get; set; }
         public DbSet<creature_addon> creature_addon { get; set; }
         public DbSet<creature_ai_scripts> creature_ai_scripts { get; set; }
         public DbSet<creature_ai_summons> creature_ai_summons { get; set; }
@@ -41,7 +40,7 @@ namespace Vanilla.World.Database.Models
         public DbSet<creature_movement_template> creature_movement_template { get; set; }
         public DbSet<creature_onkill_reputation> creature_onkill_reputation { get; set; }
         public DbSet<creature_questrelation> creature_questrelation { get; set; }
-        public DbSet<creature_template> creature_template { get; set; }
+        public DbSet<CreatureTemplate> creature_template { get; set; }
         public DbSet<creature_template_addon> creature_template_addon { get; set; }
         public DbSet<creature_template_spells> creature_template_spells { get; set; }
         public DbSet<db_script_string> db_script_string { get; set; }
@@ -59,19 +58,19 @@ namespace Vanilla.World.Database.Models
         public DbSet<fishing_loot_template> fishing_loot_template { get; set; }
         public DbSet<game_event> game_event { get; set; }
         public DbSet<game_event_creature> game_event_creature { get; set; }
-        public DbSet<game_event_creature_data> game_event_creature_data { get; set; }
+        public DbSet<GameEventCreatureData> game_event_creature_data { get; set; }
         public DbSet<game_event_gameobject> game_event_gameobject { get; set; }
-        public DbSet<game_event_mail> game_event_mail { get; set; }
-        public DbSet<game_event_quest> game_event_quest { get; set; }
+        public DbSet<GameEventMail> game_event_mail { get; set; }
+        public DbSet<GameEventQuest> game_event_quest { get; set; }
         public DbSet<game_graveyard_zone> game_graveyard_zone { get; set; }
         public DbSet<game_tele> game_tele { get; set; }
         public DbSet<game_weather> game_weather { get; set; }
-        public DbSet<gameobject> gameobjects { get; set; }
+        public DbSet<GameObject> GameObjects { get; set; }
         public DbSet<gameobject_battleground> gameobject_battleground { get; set; }
         public DbSet<gameobject_involvedrelation> gameobject_involvedrelation { get; set; }
         public DbSet<gameobject_loot_template> gameobject_loot_template { get; set; }
         public DbSet<gameobject_questrelation> gameobject_questrelation { get; set; }
-        public DbSet<gameobject_template> gameobject_template { get; set; }
+        public DbSet<GameObjectTemplate> GameobjectTemplates { get; set; }
         public DbSet<gossip_menu> gossip_menu { get; set; }
         public DbSet<gossip_menu_option> gossip_menu_option { get; set; }
         public DbSet<instance_template> instance_template { get; set; }
@@ -100,13 +99,13 @@ namespace Vanilla.World.Database.Models
         public DbSet<pet_name_generation> pet_name_generation { get; set; }
         public DbSet<petcreateinfo_spell> petcreateinfo_spell { get; set; }
         public DbSet<pickpocketing_loot_template> pickpocketing_loot_template { get; set; }
-        public DbSet<player_classlevelstats> player_classlevelstats { get; set; }
-        public DbSet<player_levelstats> player_levelstats { get; set; }
+        public DbSet<PlayerClassLevelStats> PlayerClassLevelStats { get; set; }
+        public DbSet<PlayerLevelStats> player_levelstats { get; set; }
         public DbSet<player_xp_for_level> player_xp_for_level { get; set; }
-        public DbSet<playercreateinfo> playercreateinfoes { get; set; }
-        public DbSet<playercreateinfo_action> playercreateinfo_action { get; set; }
-        public DbSet<playercreateinfo_item> playercreateinfo_item { get; set; }
-        public DbSet<playercreateinfo_spell> playercreateinfo_spell { get; set; }
+        public DbSet<PlayerCreateInfo> playercreateinfoes { get; set; }
+        public DbSet<PlayerCreateInfoAction> playercreateinfo_action { get; set; }
+        public DbSet<PlayerCreateInfoItem> playercreateinfo_item { get; set; }
+        public DbSet<PlayerCreateInfoSpell> playercreateinfo_spell { get; set; }
         public DbSet<points_of_interest> points_of_interest { get; set; }
         public DbSet<pool_creature> pool_creature { get; set; }
         public DbSet<pool_creature_template> pool_creature_template { get; set; }
@@ -150,7 +149,7 @@ namespace Vanilla.World.Database.Models
             modelBuilder.Configurations.Add(new battlemaster_entryMap());
             modelBuilder.Configurations.Add(new commandMap());
             modelBuilder.Configurations.Add(new conditionMap());
-            modelBuilder.Configurations.Add(new creatureMap());
+            modelBuilder.Configurations.Add(new CreatureMap());
             modelBuilder.Configurations.Add(new creature_addonMap());
             modelBuilder.Configurations.Add(new creature_ai_scriptsMap());
             modelBuilder.Configurations.Add(new creature_ai_summonsMap());
@@ -167,7 +166,7 @@ namespace Vanilla.World.Database.Models
             modelBuilder.Configurations.Add(new creature_movement_templateMap());
             modelBuilder.Configurations.Add(new creature_onkill_reputationMap());
             modelBuilder.Configurations.Add(new creature_questrelationMap());
-            modelBuilder.Configurations.Add(new creature_templateMap());
+            modelBuilder.Configurations.Add(new CreatureTemplateMap());
             modelBuilder.Configurations.Add(new creature_template_addonMap());
             modelBuilder.Configurations.Add(new creature_template_spellsMap());
             modelBuilder.Configurations.Add(new db_script_stringMap());
@@ -187,17 +186,17 @@ namespace Vanilla.World.Database.Models
             modelBuilder.Configurations.Add(new game_event_creatureMap());
             modelBuilder.Configurations.Add(new game_event_creature_dataMap());
             modelBuilder.Configurations.Add(new game_event_gameobjectMap());
-            modelBuilder.Configurations.Add(new game_event_mailMap());
-            modelBuilder.Configurations.Add(new game_event_questMap());
+            modelBuilder.Configurations.Add(new GameEventMailMap());
+            modelBuilder.Configurations.Add(new GameEventQuestMap());
             modelBuilder.Configurations.Add(new game_graveyard_zoneMap());
             modelBuilder.Configurations.Add(new game_teleMap());
             modelBuilder.Configurations.Add(new game_weatherMap());
-            modelBuilder.Configurations.Add(new gameobjectMap());
+            modelBuilder.Configurations.Add(new GameObjectMap());
             modelBuilder.Configurations.Add(new gameobject_battlegroundMap());
             modelBuilder.Configurations.Add(new gameobject_involvedrelationMap());
             modelBuilder.Configurations.Add(new gameobject_loot_templateMap());
             modelBuilder.Configurations.Add(new gameobject_questrelationMap());
-            modelBuilder.Configurations.Add(new gameobject_templateMap());
+            modelBuilder.Configurations.Add(new GameObjectTemplateMap());
             modelBuilder.Configurations.Add(new gossip_menuMap());
             modelBuilder.Configurations.Add(new gossip_menu_optionMap());
             modelBuilder.Configurations.Add(new instance_templateMap());
@@ -226,13 +225,13 @@ namespace Vanilla.World.Database.Models
             modelBuilder.Configurations.Add(new pet_name_generationMap());
             modelBuilder.Configurations.Add(new petcreateinfo_spellMap());
             modelBuilder.Configurations.Add(new pickpocketing_loot_templateMap());
-            modelBuilder.Configurations.Add(new player_classlevelstatsMap());
-            modelBuilder.Configurations.Add(new player_levelstatsMap());
+            modelBuilder.Configurations.Add(new playerClassLevelStatsMap());
+            modelBuilder.Configurations.Add(new PlayerLevelStatsMap());
             modelBuilder.Configurations.Add(new player_xp_for_levelMap());
-            modelBuilder.Configurations.Add(new playercreateinfoMap());
-            modelBuilder.Configurations.Add(new playercreateinfo_actionMap());
-            modelBuilder.Configurations.Add(new playercreateinfo_itemMap());
-            modelBuilder.Configurations.Add(new playercreateinfo_spellMap());
+            modelBuilder.Configurations.Add(new PlayerCreateInfoMap());
+            modelBuilder.Configurations.Add(new PlayercreateInfoActionMap());
+            modelBuilder.Configurations.Add(new PlayerCreateInfoItemMap());
+            modelBuilder.Configurations.Add(new PlayerCreateiInfoSpellMap());
             modelBuilder.Configurations.Add(new points_of_interestMap());
             modelBuilder.Configurations.Add(new pool_creatureMap());
             modelBuilder.Configurations.Add(new pool_creature_templateMap());

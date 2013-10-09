@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -40,7 +41,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,7 +52,7 @@
     <Compile Include="Models\BugReport.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\CharacterDatabase.cs" />
-    <Compile Include="Models\character_action.cs" />
+    <Compile Include="Models\CharacterAction.cs" />
     <Compile Include="Models\character_aura.cs" />
     <Compile Include="Models\character_battleground_data.cs" />
     <Compile Include="Models\character_gifts.cs" />
@@ -65,11 +65,11 @@
     <Compile Include="Models\character_reputation.cs" />
     <Compile Include="Models\character_skills.cs" />
     <Compile Include="Models\character_social.cs" />
-    <Compile Include="Models\character_spell.cs" />
+    <Compile Include="Models\CharacterSpell.cs" />
     <Compile Include="Models\character_spell_cooldown.cs" />
     <Compile Include="Models\character_stats.cs" />
     <Compile Include="Models\character_ticket.cs" />
-    <Compile Include="Models\character_tutorial.cs" />
+    <Compile Include="Models\CharacterTutorial.cs" />
     <Compile Include="Models\corpse.cs" />
     <Compile Include="Models\creature_respawn.cs" />
     <Compile Include="Models\gameobject_respawn.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Models\Mapping\AuctionMap.cs" />
     <Compile Include="Models\Mapping\BugReportMap.cs" />
     <Compile Include="Models\Mapping\CharacterMap.cs" />
-    <Compile Include="Models\Mapping\character_actionMap.cs" />
+    <Compile Include="Models\Mapping\CharacterActionMap.cs" />
     <Compile Include="Models\Mapping\character_auraMap.cs" />
     <Compile Include="Models\Mapping\character_battleground_dataMap.cs" />
     <Compile Include="Models\Mapping\character_giftsMap.cs" />
@@ -104,11 +104,11 @@
     <Compile Include="Models\Mapping\character_reputationMap.cs" />
     <Compile Include="Models\Mapping\character_skillsMap.cs" />
     <Compile Include="Models\Mapping\character_socialMap.cs" />
-    <Compile Include="Models\Mapping\character_spellMap.cs" />
+    <Compile Include="Models\Mapping\CharacterSpellMap.cs" />
     <Compile Include="Models\Mapping\character_spell_cooldownMap.cs" />
     <Compile Include="Models\Mapping\character_statsMap.cs" />
     <Compile Include="Models\Mapping\character_ticketMap.cs" />
-    <Compile Include="Models\Mapping\character_tutorialMap.cs" />
+    <Compile Include="Models\Mapping\CharacterTutorialMap.cs" />
     <Compile Include="Models\Mapping\corpseMap.cs" />
     <Compile Include="Models\Mapping\creature_respawnMap.cs" />
     <Compile Include="Models\Mapping\gameobject_respawnMap.cs" />

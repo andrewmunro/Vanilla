@@ -1,15 +1,27 @@
-﻿using System;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World.Player
+﻿namespace Vanilla.World.Communication.Incoming.World.Player
 {
+    #region
+
+    using System;
+
+    #endregion
+
     public class PCSetSelection : PacketReader
     {
-        public UInt64 GUID { get; private set; }
+        #region Constructors and Destructors
 
-        public PCSetSelection(byte[] data)  : base(data)
+        public PCSetSelection(byte[] data)
+            : base(data)
         {
-            GUID = ReadUInt64();
+            this.GUID = ReadUInt64();
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public ulong GUID { get; private set; }
+
+        #endregion
     }
 }

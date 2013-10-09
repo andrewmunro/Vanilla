@@ -1,14 +1,21 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World
+﻿namespace Vanilla.World.Communication.Incoming.World
 {
     public class PCPlayerLogin : PacketReader
     {
+        #region Constructors and Destructors
+
+        public PCPlayerLogin(byte[] data)
+            : base(data)
+        {
+            this.GUID = ReadUInt32();
+        }
+
+        #endregion
+
+        #region Public Properties
+
         public uint GUID { get; private set; }
 
-        public PCPlayerLogin(byte[] data) : base(data)
-        {
-            GUID = ReadUInt32();
-        }
+        #endregion
     }
 }

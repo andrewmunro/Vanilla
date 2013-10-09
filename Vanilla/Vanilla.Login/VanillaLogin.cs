@@ -32,6 +32,8 @@
 
         private static void Main(string[] args)
         {
+            Config.Boot();
+
             LoginDatabase = new LoginDatabase();
             CharacterDatabase = new CharacterDatabase();
 

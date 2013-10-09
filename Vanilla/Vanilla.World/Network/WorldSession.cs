@@ -3,48 +3,51 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
-
     using Vanilla.Core;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.Logging;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Database.Models;
     using Vanilla.World.Communication.Outgoing.Players;
     using Vanilla.World.Game.Entitys;
     using Vanilla.World.Game.Handlers;
     using Vanilla.World.Game.Managers;
-    using Vanilla.World.Tools;
-    using Vanilla.World.Tools.Cryptography;
-    using Vanilla.World.Tools.Database.Helpers;
+    using Character.Database.Models;
 
     public class WorldSession : Session
     {
         public UInt32 seed;
         public VanillaCrypt crypt;
-        public Vanilla.Character.Database.Models.Character Character;
+        public Character Character;
         public PlayerEntity Entity;
         public uint OutOfSyncDelay;
         public uint Latancy;
 
-        public WorldSession(int _connectionID, Socket _connectionSocket) : base(_connectionID, _connectionSocket)
+        public WorldSession(int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
         {
-            this.sendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8  } );
+            this.SendPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE, new byte[] { 0x33, 0x18, 0x34, 0xC8 });
         }
+
+        public Account Account { get; set; }
 
         public override void Disconnect(object obj = null)
         {
-            base.Disconnect();
-            VanillaWorld.World.FreeConnectionID(this.pConnectionID);
-
-            World.DispatchOnPlayerDespawn(this.Entity);
-
+            base.Disconnect(obj);
+            VanillaWorld.WorldServer.FreeConnectionID(this.pConnectionID);
+            VanillaWorld.World.DispatchOnPlayerDespawn(this.Entity);
             WorldServer.Sessions.Remove(this);
         }
 
-        private byte[] encode(int size, int opcode)
+        private byte[] Encode(int size, int opcode)
         {
-            int index = 0;
-            int newSize = size + 2;
-            byte[] header = new byte[4];
+            var index = 0;
+            var newSize = size + 2;
+            var header = new byte[4];
             if (newSize > 0x7FFF)
+            {
                 header[index++] = (byte)(0x80 | (0xFF & (newSize >> 16)));
+            }
 
             header[index++] = (byte)(0xFF & (newSize >> 8));
             header[index++] = (byte)(0xFF & newSize);
@@ -57,10 +60,10 @@
             return header;
         }
 
-        public void sendPacket(int opcode, byte[] data)
+        public void SendPacket(int opcode, byte[] data)
         {
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
-            byte[] header = this.encode(data.Length, (int)opcode);
+            byte[] header = this.Encode(data.Length, (int)opcode);
 
             writer.Write(header);
             writer.Write(data);
@@ -70,14 +73,14 @@
             this.SendData(((MemoryStream) writer.BaseStream).ToArray());
         }
 
-        public void sendPacket(WorldOpcodes opcode, byte[] data)
+        public void SendPacket(WorldOpcodes opcode, byte[] data)
         {
-            this.sendPacket((int)opcode, data);
+            this.SendPacket((int)opcode, data);
         }
 
-        public void sendPacket(ServerPacket packet)
+        public void SendPacket(ServerPacket packet)
         {
-            this.sendPacket((int)packet.Opcode, packet.Packet);
+            this.SendPacket((int)packet.Opcode, packet.Packet);
         }
 
         public void sendMessage(String message)
@@ -85,20 +88,20 @@
             ChatManager.SendSytemMessage(this, message);
         }
 
-        public void Teleport(int mapID, float X, float Y, float Z)
+        public void Teleport(int mapID, float x, float y, float z, float r = 0)
         {
-            this.Character.MapID = mapID;
-            this.Character.X = X;
-            this.Character.Y = Y;
-            this.Character.Z = Z;
-            this.Character.Rotation = 0;
-            DBCharacters.UpdateCharacter(this.Character);
+            this.Character.Map = mapID;
+            this.Character.PositionX = x;
+            this.Character.PositionY = y;
+            this.Character.PositionZ = z;
+            this.Character.Orientation = r;
+            VanillaWorld.CharacterDatabase.SaveChanges();
 
-            sendPacket(new PSTransferPending(mapID));
-            sendPacket(new PSNewWorld(mapID, X, Y, Z, 0));
+            this.SendPacket(new PSTransferPending(mapID));
+            this.SendPacket(new PSNewWorld(mapID, x, y, z, r));
         }
 
-        private void decode(byte[] header, out ushort length, out short opcode)
+        private void Decode(byte[] header, out ushort length, out short opcode)
         {   
             if (this.crypt != null)
             {
@@ -119,7 +122,7 @@
             }
         }
 
-        internal override void onPacket(byte[] data)
+        protected override void OnPacket(byte[] data)
         {
                 for (int index = 0; index < data.Length; index++)
                 {
@@ -129,7 +132,7 @@
                     ushort length = 0;
                     short opcode = 0;
 
-                    this.decode(headerData, out length, out opcode);                
+                    this.Decode(headerData, out length, out opcode);                
 
                     WorldOpcodes code = (WorldOpcodes)opcode;
 
@@ -143,13 +146,13 @@
                 }
         }
         
-        public void sendHexPacket(WorldOpcodes opcde, string hex)
+        public void SendHexPacket(WorldOpcodes opcde, string hex)
         {
             string end = hex.Replace(" ", "").Replace("\n", "");
 
-            byte[] data = Helper.HexToByteArray(end);
+            byte[] data = Utils.HexToByteArray(end);
 
-            this.sendPacket(opcde, data);
+            this.SendPacket(opcde, data);
         }
     }
 }

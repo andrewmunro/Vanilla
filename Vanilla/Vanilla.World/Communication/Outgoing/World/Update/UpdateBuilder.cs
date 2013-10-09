@@ -1,165 +1,219 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Game.Entitys;
-
-namespace Vanilla.World.Communication.Outgoing.World.Update
+﻿namespace Vanilla.World.Communication.Outgoing.World.Update
 {
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     using Vanilla.Core.Extensions;
+    using Vanilla.World.Game.Constants.Game.Update;
+    using Vanilla.World.Game.Entitys;
+
+    #endregion
 
     public abstract class UpdateBlock
     {
-        public string Info { get; internal set; }
-        public byte[] Data { get; internal set; }
+        #region Fields
 
         internal BinaryWriter Writer;
 
+        #endregion
+
+        #region Constructors and Destructors
+
         public UpdateBlock()
         {
-            Writer = new BinaryWriter(new MemoryStream());
+            this.Writer = new BinaryWriter(new MemoryStream());
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public byte[] Data { get; internal set; }
+        public string Info { get; internal set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void Build()
         {
-            BuildData();
+            this.BuildData();
 
-            Data = (Writer.BaseStream as MemoryStream).ToArray();
-            Info = BuildInfo();
+            this.Data = (this.Writer.BaseStream as MemoryStream).ToArray();
+            this.Info = this.BuildInfo();
         }
 
         public abstract void BuildData();
+
         public abstract string BuildInfo();
+
+        #endregion
     }
 
     public class OutOfRangeBlock : UpdateBlock
     {
+        #region Fields
+
         public List<ObjectEntity> Entitys;
 
-        public OutOfRangeBlock(List<ObjectEntity> entitys) : base()
-        {
-            Entitys = entitys;
+        #endregion
 
-            Build(); // ):
+        #region Constructors and Destructors
+
+        public OutOfRangeBlock(List<ObjectEntity> entitys)
+        {
+            this.Entitys = entitys;
+
+            this.Build(); // ):
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void BuildData()
         {
-            Writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
-            Writer.Write((uint)Entitys.Count);
+            this.Writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
+            this.Writer.Write((uint)this.Entitys.Count);
 
-            foreach (ObjectEntity entity in Entitys)
+            foreach (ObjectEntity entity in this.Entitys)
             {
-                Writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
+                this.Writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
             }
-
-            
         }
 
         public override string BuildInfo()
         {
-            return "[OutOfRange] " + string.Join(", ", Entitys.ToArray().ToList().ConvertAll<string>(e => e.Name).ToArray());
+            return "[OutOfRange] "
+                   + string.Join(", ", this.Entitys.ToArray().ToList().ConvertAll(e => e.Name).ToArray());
         }
+
+        #endregion
     }
 
     public class CreateGOBlock : UpdateBlock
     {
-        public GOEntity Entity { get; private set; }
+        #region Constructors and Destructors
 
         public CreateGOBlock(GOEntity entity)
         {
-            Entity = entity;
+            this.Entity = entity;
 
-            Build();
+            this.Build();
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public GOEntity Entity { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void BuildData()
         {
-            Writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+            this.Writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-            Writer.WritePackedUInt64(Entity.ObjectGUID.RawGUID);
+            this.Writer.WritePackedUInt64(this.Entity.ObjectGUID.RawGUID);
 
-            Writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
+            this.Writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
 
-            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_TRANSPORT |
-                                      ObjectUpdateFlag.UPDATEFLAG_ALL |
-                                      ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_TRANSPORT | ObjectUpdateFlag.UPDATEFLAG_ALL
+                                           | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
-            Writer.Write((byte)updateFlags);
+            this.Writer.Write((byte)updateFlags);
 
             // Position
-            Writer.Write((float)Entity.GameObject.X);
-            Writer.Write((float)Entity.GameObject.Y);
-            Writer.Write((float)Entity.GameObject.Z);
+            this.Writer.Write((float)this.Entity.GameObject.X);
+            this.Writer.Write((float)this.Entity.GameObject.Y);
+            this.Writer.Write((float)this.Entity.GameObject.Z);
 
-            Writer.Write((float)0); // R
+            this.Writer.Write((float)0); // R
 
-            Writer.Write((uint)0x1); // Unkown... time?
-            Writer.Write((uint)0); // Unkown... time?
+            this.Writer.Write((uint)0x1); // Unkown... time?
+            this.Writer.Write((uint)0); // Unkown... time?
 
-            Entity.WriteUpdateFields(Writer);
+            this.Entity.WriteUpdateFields(this.Writer);
         }
 
         public override string BuildInfo()
         {
-            return "[CreateGO] " + Entity.GameObjectTemplate.Name;
+            return "[CreateGO] " + this.Entity.GameObjectTemplate.Name;
         }
+
+        #endregion
     }
 
     public class CreateUnitBlock : UpdateBlock
     {
-        public UnitEntity Entity { get; private set; }
+        #region Constructors and Destructors
 
         public CreateUnitBlock(UnitEntity entity)
         {
-            Entity = entity;
+            this.Entity = entity;
 
-            Build();
+            this.Build();
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public UnitEntity Entity { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void BuildData()
         {
-            Writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+            this.Writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
-            Writer.WritePackedUInt64(Entity.ObjectGUID.RawGUID);
+            this.Writer.WritePackedUInt64(this.Entity.ObjectGUID.RawGUID);
 
-            Writer.Write((byte)TypeID.TYPEID_UNIT);
+            this.Writer.Write((byte)TypeID.TYPEID_UNIT);
 
-            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
-                                           ObjectUpdateFlag.UPDATEFLAG_LIVING |
-                                           ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL | ObjectUpdateFlag.UPDATEFLAG_LIVING
+                                           | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
-            Writer.Write((byte)updateFlags);
-            Writer.Write((UInt32)0x00000000); //MovementFlags
+            this.Writer.Write((byte)updateFlags);
+            this.Writer.Write((UInt32)0x00000000); // MovementFlags
 
-            Writer.Write((UInt32)Environment.TickCount); // Time
-            
+            this.Writer.Write((UInt32)Environment.TickCount); // Time
+
             // Position
-            Writer.Write((float)Entity.X);
-            Writer.Write((float)Entity.Y);
-            Writer.Write((float)Entity.Z);
-            Writer.Write((float)Entity.R); // R
+            this.Writer.Write(this.Entity.X);
+            this.Writer.Write(this.Entity.Y);
+            this.Writer.Write(this.Entity.Z);
+            this.Writer.Write(this.Entity.R); // R
 
             // Movement speeds
-            Writer.Write((float)0);     // ????
+            this.Writer.Write((float)0); // ????
 
-            Writer.Write((float)2.5f);  // MOVE_WALK
-            Writer.Write((float)7);     // MOVE_RUN
-            Writer.Write((float)4.5f);  // MOVE_RUN_BACK
-            Writer.Write((float)4.72f); // MOVE_SWIM
-            Writer.Write((float)2.5f);  // MOVE_SWIM_BACK
-            Writer.Write((float)3.14f); // MOVE_TURN_RATE
+            this.Writer.Write(2.5f); // MOVE_WALK
+            this.Writer.Write((float)7); // MOVE_RUN
+            this.Writer.Write(4.5f); // MOVE_RUN_BACK
+            this.Writer.Write(4.72f); // MOVE_SWIM
+            this.Writer.Write(2.5f); // MOVE_SWIM_BACK
+            this.Writer.Write(3.14f); // MOVE_TURN_RATE
 
-            Writer.Write(0x1); // Unkown...
+            this.Writer.Write(0x1); // Unkown...
 
-            Entity.Scale = 1;
-            Entity.WriteUpdateFields(Writer);
+            this.Entity.Scale = 1;
+            this.Entity.WriteUpdateFields(this.Writer);
         }
 
         public override string BuildInfo()
         {
-            return "[CreateUnit] " + Entity.Name;
+            return "[CreateUnit] " + this.Entity.Name;
         }
+
+        #endregion
     }
 }

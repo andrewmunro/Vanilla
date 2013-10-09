@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-//using Microsoft.Xna.Framework;
-using Vanilla.World.Communication.Outgoing.World.Update;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Game.Managers
+﻿namespace Vanilla.World.Game.Managers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+
+    using Character.Database.Models;
+
+    using Vanilla.Core;
+    using Vanilla.World.Database.Models;
+    using Vanilla.World.Communication.Outgoing.World.Update;
+    using Vanilla.World.Game.Entitys;
     using Vanilla.World.Network;
 
     public class EntityManager
@@ -31,7 +35,7 @@ namespace Vanilla.World.Game.Managers
                         WorldServer.Sessions.FindAll(s => entity.ObjectGUID != null).ForEach(s => 
                             {
                                 s.sendMessage("Update Packet From: " + (entity as PlayerEntity).Character.Name);
-                                s.sendPacket(packet);
+                                s.SendPacket(packet);
                             });
                     }
 
@@ -60,7 +64,7 @@ namespace Vanilla.World.Game.Managers
             WorldServer.Sessions.FindAll(s => s.Character != character).ForEach(s =>
             {
                 s.sendMessage("Spawning: " + character.Name);
-                s.sendPacket(PSUpdateObject.CreateCharacterUpdate(character));
+                s.SendPacket(PSUpdateObject.CreateCharacterUpdate(character));
             });
         }
 
@@ -69,37 +73,39 @@ namespace Vanilla.World.Game.Managers
             WorldServer.Sessions.FindAll(s => s.Character != null).FindAll(s => s.Character != session.Character).ForEach(s =>
             {
                 session.sendMessage("Spawning: " + s.Character);
-                session.sendPacket(PSUpdateObject.CreateCharacterUpdate(s.Character));
+                session.SendPacket(PSUpdateObject.CreateCharacterUpdate(s.Character));
             });
         }
 
         public static void SpawnGameObjects(WorldSession worldSession)
         {
-            worldSession.Entity.lastUpdateX = worldSession.Entity.X;
-            worldSession.Entity.lastUpdateY = worldSession.Entity.Y;
+            worldSession.Entity.LastUpdateX = worldSession.Entity.X;
+            worldSession.Entity.LastUpdateY = worldSession.Entity.Y;
 
-            worldSession.Entity.X = worldSession.Character.X;
-            worldSession.Entity.Y = worldSession.Character.Y;
-            worldSession.Entity.Z = worldSession.Character.Z;
+            worldSession.Entity.X = worldSession.Character.PositionX;
+            worldSession.Entity.Y = worldSession.Character.PositionY;
+            worldSession.Entity.Z = worldSession.Character.PositionZ;
 
             DateTime before = DateTime.Now;
-            List<GameObject> gameObjects = DBGameObject.GetGameObjects(worldSession.Entity, 100);
+            List<GameObject> gameObjects = GetNearbyGameObjects(worldSession.Entity, 100);
             int mills = DateTime.Now.Subtract(before).Milliseconds;
 
             worldSession.sendMessage("Sending " + gameObjects.Count + " in " + mills);
 
             foreach (GameObject gameObject in gameObjects)
             {
-                
-                GameObjectTemplate template = DBGameObject.GetGameObjectTemplate((uint)gameObject.ID);
+                GameObjectTemplate template = VanillaWorld.WorldDatabase.GameobjectTemplates.Single(got => got.Entry == gameObject.ID);
 
                 if (template != null)
                 {
-                    worldSession.sendPacket(PSUpdateObject.CreateGameObject(gameObject.X, gameObject.Y, gameObject.Z, gameObject, template));
+                    worldSession.SendPacket(PSUpdateObject.CreateGameObject(gameObject.PositionX, gameObject.PositionY, gameObject.PositionZ, gameObject, template));
                 }
             }
+        }
 
-            
+        private static List<GameObject> GetNearbyGameObjects(PlayerEntity entity, float Radius)
+        {
+            return VanillaWorld.WorldDatabase.GameObjects.Where(go => go.Map == entity.Character.Map && Utils.Distance(entity.Character.PositionX, entity.Character.PositionY, go.PositionX, go.PositionY) < Radius).ToList();
         }
     }
 }

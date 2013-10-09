@@ -1,16 +1,23 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Incoming.World.GameObject
+﻿namespace Vanilla.World.Communication.Incoming.World.GameObject
 {
     public class PCGameObjectQuery : PacketReader
     {
+        #region Constructors and Destructors
+
+        public PCGameObjectQuery(byte[] data)
+            : base(data)
+        {
+            this.EntryID = ReadUInt32();
+            this.GUID = ReadUInt32();
+        }
+
+        #endregion
+
+        #region Public Properties
+
         public uint EntryID { get; private set; }
         public uint GUID { get; private set; }
 
-        public PCGameObjectQuery(byte[] data) : base(data)
-        {
-            EntryID = ReadUInt32();
-            GUID = ReadUInt32();
-        }
+        #endregion
     }
 }

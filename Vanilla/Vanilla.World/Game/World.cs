@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Vanilla.World.Game.Entitys;
-using Vanilla.World.Game.Managers;
-
-namespace Vanilla.World.Game
+﻿namespace Vanilla.World.Game
 {
+    using System.Collections.Generic;
+
+    using Vanilla.World.Game.Entitys;
+    using Vanilla.World.Game.Managers;
     using Vanilla.World.Network;
 
     public delegate void PlayerEvent(PlayerEntity player);
@@ -12,16 +12,15 @@ namespace Vanilla.World.Game
     public class World
     {
         public static event PlayerEvent OnPlayerSpawn;
+
         public static event PlayerEvent OnPlayerDespawn;
 
         public static void DispatchOnPlayerSpawn(PlayerEntity player)
         {
-            if (OnPlayerSpawn != null) OnPlayerSpawn(player);
-        }
-
-        public static void DispatchOnPlayerDespawn(PlayerEntity player)
-        {
-            if (OnPlayerDespawn != null) OnPlayerDespawn(player);
+            if (OnPlayerSpawn != null)
+            {
+                OnPlayerSpawn(player);
+            }
         }
 
         // [Helpers]
@@ -34,7 +33,10 @@ namespace Vanilla.World.Game
         {
             List<WorldSession> sessions = PlayersWhoKnow(player).ConvertAll<WorldSession>(p => p.Session);
 
-            if (includeSelf == true) sessions.Add(player.Session);
+            if (includeSelf == true)
+            {
+                sessions.Add(player.Session);
+            }
 
             return sessions;
         }

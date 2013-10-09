@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Character.Database.Models;
     using Vanilla.Core;
     using Vanilla.Core.Constants.Character;
     using Vanilla.World.Communication.Outgoing.Players;
@@ -9,14 +10,11 @@
     using Vanilla.World.Game.Constants.Game.Update;
     using Vanilla.World.Game.Constants.Game.World.Entity;
     using Vanilla.World.Game.Spells;
-    using Vanilla.World.Tools;
-    using Vanilla.World.Tools.Database.Helpers;
+    using Vanilla.World.Network;
     using Vanilla.World.Tools.DBC;
     using Vanilla.World.Tools.DBC.Tables;
     using Vanilla.World.Tools.Shared;
 
-    // This should be extending UnitEntity?
-    //
     public class PlayerEntity : UnitEntity
     {
         public List<ObjectEntity> OutOfRangeEntitys { get; private set; }
@@ -33,11 +31,10 @@
 
         public UnitEntity Target;
 
-        // public Equipment
-        // public Inventory
-        // public Spells
+        public float LastUpdateX;
 
-        public float lastUpdateX, lastUpdateY;
+        public float LastUpdateY;
+
         public float X, Y, Z;
 
         public override string Name
@@ -135,7 +132,7 @@
 
             SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, character.Accessory, 0);
 
-            ItemTemplateEntry[] displayItems = DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.Equipment));
+            ItemTemplateEntry[] displayItems = DBC.ItemTemplates.GenerateInventoryByIDs(Utils.CSVStringToIntArray(character.Equipment));
 
             for (byte index = 0; index < 19; index++)
             {
@@ -196,20 +193,20 @@
 
         public SpellCollection SpellCollection { get; private set; }
 
-        public Net.WorldSession Session { get; set; }
+        public WorldSession Session { get; set; }
 
-        public void TeleportTo(int mapID, float x, float y, float z)
+        public void TeleportTo(int mapID, float x, float y, float z, float r = 0)
         {
-            if(Character.MapID != mapID) Session.sendPacket(new PSTransferPending(mapID));
+            if(Character.Map != mapID) Session.SendPacket(new PSTransferPending(mapID));
 
-            Character.MapID = mapID;
-            Character.X = x;
-            Character.Y = y;
-            Character.Z = z;
-            Character.Rotation = 0;
-            DBCharacters.UpdateCharacter(Character);
+            Character.Map = mapID;
+            Character.PositionX = x;
+            Character.PositionY = y;
+            Character.PositionZ = z;
+            Character.Orientation = r;
+            VanillaWorld.CharacterDatabase.SaveChanges();
 
-            Session.sendPacket(new PSNewWorld(mapID, x, y, z, 0));
+            Session.SendPacket(new PSNewWorld(mapID, x, y, z, r));
         }
     }
 }

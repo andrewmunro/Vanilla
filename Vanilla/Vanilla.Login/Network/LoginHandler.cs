@@ -38,7 +38,7 @@
             byte[] sessionKey = session.Srp6.K;
 
             var account = VanillaLogin.LoginDatabase.Accounts.Single(a => a.Username.ToUpper() == session.AccountName.ToUpper());
-            account.SessionKey = Helper.ByteArrayToHex(sessionKey);
+            account.SessionKey = Utils.ByteArrayToHex(sessionKey);
             VanillaLogin.LoginDatabase.SaveChanges();
 
             session.SendData(new PSAuthLoginProof(session.Srp6));
@@ -68,41 +68,7 @@
 
             session.SendData(new PSAuthLoginChallange(session.Srp6));
         }
-        /*
-        private static void onUpdateAccount(WorldSession session, byte[] data)
-        {
-            //Log.Print(LogType.Map, "Length: " + length + " Real Length: " + _dataBuffer.Length);
-            //crypt.decrypt(new byte[(int)2 * 6]);
-        }
         
-        private static void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
-        {
-            session.Character = DBCharacters.Characters.Find(character => character.GUID == packet.GUID);
-            PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
-            session.sendPacket(new LoginVerifyWorld(session.Character.MapID, session.Character.X, session.Character.Y, session.Character.Z, 0));
-            session.sendPacket(new PSAccountDataTimes());
-            session.sendPacket(new PSSetRestStart());
-            session.sendPacket(new PSBindPointUpdate());
-            session.sendPacket(new PSTutorialFlags());
-            SpellManager.SendInitialSpells(session);
-            session.sendPacket(new PSActionButtons(session.Character));
-            session.sendPacket(new PSInitializeFactions());
-            session.sendPacket(new PSLoginSetTimeSpeed());
-            session.sendPacket(new PSInitWorldStates());
-            session.sendPacket(playerEntity);
-            session.Entity.Session = session;
-            World.DispatchOnPlayerSpawn(session.Entity);
-        }
-        
-        private static void OnAuthSession(WorldSession session, PCAuthSession packet)
-        {
-            session.Account = DBAccounts.GetAccount(packet.AccountName);
-            session.crypt = new VanillaCrypt();
-            session.crypt.init(Helper.HexToByteArray(session.Account.SessionKey));
-            Log.Print(LogType.Debug, "Started Encryption");
-            session.sendPacket(new PSAuthResponse());
-        }
-        */
         private static void CalculateAccountHash(LoginSession session)
         {
             SHA1 shaM1 = new SHA1CryptoServiceProvider();

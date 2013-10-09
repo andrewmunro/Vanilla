@@ -8,6 +8,7 @@ namespace Vanilla.World.Tools
 {
     using Vanilla.Core.Config;
     using Vanilla.Core.Logging;
+    using Vanilla.World.Tools.DBC.Tables;
 
     public class DBConverter
     {

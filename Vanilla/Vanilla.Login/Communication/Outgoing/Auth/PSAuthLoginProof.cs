@@ -1,10 +1,10 @@
 ﻿namespace Vanilla.Login.Communication.Outgoing.Auth
 {
+    using Vanilla.Core.Constants;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Login.Constants.Login;
 
     internal class PSAuthLoginProof : ServerPacket
     {

@@ -1,25 +1,44 @@
-﻿using Vanilla.World.Game.Constants.Game.Chat;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Chat
+﻿namespace Vanilla.World.Communication.Chat
 {
+    #region
+
+    using Vanilla.World.Game.Constants.Game.Chat;
+
+    #endregion
+
     public class PCMessageChat : PacketReader
     {
-        public ChatMessageType Type { get; private set; }
-        public ChatMessageLanguage Language { get; private set; }
-        public string To { get; private set; }
-        public string ChannelName { get; private set; }
-        public string Message { get; private set; }
+        #region Constructors and Destructors
 
-        public PCMessageChat(byte[] data) : base(data)
+        public PCMessageChat(byte[] data)
+            : base(data)
         {
-            Type = (ChatMessageType)ReadUInt32();
-            Language = (ChatMessageLanguage)ReadUInt32();
+            this.Type = (ChatMessageType)ReadUInt32();
+            this.Language = (ChatMessageLanguage)ReadUInt32();
 
-            if (Type == ChatMessageType.CHAT_MSG_CHANNEL) ChannelName = ReadCString();
+            if (this.Type == ChatMessageType.CHAT_MSG_CHANNEL)
+            {
+                this.ChannelName = ReadCString();
+            }
 
-            if (Type == ChatMessageType.CHAT_MSG_WHISPER) To = ReadCString();            
-            Message = ReadCString();
+            if (this.Type == ChatMessageType.CHAT_MSG_WHISPER)
+            {
+                this.To = ReadCString();
+            }
+
+            this.Message = ReadCString();
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public string ChannelName { get; private set; }
+        public ChatMessageLanguage Language { get; private set; }
+        public string Message { get; private set; }
+        public string To { get; private set; }
+        public ChatMessageType Type { get; private set; }
+
+        #endregion
     }
 }

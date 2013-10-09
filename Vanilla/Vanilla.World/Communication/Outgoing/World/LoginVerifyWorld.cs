@@ -1,12 +1,18 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World
+﻿namespace Vanilla.World.Communication.Outgoing.World
 {
+    #region
+
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public class LoginVerifyWorld : ServerPacket
+    #endregion
+
+    public sealed class LoginVerifyWorld : ServerPacket
     {
-        public LoginVerifyWorld(int mapID, float X, float Y, float Z, float Rotation) : base(WorldOpcodes.SMSG_LOGIN_VERIFY_WORLD)
+        #region Constructors and Destructors
+
+        public LoginVerifyWorld(int mapID, float X, float Y, float Z, float Rotation)
+            : base(WorldOpcodes.SMSG_LOGIN_VERIFY_WORLD)
         {
             Write(mapID);
             Write(X);
@@ -14,5 +20,7 @@ namespace Vanilla.World.Communication.Outgoing.World
             Write(Z);
             Write(Rotation); // orientation
         }
+
+        #endregion
     }
 }

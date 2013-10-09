@@ -1,62 +1,56 @@
-using System;
-using System.Collections.Generic;
-
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Vanilla.World.Database.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
 
-	    [Table("creature", Schema="mangos")]
-
-    public partial class creature
+    [Table("creature", Schema = "mangos")]
+    public class Creature
     {
- 
         [Column("guid")] 
-		        public long guid { get; set; }
+                public long GUID { get; set; }
  
         [Column("id")] 
-		        public int id { get; set; }
+                public int ID { get; set; }
  
         [Column("map")] 
-		        public int map { get; set; }
+                public int Map { get; set; }
  
         [Column("modelid")] 
-		        public int modelid { get; set; }
+                public int ModelID { get; set; }
  
         [Column("equipment_id")] 
-		        public int equipment_id { get; set; }
+                public int EquipmentID { get; set; }
  
         [Column("position_x")] 
-		        public float position_x { get; set; }
+                public float PositionX { get; set; }
  
         [Column("position_y")] 
-		        public float position_y { get; set; }
+                public float PositionY { get; set; }
  
         [Column("position_z")] 
-		        public float position_z { get; set; }
+                public float PositionZ { get; set; }
  
         [Column("orientation")] 
-		        public float orientation { get; set; }
+                public float Orientation { get; set; }
  
         [Column("spawntimesecs")] 
-		        public long spawntimesecs { get; set; }
+                public long Spawntimesecs { get; set; }
  
         [Column("spawndist")] 
-		        public float spawndist { get; set; }
+                public float Spawndist { get; set; }
  
         [Column("currentwaypoint")] 
-		        public int currentwaypoint { get; set; }
+                public int Currentwaypoint { get; set; }
  
         [Column("curhealth")] 
-		        public long curhealth { get; set; }
+                public long Curhealth { get; set; }
  
         [Column("curmana")] 
-		        public long curmana { get; set; }
+                public long Curmana { get; set; }
  
         [Column("DeathState")] 
-		        public byte DeathState { get; set; }
+                public byte DeathState { get; set; }
  
         [Column("MovementType")] 
-		        public byte MovementType { get; set; }
+                public byte MovementType { get; set; }
     }
 }

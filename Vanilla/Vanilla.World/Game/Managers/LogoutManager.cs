@@ -36,14 +36,14 @@ namespace Vanilla.World.Game.Managers
         {
             if (logoutQueue.ContainsKey(session)) logoutQueue.Remove(session);
 
-            session.sendPacket(new SCLogoutResponse());
+            session.SendPacket(new SCLogoutResponse());
             logoutQueue.Add(session, DateTime.Now);
         }
 
         public static void OnCancel(WorldSession session, PacketReader reader)
         {
             logoutQueue.Remove(session);
-            session.sendPacket(new PSLogoutCancelAcknowledgement());
+            session.SendPacket(new PSLogoutCancelAcknowledgement());
         }       
 
         public static void update()
@@ -54,7 +54,7 @@ namespace Vanilla.World.Game.Managers
                 {
                     if (DateTime.Now.Subtract(entry.Value).Seconds >= LOGOUT_TIME)
                     {
-                        entry.Key.sendPacket(new PSLogoutComplete());
+                        entry.Key.SendPacket(new PSLogoutComplete());
                         logoutQueue.Remove(entry.Key);
                         World.DispatchOnPlayerDespawn(entry.Key.Entity);
                     }                   

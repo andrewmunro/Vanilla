@@ -48,7 +48,7 @@
                 Write(0); // Pet FamilyID
                 /*
                 ItemTemplateEntry[] equipment =
-                    DBC.ItemTemplates.GenerateInventoryByIDs(Helper.CSVStringToIntArray(character.EquipmentCache));
+                    DBC.ItemTemplates.GenerateInventoryByIDs(Utils.CSVStringToIntArray(character.EquipmentCache));
 
                 for (int itemSlot = 0; itemSlot < 19; itemSlot++)
                 {

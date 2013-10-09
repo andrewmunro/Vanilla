@@ -1,14 +1,22 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    #region
+
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public class PSCastFailed : ServerPacket
+    #endregion
+
+    public sealed class PSCastFailed : ServerPacket
     {
-        public PSCastFailed(uint spellID)  : base(WorldOpcodes.SMSG_CAST_FAILED)
+        #region Constructors and Destructors
+
+        public PSCastFailed(uint spellID)
+            : base(WorldOpcodes.SMSG_CAST_FAILED)
         {
-            Write((uint)spellID);
+            Write(spellID);
         }
+
+        #endregion
     }
 }

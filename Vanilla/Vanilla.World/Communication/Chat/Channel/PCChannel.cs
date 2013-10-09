@@ -1,16 +1,25 @@
-﻿using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Chat.Channel
+﻿namespace Vanilla.World.Communication.Chat.Channel
 {
-    class PCChannel : PacketReader  
+    using Vanilla.Core.Network;
+
+    internal class PCChannel : PacketReader
     {
+        #region Constructors and Destructors
+
+        public PCChannel(byte[] data)
+            : base(data)
+        {
+            this.ChannelName = ReadCString();
+            this.Password = ReadCString();
+        }
+
+        #endregion
+
+        #region Public Properties
+
         public string ChannelName { get; private set; }
         public string Password { get; private set; }
 
-        public PCChannel(byte[] data) : base(data)
-        {
-            ChannelName = ReadCString();
-            Password = ReadCString();
-        }
+        #endregion
     }
 }

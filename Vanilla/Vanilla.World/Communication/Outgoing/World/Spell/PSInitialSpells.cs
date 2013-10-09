@@ -1,28 +1,33 @@
-﻿using System;
-using Vanilla.World.Game.Spells;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    #region
+
+    using System;
+
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Game.Spells;
 
-    class PSInitialSpells : ServerPacket
+    #endregion
+
+    internal class PSInitialSpells : ServerPacket
     {
+        #region Constructors and Destructors
 
-        public PSInitialSpells(SpellCollection spellCollection) : base(WorldOpcodes.SMSG_INITIAL_SPELLS)
+        public PSInitialSpells(SpellCollection spellCollection)
+            : base(WorldOpcodes.SMSG_INITIAL_SPELLS)
         {
             Write((byte)0);
             Write((short)spellCollection.Count);
 
-            foreach (var s in spellCollection)
+            foreach (Spell s in spellCollection)
             {
                 Write((short)s.SpellID);
                 Write((short)0);
             }
 
-            Write((UInt16)spellCollection.Count); //SpellCooldowns count.
+            Write((UInt16)spellCollection.Count); // SpellCooldowns count.
 
-            foreach (var s in spellCollection)
+            foreach (Spell s in spellCollection)
             {
                 Write((uint)s.SpellID);
                 Write((short)0);
@@ -39,7 +44,8 @@ namespace Vanilla.World.Communication.Outgoing.World.Spell
                     Write((uint)s.Cooldown);
                 }
             }
-
         }
+
+        #endregion
     }
 }

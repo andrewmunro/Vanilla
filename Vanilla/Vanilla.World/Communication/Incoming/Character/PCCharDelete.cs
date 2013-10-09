@@ -1,18 +1,28 @@
-﻿using System.Linq;
-using Vanilla.World.Network;
-using Vanilla.World.Tools.Database.Helpers;
-
-namespace Vanilla.World.Communication.Incoming.Character
+﻿namespace Vanilla.World.Communication.Incoming.Character
 {
-    class PCCharDelete : PacketReader
+    using System.Linq;
+
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core.Network;
+
+    internal sealed class PCCharDelete : PacketReader
     {
-        public Tools.Database.Tables.Character Character { get; private set; }
+        #region Constructors and Destructors
 
-        public PCCharDelete(byte[] data) : base(data)
+        public PCCharDelete(byte[] data)
+            : base(data)
         {
-            int GUID = (int)ReadUInt64();
+            var GUID = (int)ReadUInt64();
 
-            Character = DBCharacters.Characters.First(c => c.GUID == GUID);
+            this.Character = VanillaWorld.CharacterDatabase.Characters.Single(c => c.GUID == GUID);
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public Character Character { get; private set; }
+
+        #endregion
     }
 }

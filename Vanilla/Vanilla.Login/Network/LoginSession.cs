@@ -10,6 +10,7 @@
     using Vanilla.Core.Logging;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Network;
 
     public class LoginSession : Session
     {
@@ -54,8 +55,7 @@
             short opcode = BitConverter.ToInt16(data, 0);
             Log.Print(
                 LogType.Server,
-                this.ConnectionRemoteIP + " Data Recived - OpCode:" + opcode.ToString("X2") + " "
-                + ((LoginOpcodes)opcode));
+                string.Format("{0} Data Recived - OpCode:{1} {2}", this.ConnectionRemoteIP, opcode.ToString("X2"), (LoginOpcodes)opcode));
 
             var code = (LoginOpcodes)opcode;
 

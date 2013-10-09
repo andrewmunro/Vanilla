@@ -1,14 +1,13 @@
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using Vanilla.Character.Database.Models.Mapping;
-
 namespace Vanilla.Character.Database.Models
 {
+    using System.Data.Entity;
+    using Vanilla.Character.Database.Models.Mapping;
+
     public class CharacterDatabase : DbContext
     {
         static CharacterDatabase()
         {
-            System.Data.Entity.Database.SetInitializer<CharacterDatabase>(null);
+            Database.SetInitializer<CharacterDatabase>(null);
         }
 
         public CharacterDatabase()
@@ -18,9 +17,9 @@ namespace Vanilla.Character.Database.Models
 
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<BugReport> BugReports { get; set; }
-        public DbSet<character_action> CharacterAction { get; set; }
-        public DbSet<character_aura> CharacterAura { get; set; }
-        public DbSet<character_battleground_data> CharacterBattlegroundData { get; set; }
+        public DbSet<CharacterAction> CharacterActions { get; set; }
+        public DbSet<character_aura> CharacterAuras { get; set; }
+        public DbSet<character_battleground_data> CharacterBattlegroundDatas { get; set; }
         public DbSet<character_gifts> CharacterGifts { get; set; }
         public DbSet<character_homebind> CharacterHomebind { get; set; }
         public DbSet<character_honor_cp> CharacterHonorCp { get; set; }
@@ -31,11 +30,11 @@ namespace Vanilla.Character.Database.Models
         public DbSet<character_reputation> CharacterReputation { get; set; }
         public DbSet<character_skills> CharacterSkills { get; set; }
         public DbSet<character_social> CharacterSocial { get; set; }
-        public DbSet<character_spell> CharacterSpell { get; set; }
+        public DbSet<CharacterSpell> CharacterSpell { get; set; }
         public DbSet<character_spell_cooldown> CharacterSpellCooldown { get; set; }
         public DbSet<character_stats> CharacterStats { get; set; }
         public DbSet<character_ticket> CharacterTicket { get; set; }
-        public DbSet<character_tutorial> CharacterTutorial { get; set; }
+        public DbSet<CharacterTutorial> CharacterTutorial { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<corpse> Corpses { get; set; }
         public DbSet<creature_respawn> CreatureRespawn { get; set; }
@@ -67,7 +66,7 @@ namespace Vanilla.Character.Database.Models
         {
             modelBuilder.Configurations.Add(new AuctionMap());
             modelBuilder.Configurations.Add(new BugreportMap());
-            modelBuilder.Configurations.Add(new character_actionMap());
+            modelBuilder.Configurations.Add(new CharacterActionMap());
             modelBuilder.Configurations.Add(new character_auraMap());
             modelBuilder.Configurations.Add(new character_battleground_dataMap());
             modelBuilder.Configurations.Add(new character_giftsMap());
@@ -80,11 +79,11 @@ namespace Vanilla.Character.Database.Models
             modelBuilder.Configurations.Add(new character_reputationMap());
             modelBuilder.Configurations.Add(new character_skillsMap());
             modelBuilder.Configurations.Add(new character_socialMap());
-            modelBuilder.Configurations.Add(new character_spellMap());
+            modelBuilder.Configurations.Add(new CharacterSpellMap());
             modelBuilder.Configurations.Add(new character_spell_cooldownMap());
             modelBuilder.Configurations.Add(new character_statsMap());
             modelBuilder.Configurations.Add(new character_ticketMap());
-            modelBuilder.Configurations.Add(new character_tutorialMap());
+            modelBuilder.Configurations.Add(new CharacterTutorialMap());
             modelBuilder.Configurations.Add(new CharacterMap());
             modelBuilder.Configurations.Add(new corpseMap());
             modelBuilder.Configurations.Add(new creature_respawnMap());

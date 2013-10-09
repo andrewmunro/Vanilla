@@ -1,15 +1,21 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Logout
+﻿namespace Vanilla.World.Communication.Outgoing.Logout
 {
+    #region
+
     using Vanilla.Core.Opcodes;
 
-    class PSLogoutComplete : ServerPacket
+    #endregion
+
+    internal class PSLogoutComplete : ServerPacket
     {
-        public PSLogoutComplete() : base((WorldOpcodes) WorldOpcodes.SMSG_LOGOUT_COMPLETE)
+        #region Constructors and Destructors
+
+        public PSLogoutComplete()
+            : base((WorldOpcodes)WorldOpcodes.SMSG_LOGOUT_COMPLETE)
         {
             Write((byte)0);
         }
+
+        #endregion
     }
 }

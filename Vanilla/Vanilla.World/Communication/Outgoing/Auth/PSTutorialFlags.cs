@@ -1,16 +1,36 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Auth
+﻿namespace Vanilla.World.Communication.Outgoing.Auth
 {
-    using Vanilla.Core.Opcodes;
+    #region
 
-    class PSTutorialFlags : ServerPacket
+    using System.Linq;
+
+    using Vanilla.Core.Extensions;
+    using Vanilla.Core.Network;
+    using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Database.Models;
+
+    #endregion
+
+    internal sealed class PSTutorialFlags : ServerPacket
     {
-        //TODO Write the uint ids of 8 tutorial values
-        public PSTutorialFlags() : base((WorldOpcodes) WorldOpcodes.SMSG_TUTORIAL_FLAGS)
+        // TODO Write the uint ids of 8 tutorial values
+        #region Constructors and Destructors
+
+        public PSTutorialFlags(Account account)
+            : base(WorldOpcodes.SMSG_TUTORIAL_FLAGS)
         {
-            this.WriteNullUInt(8);
+            var tutorialData = VanillaWorld.CharacterDatabase.CharacterTutorial.Single(cts => cts.Account == account.ID);
+
+            this.Write(tutorialData.Tut0);
+            this.Write(tutorialData.Tut1);
+            this.Write(tutorialData.Tut2);
+            this.Write(tutorialData.Tut3);
+            this.Write(tutorialData.Tut4);
+            this.Write(tutorialData.Tut5);
+            this.Write(tutorialData.Tut6);
+            this.Write(tutorialData.Tut7);
         }
+
+        #endregion
     }
 }

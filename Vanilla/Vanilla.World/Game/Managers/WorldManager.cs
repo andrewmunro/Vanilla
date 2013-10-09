@@ -227,7 +227,7 @@ namespace Vanilla.World.Game.Managers
 
             List<CreatureEntry> unitsClose = allUnits
                 .FindAll(m => m.map == player.Character.MapID)
-                .FindAll(m => Helper.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);   
+                .FindAll(m => Utils.Distance(m.position_x, m.position_y, player.Character.X, player.Character.Y) < 500);   
 
             unitsClose.ForEach(closeUnit => AddEntityToWorld(new UnitEntity(closeUnit)));
         }

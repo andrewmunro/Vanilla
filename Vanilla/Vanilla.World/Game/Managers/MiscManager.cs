@@ -36,20 +36,20 @@ namespace Vanilla.World.Game.Managers
 
             if (target != null)
             {
-                session.sendPacket(new PSNameQueryResponse(target));
+                session.SendPacket(new PSNameQueryResponse(target));
             }
         }
 
         public static void OnGameObjectQuery(WorldSession session, PCGameObjectQuery packet)
         {            
             GameObjectTemplate template = DBGameObject.GameObjectTemplates.Find(g => g.Entry == packet.EntryID);
-            //session.sendPacket(new PSGameObjectQueryResponse(template));
+            //session.SendPacket(new PSGameObjectQueryResponse(template));
             //session.sendMessage("Requested Info: " + template.Name + " " + (GameobjectTypes)template.Type);
         }
 
         private static void OnEmotePacket(WorldSession session, PCEmote packet)
         {
-            session.sendPacket(new PSEmote(packet.EmoteID, session.Entity.ObjectGUID.RawGUID));
+            session.SendPacket(new PSEmote(packet.EmoteID, session.Entity.ObjectGUID.RawGUID));
         }
 
         public static void OnTextEmotePacket(WorldSession session, PCTextEmote packet)
@@ -70,8 +70,8 @@ namespace Vanilla.World.Game.Managers
                 case Emote.EMOTE_ONESHOT_NONE:
                     break;
                 default:
-                    World.SessionsWhoKnow(session.Entity).ForEach(s => s.sendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID)));
-                    session.sendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID));
+                    World.SessionsWhoKnow(session.Entity).ForEach(s => s.SendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID)));
+                    session.SendPacket(new PSEmote(textEmote.TextID, session.Entity.ObjectGUID.RawGUID));
                     break;
             }
         }
@@ -95,8 +95,8 @@ namespace Vanilla.World.Game.Managers
                 session.Character.Rotation = areaTrigger.TargetR;
                 DBCharacters.UpdateCharacter(session.Character);
 
-                session.sendPacket(new PSTransferPending(areaTrigger.TargetMap));
-                session.sendPacket(new PSNewWorld(areaTrigger.TargetMap, areaTrigger.TargetX, areaTrigger.TargetY, areaTrigger.TargetZ, areaTrigger.TargetR));
+                session.SendPacket(new PSTransferPending(areaTrigger.TargetMap));
+                session.SendPacket(new PSNewWorld(areaTrigger.TargetMap, areaTrigger.TargetX, areaTrigger.TargetY, areaTrigger.TargetZ, areaTrigger.TargetR));
                 
             }
             else
@@ -109,7 +109,7 @@ namespace Vanilla.World.Game.Managers
         {
             session.sendMessage("Ping: " + packet.Ping + " Latancy: " + packet.Latency);
 
-            session.sendPacket(new PSPong(packet.Ping));
+            session.SendPacket(new PSPong(packet.Ping));
         }
 
         public static void OnSetSelectionPacket(WorldSession session, PCSetSelection packet)

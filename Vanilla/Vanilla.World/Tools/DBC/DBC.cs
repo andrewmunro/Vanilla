@@ -11,12 +11,12 @@ namespace Vanilla.World.Tools.DBC
 
         public static SQLiteConnection SQLite { get; private set; }
 
-        // [Helper]
+        // [Utils]
         public static SpellsDBC Spells { get; private set; }
         public static ItemTemplaceDBC ItemTemplates { get; private set; }
         public static ChrStartingOutfitDBC ChrStartingOutfit { get; private set; }
 
-        // [Non-Helper]
+        // [Non-Utils]
         public static CachedDBC<ChrRacesEntry> ChrRaces { get; private set; }
         public static CachedDBC<AreaTableEntry> AreaTables { get; private set; }
         public static CachedDBC<AreaTriggerEntry> AreaTriggers { get; private set; }

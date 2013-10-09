@@ -1,19 +1,26 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Players
+﻿namespace Vanilla.World.Communication.Outgoing.Players
 {
+    #region
+
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public class PSNewWorld : ServerPacket
+    #endregion
+
+    public sealed class PSNewWorld : ServerPacket
     {
-        public PSNewWorld(int mapID, float X, float Y, float Z, float R) : base((WorldOpcodes) WorldOpcodes.SMSG_NEW_WORLD)
+        #region Constructors and Destructors
+
+        public PSNewWorld(int mapID, float x, float y, float z, float r)
+            : base(WorldOpcodes.SMSG_NEW_WORLD)
         {
             Write(mapID);
-            Write(X);
-            Write(Y);
-            Write(Z);
-            Write(R);
+            Write(x);
+            Write(y);
+            Write(z);
+            Write(r);
         }
+
+        #endregion
     }
 }

@@ -1,16 +1,24 @@
-﻿using System;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
+    #region
+
+    using System;
+
     using Vanilla.Core.Opcodes;
+
+    #endregion
 
     public class PSLearnSpell : ServerPacket
     {
-        public PSLearnSpell(uint spellID) : base(WorldOpcodes.SMSG_LEARNED_SPELL)
+        #region Constructors and Destructors
+
+        public PSLearnSpell(uint spellID)
+            : base(WorldOpcodes.SMSG_LEARNED_SPELL)
         {
-            Write((uint)spellID);
+            Write(spellID);
             Write((UInt16)0);
         }
+
+        #endregion
     }
 }

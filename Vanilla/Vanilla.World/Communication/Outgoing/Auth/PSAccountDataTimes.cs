@@ -1,15 +1,23 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Communication.Outgoing.Auth
+﻿namespace Vanilla.World.Communication.Outgoing.Auth
 {
+    #region
+
+    using Vanilla.Core.Extensions;
+    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    class PSAccountDataTimes : ServerPacket
+    #endregion
+
+    internal class PSAccountDataTimes : ServerPacket
     {
-        public PSAccountDataTimes() : base((WorldOpcodes) WorldOpcodes.SMSG_ACCOUNT_DATA_TIMES)
+        #region Constructors and Destructors
+
+        public PSAccountDataTimes()
+            : base(WorldOpcodes.SMSG_ACCOUNT_DATA_TIMES)
         {
             this.WriteNullByte(128);
         }
+
+        #endregion
     }
 }

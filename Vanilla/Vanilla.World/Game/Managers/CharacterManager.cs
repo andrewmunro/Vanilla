@@ -27,7 +27,7 @@ namespace Vanilla.World.Game.Managers
         private static void OnCHarDelete(WorldSession session, PCCharDelete packet)
         {
             DBCharacters.DeleteCharacter(packet.Character);
-            session.sendPacket(new PSCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
+            session.SendPacket(new PSCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 
         private static void OnCharCreate(WorldSession session, PCCharCreate packet)
@@ -36,7 +36,7 @@ namespace Vanilla.World.Game.Managers
 
             DBCharacters.CreateCharacter(session.Account, new Character()
             {
-                Name = Helper.NormalizeText(packet.Name),
+                Name = Utils.NormalizeText(packet.Name),
                 Race = (RaceID)packet.Race,
                 Class = (ClassID)packet.Class,
                 Gender = (Gender)packet.Gender,
@@ -64,13 +64,13 @@ namespace Vanilla.World.Game.Managers
                 Equipment = DBC.ChrStartingOutfit.GetCharStartingOutfitString(packet).ItemID
             });
 
-            session.sendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS));
+            session.SendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS));
         }
 
         private static void OnCharEnum(WorldSession session, byte[] packet)
         {
             List<Character> characters = DBCharacters.GetCharacters(session.Account.Username);
-            session.sendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new PSCharEnum(characters).PacketData);
+            session.SendPacket(WorldOpcodes.SMSG_CHAR_ENUM, new PSCharEnum(characters).PacketData);
         }
     }
 }

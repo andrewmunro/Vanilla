@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using Vanilla.Core;
-using Vanilla.Core.Config;
-using Vanilla.Core.Network;
-using Vanilla.World.Game.Managers;
-using Vanilla.World.Tools.Chat;
-using Vanilla.World.Tools.DBC;
-
-namespace Vanilla.World
+﻿namespace Vanilla.World
 {
+    using System;
+
+    using Vanilla.Character.Database.Models;
+    using Vanilla.Core.Config;
+    using Vanilla.Login.Database.Models;
+    using Vanilla.World.Database.Models;
+    using Vanilla.World.Game;
+    using Vanilla.World.Game.Managers;
     using Vanilla.World.Network;
+    using Vanilla.World.Tools.Chat;
+    using Vanilla.World.Tools.DBC;
 
     public class VanillaWorld
     {
         static void Main(string[] args)
         {
             Config.Boot();
+
+            WorldDatabase = new WorldDatabase();
+            CharacterDatabase = new CharacterDatabase();
+            LoginDatabase = new LoginDatabase();
             DBC.Boot();
 
-            World = new WorldServer();
-
-            World.Start(Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.MAX_CONNECTIONS));
-            
             LogoutManager.Boot();
             ChatManager.Boot();
             ChatChannelManager.Boot();
@@ -30,56 +31,40 @@ namespace Vanilla.World
             SpellManager.Boot();
             ChatCommandParser.Boot();
             EntityManager.Boot();
-            AuthManager.Boot();
+            WorldLoginHandler.Boot();
             CharacterManager.Boot();
-            //ZoneHandler.Boot();
             PlayerManager.Boot();
             UnitManager.Boot();
             MailManager.Boot();
             GameObjectManager.Boot();
 
-//            Milkshake.Game.Entitys.AIBrainManager.Boot();
-
-            new PlayerManager();
+            PlayerManager = new PlayerManager();
             UnitComponent = new UnitComponent();
-            GameObjectComponent =  new GameObjectComponent();
+            GameObjectComponent = new GameObjectComponent();
             new WorldManager();
             ScriptManager.Boot();
 
+            WorldServer = new WorldServer();
+            WorldServer.Start(Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.MAX_CONNECTIONS));
 
-            while (true) Console.ReadLine();
+            while (true)
+            {
+                Console.ReadLine();
+            }
         }
+
+        public static WorldServer WorldServer { get; set; }
+
+        public static PlayerManager PlayerManager { get; set; }
 
         public static UnitComponent UnitComponent { get; private set; }
+
         public static GameObjectComponent GameObjectComponent { get; private set; }
 
-        public static WorldServer World { get; private set; }
-    }
+        public static WorldDatabase WorldDatabase { get; private set; }
 
-    public class WorldServer : Server
-    {
-        public static List<WorldSession> Sessions = new List<WorldSession>();
-        public int connectionID = 0;
+        public static CharacterDatabase CharacterDatabase { get; private set; }
 
-        public override Session GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
-        {
-            connectionID++;
-            WorldSession session = new WorldSession(connectionID, connectionSocket);
-            Sessions.Add(session);
-
-            return session;
-        }
-
-        /* Move to WorldServer */
-        public static void TransmitToAll(ServerPacket packet)
-        {
-            WorldServer.Sessions.FindAll(s => s.Character != null).ForEach(s => s.sendPacket(packet));
-        }
-
-        public static WorldSession GetSessionByPlayerName(string playerName)
-        {
-            return WorldServer.Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
-        }
-
+        public static LoginDatabase LoginDatabase { get; set; }
     }
 }

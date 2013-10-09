@@ -1,8 +1,9 @@
-﻿using Vanilla.World.Communication.Incoming.Character;
-using Vanilla.World.Tools.DBC.Tables;
-
-namespace Vanilla.World.Tools.DBC.Helper
+﻿namespace Vanilla.World.Tools.DBC.Helper
 {
+    using Vanilla.Character.Database.Models;
+    using Vanilla.World.Communication.Incoming.Character;
+    using Vanilla.World.Tools.DBC.Tables;
+
     public class ChrStartingOutfitDBC : CachedDBC<ChrStartingOutfitEntry>
     {
         public ChrStartingOutfitEntry GetCharStartingOutfitString(PCCharCreate character)

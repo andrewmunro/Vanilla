@@ -71,7 +71,6 @@
     <Compile Include="Communication\Outgoing\Char\PSCharDelete.cs" />
     <Compile Include="Communication\Outgoing\Char\PSCharEnum.cs" />
     <Compile Include="Network\LoginRouter.cs" />
-    <Compile Include="Constants\Login\AccountStatus.cs" />
     <Compile Include="Constants\Login\LoginErrorCode.cs" />
     <Compile Include="Constants\Login\RealmColor.cs" />
     <Compile Include="Constants\Login\RealmStatus.cs" />
@@ -94,9 +93,9 @@
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Login.Database.csproj">
       <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
-      <Name>Vanilla.Database.Login</Name>
+      <Name>Vanilla.Login.Database</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

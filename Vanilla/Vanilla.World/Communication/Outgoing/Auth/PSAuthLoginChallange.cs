@@ -1,13 +1,17 @@
-﻿using Vanilla.World.Communication.Outgoing.World;
-using Vanilla.World.Game.Constants.Login;
-using Vanilla.World.Network;
-using Vanilla.World.Tools.Cryptography;
-
-namespace Vanilla.World.Communication.Outgoing.Auth
+﻿namespace Vanilla.World.Communication.Outgoing.Auth
 {
-    class PSAuthLoginChallange : ServerPacket
+    using Vanilla.Core.Constants;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.Extensions;
+    using Vanilla.Core.Network;
+    using Vanilla.Core.Opcodes;
+
+    internal class PSAuthLoginChallange : ServerPacket
     {
-        public PSAuthLoginChallange(SRP6 Srp6) : base((LoginOpcodes) LoginOpcodes.AUTH_LOGIN_CHALLENGE)
+        #region Constructors and Destructors
+
+        public PSAuthLoginChallange(SRP6 Srp6)
+            : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
         {
             Write((byte)0);
             Write((byte)0);
@@ -29,5 +33,7 @@ namespace Vanilla.World.Communication.Outgoing.Auth
                 this.WriteNullByte(17);
             }
         }
+
+        #endregion
     }
 }

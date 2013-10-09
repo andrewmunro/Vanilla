@@ -53,8 +53,8 @@ namespace Vanilla.World.Tools.Chat.Commands
             session.Character.Rotation = 0;
             DBCharacters.UpdateCharacter(session.Character);
 
-            session.sendPacket(new PSTransferPending(location.Entry.MapID));
-            session.sendPacket(new PSNewWorld(location.Entry.MapID, location.Entry.X, location.Entry.Y, location.Entry.Z, 0));
+            session.SendPacket(new PSTransferPending(location.Entry.MapID));
+            session.SendPacket(new PSNewWorld(location.Entry.MapID, location.Entry.X, location.Entry.Y, location.Entry.Z, 0));
         }
 
         [ChatCommand("list", "")]
