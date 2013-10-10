@@ -1,17 +1,18 @@
-﻿using System.Net.Sockets;
-using Vanilla.Core;
-using Vanilla.Core.Network;
-
-namespace Vanilla.Login.Network
+﻿namespace Vanilla.Login.Network
 {
+    using System.Net.Sockets;
+
+    using Vanilla.Core;
+    using Vanilla.Core.Network;
+
     public class LoginServer : Server
     {
-        public LoginRouter Router { get; private set; }
-
         public LoginServer()
         {
             Router = new LoginRouter();
         }
+
+        public LoginRouter Router { get; private set; }
 
         public override Session GenerateSession(int connectionID, Socket connectionSocket)
         {

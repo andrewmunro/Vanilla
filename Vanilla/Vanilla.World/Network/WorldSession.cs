@@ -85,7 +85,7 @@
 
         public void sendMessage(String message)
         {
-            ChatManager.SendSytemMessage(this, message);
+            ChatMessageComponent.SendSytemMessage(this, message);
         }
 
         public void Teleport(int mapID, float x, float y, float z, float r = 0)

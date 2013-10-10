@@ -11,7 +11,7 @@
     using Vanilla.World.Game.Handlers;
     using Vanilla.World.Network;
 
-    public class MovementManager
+    public class PlayerMovementComponent
     {
         private static readonly List<WorldOpcodes> MOVEMENT_CODES = new List<WorldOpcodes>()
         {   

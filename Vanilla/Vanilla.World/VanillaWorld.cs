@@ -1,67 +1,59 @@
 ﻿namespace Vanilla.World
 {
-    using System;
+    using System.Linq;
+    using System.Threading;
 
     using Vanilla.Character.Database.Models;
-    using Vanilla.Core.Config;
+    using Vanilla.Core.Components;
     using Vanilla.Login.Database.Models;
+    using Vanilla.World.Components;
     using Vanilla.World.Database.Models;
-    using Vanilla.World.Game;
     using Vanilla.World.Game.Managers;
     using Vanilla.World.Network;
     using Vanilla.World.Tools.Chat;
     using Vanilla.World.Tools.DBC;
 
-    public class VanillaWorld
+    public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>
     {
-        static void Main(string[] args)
+        public VanillaWorld(int port, int maxConnection)
         {
-            Config.Boot();
-
             WorldDatabase = new WorldDatabase();
             CharacterDatabase = new CharacterDatabase();
             LoginDatabase = new LoginDatabase();
-            DBC.Boot();
 
-            LogoutManager.Boot();
-            ChatManager.Boot();
-            ChatChannelManager.Boot();
-            MovementManager.Boot();
-            MiscManager.Boot();
-            SpellManager.Boot();
-            ChatCommandParser.Boot();
-            EntityManager.Boot();
-            WorldLoginHandler.Boot();
-            CharacterManager.Boot();
-            PlayerManager.Boot();
-            UnitManager.Boot();
-            MailManager.Boot();
-            GameObjectManager.Boot();
+            // Entity framework hack to call meta data caching as soon as possible.
+            new Thread(() => WorldDatabase.commands.ToList()).Start();
 
-            PlayerManager = new PlayerManager();
-            UnitComponent = new UnitComponent();
-            GameObjectComponent = new GameObjectComponent();
-            new WorldManager();
-            ScriptManager.Boot();
+            DBC.Boot(); //Temporary
 
-            WorldServer = new WorldServer();
-            WorldServer.Start(Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.PORT), Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.MAX_CONNECTIONS));
+            Server = new WorldServer();
 
-            while (true)
-            {
-                Console.ReadLine();
-            }
+            Components.Add(new LogoutComponent(this));
+            Components.Add(new ChatMessageComponent(this));
+            Components.Add(new ChatChannelComponent(this));
+            Components.Add(new PlayerMovementComponent(this));
+            Components.Add(new MiscComponent(this)); // Refactor this <--- we don't want misc >:(
+            Components.Add(new SpellComponent(this));
+            Components.Add(new ChatCommandParser(this));
+            Components.Add(new EntityManager(this));
+            Components.Add(new WorldLoginHandler(this));
+            Components.Add(new CharacterManager(this));
+            Components.Add(new PlayerManager(this));
+            Components.Add(new UnitManager(this));
+            Components.Add(new MailManager(this));
+            Components.Add(new GameObjectManager(this));
+            Components.Add(new PlayerManager(this));
+            Components.Add(new UnitComponent(this));
+            Components.Add(new GameObjectComponent(this));
+            Components.Add(new WorldManager(this));
+            Components.Add(new ScriptManager(this));
+
+            Server.Start(port, maxConnection);
         }
 
-        public static WorldServer WorldServer { get; set; }
+        public WorldServer Server { get; private set; }
 
-        public static PlayerManager PlayerManager { get; set; }
-
-        public static UnitComponent UnitComponent { get; private set; }
-
-        public static GameObjectComponent GameObjectComponent { get; private set; }
-
-        public static WorldDatabase WorldDatabase { get; private set; }
+        public WorldDatabase WorldDatabase { get; private set; }
 
         public static CharacterDatabase CharacterDatabase { get; private set; }
 

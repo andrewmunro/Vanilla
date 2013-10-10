@@ -16,7 +16,7 @@ namespace Vanilla.World.Game.Managers
 
     public delegate void ChatCommandDelegate(WorldSession Session, String[] args);
 
-    public class ChatManager
+    public class ChatMessageComponent
     {
         public static Dictionary<ChatMessageType, ProcessChatCallback> ChatHandlers;
 

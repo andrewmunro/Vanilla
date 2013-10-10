@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace Vanilla.World.Tools.Chat
 {
+    using Vanilla.Core.Logging;
     using Vanilla.World.Network;
 
     public class ChatCommandParser

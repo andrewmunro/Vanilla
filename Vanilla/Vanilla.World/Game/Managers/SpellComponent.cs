@@ -15,7 +15,7 @@ namespace Vanilla.World.Game.Managers
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Network;
 
-    public class SpellManager
+    public class SpellComponent
     {
         public Dictionary<Character, SpellCollection> SpellCollections = new Dictionary<Character, SpellCollection>();
 

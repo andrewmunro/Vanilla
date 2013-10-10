@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vanilla.Core.Components
+﻿namespace Vanilla.Core.Components
 {
+    using System.Collections.Generic;
+
     public class VanillaComponentBasedCore<T> : VanillaCore 
     {
         public List<T> Components;

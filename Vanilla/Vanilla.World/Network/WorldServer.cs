@@ -8,6 +8,13 @@ namespace Vanilla.World.Network
 
     public class WorldServer : Server
     {
+        public WorldServer()
+        {
+            Router = new WorldRouter();
+        }
+
+        public WorldRouter Router { get; private set; }
+
         public static List<WorldSession> Sessions = new List<WorldSession>();
 
         public static void TransmitToAll(ServerPacket packet)

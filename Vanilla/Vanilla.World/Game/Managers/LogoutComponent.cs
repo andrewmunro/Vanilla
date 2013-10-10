@@ -14,7 +14,7 @@ namespace Vanilla.World.Game.Managers
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public class LogoutManager
+    public class LogoutComponent
     {
         public const int LOGOUT_TIME = 1;
 

@@ -21,7 +21,7 @@ namespace Vanilla.Login.Components.Auth
         
         private void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            Account account = Core.LoginDB.Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Name.ToUpper());
+            Account account = Core.LoginDatabase.Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Name.ToUpper());
 
             if (account == null)
             {

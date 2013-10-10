@@ -34,7 +34,7 @@
             session.SendPacket(new PSSetRestStart());
             session.SendPacket(new PSBindPointUpdate());
             session.SendPacket(new PSTutorialFlags(session.Account));
-            SpellManager.SendInitialSpells(session);
+            SpellComponent.SendInitialSpells(session);
             session.SendPacket(new PSActionButtons(session.Character));
             session.SendPacket(new PSInitializeFactions());
             session.SendPacket(new PSLoginSetTimeSpeed());

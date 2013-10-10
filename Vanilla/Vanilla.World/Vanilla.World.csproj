@@ -132,6 +132,7 @@
     <Compile Include="Communication\Outgoing\World\Spell\PSSpellGo.cs" />
     <Compile Include="Communication\Outgoing\World\Update\PSUpdateObject.cs" />
     <Compile Include="Communication\Outgoing\World\Update\UpdateBuilder.cs" />
+    <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="DBConverter.cs" />
     <Compile Include="Game\Constants\Chat\Channel\ChatChannelFlags.cs" />
     <Compile Include="Game\Constants\Chat\Channel\ChatChannelDBCFlags.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Game\Spells\SpellCollection.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Network\WorldLoginHandler.cs" />
+    <Compile Include="Network\WorldRouter.cs" />
     <Compile Include="Network\WorldServer.cs" />
     <Compile Include="Network\WorldSession.cs" />
     <Compile Include="Tools\Chat\ChatCommandBase.cs" />
@@ -197,15 +199,15 @@
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\WorldDataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
-    <Compile Include="Game\Managers\ChatChannelManager.cs" />
-    <Compile Include="Game\Managers\ChatManager.cs" />
+    <Compile Include="Game\Managers\ChatChannelComponent.cs" />
+    <Compile Include="Game\Managers\ChatMessageComponent.cs" />
     <Compile Include="Game\Entitys\PlayerEntity.cs" />
     <Compile Include="Game\Entitys\ObjectEntity.cs" />
     <Compile Include="Game\Managers\EntityManager.cs" />
-    <Compile Include="Game\Managers\LogoutManager.cs" />
-    <Compile Include="Game\Managers\MiscManager.cs" />
-    <Compile Include="Game\Managers\MovementManager.cs" />
-    <Compile Include="Game\Managers\SpellManager.cs" />
+    <Compile Include="Game\Managers\LogoutComponent.cs" />
+    <Compile Include="Game\Managers\MiscComponent.cs" />
+    <Compile Include="Game\Managers\PlayerMovementComponent.cs" />
+    <Compile Include="Game\Managers\SpellComponent.cs" />
     <Compile Include="Tools\Chat\ChatCommandAttribute.cs" />
     <Compile Include="Tools\Chat\ChatCommandParser.cs" />
     <Compile Include="Tools\Chat\Commands\Spell.cs" />

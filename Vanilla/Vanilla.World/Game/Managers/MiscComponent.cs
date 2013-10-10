@@ -16,7 +16,7 @@ namespace Vanilla.World.Game.Managers
     using Vanilla.World.Database.Models;
     using Vanilla.World.Network;
 
-    public class MiscManager
+    public class MiscComponent
     {
         public static void Boot()
         {

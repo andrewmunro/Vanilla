@@ -14,7 +14,7 @@
     using Vanilla.World.Game.Handlers;
     using Vanilla.World.Network;
 
-    public class ChatChannelManager
+    public class ChatChannelComponent
     {
         //TODO Fix channel db
         public static void Boot()
@@ -22,7 +22,7 @@
             WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
             WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
             WorldDataRouter.AddHandler<PCChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, OnListChannel);
-            ChatManager.ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
+            ChatMessageComponent.ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
         }
 
         private static void OnListChannel(WorldSession session, PCChannel packet)
