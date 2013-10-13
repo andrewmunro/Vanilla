@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Players
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Players
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    public class ForceRunSpeedChange : ServerPacket
+    public class ForceRunSpeedChange : WorldPacket
     {
         #region Constructors and Destructors
 

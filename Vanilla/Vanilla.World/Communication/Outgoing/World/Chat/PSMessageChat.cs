@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Chat
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Chat
 {
     #region
 
@@ -10,7 +12,7 @@
 
     #endregion
 
-    public class PSMessageChat : ServerPacket
+    public class PSMessageChat : WorldPacket
     {
         #region Fields
 

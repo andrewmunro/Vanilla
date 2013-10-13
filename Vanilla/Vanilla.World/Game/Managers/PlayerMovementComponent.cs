@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Game.Managers
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Game.Managers
 {
     using System.Collections.Generic;
 

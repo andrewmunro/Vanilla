@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using Vanilla.Core.Constants;
 
-namespace Vanilla.Core.Network
+namespace Vanilla.Core.Network.IO
 {
-    using ICSharpCode.SharpZipLib.Zip.Compression;
-
-    using Vanilla.Core.Constants;
-
     public class PacketWriter : BinaryWriter
     {
-        private readonly PacketHeaderType _headerType;
-        private PacketHeaderType header;
+        public PacketHeaderType HeaderType { get { return _headerType;} }
+        public short Opcode;
 
-        public PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())
-        { }
+        private readonly PacketHeaderType _headerType;
+        //private PacketHeaderType header;
+
+        public PacketWriter(short opcode, PacketHeaderType headerType) : this(headerType, new MemoryStream())
+        {
+            Opcode = opcode;
+        }
 
         protected PacketWriter(PacketHeaderType headerType, Stream output)
             : base(output, Encoding.UTF8)
@@ -50,42 +53,54 @@ namespace Vanilla.Core.Network
             Write(data);
         }
 
-        public void WritePacketHeader(short opcode, ushort length)
+        // For over ride
+        public virtual void WriteHeader(BinaryWriter writer)
         {
-            long curPos = BaseStream.Position;
-            BaseStream.Seek(0, SeekOrigin.Begin);
-            
-            switch (_headerType)
-            {
-                case PacketHeaderType.AuthCmsg:
-                    Write((byte)opcode);
-                    break;
-
-                case PacketHeaderType.AuthSmsg:
-                    Write((byte)opcode);
-                    Write(length);
-                    break;
-
-                case PacketHeaderType.WorldCmsg:
-                    Write(opcode);
-                    Write(length);
-                    Write((ushort)0);
-                    break;
-
-                case PacketHeaderType.WorldSmsg:
-                    Write(opcode);
-                    Write(length);
-                    break;
-            }
-            BaseStream.Seek(curPos, SeekOrigin.Begin);
+            WritePacketHeader(writer, Opcode);
         }
 
-        public void WritePacketHeader(short opcode)
+        public virtual string ParseOpcode()
+        {
+            throw new Exception("Needs override");
+        }
+
+        public void WritePacketHeader(BinaryWriter packet, short opcode)
         {
             // Awesomely lazy!
             var length = (ushort)(BaseStream.Length); // -2
-            WritePacketHeader(opcode, length);
+            WritePacketHeader(packet, opcode, length);
         }
+
+        public void WritePacketHeader(BinaryWriter packet, short opcode, ushort length)
+        {
+            switch (_headerType)
+            {
+                case PacketHeaderType.AuthCmsg:
+                    packet.Write((byte)opcode);
+                    break;
+
+                case PacketHeaderType.AuthSmsg:
+                    packet.Write((byte)opcode);
+                    break;
+
+                case PacketHeaderType.RealmSmsg:
+                    packet.Write((byte)opcode);
+                    packet.Write((ushort)length);
+                    break;
+
+                case PacketHeaderType.WorldCmsg:
+                    packet.Write(opcode);
+                    packet.Write(length);
+                    packet.Write((ushort)0);
+                    break;
+
+                case PacketHeaderType.WorldSmsg:
+                    packet.Write(opcode);
+                    packet.Write(length);
+                    break;
+            }
+        }
+
 
         public void Compress()
         {

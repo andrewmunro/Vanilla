@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Vanilla.Core.Network.IO;
+using Vanilla.Core.Network.Packet;
 using Vanilla.World.Communication.Outgoing.World;
 using Vanilla.World.Communication.Outgoing.World.Entity;
 using Vanilla.World.Game.Entitys;
@@ -38,7 +40,7 @@ namespace Vanilla.World.Game.Managers
             {
                 session.sendMessage("Attacking:" + target.Name);
 
-                ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_ATTACKSTART);
+                WorldPacket packet = new WorldPacket(WorldOpcodes.SMSG_ATTACKSTART);
                 packet.Write(session.Entity.ObjectGUID.RawGUID);
                 packet.Write(target.ObjectGUID.RawGUID);
 

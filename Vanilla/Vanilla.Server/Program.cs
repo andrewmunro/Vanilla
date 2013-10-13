@@ -13,7 +13,7 @@ namespace Vanilla.Server
         {
             Config.Boot();
 
-            VanillaLogin vanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);
+            VanillaLogin vanillaLogin = new VanillaLogin();
             //worldServer.Start(1337, 20);
 
             while (true) Thread.Sleep(1000);

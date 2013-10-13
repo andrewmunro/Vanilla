@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Game.Entitys
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Game.Entitys
 {
     using System;
     using System.Collections.Generic;
@@ -164,7 +166,7 @@
 
             if(this is PlayerEntity)
             {
-                ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_STANDSTATE_UPDATE);
+                WorldPacket packet = new WorldPacket(WorldOpcodes.SMSG_STANDSTATE_UPDATE);
                 packet.Write((byte)state);
                 (this as PlayerEntity).Session.SendPacket(packet);
             }
@@ -187,7 +189,7 @@
 
         public void Move(float targetX, float targetY, float targetZ)
         {
-            ServerPacket packet = new ServerPacket(WorldOpcodes.SMSG_MONSTER_MOVE);
+            WorldPacket packet = new WorldPacket(WorldOpcodes.SMSG_MONSTER_MOVE);
             packet.WritePackedUInt64(ObjectGUID.RawGUID);
             packet.Write(X);
             packet.Write(Y);

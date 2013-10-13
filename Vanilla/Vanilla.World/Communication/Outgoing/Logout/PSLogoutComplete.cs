@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Logout
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Logout
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    internal class PSLogoutComplete : ServerPacket
+    internal class PSLogoutComplete : WorldPacket
     {
         #region Constructors and Destructors
 

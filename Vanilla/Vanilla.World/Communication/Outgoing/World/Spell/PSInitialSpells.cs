@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
     #region
 
@@ -10,7 +12,7 @@
 
     #endregion
 
-    internal class PSInitialSpells : ServerPacket
+    internal class PSInitialSpells : WorldPacket
     {
         #region Constructors and Destructors
 

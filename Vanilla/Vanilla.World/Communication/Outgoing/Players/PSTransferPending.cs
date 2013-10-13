@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Players
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Players
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    public sealed class PSTransferPending : ServerPacket
+    public sealed class PSTransferPending : WorldPacket
     {
         #region Constructors and Destructors
 

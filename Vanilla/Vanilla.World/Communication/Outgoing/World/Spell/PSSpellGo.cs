@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
     #region
 
@@ -34,7 +36,7 @@
         CAST_FLAG_UNKNOWN9 = 0x00000100, 
     };
 
-    public sealed class PSSpellGo : ServerPacket
+    public sealed class PSSpellGo : WorldPacket
     {
         #region Constructors and Destructors
 

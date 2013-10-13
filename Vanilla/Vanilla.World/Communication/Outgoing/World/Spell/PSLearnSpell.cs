@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
     #region
 
@@ -9,7 +11,7 @@
 
     #endregion
 
-    public class PSLearnSpell : ServerPacket
+    public class PSLearnSpell : WorldPacket
     {
         #region Constructors and Destructors
 

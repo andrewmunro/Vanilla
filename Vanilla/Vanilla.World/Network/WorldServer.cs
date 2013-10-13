@@ -1,4 +1,7 @@
 ﻿
+using Vanilla.Core.Network.Packet;
+using Vanilla.Core.Network.Session;
+
 namespace Vanilla.World.Network
 {
     using System.Collections.Generic;
@@ -17,7 +20,7 @@ namespace Vanilla.World.Network
 
         public static List<WorldSession> Sessions = new List<WorldSession>();
 
-        public static void TransmitToAll(ServerPacket packet)
+        public static void TransmitToAll(WorldPacket packet)
         {
             Sessions.FindAll(s => s.Character != null).ForEach(s => s.SendPacket(packet));
         }
@@ -27,7 +30,7 @@ namespace Vanilla.World.Network
             return Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
         }
 
-        public override Session GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
+        public override AbstractSession GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
         {
             connectionID++;
             var session = new WorldSession(connectionID, connectionSocket);

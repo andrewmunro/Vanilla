@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Chat.Channel
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Communication.Chat.Channel
 {
     using Vanilla.Core.Network;
 

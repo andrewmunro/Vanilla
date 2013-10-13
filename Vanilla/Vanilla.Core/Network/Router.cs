@@ -1,4 +1,6 @@
-﻿namespace Vanilla.Core.Network
+﻿using Vanilla.Core.Network.Session;
+
+namespace Vanilla.Core.Network
 {
     using System;
     using System.Collections.Generic;
@@ -6,13 +8,17 @@
 
     using Vanilla.Core.Logging;
 
-    public delegate void ProcessLoginPacketCallback<in TSession, in TReader>(TSession session, TReader reader) where TSession : Session where TReader : BinaryReader;
-    
-    public delegate void ProcessLoginPacketCallbackTypes<in TSession, in TReader>(TSession session, TReader customReader) where TSession : Session where TReader : BinaryReader;
+    public delegate void ProcessLoginPacketCallback<in TSession, in TReader>(TSession session, TReader reader)
+        where TSession : AbstractSession
+        where TReader : BinaryReader;
 
-    public abstract class PacketRouter<TOpcode, TSession, TReader> where TSession : Session where TReader : BinaryReader
+    public delegate void ProcessLoginPacketCallbackTypes<in TSession, in TReader>(TSession session, TReader customReader)
+        where TSession : AbstractSession
+        where TReader : BinaryReader;
+
+    public abstract class Router<TOpcode, TSession, TReader> where TSession : AbstractSession where TReader : BinaryReader
     {
-        protected PacketRouter()
+        protected Router()
         {
             CallBacks = new Dictionary<TOpcode, ProcessLoginPacketCallback<TSession, TReader>>();
         }
@@ -41,7 +47,7 @@
             TReader packetReader = (TReader)Activator.CreateInstance(typeof(TReader), data);
             TOpcode opcode = FetchOpcode(packetReader);
 
-            Log.Print(LogType.Router, "Calling " + opcode + " Handler");
+            //Log.Print(LogType.Router, "Calling " + opcode + " Handler");
 
             if (CallBacks.ContainsKey(opcode))
             {

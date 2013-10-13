@@ -14,8 +14,9 @@ namespace Vanilla.Core.Logging
         Database,
         Status,
         Map,
-		Script,
-        Router
+        Script,
+        Router,
+        Network
     }
 
     public class Log

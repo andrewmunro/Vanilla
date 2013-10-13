@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Update
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Update
 {
     #region
 
@@ -19,7 +21,7 @@
 
     #endregion
 
-    public class PSUpdateObject : ServerPacket
+    public class PSUpdateObject : WorldPacket
     {
         #region Constructors and Destructors
 

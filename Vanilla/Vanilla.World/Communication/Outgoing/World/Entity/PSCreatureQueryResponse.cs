@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Entity
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Entity
 {
     #region
 
@@ -10,7 +12,7 @@
 
     #endregion
 
-    public class PSCreatureQueryResponse : ServerPacket
+    public class PSCreatureQueryResponse : WorldPacket
     {
         #region Constructors and Destructors
 

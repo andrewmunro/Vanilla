@@ -2,12 +2,11 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using Vanilla.Core.Constants;
 using Vanilla.Core.Cryptography;
 
-namespace Vanilla.Core.Network
+namespace Vanilla.Core.Network.IO
 {
-    using Vanilla.Core.Constants;
-
     public class PacketReader : BinaryReader
     {
         /// <summary>

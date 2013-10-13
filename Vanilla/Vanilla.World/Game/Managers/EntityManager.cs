@@ -30,7 +30,7 @@
                 {
                     if (entity.UpdateCount > 0)
                     {
-                        ServerPacket packet = PSUpdateObject.UpdateValues(entity);
+                        WorldPacket packet = PSUpdateObject.UpdateValues(entity);
 
                         WorldServer.Sessions.FindAll(s => entity.ObjectGUID != null).ForEach(s => 
                             {

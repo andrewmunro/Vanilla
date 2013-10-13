@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Spell
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Spell
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    public sealed class PSCastFailed : ServerPacket
+    public sealed class PSCastFailed : WorldPacket
     {
         #region Constructors and Destructors
 

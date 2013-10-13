@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Chat
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Chat
 {
     #region
 
@@ -11,7 +13,7 @@
 
     #endregion
 
-    internal class PSChannelNotify : ServerPacket
+    internal class PSChannelNotify : WorldPacket
     {
         #region Constructors and Destructors
 

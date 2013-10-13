@@ -1,4 +1,8 @@
-﻿namespace Vanilla.World.Network
+﻿using Vanilla.Core.Network.IO;
+using Vanilla.Core.Network.Packet;
+using Vanilla.Core.Network.Session;
+
+namespace Vanilla.World.Network
 {
     using System;
     using System.IO;
@@ -15,7 +19,7 @@
     using Vanilla.World.Game.Managers;
     using Character.Database.Models;
 
-    public class WorldSession : Session
+    public class WorldSession : AbstractSession
     {
         public UInt32 seed;
         public VanillaCrypt crypt;
@@ -65,6 +69,7 @@
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             byte[] header = this.Encode(data.Length, (int)opcode);
 
+            
             writer.Write(header);
             writer.Write(data);
 
@@ -78,7 +83,7 @@
             this.SendPacket((int)opcode, data);
         }
 
-        public void SendPacket(ServerPacket packet)
+        public void SendPacket(WorldPacket packet)
         {
             this.SendPacket((int)packet.Opcode, packet.Packet);
         }

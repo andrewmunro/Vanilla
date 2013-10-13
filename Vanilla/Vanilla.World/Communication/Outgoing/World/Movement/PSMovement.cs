@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Movement
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Movement
 {
     #region
 
@@ -13,7 +15,7 @@
 
     #endregion
 
-    public class PSMovement : ServerPacket
+    public class PSMovement : WorldPacket
     {
         #region Constructors and Destructors
 

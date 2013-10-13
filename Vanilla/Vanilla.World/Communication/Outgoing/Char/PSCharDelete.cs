@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Char
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Char
 {
     #region
 
@@ -8,7 +10,7 @@
 
     #endregion
 
-    internal class PSCharDelete : ServerPacket
+    internal class PSCharDelete : WorldPacket
     {
         #region Constructors and Destructors
 

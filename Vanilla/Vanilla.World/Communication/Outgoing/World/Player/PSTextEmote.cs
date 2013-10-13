@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Player
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Player
 {
     #region
 
@@ -9,7 +11,7 @@
 
     #endregion
 
-    public class PSTextEmote : ServerPacket
+    public class PSTextEmote : WorldPacket
     {
         #region Constructors and Destructors
 

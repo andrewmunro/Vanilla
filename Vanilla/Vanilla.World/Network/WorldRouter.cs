@@ -1,9 +1,11 @@
-﻿namespace Vanilla.World.Network
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Network
 {
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public class WorldRouter : PacketRouter<WorldOpcodes, WorldSession, PacketReader>
+    public class WorldRouter : Router<WorldOpcodes, WorldSession, PacketReader>
     {
         public override WorldOpcodes FetchOpcode(PacketReader packet)
         {

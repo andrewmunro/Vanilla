@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Incoming.Auth
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Communication.Incoming.Auth
 {
     using Vanilla.Core.Network;
 

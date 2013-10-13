@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Incoming.World
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Communication.Incoming.World
 {
     using Vanilla.Core.Network;
 

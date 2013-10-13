@@ -3,24 +3,12 @@
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    public enum PacketHeaderType : byte
+    public enum PacketHeaderType
     {
-        AuthCmsg = 1,
-        AuthSmsg = 3,
-        WorldSmsg = 4,
-        WorldCmsg = 6
-    }
-
-    public static class PacketHeaderExtension
-    {
-        public static PacketHeaderType Parse(this RealmServerOpCode opCode)
-        {
-            return opCode.ToString().StartsWith("CMSG") ? PacketHeaderType.WorldCmsg : PacketHeaderType.WorldSmsg;
-        }
-
-        public static PacketHeaderType Parse(this LoginOpcodes opCode)
-        {
-            return PacketHeaderType.AuthSmsg;
-        }
+        AuthCmsg,
+        AuthSmsg,
+        RealmSmsg,
+        WorldSmsg,
+        WorldCmsg,
     }
 }

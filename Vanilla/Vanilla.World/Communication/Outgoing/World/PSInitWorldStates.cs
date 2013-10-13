@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World
 {
     #region
 
@@ -8,7 +10,7 @@
 
     #endregion
 
-    public class PSInitWorldStates : ServerPacket
+    public class PSInitWorldStates : WorldPacket
     {
         // TODO Implement this, found at https://github.com/mangoszero/server/blob/master/src/game/Player.cpp#L7676
         #region Constructors and Destructors

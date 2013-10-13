@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Movement
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Movement
 {
     #region
 
@@ -11,7 +13,7 @@
 
     #endregion
 
-    public sealed class PSMoveHeartbeat : ServerPacket
+    public sealed class PSMoveHeartbeat : WorldPacket
     {
         #region Constructors and Destructors
 

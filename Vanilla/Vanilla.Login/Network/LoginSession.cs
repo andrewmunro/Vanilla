@@ -5,6 +5,8 @@ using Vanilla.Core;
 using Vanilla.Core.Cryptography;
 using Vanilla.Core.Logging;
 using Vanilla.Core.Network;
+using Vanilla.Core.Network.Packet;
+using Vanilla.Core.Network.Session;
 using Vanilla.Core.Opcodes;
 
 namespace Vanilla.Login.Network
@@ -12,52 +14,19 @@ namespace Vanilla.Login.Network
     public class LoginSession : Session
     {
         public LoginServer Server;
-
-        public byte[] SessionKey;
-        public SRP6 Srp6;
-
-        public LoginSession(LoginServer server, int connectionID, Socket connectionSocket)
-            : base(connectionID, connectionSocket)
-        {
-            Server = server;
-        }
+        public Authenticator Authenticator;
 
         public string AccountName { get; set; }
 
-        public override void Disconnect(object obj = null)
+        public LoginSession(LoginServer server, int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
         {
-            base.Disconnect();
-            //VanillaLogin.Server.FreeConnectionID(this.pConnectionID);
+            Server = server;
         }
-
-        public void SendPacket(LoginOpcodes opcode, byte[] data)
-        {
-            this.SendPacket((byte)opcode, data);
-        }
-
-        public void SendPacket(ServerPacket packet)
-        {
-            this.SendPacket((byte)packet.Opcode, packet.Packet);
-        }
-
-        public void SendPacket(byte opcode, byte[] data)
-        {
-            var writer = new BinaryWriter(new MemoryStream());
-            writer.Write(opcode);
-            writer.Write((ushort)data.Length);
-            writer.Write(data);
-
-            Log.Print(LogType.Database, "Server -> Client [" + (LoginOpcodes)opcode + "] [0x" + opcode.ToString("X") + "]");
-
-            this.SendData(((MemoryStream)writer.BaseStream).ToArray());
-        }
-
+        
         protected override void OnPacket(byte[] data)
         {
             short opcode = BitConverter.ToInt16(data, 0);
-            Log.Print(
-                LogType.Server,
-                string.Format("{0} Data Recived - OpCode:{1} {2}", this.ConnectionRemoteIP, opcode.ToString("X2"), (LoginOpcodes)opcode));
+            Log.Print(LogType.Packet, "Server <- Client [" + (LoginOpcodes)opcode + "]");
 
             Server.OnPacket(this, data);
         }

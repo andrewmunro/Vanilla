@@ -1,4 +1,6 @@
-﻿namespace Vanilla.Login.Communication.Incoming.Character
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.Login.Communication.Incoming.Character
 {
     using Vanilla.Core.Network;
 

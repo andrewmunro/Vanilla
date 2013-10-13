@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Auth
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Auth
 {
     using Vanilla.Core.Constants;
     using Vanilla.Core.Cryptography;
@@ -6,7 +8,7 @@
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 
-    internal class PSAuthLoginChallange : ServerPacket
+    internal class PSAuthLoginChallange : WorldPacket
     {
         #region Constructors and Destructors
 

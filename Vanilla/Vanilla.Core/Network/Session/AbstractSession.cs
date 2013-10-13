@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net.Sockets;
 using Vanilla.Core.Logging;
-using Vanilla.Core.Network;
+using Vanilla.Core.Network.Packet;
 
-namespace Vanilla.Core
+namespace Vanilla.Core.Network.Session
 {
-    public abstract class Session
+    public abstract class AbstractSession
     {
         public const int BufferSize = 2048 * 2;
         public const int TIMEOUT = 1000;
@@ -17,7 +17,7 @@ namespace Vanilla.Core
         public string ConnectionRemoteIP { get { return ConnectionSocket.RemoteEndPoint.ToString(); } }
         public int ConnectionID { get { return pConnectionID; } }
 
-        public Session(int connectionID, Socket connectionSocket)
+        public AbstractSession(int connectionID, Socket connectionSocket)
         {
             pConnectionID = connectionID;
             ConnectionSocket = connectionSocket;
@@ -35,6 +35,7 @@ namespace Vanilla.Core
 
         public void SendData(byte[] send)
         {
+
             var buffer = new byte[send.Length];
             Buffer.BlockCopy(send, 0, buffer, 0, send.Length);
 
@@ -54,11 +55,6 @@ namespace Vanilla.Core
             {
                 Disconnect();
             }
-        }
-
-        public void SendData(ServerPacket packet)
-        {
-            SendData(packet.Packet);
         }
 
         public virtual void Disconnect(object obj = null)

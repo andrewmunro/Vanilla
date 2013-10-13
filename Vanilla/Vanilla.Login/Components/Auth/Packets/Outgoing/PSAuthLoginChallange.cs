@@ -2,38 +2,30 @@
 using Vanilla.Core.Cryptography;
 using Vanilla.Core.Extensions;
 using Vanilla.Core.Network;
+using Vanilla.Core.Network.Packet;
 using Vanilla.Core.Opcodes;
 
 namespace Vanilla.Login.Components.Auth.Packets.Outgoing
 {
-    internal sealed class PSAuthLoginChallange : ServerPacket
+    internal sealed class PSAuthLoginChallange : LoginPacket
     {
-        #region Constructors and Destructors
-
-        public PSAuthLoginChallange(SRP6 Srp6)
-            : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
+        public PSAuthLoginChallange(Authenticator authenticator) : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
         {
-            Write((byte)0);
-            Write((byte)0);
-
-            if (Srp6 == null)
-            {
-                Write((byte)AccountStatus.UnknownAccount);
-                this.WriteNullByte(6);
-            }
-            else
-            {
-                Write((byte)AccountStatus.Ok);
-                Write(Srp6.B);
-                Write((byte)1);
-                Write(Srp6.g[0]);
-                Write((byte)Srp6.N.Length);
-                Write(Srp6.N);
-                Write(Srp6.salt);
-                this.WriteNullByte(17);
-            }
+            WriteNull(1);
+            Write((byte)AccountStatus.Ok);
+            Write(authenticator.SRP6.B);
+            Write((byte)1);
+            Write(authenticator.SRP6.g[0]);
+            Write((byte)authenticator.SRP6.N.Length);
+            Write(authenticator.SRP6.N);
+            Write(authenticator.SRP6.salt);
+            this.WriteNullByte(17);
         }
 
-        #endregion
+        public PSAuthLoginChallange(AccountStatus accountStatus) : base(LoginOpcodes.AUTH_LOGIN_CHALLENGE)
+        {
+            WriteNull(1);
+            Write((byte)accountStatus);
+        }
     }
 }

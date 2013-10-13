@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Logout
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Logout
 {
     #region
 
@@ -9,7 +11,7 @@
 
     #endregion
 
-    internal class SCLogoutResponse : ServerPacket
+    internal class SCLogoutResponse : WorldPacket
     {
         #region Constructors and Destructors
 

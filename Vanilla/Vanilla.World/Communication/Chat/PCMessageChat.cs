@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Chat
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Communication.Chat
 {
     #region
 

@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.Mail
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.Mail
 {
     #region
 
@@ -8,7 +10,7 @@
 
     #endregion
 
-    public class PSSendMailResult : ServerPacket
+    public class PSSendMailResult : WorldPacket
     {
         #region Constructors and Destructors
 

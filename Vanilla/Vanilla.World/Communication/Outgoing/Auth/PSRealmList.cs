@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Auth
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Auth
 {
     #region
 
@@ -8,7 +10,7 @@
 
     #endregion
 
-    internal class PSRealmList : ServerPacket
+    internal class PSRealmList : WorldPacket
     {
         #region Constructors and Destructors
 

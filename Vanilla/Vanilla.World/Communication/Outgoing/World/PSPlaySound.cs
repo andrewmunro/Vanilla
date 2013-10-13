@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    internal class PSPlaySound : ServerPacket
+    internal class PSPlaySound : WorldPacket
     {
         #region Constructors and Destructors
 

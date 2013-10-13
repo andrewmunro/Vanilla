@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
 {
     #region
 
@@ -11,7 +13,7 @@
 
     #endregion
 
-    internal sealed class PSActionButtons : ServerPacket
+    internal sealed class PSActionButtons : WorldPacket
     {
         #region Constructors and Destructors
 

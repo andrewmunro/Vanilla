@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Vanilla.Core.Network;
+using Vanilla.Core.Network.IO;
 
 namespace Vanilla.Login.Components.Auth.Packets.Incoming
 {
@@ -17,7 +18,7 @@ namespace Vanilla.Login.Components.Auth.Packets.Incoming
 
         public IPAddress IP;
 
-        public string Name;
+        public string Username;
 
         public string OS;
 
@@ -52,7 +53,7 @@ namespace Vanilla.Login.Components.Auth.Packets.Incoming
 
             this.TimeZone = ReadUInt32();
             this.IP = ReadIpAddress();
-            this.Name = ReadPascalString(1);
+            this.Username = ReadPascalString(1);
         }
 
         #endregion

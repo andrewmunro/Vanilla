@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Auth
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Auth
 {
     #region
 
@@ -11,7 +13,7 @@
 
     #endregion
 
-    internal sealed class PSTutorialFlags : ServerPacket
+    internal sealed class PSTutorialFlags : WorldPacket
     {
         // TODO Write the uint ids of 8 tutorial values
         #region Constructors and Destructors

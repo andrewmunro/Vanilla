@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Game.Managers
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Game.Managers
 {
     using System;
     using System.Collections.Generic;
@@ -47,7 +49,7 @@
             //List<Character> inChannel = DBChannels.GetCharacters(packet.ChannelName);
             //inChannel.ForEach(c => WorldServer.Sessions.Find(s => s.Character == c).SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName)));;
 
-            ServerPacket outPacket = new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName);
+            WorldPacket outPacket = new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message, packet.ChannelName);
 
             Console.WriteLine(Utils.ByteArrayToHex(outPacket.Packet));
 

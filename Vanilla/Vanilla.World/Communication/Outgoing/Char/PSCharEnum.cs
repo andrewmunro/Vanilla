@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Char
+﻿using Vanilla.Core.Network.IO;
+
+namespace Vanilla.World.Communication.Outgoing.Char
 {
     #region
 

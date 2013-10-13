@@ -1,4 +1,6 @@
-﻿namespace Vanilla.Core.Network
+﻿using Vanilla.Core.Network.Session;
+
+namespace Vanilla.Core.Network
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +15,7 @@
 
         public Socket SocketHandler { get; protected set; }
 
-        public Dictionary<int, Session> ActiveConnections { get; protected set; }
+        public Dictionary<int, AbstractSession> ActiveConnections { get; protected set; }
 
         public int Port { get; private set; }
 
@@ -32,7 +34,7 @@
             this.MaxConnections = maxConnections;
             this.Port = portNumber;
 
-            this.ActiveConnections = new Dictionary<int, Session>();
+            this.ActiveConnections = new Dictionary<int, AbstractSession>();
 
             this.SocketHandler = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -54,7 +56,7 @@
             }
         }
 
-        public virtual Session GenerateSession(int connectionID, Socket connectionSocket)
+        public virtual AbstractSession GenerateSession(int connectionID, Socket connectionSocket)
         {
             throw new Exception("Couldn't find free ID");
         }

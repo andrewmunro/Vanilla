@@ -1,10 +1,11 @@
 ﻿using Vanilla.Core.Constants;
 using Vanilla.Core.Network;
+using Vanilla.Core.Network.Packet;
 using Vanilla.Core.Opcodes;
 
 namespace Vanilla.Login.Components.Auth.Packets.Outgoing
 {
-    internal sealed class PSAuthResponse : ServerPacket
+    internal sealed class PSAuthResponse : WorldPacket
     {
         #region Constructors and Destructors
 

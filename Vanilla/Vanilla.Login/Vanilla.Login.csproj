@@ -47,6 +47,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Routing" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,25 +57,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginChallenge.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginProof.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginChallange.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginProof.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Realm\Packets\Outgoing\PSRealmList.cs" />
+    <Compile Include="Components\Realm\Realm.cs" />
+    <Compile Include="ILoginServer.cs" />
     <Compile Include="Network\LoginRouter.cs" />
     <Compile Include="Components\Auth\Constants\LoginErrorCode.cs" />
     <Compile Include="Components\Realm\Constants\RealmColor.cs" />
-    <Compile Include="Components\Realm\Constants\RealmStatus.cs" />
-    <Compile Include="Components\Realm\Constants\RealmTimeZone.cs" />
     <Compile Include="Components\Realm\Constants\RealmType.cs" />
     <Compile Include="Network\LoginServer.cs" />
     <Compile Include="Components\LoginServerComponent.cs" />
-    <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Realm\RealmComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Network\LoginSession.cs" />
-    <Compile Include="VanillaLogin.cs" />
+    <Compile Include="VanillaLogin.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Character.Database.csproj">

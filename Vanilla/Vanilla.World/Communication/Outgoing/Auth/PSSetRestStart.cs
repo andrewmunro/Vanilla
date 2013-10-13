@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Communication.Outgoing.Auth
+﻿using Vanilla.Core.Network.Packet;
+
+namespace Vanilla.World.Communication.Outgoing.Auth
 {
     #region
 
@@ -7,7 +9,7 @@
 
     #endregion
 
-    internal sealed class PSSetRestStart : ServerPacket
+    internal sealed class PSSetRestStart : WorldPacket
     {
         // TODO Implement
         #region Constructors and Destructors
