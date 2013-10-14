@@ -1,9 +1,8 @@
-﻿using System.Net;
-using Vanilla.Core.Network;
-using Vanilla.Core.Network.IO;
-
-namespace Vanilla.Login.Components.Auth.Packets.Incoming
+﻿namespace Vanilla.Login.Components.Auth.Packets.Incoming
 {
+    using System.Net;
+    using Vanilla.Core.Network.IO;
+
     public sealed class PCAuthLoginChallenge : PacketReader
     {
         #region Fields

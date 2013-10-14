@@ -1,11 +1,8 @@
-﻿using Vanilla.Core.Network.Session;
-
-namespace Vanilla.Login.Network
+﻿namespace Vanilla.Login.Network
 {
     using System.Net.Sockets;
-
-    using Vanilla.Core;
     using Vanilla.Core.Network;
+    using Vanilla.Core.Network.Session;
 
     public class LoginServer : Server
     {

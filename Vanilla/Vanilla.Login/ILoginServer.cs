@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vanilla.Login
+﻿namespace Vanilla.Login
 {
+    using System.ServiceModel;
+
     [ServiceContract]
     public interface ILoginServer
     {

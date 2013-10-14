@@ -1,8 +1,7 @@
-﻿using Vanilla.Core.Network;
-using Vanilla.Core.Network.IO;
-
-namespace Vanilla.Login.Components.Auth.Packets.Incoming
+﻿namespace Vanilla.Login.Components.Auth.Packets.Incoming
 {
+    using Vanilla.Core.Network.IO;
+
     public sealed class PCAuthLoginProof : PacketReader
     {
         #region Constructors and Destructors

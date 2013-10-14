@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using Vanilla.Core.Network;
-using Vanilla.Core.Network.IO;
-using Vanilla.Core.Opcodes;
-using Vanilla.Login.Components.Realm.Constants;
-using Vanilla.Login.Components.Realm.Packets.Outgoing;
-using Vanilla.Login.Network;
-
-namespace Vanilla.Login.Components.Realm
+﻿namespace Vanilla.Login.Components.Realm
 {
+    using System.Collections.Generic;
+
+    using Vanilla.Core.Network.IO;
+    using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Components.Realm.Constants;
+    using Vanilla.Login.Components.Realm.Packets.Outgoing;
+    using Vanilla.Login.Network;
+
     public class RealmComponent : LoginServerComponent
     {
         public RealmComponent(VanillaLogin vanillaLogin) : base(vanillaLogin)
@@ -18,6 +18,7 @@ namespace Vanilla.Login.Components.Realm
         private void OnRealmList(LoginSession session, PacketReader reader)
         {
             List<Realm> realms = new List<Realm>();
+            //TODO Parse from Config
             realms.Add(new Realm()
             {
                 Category = 0,

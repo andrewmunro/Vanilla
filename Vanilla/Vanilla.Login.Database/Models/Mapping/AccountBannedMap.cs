@@ -1,14 +1,14 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-
 namespace Vanilla.Login.Database.Models.Mapping
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.ModelConfiguration;
+
     public class AccountBannedMap : EntityTypeConfiguration<AccountBanned>
     {
         public AccountBannedMap()
         {
             // Primary Key
-            this.HasKey(t => new { id = t.Id, t.bandate });
+            this.HasKey(t => new { t.Id, t.bandate });
 
             // Properties
             this.Property(t => t.Id)

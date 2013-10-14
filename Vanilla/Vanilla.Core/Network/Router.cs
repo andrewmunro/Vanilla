@@ -1,12 +1,11 @@
-﻿using Vanilla.Core.Network.Session;
-
-namespace Vanilla.Core.Network
+﻿namespace Vanilla.Core.Network
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
 
     using Vanilla.Core.Logging;
+    using Vanilla.Core.Network.Session;
 
     public delegate void ProcessLoginPacketCallback<in TSession, in TReader>(TSession session, TReader reader)
         where TSession : AbstractSession

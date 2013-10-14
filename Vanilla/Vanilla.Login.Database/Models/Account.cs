@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Vanilla.Login.Database.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("account", Schema = "realmd")]
     public class Account
     {
-
         [Column("id")]
         public long ID { get; set; }
 
@@ -33,8 +30,8 @@ namespace Vanilla.Login.Database.Models
         [Column("email")]
         public string Email { get; set; }
 
-        //[Column("joindate")]
-        //public DateTime Joindate { get; set; }
+        [Column("joindate")]
+        public DateTime? Joindate { get; set; }
 
         [Column("last_ip")]
         public string LastIP { get; set; }
@@ -45,8 +42,8 @@ namespace Vanilla.Login.Database.Models
         [Column("locked")]
         public byte Locked { get; set; }
 
-        //[Column("last_login")]
-       // public DateTime LastLogin { get; set; }
+        [Column("last_login")]
+        public DateTime? LastLogin { get; set; }
 
         [Column("active_realm_id")]
         public long ActiveRealmID { get; set; }

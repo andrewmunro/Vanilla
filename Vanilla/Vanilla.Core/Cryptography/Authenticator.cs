@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vanilla.Core.Cryptography
+﻿namespace Vanilla.Core.Cryptography
 {
+    using System.Security.Cryptography;
+
     public class Authenticator
     {
         public byte[] SessionKey;
+
         public SRP6 SRP6;
         
         public Authenticator()

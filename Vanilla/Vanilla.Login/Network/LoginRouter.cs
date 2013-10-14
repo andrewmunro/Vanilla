@@ -1,8 +1,7 @@
-﻿using Vanilla.Core.Network.IO;
-
-namespace Vanilla.Login.Network
+﻿namespace Vanilla.Login.Network
 {
     using Vanilla.Core.Network;
+    using Vanilla.Core.Network.IO;
     using Vanilla.Core.Opcodes;
 
     public class LoginRouter : Router<LoginOpcodes, LoginSession, PacketReader>

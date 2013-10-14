@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Vanilla.Core.Config;
-using Vanilla.Core.Network.Packet;
-using Vanilla.Core.Opcodes;
-using Vanilla.Login.Components.Realm.Constants;
-
-namespace Vanilla.Login.Components.Realm.Packets.Outgoing
+﻿namespace Vanilla.Login.Components.Realm.Packets.Outgoing
 {
+    using System.Collections.Generic;
+    using Vanilla.Core.Network.Packet;
+    using Vanilla.Core.Opcodes;
+
     internal sealed class PSRealmList : RealmPacket
     {
         public PSRealmList(List<Realm> realms, byte characterCount) : base(LoginOpcodes.REALM_LIST)

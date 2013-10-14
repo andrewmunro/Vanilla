@@ -1,13 +1,12 @@
-﻿using System;
-using System.ServiceModel;
-using System.ServiceProcess;
-
-namespace Vanilla.Login
+﻿namespace Vanilla.Login
 {
+    using System;
     using System.Linq;
-    using System.Threading;
+    using System.ServiceModel;
+    using System.ServiceProcess;
 
     using Vanilla.Core.Components;
+    using Vanilla.Core.IO;
     using Vanilla.Login.Components;
     using Vanilla.Login.Components.Auth;
     using Vanilla.Login.Components.Realm;
@@ -17,87 +16,29 @@ namespace Vanilla.Login
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)] 
     public class VanillaLogin : VanillaComponentBasedCore<LoginServerComponent>, ILoginServer
     {
-        public VanillaLogin()
+        public VanillaLogin(int portNumber, int maxConnections)
         {
-            this.LoginDatabase = new LoginDatabase();
+            this.LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
             // Entity framework hack to call meta data caching as soon as possible.
-            LoginDatabase.Accounts.ToList();
+            var accounts = this.LoginDatabase.GetRepository<Account>();
+            accounts.AsQueryable();
 
             Server = new LoginServer();
 
             Components.Add(new AuthComponent(this));
             Components.Add(new RealmComponent(this));
 
-            HelloServiceHost.Main(null);
-
-            Server.Start(100, 20);
+            Server.Start(portNumber, maxConnections);
         }
-
-        
 
         public LoginServer Server { get; private set; }
 
-        public LoginDatabase LoginDatabase { get; private set; }
+        public DatabaseUnitOfWork<LoginDatabase> LoginDatabase { get; private set; }
 
         public void RegisterRealm(string name)
         {
            Console.WriteLine("Hello World!");
-        }
-    }
-
-    public class HelloServiceHost : ServiceBase
-    {
-        const string CONSOLE = "console";
-
-        public const string NAME = "HelloWorldService";
-
-        ServiceHost _serviceHost = null;
-
-        public HelloServiceHost()
-        {
-            ServiceName = NAME;
-        }
-
-        public static void Main(VanillaLogin login)
-        {
-            new HelloServiceHost().ConsoleRun(login);
-        }
-
-        private void ConsoleRun(VanillaLogin login)
-        {
-            Console.WriteLine(string.Format("{0}::starting...", GetType().FullName));
-
-            OnStart(null);
-
-            Console.WriteLine(string.Format("{0}::ready (ENTER to exit)", GetType().FullName));
-            //Console.ReadLine();
-
-            //OnStop();
-
-            //Console.WriteLine(string.Format("{0}::stopped", GetType().FullName));
-        }
-
-        protected override void OnStart(string[] a)
-        {
-            if (_serviceHost != null)
-            {
-                _serviceHost.Close();
-            }
-
-            _serviceHost = new ServiceHost(typeof(VanillaLogin));
-            
-            _serviceHost.Open();
-            
-        }
-
-        protected override void OnStop()
-        {
-            if (_serviceHost != null)
-            {
-                _serviceHost.Close();
-                _serviceHost = null;
-            }
         }
     }
 }

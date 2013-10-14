@@ -1,18 +1,22 @@
-﻿using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Vanilla.Core.Constants;
-using Vanilla.Core.Cryptography;
-using Vanilla.Core.Opcodes;
-using Vanilla.Login.Components.Auth.Packets.Incoming;
-using Vanilla.Login.Components.Auth.Packets.Outgoing;
-using Vanilla.Login.Database.Models;
-using Vanilla.Login.Network;
-
-namespace Vanilla.Login.Components.Auth
+﻿namespace Vanilla.Login.Components.Auth
 {
+    using System.Linq;
+    using System.Text;
+
+    using Vanilla.Core;
+    using Vanilla.Core.Constants;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.IO;
+    using Vanilla.Core.Opcodes;
+    using Vanilla.Login.Components.Auth.Packets.Incoming;
+    using Vanilla.Login.Components.Auth.Packets.Outgoing;
+    using Vanilla.Login.Database.Models;
+    using Vanilla.Login.Network;
+
     public class AuthComponent : LoginServerComponent
     {
+        protected IRepository<Account> Accounts { get { return Core.LoginDatabase.GetRepository<Account>(); } }
+
         public AuthComponent(VanillaLogin vanillaLogin) : base(vanillaLogin)
         {
             Router.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
@@ -21,13 +25,12 @@ namespace Vanilla.Login.Components.Auth
 
         private void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            bool accountExists = Core.LoginDatabase.Accounts.Any((a) => a.Username.ToUpper() == packet.Username.ToUpper());
+            bool accountExists = Accounts.AsQueryable().Any((a) => a.Username.ToUpper() == packet.Username.ToUpper());
 
             if (accountExists)
             {
-                Account account = Core.LoginDatabase.Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Username.ToUpper());
+                Account account = Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Username.ToUpper());
 
-                // Later on?
                 session.AccountName = packet.Username;
 
                 byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
@@ -51,13 +54,15 @@ namespace Vanilla.Login.Components.Auth
 
             byte[] sessionKey = session.Authenticator.SessionKey;
 
-            //var account = VanillaLogin.LoginDatabase.Accounts.Single(a => a.Username.ToUpper() == session.AccountName.ToUpper());
-            //account.SessionKey = Utils.ByteArrayToHex(sessionKey);
-            //VanillaLogin.LoginDatabase.SaveChanges();
+            Account account = Accounts.SingleOrDefault(a => a.Username.ToUpper() == session.AccountName.ToUpper());
+            if (account != null)
+            {
+                account.SessionKey = Utils.ByteArrayToHex(sessionKey);
+                Core.LoginDatabase.SaveChanges();
+            }
 
             session.SendPacket(new PSAuthLoginProof(session.Authenticator));
         }
 
-        
     }
 }
