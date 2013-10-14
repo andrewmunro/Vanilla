@@ -1,42 +1,27 @@
-﻿
-using Vanilla.Core.Network.Packet;
-using Vanilla.Core.Network.Session;
-
-namespace Vanilla.World.Network
+﻿namespace Vanilla.World.Network
 {
-    using System.Collections.Generic;
+    using System.Net.Sockets;
 
-    using Vanilla.Core;
     using Vanilla.Core.Network;
+    using Vanilla.Core.Network.Session;
 
     public class WorldServer : Server
     {
         public WorldServer()
         {
-            Router = new WorldRouter();
+            this.Router = new WorldRouter();
         }
 
         public WorldRouter Router { get; private set; }
 
-        public static List<WorldSession> Sessions = new List<WorldSession>();
-
-        public static void TransmitToAll(WorldPacket packet)
+        public override AbstractSession GenerateSession(int connectionID, Socket connectionSocket)
         {
-            Sessions.FindAll(s => s.Character != null).ForEach(s => s.SendPacket(packet));
+            return new WorldSession(this, connectionID, connectionSocket);
         }
 
-        public static WorldSession GetSessionByPlayerName(string playerName)
+        public void OnPacket(WorldSession session, byte[] data)
         {
-            return Sessions.Find(user => user.Character.Name.ToLower() == playerName.ToLower());
-        }
-
-        public override AbstractSession GenerateSession(int connectionID, System.Net.Sockets.Socket connectionSocket)
-        {
-            connectionID++;
-            var session = new WorldSession(connectionID, connectionSocket);
-            Sessions.Add(session);
-
-            return session;
+            this.Router.CallHandler(session, data);
         }
     }
 }

@@ -1,27 +1,28 @@
-﻿using System;
-using System.Net.Sockets;
-using Vanilla.Core.Logging;
-using Vanilla.Core.Network.Packet;
-
-namespace Vanilla.Core.Network.Session
+﻿namespace Vanilla.Core.Network.Session
 {
+    using System;
+    using System.Net.Sockets;
+
+    using Vanilla.Core.Logging;
+
     public abstract class AbstractSession
     {
         public const int BufferSize = 2048 * 2;
         public const int TIMEOUT = 1000;
 
-        public int pConnectionID { get; private set; }
         public Socket ConnectionSocket { get; private set; }
+
         public byte[] DataBuffer { get; private set; }
 
         public string ConnectionRemoteIP { get { return ConnectionSocket.RemoteEndPoint.ToString(); } }
-        public int ConnectionID { get { return pConnectionID; } }
+
+        public int ConnectionID { get; private set; }
 
         public AbstractSession(int connectionID, Socket connectionSocket)
         {
-            pConnectionID = connectionID;
-            ConnectionSocket = connectionSocket;
-            DataBuffer = new byte[BufferSize];
+            this.ConnectionID = connectionID;
+            this.ConnectionSocket = connectionSocket;
+            this.DataBuffer = new byte[BufferSize];
 
             try
             {

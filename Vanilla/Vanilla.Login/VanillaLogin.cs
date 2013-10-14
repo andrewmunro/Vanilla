@@ -1,9 +1,7 @@
 ﻿namespace Vanilla.Login
 {
     using System;
-    using System.Linq;
     using System.ServiceModel;
-    using System.ServiceProcess;
 
     using Vanilla.Core.Components;
     using Vanilla.Core.IO;

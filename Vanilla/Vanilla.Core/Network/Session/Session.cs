@@ -1,10 +1,11 @@
-﻿using System.IO;
-using System.Net.Sockets;
-using Vanilla.Core.Logging;
-using Vanilla.Core.Network.IO;
-
-namespace Vanilla.Core.Network.Session
+﻿namespace Vanilla.Core.Network.Session
 {
+    using System.IO;
+    using System.Net.Sockets;
+
+    using Vanilla.Core.Logging;
+    using Vanilla.Core.Network.IO;
+
     public abstract class Session : AbstractSession
     {
         public Session(int connectionID, Socket socket) : base(connectionID, socket) { }
