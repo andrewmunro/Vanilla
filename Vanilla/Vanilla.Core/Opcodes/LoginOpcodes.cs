@@ -12,6 +12,8 @@
         XFER_ACCEPT = 0x32,
         XFER_RESUME = 0x33,
         XFER_CANCEL = 0x34,
+
+        AUTH_LOGIN_BOT = 0x90,
         //Maximum = 100,
 
         //Unknown = byte.MaxValue,
