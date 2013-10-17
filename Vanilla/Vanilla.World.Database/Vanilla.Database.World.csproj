@@ -7,8 +7,8 @@
     <ProjectGuid>{ABE214F4-31BB-4471-968B-932CDF169CE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vanilla.World.Database</RootNamespace>
-    <AssemblyName>Vanilla.World.Database</AssemblyName>
+    <RootNamespace>Vanilla.Database.World</RootNamespace>
+    <AssemblyName>Vanilla.Database.World</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core;
     using Vanilla.Core.Constants.Character;
     using Vanilla.World.Communication.Outgoing.Players;

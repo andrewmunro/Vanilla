@@ -1,7 +1,7 @@
 ﻿namespace Vanilla.World.Components.Zone
 {
     using System.Collections.Generic;
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Logging;
 
     public class ZoneComponent : WorldServerComponent

@@ -4,7 +4,7 @@ namespace Vanilla.Login.Communication.Incoming.Character
 {
     using System.Linq;
 
-    using Vanilla.Character.Database.Models;
+    using Vanilla.Database.Character.Models;
     using Vanilla.Core.Network;
 
     internal sealed class PCCharDelete : PacketReader

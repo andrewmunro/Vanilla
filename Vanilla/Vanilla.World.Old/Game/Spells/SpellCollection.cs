@@ -3,7 +3,7 @@
     using System.Linq;
     using System.Collections;
     using System.Collections.Generic;
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.World.Communication.Outgoing.World.Spell;
     using Vanilla.World.Game.Constants.Game.World.Spell;
     using Vanilla.World.Game.Entitys;

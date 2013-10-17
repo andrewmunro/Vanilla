@@ -13,7 +13,7 @@ using Vanilla.World.Tools.DBC.Tables;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Network;
 
     public class MiscComponent

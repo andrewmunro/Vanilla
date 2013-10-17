@@ -1,4 +1,4 @@
-namespace Vanilla.World.Database.Models
+namespace Vanilla.Database.World.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;

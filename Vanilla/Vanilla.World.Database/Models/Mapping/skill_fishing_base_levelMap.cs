@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Vanilla.World.Database.Models.Mapping
+namespace Vanilla.Database.World.Models.Mapping
 {
     public class skill_fishing_base_levelMap : EntityTypeConfiguration<skill_fishing_base_level>
     {

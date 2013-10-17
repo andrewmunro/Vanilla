@@ -3,13 +3,14 @@ using Vanilla.Core.Cryptography;
 using Vanilla.Core.Extensions;
 using Vanilla.Core.Network.IO;
 using Vanilla.Core.Network.Packet;
+using Vanilla.Login.Database.Models;
 
 namespace Vanilla.World.Network
 {
     using System;
     using System.Net.Sockets;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core;
     using Vanilla.Core.Logging;
     using Vanilla.Core.Network.Session;
@@ -19,6 +20,7 @@ namespace Vanilla.World.Network
     {
         public WorldServer Server { get; set; }
 
+        public Account Account { get; set; }
         public Character Character { get; set; }
 
         public VanillaCrypt PacketCrypto { get; set; }

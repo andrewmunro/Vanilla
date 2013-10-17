@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
 
     public class Zone 
     {

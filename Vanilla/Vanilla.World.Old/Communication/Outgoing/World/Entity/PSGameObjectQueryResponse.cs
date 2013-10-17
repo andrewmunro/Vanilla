@@ -9,7 +9,7 @@ namespace Vanilla.World.Communication.Outgoing.World.Entity
 
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
 
     #endregion
 

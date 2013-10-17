@@ -5,7 +5,7 @@ namespace Vanilla.World.Communication.Outgoing.World
     #region
 
     using System.Text;
-    using Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 

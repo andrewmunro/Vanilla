@@ -6,7 +6,7 @@ namespace Vanilla.World.Communication.Outgoing.Char
 
     using System.Collections.Generic;
     using System.IO;
-    using Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core;
     using Vanilla.Core.Constants;
     using Vanilla.Core.Network;

@@ -1,7 +1,9 @@
-namespace Vanilla.World.Database.Models
+using Vanilla.Database.World.Models.Mapping;
+
+namespace Vanilla.Database.World.Models
 {
     using System.Data.Entity;
-    using Vanilla.World.Database.Models.Mapping;
+    using World.Models.Mapping;
 
     public class WorldDatabase : DbContext
     {

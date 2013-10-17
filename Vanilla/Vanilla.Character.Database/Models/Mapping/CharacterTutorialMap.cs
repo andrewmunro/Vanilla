@@ -1,4 +1,4 @@
-namespace Vanilla.Character.Database.Models.Mapping
+namespace Vanilla.Database.Character.Models.Mapping
 {
     using System.Data.Entity.ModelConfiguration;
 

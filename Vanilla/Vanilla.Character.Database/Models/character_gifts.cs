@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Vanilla.Character.Database.Models
+namespace Vanilla.Database.Character.Models
 {
 
 	    [Table("character_gifts", Schema="characters")]

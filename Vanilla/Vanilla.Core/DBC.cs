@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Constants.Character;
 
     public struct GenderModelEntry

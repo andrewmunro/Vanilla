@@ -4,7 +4,7 @@ namespace Vanilla.World.Communication.Outgoing.Auth
 {
     #region
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
 

@@ -13,11 +13,11 @@ namespace Vanilla.World.Communication.Outgoing.World.Update
     using Vanilla.Core.Logging;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Game.Constants.Game.Update;
     using Vanilla.World.Game.Entitys;
     using Vanilla.World.Tools.Shared;
-    using Character.Database.Models;
+    using Database.Character.Models;
 
     #endregion
 

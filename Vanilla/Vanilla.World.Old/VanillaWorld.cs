@@ -3,11 +3,11 @@
     using System.Linq;
     using System.Threading;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Components;
     using Vanilla.Login.Database.Models;
     using Vanilla.World.Components;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Game.Managers;
     using Vanilla.World.Network;
     using Vanilla.World.Tools.Chat;

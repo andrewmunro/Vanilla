@@ -8,7 +8,7 @@ using Vanilla.World.Game.Entitys;
 namespace Vanilla.World.Game.Managers
 {
     using Vanilla.Core;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
 
     public class WorldManager
     {

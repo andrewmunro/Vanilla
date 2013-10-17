@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq;
+using Vanilla.Core.IO;
+using Vanilla.Login.Database.Models;
+using Vanilla.World.Communication.Outgoing.Auth;
 
 namespace Vanilla.World.Components.Auth
 {
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.Logging;
@@ -13,44 +17,21 @@ namespace Vanilla.World.Components.Auth
 
     public class LoginComponent : WorldServerComponent
     {
+        protected IRepository<Account> Accounts { get { return Core.LoginDatabase.GetRepository<Account>(); } }
+
         public LoginComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
             Router.AddHandler<PCAuthSession>(WorldOpcodes.CMSG_AUTH_SESSION, OnAuthSession);
-            Router.AddHandler<PCPlayerLogin>(WorldOpcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
         }
-
-        private void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
-        {
-            /*
-            session.Character = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
-            Core.Components.GetComponent<ZoneComponent>().AddCharacter(session.Character);
-
-            PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
-            session.SendPacket(new LoginVerifyWorld((int)session.Character.Map, session.Character.PositionX, session.Character.PositionY, session.Character.PositionZ, 0));
-            session.SendPacket(new PSAccountDataTimes());
-            session.SendPacket(new PSSetRestStart());
-            session.SendPacket(new PSBindPointUpdate());
-            session.SendPacket(new PSTutorialFlags(session.Account));
-            SpellComponent.SendInitialSpells(session);
-            session.SendPacket(new PSActionButtons(session.Character));
-            session.SendPacket(new PSInitializeFactions());
-            session.SendPacket(new PSLoginSetTimeSpeed());
-            session.SendPacket(new PSInitWorldStates());
-            session.SendPacket(playerEntity);
-            session.Entity.Session = session;
-            World.DispatchOnPlayerSpawn(session.Entity);
-             * */
-        }
-
+        
         private void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
-            /*
-            session.Account = VanillaWorld.LoginDatabase.Accounts.Single(acs => acs.Username == packet.Username);
-            session.crypt = new VanillaCrypt();
-            session.crypt.init(Utils.HexToByteArray(session.Account.SessionKey));
-            Log.Print(LogType.Debug, "Started Encryption");
+            Account account = Accounts.AsQueryable().ToList().First((a) => a.Username == packet.Username);
+
+            session.Account = account;
+            session.PacketCrypto = new VanillaCrypt();
+            session.PacketCrypto.init(Utils.HexToByteArray(session.Account.SessionKey));
             session.SendPacket(new PSAuthResponse());
-             * */
         }
     }
 }

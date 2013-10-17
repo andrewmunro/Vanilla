@@ -7,7 +7,7 @@ namespace Vanilla.World.Communication.Outgoing.World.Mail
     using System;
     using System.Collections.Generic;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;

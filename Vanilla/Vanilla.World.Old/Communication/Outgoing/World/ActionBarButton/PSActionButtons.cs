@@ -9,7 +9,7 @@ namespace Vanilla.World.Communication.Outgoing.World.ActionBarButton
 
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Character.Database.Models;
+    using Database.Character.Models;
 
     #endregion
 

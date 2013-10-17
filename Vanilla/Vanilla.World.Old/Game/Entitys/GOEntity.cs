@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Game.Constants.Game.Update;
     using Vanilla.World.Tools.Shared;
 

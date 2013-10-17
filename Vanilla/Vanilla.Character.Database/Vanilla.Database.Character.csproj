@@ -7,8 +7,8 @@
     <ProjectGuid>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vanilla.Character.Database</RootNamespace>
-    <AssemblyName>Vanilla.Character.Database</AssemblyName>
+    <RootNamespace>Vanilla.Database.Character</RootNamespace>
+    <AssemblyName>Vanilla.Database.Character</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

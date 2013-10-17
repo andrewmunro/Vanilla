@@ -10,7 +10,7 @@ namespace Vanilla.World.Game.Entitys
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Game.Constants.Game.Update;
     using Vanilla.World.Game.Constants.Game.World.Entity;
     using Vanilla.World.Game.Managers;

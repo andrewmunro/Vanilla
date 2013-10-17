@@ -14,5 +14,10 @@
             Write(authenticator.SRP6.M2);
             this.WriteNullByte(4);
         }
+
+        public PSAuthLoginProof(AccountStatus status) : base(LoginOpcodes.AUTH_LOGIN_PROOF)
+        {
+            Write((byte)status);
+        }
     }
 }

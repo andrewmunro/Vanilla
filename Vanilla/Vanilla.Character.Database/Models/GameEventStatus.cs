@@ -1,4 +1,4 @@
-namespace Vanilla.Character.Database.Models
+namespace Vanilla.Database.Character.Models
 {
     using System;
     using System.Collections.Generic;

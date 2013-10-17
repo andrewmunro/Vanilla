@@ -11,7 +11,7 @@ using Vanilla.World.Tools.DBC.Tables;
 
 namespace Vanilla.World.Game.Managers
 {
-    using Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Network;
 

@@ -1,21 +1,20 @@
 ﻿using System;
 using Vanilla.Core.Logging;
+using System.Linq;
+using System.Text;
+
+using Vanilla.Core;
+using Vanilla.Core.Constants;
+using Vanilla.Core.Cryptography;
+using Vanilla.Core.IO;
+using Vanilla.Core.Opcodes;
+using Vanilla.Login.Components.Auth.Packets.Incoming;
+using Vanilla.Login.Components.Auth.Packets.Outgoing;
+using Vanilla.Login.Database.Models;
+using Vanilla.Login.Network;
 
 namespace Vanilla.Login.Components.Auth
 {
-    using System.Linq;
-    using System.Text;
-
-    using Vanilla.Core;
-    using Vanilla.Core.Constants;
-    using Vanilla.Core.Cryptography;
-    using Vanilla.Core.IO;
-    using Vanilla.Core.Opcodes;
-    using Vanilla.Login.Components.Auth.Packets.Incoming;
-    using Vanilla.Login.Components.Auth.Packets.Outgoing;
-    using Vanilla.Login.Database.Models;
-    using Vanilla.Login.Network;
-
     public class AuthComponent : LoginServerComponent
     {
         protected IRepository<Account> Accounts { get { return Core.LoginDatabase.GetRepository<Account>(); } }
@@ -24,18 +23,13 @@ namespace Vanilla.Login.Components.Auth
         {
             Router.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
             Router.AddHandler<PCAuthLoginProof>(LoginOpcodes.AUTH_LOGIN_PROOF, OnAuthLoginProof);
-            Router.AddHandler<PCAuthLoginBot>(LoginOpcodes.AUTH_LOGIN_BOT, OnAuthLoginBot);
-        }
-
-        private void OnAuthLoginBot(LoginSession session, PCAuthLoginBot packet)
-        {
-            Log.Print("Bot: " + packet.Name);
         }
 
         private void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            bool accountExists = Accounts.AsQueryable().Any((a) => a.Username.ToUpper() == packet.Username.ToUpper());
+            bool accountExists = Accounts.Where((a) => a.Username.ToUpper() == packet.Username.ToUpper()) != null;
 
+            // Todo: Error checking
             if (accountExists)
             {
                 Account account = Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Username.ToUpper());
@@ -51,7 +45,7 @@ namespace Vanilla.Login.Components.Auth
             }
             else
             {
-                session.SendPacket(new PSAuthLoginChallange(AccountStatus.AccountFrozen));
+                session.SendPacket(new PSAuthLoginChallange(AccountStatus.UnknownAccount));
             }
         }
 
@@ -61,17 +55,20 @@ namespace Vanilla.Login.Components.Auth
             session.Authenticator.CalculateM2(packet.M1);
             session.Authenticator.CalculateAccountHash();
 
-            byte[] sessionKey = session.Authenticator.SessionKey;
+            byte[] sessionKey = session.Authenticator.SRP6.K;
 
             Account account = Accounts.SingleOrDefault(a => a.Username.ToUpper() == session.AccountName.ToUpper());
+
             if (account != null)
             {
                 account.SessionKey = Utils.ByteArrayToHex(sessionKey);
                 Core.LoginDatabase.SaveChanges();
+                session.SendPacket(new PSAuthLoginProof(session.Authenticator));
             }
-
-            session.SendPacket(new PSAuthLoginProof(session.Authenticator));
-        }
+            else
+            {
+                session.SendPacket(new PSAuthLoginProof(AccountStatus.UnknownAccount));
+            }}
 
     }
 }

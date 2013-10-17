@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Vanilla.Character.Database.Models.Mapping
+namespace Vanilla.Database.Character.Models.Mapping
 {
     public class character_battleground_dataMap : EntityTypeConfiguration<character_battleground_data>
     {

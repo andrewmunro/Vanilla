@@ -2,7 +2,7 @@
 
 namespace Vanilla.World.Tools.DBC.Helper
 {
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.World.Communication.Incoming.Character;
     using Vanilla.World.Tools.DBC.Tables;
 

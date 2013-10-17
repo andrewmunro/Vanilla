@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Threading;
 
-    using Character.Database.Models;
+    using Database.Character.Models;
 
     using Vanilla.Core;
-    using Vanilla.World.Database.Models;
+    using Database.World.Models;
     using Vanilla.World.Communication.Outgoing.World.Update;
     using Vanilla.World.Game.Entitys;
     using Vanilla.World.Network;

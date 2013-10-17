@@ -49,6 +49,11 @@
     <Compile Include="Components\Auth\LoginComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthSession.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCPlayerLogin.cs" />
+    <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
+    <Compile Include="Components\Character\CharacterComponent.cs" />
+    <Compile Include="Components\Character\Packets\Outgoing\PSCharCreate.cs" />
+    <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
+    <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Zone\Zone.cs" />
     <Compile Include="Components\Zone\ZoneComponent.cs" />
@@ -60,17 +65,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Character.Database.csproj">
+    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
       <Project>{ecbe8c02-b0d3-4302-ba06-42c0cbd0749a}</Project>
-      <Name>Vanilla.Character.Database</Name>
+      <Name>Vanilla.Database.Character</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vanilla.Core\Vanilla.Core.csproj">
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
+      <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
+      <Name>Vanilla.Database.Login</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
       <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
-      <Name>Vanilla.World.Database</Name>
+      <Name>Vanilla.Database.World</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

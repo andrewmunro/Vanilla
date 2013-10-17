@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Character.Database.Models;
+    using Database.Character.Models;
 
     using Vanilla.Core.Constants.Character;
     using Vanilla.Core.Opcodes;

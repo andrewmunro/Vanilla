@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Vanilla.World.Database.Models
+namespace Vanilla.Database.World.Models
 {
 
 	    [Table("locales_gossip_menu_option", Schema="mangos")]

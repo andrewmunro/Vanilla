@@ -5,7 +5,7 @@ namespace Vanilla.World.Communication.Outgoing.World.Movement
     #region
 
     using System;
-    using Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Communication.Outgoing.World.Update;

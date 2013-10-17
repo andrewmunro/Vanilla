@@ -4,7 +4,7 @@
     using System.IO;
     using System.Net.Sockets;
 
-    using Vanilla.Character.Database.Models;
+    using Database.Character.Models;
     using Vanilla.Core;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.Logging;

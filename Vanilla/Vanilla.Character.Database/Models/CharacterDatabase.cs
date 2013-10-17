@@ -1,7 +1,10 @@
-namespace Vanilla.Character.Database.Models
+using Vanilla.Database.Character.Models;
+using Vanilla.Database.Character.Models.Mapping;
+
+namespace Vanilla.Database.Character.Models
 {
     using System.Data.Entity;
-    using Vanilla.Character.Database.Models.Mapping;
+    using Database.Character.Models.Mapping;
 
     public class CharacterDatabase : DbContext
     {

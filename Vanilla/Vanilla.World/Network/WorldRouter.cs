@@ -8,7 +8,10 @@
     {
         public override WorldOpcodes FetchOpcode(PacketReader packet)
         {
-            return (WorldOpcodes)packet.ReadUInt16();
+            WorldOpcodes opcode = (WorldOpcodes)packet.ReadUInt16();
+            packet.ReadBytes(2); // Length
+
+            return opcode;
         }
     }
 }

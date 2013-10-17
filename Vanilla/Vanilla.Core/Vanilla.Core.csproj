@@ -97,9 +97,9 @@
     <Compile Include="Network\Session\AbstractSession.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Character.Database.csproj">
+    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
       <Project>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</Project>
-      <Name>Vanilla.Character.Database</Name>
+      <Name>Vanilla.Database.Character</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
