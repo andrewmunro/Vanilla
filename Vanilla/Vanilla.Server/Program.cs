@@ -4,6 +4,7 @@
 
     using Vanilla.Core.Config;
     using Vanilla.Login;
+    using Vanilla.World;
 
     public class Program
     {
@@ -16,7 +17,10 @@
             Config.Boot();
 
             VanillaLogin vanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);
+            VanillaWorld vanillaWorld = new VanillaWorld(90, 20);
             //worldServer.Start(1337, 20);
+
+            new BotClient(LoginPort).ConnectToServer();
 
             while (true) Thread.Sleep(1000);
         }

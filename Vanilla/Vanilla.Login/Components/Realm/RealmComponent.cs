@@ -22,7 +22,7 @@
             realms.Add(new Realm()
             {
                 Category = 0,
-                Status = RealmColor.Offline,
+                Status = RealmColor.Green,
                 IP = "localhost:90",
                 Name = "Lucas' Awesome Server Yo",
                 Population = 1,

@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Components.Auth
+﻿using System;
+
+namespace Vanilla.World.Components.Auth
 {
     using Vanilla.Character.Database.Models;
     using Vanilla.Core;
@@ -19,6 +21,7 @@
 
         private void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
+            /*
             session.Character = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
             Core.Components.GetComponent<ZoneComponent>().AddCharacter(session.Character);
 
@@ -36,15 +39,18 @@
             session.SendPacket(playerEntity);
             session.Entity.Session = session;
             World.DispatchOnPlayerSpawn(session.Entity);
+             * */
         }
 
         private void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
+            /*
             session.Account = VanillaWorld.LoginDatabase.Accounts.Single(acs => acs.Username == packet.Username);
             session.crypt = new VanillaCrypt();
             session.crypt.init(Utils.HexToByteArray(session.Account.SessionKey));
             Log.Print(LogType.Debug, "Started Encryption");
             session.SendPacket(new PSAuthResponse());
+             * */
         }
     }
 }

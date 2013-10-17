@@ -71,7 +71,6 @@
     <Compile Include="Constants\ResponseCodes.cs" />
     <Compile Include="Cryptography\Authenticator.cs" />
     <Compile Include="Cryptography\BigInteger.cs" />
-    <Compile Include="Cryptography\PacketCrypto.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\SRP6.cs" />
     <Compile Include="Cryptography\VanillaCrypt.cs" />

@@ -5,7 +5,7 @@
 
     using Vanilla.Character.Database.Models;
 
-    public class Zone : IDisposable
+    public class Zone 
     {
         public long ID { get; private set; }
 
@@ -17,20 +17,6 @@
         {
             ID = zoneID;
             Characters = new List<Character>();
-        }
-
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                this.Characters = null;
-            }
         }
     }
 }

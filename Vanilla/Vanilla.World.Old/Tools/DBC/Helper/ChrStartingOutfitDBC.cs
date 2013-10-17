@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Tools.DBC.Helper
+﻿using Vanilla.Login.Communication.Incoming.Character;
+
+namespace Vanilla.World.Tools.DBC.Helper
 {
     using Vanilla.Character.Database.Models;
     using Vanilla.World.Communication.Incoming.Character;

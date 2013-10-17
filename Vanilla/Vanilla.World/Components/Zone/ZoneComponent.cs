@@ -56,7 +56,6 @@
                 //TODO Delay for time.
                 if (zone.Value.isEmpty)
                 {
-                    zone.Value.Dispose();
                     zones.Remove(zone.Key);
                 }
             }

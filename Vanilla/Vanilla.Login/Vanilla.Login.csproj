@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Auth\AuthComponent.cs" />
+    <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginBot.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginChallenge.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginProof.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginChallange.cs" />

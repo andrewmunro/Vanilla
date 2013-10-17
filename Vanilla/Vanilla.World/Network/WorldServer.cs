@@ -18,10 +18,5 @@
         {
             return new WorldSession(this, connectionID, connectionSocket);
         }
-
-        public void OnPacket(WorldSession session, byte[] data)
-        {
-            this.Router.CallHandler(session, data);
-        }
     }
 }

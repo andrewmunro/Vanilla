@@ -20,6 +20,12 @@ namespace Vanilla.Core.Network.IO
             Opcode = opcode;
         }
 
+
+        public PacketWriter(PacketHeaderType headerType) : this(headerType, new MemoryStream())
+        {
+
+        }
+
         protected PacketWriter(PacketHeaderType headerType, Stream output)
             : base(output, Encoding.UTF8)
         {

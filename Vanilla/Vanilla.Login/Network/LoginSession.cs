@@ -25,7 +25,7 @@
             short opcode = BitConverter.ToInt16(data, 0);
             Log.Print(LogType.Packet, "Server <- Client [" + (LoginOpcodes)opcode + "]");
 
-            Server.OnPacket(this, data);
+            Server.Router.CallHandler(this, data);
         }
 
     }

@@ -17,10 +17,5 @@
         {
             return new LoginSession(this, connectionID, connectionSocket);
         }
-
-        public void OnPacket(LoginSession session, byte[] data)
-        {
-            Router.CallHandler(session, data);
-        }
     }
 }

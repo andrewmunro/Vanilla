@@ -1,4 +1,7 @@
-﻿namespace Vanilla.Login.Components.Auth
+﻿using System;
+using Vanilla.Core.Logging;
+
+namespace Vanilla.Login.Components.Auth
 {
     using System.Linq;
     using System.Text;
@@ -21,6 +24,12 @@
         {
             Router.AddHandler<PCAuthLoginChallenge>(LoginOpcodes.AUTH_LOGIN_CHALLENGE, OnAuthLoginChallenge);
             Router.AddHandler<PCAuthLoginProof>(LoginOpcodes.AUTH_LOGIN_PROOF, OnAuthLoginProof);
+            Router.AddHandler<PCAuthLoginBot>(LoginOpcodes.AUTH_LOGIN_BOT, OnAuthLoginBot);
+        }
+
+        private void OnAuthLoginBot(LoginSession session, PCAuthLoginBot packet)
+        {
+            Log.Print("Bot: " + packet.Name);
         }
 
         private void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)

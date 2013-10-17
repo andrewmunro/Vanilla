@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Vanilla.Core.Network;
+using Vanilla.Core.Network.IO;
 using Vanilla.Core.Opcodes;
 
 namespace Vanilla.Server
@@ -43,7 +44,7 @@ namespace Vanilla.Server
             {
                 NetworkStream networkStream = tcpClient.GetStream();
 
-                PacketWriter writer = new PacketWriter(Core.Constants.PacketHeaderType.AuthCmsg);
+                PacketWriter writer = new PacketWriter((byte)LoginOpcodes.AUTH_LOGIN_BOT, Core.Constants.PacketHeaderType.AuthCmsg);
                 writer.Write((byte)LoginOpcodes.AUTH_LOGIN_BOT);
                 writer.WriteCString("Dave");
 

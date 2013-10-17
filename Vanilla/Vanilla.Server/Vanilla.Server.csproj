@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BotClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\Vanilla.Login\Vanilla.Login.csproj">
       <Project>{4e333bf8-1f11-4c1f-b9d8-f1cc21563916}</Project>
       <Name>Vanilla.Login</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World\Vanilla.World.csproj">
+      <Project>{1567dfd3-9877-4694-a781-d3875e36989d}</Project>
+      <Name>Vanilla.World</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

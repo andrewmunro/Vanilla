@@ -11,7 +11,6 @@
     using Vanilla.World.Database.Models;
     using Vanilla.World.Network;
 
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)] 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer
     {
         public VanillaWorld(int portNumber, int maxConnections)
