@@ -8,7 +8,7 @@ namespace Vanilla.Database.Character.Models.Mapping
         public CharacterSpellMap()
         {
             // Primary Key
-            this.HasKey(t => new { guid = t.GUID, spell = t.Spell });
+            this.HasKey(t => new { t.GUID, t.Spell });
 
             // Properties
             this.Property(t => t.GUID)

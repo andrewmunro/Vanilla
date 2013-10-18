@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using Vanilla.Core.Network;
-using Vanilla.Core.Network.IO;
-using Vanilla.Core.Opcodes;
-
-namespace Vanilla.Server
+﻿namespace Vanilla.Server
 {
+    using System;
+    using System.Net.Sockets;
+    using System.Text;
+
+    using Vanilla.Core.Network.IO;
+    using Vanilla.Core.Opcodes;
+
     public class BotClient
     {
         private TcpClient tcpClient = null;

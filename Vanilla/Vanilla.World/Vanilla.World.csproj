@@ -51,6 +51,8 @@
     <Compile Include="Components\Auth\Packets\Incoming\PCPlayerLogin.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Character\CharacterComponent.cs" />
+    <Compile Include="Components\Character\Packets\Incoming\PCCharCreate.cs" />
+    <Compile Include="Components\Character\Packets\Incoming\PCCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharCreate.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />

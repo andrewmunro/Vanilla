@@ -8,7 +8,7 @@ namespace Vanilla.Database.Character.Models.Mapping
         public CharacterActionMap()
         {
             // Primary Key
-            this.HasKey(t => new { guid = t.GUID, button = t.Button });
+            this.HasKey(t => new { t.GUID, t.Button });
 
             // Properties
             this.Property(t => t.GUID)

@@ -1,20 +1,17 @@
-﻿using System.IO;
-using Vanilla.Core.Cryptography;
-using Vanilla.Core.Extensions;
-using Vanilla.Core.Network.IO;
-using Vanilla.Core.Network.Packet;
-using Vanilla.Login.Database.Models;
-
-namespace Vanilla.World.Network
+﻿namespace Vanilla.World.Network
 {
     using System;
+    using System.IO;
     using System.Net.Sockets;
-
-    using Database.Character.Models;
-    using Vanilla.Core;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Logging;
+    using Vanilla.Core.Network.IO;
+    using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Database.Character.Models;
+    using Vanilla.Database.Login.Models;
 
     public class WorldSession : Session
     {
@@ -135,7 +132,7 @@ namespace Vanilla.World.Network
             byte[] data = Utils.HexToByteArray(end);
 
             this.SendPacket(opcde, data);*/
-            throw  new Exception("no");
+            throw new Exception("no");
         }
     }
 }

@@ -23,7 +23,7 @@
             {
                 Category = 0,
                 Status = RealmColor.Green,
-                IP = "localhost:90",
+                IP = "localhost:120",
                 Name = "Lucas' Awesome Server Yo",
                 Population = 1,
                 Type = RealmType.PVP

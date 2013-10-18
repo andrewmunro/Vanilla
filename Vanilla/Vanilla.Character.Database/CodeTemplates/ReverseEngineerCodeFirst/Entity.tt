@@ -26,7 +26,7 @@ using System.ComponentModel.DataAnnotations;
 namespace <#= code.EscapeNamespace(efHost.Namespace) #>
 {
 
-	<#
+    <#
     var tableSet = efHost.TableSet;
     var tableName = (string)tableSet.MetadataProperties["Table"].Value
         ?? tableSet.Name;
@@ -75,9 +75,9 @@ namespace <#= code.EscapeNamespace(efHost.Namespace) #>
         
     foreach (var property in efHost.EntityType.Properties)
     {
-		#> 
+        #> 
         [Column("<#= efHost.PropertyToColumnMappings[property].Name #>")] 
-		<#
+        <#
         var typeUsage = code.Escape(property.TypeUsage);
 
         // Fix-up spatial types for EF6

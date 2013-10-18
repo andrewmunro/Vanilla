@@ -179,20 +179,5 @@ namespace Vanilla.Database.Character.Models
  
         [Column("deleteDate")] 
                 public decimal? DeleteDate { get; set; }
-
-        [Column("skin")] 
-        public byte Skin { get; set; }
-
-        [Column("face")] 
-        public byte Face { get; set; }
-
-        [Column("hair_style")] 
-        public byte HairStyle { get; set; }
-
-        [Column("hair_color")] 
-        public byte HairColor { get; set; }
-
-        [Column("accessory")] 
-        public byte Accessory { get; set; }
     }
 }
