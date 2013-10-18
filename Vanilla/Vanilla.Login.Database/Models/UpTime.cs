@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Vanilla.Login.Database.Models
+namespace Vanilla.Database.Login.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
 
-	    [Table("uptime", Schema="realmd")]
+    [Table("uptime", Schema="realmd")]
 
     public class UpTime
     {

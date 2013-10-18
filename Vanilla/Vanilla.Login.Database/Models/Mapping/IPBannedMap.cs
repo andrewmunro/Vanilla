@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-
-namespace Vanilla.Login.Database.Models.Mapping
+namespace Vanilla.Database.Login.Models.Mapping
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.ModelConfiguration;
+
     public class IPBannedMap : EntityTypeConfiguration<IPBanned>
     {
         public IPBannedMap()

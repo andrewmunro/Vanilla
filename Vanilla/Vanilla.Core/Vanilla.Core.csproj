@@ -40,7 +40,7 @@
       <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\Vanilla.World\Librarys\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="SQLite">
       <HintPath>..\Vanilla.World\Librarys\SQLite.dll</HintPath>

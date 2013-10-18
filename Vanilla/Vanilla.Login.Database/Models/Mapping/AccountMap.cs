@@ -1,8 +1,7 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-
-namespace Vanilla.Login.Database.Models.Mapping
+namespace Vanilla.Database.Login.Models.Mapping
 {
+    using System.Data.Entity.ModelConfiguration;
+
     public class AccountMap : EntityTypeConfiguration<Account>
     {
         public AccountMap()

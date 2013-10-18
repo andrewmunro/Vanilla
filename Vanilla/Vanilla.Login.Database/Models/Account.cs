@@ -1,4 +1,4 @@
-namespace Vanilla.Login.Database.Models
+namespace Vanilla.Database.Login.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;

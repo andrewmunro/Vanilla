@@ -1,7 +1,8 @@
-namespace Vanilla.Login.Database.Models
+namespace Vanilla.Database.Login.Models
 {
     using System.Data.Entity;
-    using Vanilla.Login.Database.Models.Mapping;
+
+    using Vanilla.Database.Login.Models.Mapping;
 
     public class LoginDatabase : DbContext
     {

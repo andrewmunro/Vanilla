@@ -5,10 +5,10 @@
 
     using Vanilla.Core.Components;
     using Vanilla.Core.IO;
+    using Vanilla.Database.Login.Models;
     using Vanilla.Login.Components;
     using Vanilla.Login.Components.Auth;
     using Vanilla.Login.Components.Realm;
-    using Vanilla.Login.Database.Models;
     using Vanilla.Login.Network;
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Single)] 

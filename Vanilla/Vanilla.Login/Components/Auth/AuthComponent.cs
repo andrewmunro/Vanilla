@@ -10,11 +10,12 @@ using Vanilla.Core.IO;
 using Vanilla.Core.Opcodes;
 using Vanilla.Login.Components.Auth.Packets.Incoming;
 using Vanilla.Login.Components.Auth.Packets.Outgoing;
-using Vanilla.Login.Database.Models;
 using Vanilla.Login.Network;
 
 namespace Vanilla.Login.Components.Auth
 {
+    using Vanilla.Database.Login.Models;
+
     public class AuthComponent : LoginServerComponent
     {
         protected IRepository<Account> Accounts { get { return Core.LoginDatabase.GetRepository<Account>(); } }
