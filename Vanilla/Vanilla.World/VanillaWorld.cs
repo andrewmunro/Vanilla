@@ -24,7 +24,7 @@ namespace Vanilla.World
 
             Server = new WorldServer();
 
-            Components.Add(new ZoneComponent(this));
+            Components.Add(new ChunkComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new CharacterComponent(this));
             

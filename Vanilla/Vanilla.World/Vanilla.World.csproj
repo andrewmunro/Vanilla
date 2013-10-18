@@ -55,8 +55,8 @@
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
-    <Compile Include="Components\Zone\Zone.cs" />
-    <Compile Include="Components\Zone\ZoneComponent.cs" />
+    <Compile Include="Components\Zone\Chunk.cs" />
+    <Compile Include="Components\Zone\ChunkComponent.cs" />
     <Compile Include="IWorldServer.cs" />
     <Compile Include="Network\WorldRouter.cs" />
     <Compile Include="Network\WorldServer.cs" />
