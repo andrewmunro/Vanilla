@@ -57,8 +57,15 @@
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
-    <Compile Include="Components\Zone\Chunk.cs" />
-    <Compile Include="Components\Zone\ChunkComponent.cs" />
+    <Compile Include="Game\Entity\Entity.cs" />
+    <Compile Include="Game\Entity\GameObjectEntity.cs" />
+    <Compile Include="Game\Entity\IEntityUpdatePacketBuilder.cs" />
+    <Compile Include="Game\Entity\Unit.cs" />
+    <Compile Include="Game\Entity\UpdateBuilder\GameObjectUpdateBuilder.cs" />
+    <Compile Include="Game\Update\ObjectUpdateType.cs" />
+    <Compile Include="Game\Update\UpdatePacketBuilder.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="IWorldServer.cs" />
     <Compile Include="Network\WorldRouter.cs" />
     <Compile Include="Network\WorldServer.cs" />

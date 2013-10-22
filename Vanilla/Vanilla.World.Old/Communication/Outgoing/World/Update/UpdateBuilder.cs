@@ -1,6 +1,5 @@
 ﻿namespace Vanilla.World.Communication.Outgoing.World.Update
 {
-    #region
 
     using System;
     using System.Collections.Generic;
@@ -11,33 +10,22 @@
     using Vanilla.World.Game.Constants.Game.Update;
     using Vanilla.World.Game.Entitys;
 
-    #endregion
-
     public abstract class UpdateBlock
     {
-        #region Fields
 
         internal BinaryWriter Writer;
 
-        #endregion
 
-        #region Constructors and Destructors
 
         public UpdateBlock()
         {
             this.Writer = new BinaryWriter(new MemoryStream());
         }
 
-        #endregion
-
-        #region Public Properties
 
         public byte[] Data { get; internal set; }
         public string Info { get; internal set; }
 
-        #endregion
-
-        #region Public Methods and Operators
 
         public void Build()
         {
@@ -51,18 +39,14 @@
 
         public abstract string BuildInfo();
 
-        #endregion
     }
 
     public class OutOfRangeBlock : UpdateBlock
     {
-        #region Fields
 
         public List<ObjectEntity> Entitys;
 
-        #endregion
 
-        #region Constructors and Destructors
 
         public OutOfRangeBlock(List<ObjectEntity> entitys)
         {
@@ -71,9 +55,6 @@
             this.Build(); // ):
         }
 
-        #endregion
-
-        #region Public Methods and Operators
 
         public override void BuildData()
         {
@@ -92,12 +73,11 @@
                    + string.Join(", ", this.Entitys.ToArray().ToList().ConvertAll(e => e.Name).ToArray());
         }
 
-        #endregion
+
     }
 
     public class CreateGOBlock : UpdateBlock
     {
-        #region Constructors and Destructors
 
         public CreateGOBlock(GOEntity entity)
         {
@@ -106,15 +86,9 @@
             this.Build();
         }
 
-        #endregion
-
-        #region Public Properties
-
         public GOEntity Entity { get; private set; }
 
-        #endregion
 
-        #region Public Methods and Operators
 
         public override void BuildData()
         {
@@ -146,13 +120,10 @@
         {
             return "[CreateGO] " + this.Entity.GameObjectTemplate.Name;
         }
-
-        #endregion
     }
 
     public class CreateUnitBlock : UpdateBlock
     {
-        #region Constructors and Destructors
 
         public CreateUnitBlock(UnitEntity entity)
         {
@@ -161,15 +132,9 @@
             this.Build();
         }
 
-        #endregion
 
-        #region Public Properties
 
         public UnitEntity Entity { get; private set; }
-
-        #endregion
-
-        #region Public Methods and Operators
 
         public override void BuildData()
         {
@@ -214,6 +179,5 @@
             return "[CreateUnit] " + this.Entity.Name;
         }
 
-        #endregion
     }
 }

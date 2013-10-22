@@ -12,19 +12,25 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
+    using Vanilla.World.Game.Update;
 
     public class WorldSession : Session
     {
         public WorldServer Server { get; set; }
 
         public Account Account { get; set; }
+
         public Character Character { get; set; }
 
         public VanillaCrypt PacketCrypto { get; set; }
 
+        public UpdatePacketBuilder UpdatePacketBuilder { get; set; }
+
         public WorldSession(WorldServer server, int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
         {
             Server = server;
+
+            UpdatePacketBuilder = new UpdatePacketBuilder(this);
 
             // Connection Packet
             using (WorldPacket packet = new WorldPacket(WorldOpcodes.SMSG_AUTH_CHALLENGE))
@@ -133,6 +139,11 @@
 
             this.SendPacket(opcde, data);*/
             throw new Exception("no");
+        }
+
+        public void Update()
+        {
+            
         }
     }
 }
