@@ -8,7 +8,7 @@
     using Vanilla.World.Components;
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
-    using Vanilla.World.Components.Zone;
+    using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer
@@ -21,9 +21,10 @@
 
             Server = new WorldServer();
 
-            Components.Add(new ChunkComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new CharacterComponent(this));
+
+            new Entity();
             
             Server.Start(portNumber, maxConnections);
         }

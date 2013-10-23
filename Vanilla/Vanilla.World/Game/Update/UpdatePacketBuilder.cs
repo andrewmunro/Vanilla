@@ -10,59 +10,44 @@
     {
         public WorldSession Session { get; set; }
 
-        private List<Entity> createEntities { get; set; }
+        private Queue<Entity> createEntities { get; set; }
 
         private List<Entity> updateEntities { get; set; }
 
-        private List<Entity> removeEntities { get; set; }
-
-        private BinaryWriter Packet = null;
-
-        public byte[] Data { get; internal set; }
-
-        public string Info { get; internal set; }
+        private Queue<Entity> removeEntities { get; set; }
 
         public UpdatePacketBuilder(WorldSession session)
         {
             Session = session;
-            createEntities = new List<Entity>();
+            createEntities = new Queue<Entity>();
             updateEntities = new List<Entity>();
-            removeEntities = new List<Entity>();
+            removeEntities = new Queue<Entity>();
         }
 
         public void Subscribe(Entity entity)
         {
-            Packet = null;
-            createEntities.Add(entity);
+            createEntities.Enqueue(entity);
             entity.SubscribedBy.Add(Session);
         }
 
         public void UnSubscribe(Entity entity)
         {
-            Packet = null;
-            removeEntities.Remove(entity);
-            removeEntities.Add(entity);
+            updateEntities.Remove(entity);
+            removeEntities.Enqueue(entity);
             entity.SubscribedBy.Remove(Session);
         }
 
         public void Update()
         {
-            // Don't rebuild packet if nothing has changed
-            if (Packet != null)
-            {
-                Session.SendPacket(Packet);
-                return;
-            }
-
-            Packet = new BinaryWriter(new MemoryStream());
+            BinaryWriter packet = new BinaryWriter(new MemoryStream());
 
             if (createEntities.Count > 0)
             {
-                Packet.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+                packet.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
                 foreach (Entity entity in createEntities)
                 {
-                    Packet.Write(entity.CreatePacket);
+                    packet.Write(entity.CreatePacket);
                 }
             }
         }
