@@ -14,6 +14,7 @@
 
             foreach (Character character in characters)
             {
+                this.Write((ulong)character.GUID);
                 this.WriteCString(character.Name);
                 this.Write((byte)character.Race);
                 this.Write((byte)character.Class);
@@ -31,7 +32,7 @@
                 this.Write((byte)character.Level);
 
                 this.Write(0); // Zone ID
-                Write(character.Map);
+                Write((int)character.Map);
                 Write(character.PositionX);
                 Write(character.PositionY);
                 Write(character.PositionZ);

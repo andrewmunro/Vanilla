@@ -1,20 +1,16 @@
-﻿using System;
-using Vanilla.Core.Logging;
-using System.Linq;
-using System.Text;
-
-using Vanilla.Core;
-using Vanilla.Core.Constants;
-using Vanilla.Core.Cryptography;
-using Vanilla.Core.IO;
-using Vanilla.Core.Opcodes;
-using Vanilla.Login.Components.Auth.Packets.Incoming;
-using Vanilla.Login.Components.Auth.Packets.Outgoing;
-using Vanilla.Login.Network;
-
-namespace Vanilla.Login.Components.Auth
+﻿namespace Vanilla.Login.Components.Auth
 {
+    using System.Text;
+
+    using Vanilla.Core;
+    using Vanilla.Core.Constants;
+    using Vanilla.Core.Cryptography;
+    using Vanilla.Core.IO;
+    using Vanilla.Core.Opcodes;
     using Vanilla.Database.Login.Models;
+    using Vanilla.Login.Components.Auth.Packets.Incoming;
+    using Vanilla.Login.Components.Auth.Packets.Outgoing;
+    using Vanilla.Login.Network;
 
     public class AuthComponent : LoginServerComponent
     {

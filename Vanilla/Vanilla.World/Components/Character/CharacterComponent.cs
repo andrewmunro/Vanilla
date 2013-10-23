@@ -57,7 +57,7 @@
                 PositionX = 8949.95f,
                 PositionY = -132.493f,
                 PositionZ = 83.5312f,
-                Map = 0,
+                Map = 1,
                 Orientation = 0,
                 TaxiMask = "",
                 Online = 0,
