@@ -1,8 +1,10 @@
 ﻿namespace Vanilla.Server
 {
+    using System;
     using System.Threading;
-
     using Vanilla.Core.Config;
+    using Vanilla.Core.DBC;
+    using Vanilla.Core.DBC.Structs;
     using Vanilla.Login;
     using Vanilla.World;
 
@@ -18,6 +20,10 @@
         
         static void Main(string[] args)
         {
+            DBCStore<ChrRaces> reader = new DBCStore<ChrRaces>();
+
+
+            //reader.Records.ForEach(record => Console.WriteLine(record.Race + " - " + record.Class + " - " + record.Gender));
             Config.Boot();
 
             VanillaLogin vanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);

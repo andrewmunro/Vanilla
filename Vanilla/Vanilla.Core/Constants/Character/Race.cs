@@ -1,6 +1,6 @@
 ﻿namespace Vanilla.Core.Constants.Character
 {
-    public enum RaceID : int
+    public enum RaceID : byte
     {
         None = 0,
         Human = 1,

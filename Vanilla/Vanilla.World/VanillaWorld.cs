@@ -1,6 +1,7 @@
 ﻿namespace Vanilla.World
 {
     using Vanilla.Core.Components;
+    using Vanilla.Core.DBC;
     using Vanilla.Core.IO;
     using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
@@ -15,13 +16,15 @@
     {
         public VanillaWorld(int portNumber, int maxConnections)
         {
+            DBC = new DBCLibrary();
+
             WorldDatabase = new DatabaseUnitOfWork<WorldDatabase>();
             CharacterDatabase = new DatabaseUnitOfWork<CharacterDatabase>();
             LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
             Server = new WorldServer();
 
-            Components.Add(new LoginComponent(this));
+            Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
 
             new Entity();
@@ -36,6 +39,8 @@
         public DatabaseUnitOfWork<CharacterDatabase> CharacterDatabase { get; private set; }
 
         public DatabaseUnitOfWork<WorldDatabase> WorldDatabase { get; private set; }
+
+        public DBCLibrary DBC { get; private set; }
         
     }
 }

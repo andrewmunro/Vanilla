@@ -63,6 +63,7 @@
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
+    <Compile Include="Components\Login\WorldComponent.cs" />
     <Compile Include="Game\Entity\Entity.cs" />
     <Compile Include="Game\Entity\EntityInfo.cs" />
     <Compile Include="Game\Entity\EnumAttribute.cs" />

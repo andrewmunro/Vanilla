@@ -46,6 +46,8 @@
                 this.Write(0); // Pet Level
                 this.Write(0); // Pet FamilyID
 
+                
+
                 for (int itemSlot = 0; itemSlot < 19; itemSlot++)
                 {
                      this.Write(0);

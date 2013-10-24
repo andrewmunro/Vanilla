@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,6 +76,13 @@
     <Compile Include="Cryptography\SRP6.cs" />
     <Compile Include="Cryptography\VanillaCrypt.cs" />
     <Compile Include="DBC.cs" />
+    <Compile Include="DBC\DBCFileAttribute.cs" />
+    <Compile Include="DBC\DBCLibrary.cs" />
+    <Compile Include="DBC\DBCReader.cs" />
+    <Compile Include="DBC\DBCStore.cs" />
+    <Compile Include="DBC\Structs\CharStartOutfit.cs" />
+    <Compile Include="DBC\Structs\ChrClasses.cs" />
+    <Compile Include="DBC\Structs\ChrRaces.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="IO\DatabaseRepository.cs" />

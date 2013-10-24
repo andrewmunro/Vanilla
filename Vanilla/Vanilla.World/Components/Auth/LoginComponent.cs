@@ -11,11 +11,11 @@
     using Vanilla.World.Components.Auth.Packets.Incoming;
     using Vanilla.World.Network;
 
-    public class LoginComponent : WorldServerComponent
+    public class AuthComponent : WorldServerComponent
     {
         protected IRepository<Account> Accounts { get { return Core.LoginDatabase.GetRepository<Account>(); } }
 
-        public LoginComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
+        public AuthComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
             Router.AddHandler<PCAuthSession>(WorldOpcodes.CMSG_AUTH_SESSION, OnAuthSession);
         }

@@ -87,13 +87,13 @@
     <Compile Include="Communication\Incoming\World\Player\PCTextEmote.cs" />
     <Compile Include="Communication\Incoming\World\Player\PCZoneUpdate.cs" />
     <Compile Include="Communication\Incoming\World\Spell\PCSpell.cs" />
-    <Compile Include="Communication\Outgoing\Auth\PSAccountDataTimes.cs" />
+    <Compile Include="Components\Packets\Outgoing\PSAccountDataTimes.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginChallange.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthLoginProof.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSAuthResponse.cs" />
-    <Compile Include="Communication\Outgoing\Auth\PSBindPointUpdate.cs" />
+    <Compile Include="Components\Packets\Outgoing\PSBindPointUpdate.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSInitializeFactions.cs" />
-    <Compile Include="Communication\Outgoing\Auth\PSSetRestStart.cs" />
+    <Compile Include="Components\Packets\Outgoing\PSSetRestStart.cs" />
     <Compile Include="Communication\Outgoing\Auth\PSTutorialFlags.cs" />
     <Compile Include="Communication\Outgoing\Char\PSCharCreate.cs" />
     <Compile Include="Communication\Outgoing\Char\PSCharDelete.cs" />

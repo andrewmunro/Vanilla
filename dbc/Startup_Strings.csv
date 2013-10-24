@@ -1,7 +1,0 @@
-1,"MSG_TITLE_WOW","World of Warcraft",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-2,"MSG_GX_INIT_FAILED_D3D","World of Warcraft was unable to start up 3D acceleration. Please make sure DirectX 9.0c is installed and your video drivers are up-to-date.",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-3,"MSG_GX_INIT_FAILED","World of Warcraft was unable to start up 3D acceleration.",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-4,"MSG_HW_UNSUPPORTED","Your 3D accelerator card is not supported by World of Warcraft. Please install a 3D accelerator card with dual-TMU support.",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-5,"MSG_HW_CHANGED","Hardware changed.  Reload default settings?",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-9,"MSG_GLUEXML_UI_CORRUPT","Your login interface files are corrupt.  Please reinstall the game.",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
-10,"MSG_FRAMEXML_UI_CORRUPT","Your game interface files are corrupt.  Please remove your Interface\FrameXML folder.",0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,4128894,
