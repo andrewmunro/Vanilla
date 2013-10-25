@@ -1,28 +1,24 @@
 ﻿namespace Vanilla.World.Game.Entity.UpdateBuilder
 {
-    using System.Collections.Generic;
     using System.IO;
 
-    public class GameObjectUpdateBuilder : EntityUpdatePacketBuilder
+    public class GameObjectPacketBuilder : EntityPacketBuilder
     {
         private GameObjectEntity entity;
 
-        public override Queue<UpdateField> UpdateQueue { get; set; }
-
-        public GameObjectUpdateBuilder(GameObjectEntity entity)
+        public GameObjectPacketBuilder(GameObjectEntity entity)
         {
             this.entity = entity;
-            UpdateQueue = new Queue<UpdateField>();
         }
 
-        public override byte[] UpdatePacket()
+        protected override byte[] BuildUpdatePacket()
         {
             var writer = new BinaryWriter(new MemoryStream());
 
             return (writer.BaseStream as MemoryStream).ToArray();
         }
 
-        public override byte[] CreatePacket()
+        protected override byte[] BuildCreatePacket()
         {
            var writer = new BinaryWriter(new MemoryStream());
 

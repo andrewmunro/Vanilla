@@ -1,54 +1,40 @@
 ﻿namespace Vanilla.World.Game.Entity
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Reflection;
+
+    using Vanilla.Core.Logging;
     using Vanilla.Core.Network.Session;
+    using Vanilla.World.Game.Entity.UpdateBuilder;
 
     public class Entity
     {
-        public byte[] CreatePacket
-        {
-            get
-            {
-                return updateBuilder.CreatePacket();
-            }
-        }
+        public byte[] CreatePacket { get { return this.Builder.CreatePacket(); } }
 
-        public byte[] UpdatePacket
-        {
-            get
-            {
-                return updateBuilder.UpdatePacket();
-            }
-        }
+        public byte[] UpdatePacket { get { return this.Builder.UpdatePacket(); } }
 
         public EntityInfo Info;
 
         public List<Session> SubscribedBy = new List<Session>(); 
 
-        protected EntityUpdatePacketBuilder updateBuilder;
+        protected EntityPacketBuilder Builder;
 
         public Entity()
         {
-            Info = new EntityInfo();
             Info.PropertyChanged += OnInfoPropertyChanged;
-
-            Info.X = 5;
         }
 
         private void OnInfoPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (SubscribedBy.Count == 0) return;
+            
+            UpdateField updateField = new UpdateField();
+            updateField.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
+            updateField.Enum = updateField.PropertyInfo.GetCustomAttribute<EnumAttribute>().Enum;
 
-            if (!Info.UpdateFieldCache.ContainsKey(e.PropertyName))
-            {
-                var updateField = new UpdateField();
-                updateField.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
-                updateField.UpdateFieldEnum = updateField.PropertyInfo.GetCustomAttribute<EnumAttribute>().Enum;
-                Info.UpdateFieldCache[e.PropertyName] = updateField;
-            }
-            updateBuilder.UpdateQueue.Enqueue(Info.UpdateFieldCache[e.PropertyName]);
+            if (!this.Builder.UpdateQueue.Contains(updateField)) this.Builder.UpdateQueue.Enqueue(updateField);
         }
 
         public void Update()

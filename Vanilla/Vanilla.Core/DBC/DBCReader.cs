@@ -29,14 +29,12 @@ namespace Vanilla.Core.DBC
             uint stringBlockSize = ReadUInt32();
 
             for (int i = 0; i < recordCount; i++)
-			{
+            {
                 T parsedStruct = ReadStruct<T>(ReadBytes((int)recordSize));
                 Records.Add(parsedStruct);
-			}
+            }
 
             char[] pow = ReadChars((int)stringBlockSize);
-
-            Console.Read();
         }
 
         public static T ReadStruct<T>(byte[] data) where T : struct

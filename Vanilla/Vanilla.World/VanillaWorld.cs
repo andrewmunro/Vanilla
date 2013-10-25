@@ -27,8 +27,6 @@
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
 
-            new Entity();
-            
             Server.Start(portNumber, maxConnections);
         }
 

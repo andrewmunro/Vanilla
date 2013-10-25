@@ -69,9 +69,10 @@
     <Compile Include="Game\Entity\EnumAttribute.cs" />
     <Compile Include="Game\Entity\EUpdateFields.cs" />
     <Compile Include="Game\Entity\GameObjectEntity.cs" />
-    <Compile Include="Game\Entity\EntityUpdatePacketBuilder.cs" />
+    <Compile Include="Game\Entity\UpdateBuilder\EntityPacketBuilder.cs" />
     <Compile Include="Game\Entity\Unit.cs" />
-    <Compile Include="Game\Entity\UpdateBuilder\GameObjectUpdateBuilder.cs" />
+    <Compile Include="Game\Entity\UpdateBuilder\GameObjectPacketBuilder.cs" />
+    <Compile Include="Game\Entity\UpdateField.cs" />
     <Compile Include="Game\Update\ObjectUpdateType.cs" />
     <Compile Include="Game\Update\UpdatePacketBuilder.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>

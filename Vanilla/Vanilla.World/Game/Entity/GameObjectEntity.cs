@@ -6,7 +6,7 @@
     {
         public GameObjectEntity()
         {
-            updateBuilder = new GameObjectUpdateBuilder(this);
+            this.Builder = new GameObjectPacketBuilder(this);
         }
     }
 }
