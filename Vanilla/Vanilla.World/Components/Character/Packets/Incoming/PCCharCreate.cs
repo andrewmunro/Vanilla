@@ -7,7 +7,6 @@
         public PCCharCreate(byte[] data)
             : base(data)
         {
-            ReadBytes(6);
             this.Name = this.ReadCString();
             this.Race = this.ReadByte();
             this.Class = this.ReadByte();
@@ -17,6 +16,8 @@
             this.Face = this.ReadByte();
             this.HairStyle = this.ReadByte();
             this.HairColor = this.ReadByte();
+
+            //TODO Fix Accessory ReadByte (datastream is not long enough)
             //this.Accessory = this.ReadByte();
         }
 

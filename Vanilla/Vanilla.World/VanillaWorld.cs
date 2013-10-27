@@ -9,7 +9,6 @@
     using Vanilla.World.Components;
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
-    using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer

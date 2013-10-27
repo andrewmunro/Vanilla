@@ -105,5 +105,7 @@
         }
 
         protected abstract void OnPacket(byte[] data);
+
+        public abstract int HeaderLength { get; }
     }
 }

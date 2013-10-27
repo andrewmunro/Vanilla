@@ -7,7 +7,6 @@
         public PCAuthSession(byte[] data)
             : base(data)
         {
-            ReadBytes(6);
             this.ClientBuild = this.ReadInt32();
             this.Unk2 = this.ReadInt32();
             this.Username = this.ReadCString();

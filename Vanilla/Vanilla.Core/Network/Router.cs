@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     using Vanilla.Core.Logging;
     using Vanilla.Core.Network.Session;
@@ -34,10 +35,12 @@
         public void AddHandler<TCustomReader>(TOpcode opcode, ProcessLoginPacketCallbackTypes<TSession, TCustomReader> callback) where TCustomReader : BinaryReader
         {
             AddHandler(opcode, (session, data) =>
-            {
-                var generatedHandler = (TCustomReader)Activator.CreateInstance(typeof(TCustomReader), (data.BaseStream as MemoryStream).ToArray());
+                {
+                    Array headerlessData = (data.BaseStream as MemoryStream).ToArray().Skip(session.HeaderLength).ToArray();
 
-                callback(session, generatedHandler);
+                    var generatedHandler = (TCustomReader)Activator.CreateInstance(typeof(TCustomReader), headerlessData);
+
+                    callback(session, generatedHandler);
             });
         }
 
@@ -45,8 +48,6 @@
         {
             TReader packetReader = (TReader)Activator.CreateInstance(typeof(TReader), data);
             TOpcode opcode = FetchOpcode(packetReader);
-
-            //Log.Print(LogType.Router, "Calling " + opcode + " Handler");
 
             if (CallBacks.ContainsKey(opcode))
             {

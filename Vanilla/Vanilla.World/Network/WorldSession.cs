@@ -18,6 +18,8 @@
     {
         public WorldServer Server { get; set; }
 
+        public override int HeaderLength { get { return 6; } }
+
         public Account Account { get; set; }
 
         public Character Character { get; set; }

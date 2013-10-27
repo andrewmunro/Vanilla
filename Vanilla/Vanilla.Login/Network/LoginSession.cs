@@ -11,6 +11,8 @@
     {
         public LoginServer Server;
 
+        public override int HeaderLength { get{ return 0; } }
+
         public Authenticator Authenticator;
 
         public string AccountName { get; set; }
@@ -27,6 +29,5 @@
 
             Server.Router.CallHandler(this, data);
         }
-
     }
 }
