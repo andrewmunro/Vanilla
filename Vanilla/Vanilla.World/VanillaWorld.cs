@@ -9,6 +9,7 @@
     using Vanilla.World.Components;
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
+    using Vanilla.World.Components.Login;
     using Vanilla.World.Network;
 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer
@@ -25,6 +26,7 @@
 
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
+            Components.Add(new LoginComponent(this));
 
             Server.Start(portNumber, maxConnections);
         }

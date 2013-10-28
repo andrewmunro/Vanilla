@@ -4,13 +4,22 @@
 
     public class CharacterEntity : Entity
     {
-        public CharacterInfo Info;
+        public Character Character;
 
-        public CharacterEntity(Character databaseCharacter)
+        public CharacterEntity(Character databaseCharacter) : base()
         {
-            ObjectGUID = new ObjectGUID((ulong)databaseCharacter.GUID);
-            Info = new CharacterInfo(databaseCharacter, ObjectGUID);
-            PacketBuilder = new CharacterPacketBuilder(this);
+            Character = databaseCharacter;
         }
+
+        public override void Setup()
+        {
+            ObjectGUID = new ObjectGUID((ulong)Character.GUID);
+            Info = new CharacterInfo(Character, ObjectGUID);
+
+            PacketBuilder = new CharacterPacketBuilder(this);
+
+            base.Setup();
+        }
+
     }
 }

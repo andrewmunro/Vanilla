@@ -46,10 +46,10 @@
 
             writer.Write((uint)Environment.TickCount);
 
-            writer.Write(entity.Info.X);
-            writer.Write(entity.Info.Y);
-            writer.Write(entity.Info.Z);
-            writer.Write(entity.Info.Orientation); // R
+            writer.Write((entity.Info as CharacterInfo).X);
+            writer.Write((entity.Info as CharacterInfo).Y);
+            writer.Write((entity.Info as CharacterInfo).Z);
+            writer.Write((entity.Info as CharacterInfo).Orientation); // R
 
             // Movement speeds
             writer.Write((float)0); // ????

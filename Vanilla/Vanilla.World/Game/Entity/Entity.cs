@@ -18,16 +18,21 @@
 
         public List<Session> SubscribedBy = new List<Session>(); 
 
-        protected EntityPacketBuilder PacketBuilder;
+        public EntityPacketBuilder PacketBuilder;
 
         public Entity()
+        {
+           
+        }
+
+        public virtual void Setup()
         {
             Info.PropertyChanged += OnInfoPropertyChanged;
         }
 
         private void OnInfoPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (SubscribedBy.Count == 0) return;
+            //if (SubscribedBy.Count == 0) return;
             
             UpdateFieldEntry updateFieldEntry = new UpdateFieldEntry();
             updateFieldEntry.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);

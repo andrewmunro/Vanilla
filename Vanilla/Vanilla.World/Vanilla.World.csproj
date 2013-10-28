@@ -62,6 +62,11 @@
     <Compile Include="Components\Character\Packets\Outgoing\PSCharCreate.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
+    <Compile Include="Components\Login\Packets\Outgoing\LoginVerifyWorld.cs" />
+    <Compile Include="Components\Login\Packets\Outgoing\PSAccountDataTimes.cs" />
+    <Compile Include="Components\Login\Packets\Outgoing\PSBindPointUpdate.cs" />
+    <Compile Include="Components\Login\Packets\Outgoing\PSSetRestStart.cs" />
+    <Compile Include="Components\Update\Packets\Outgoing\PSUpdateObject.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />
     <Compile Include="Game\Entity\Character\CharacterEntity.cs" />

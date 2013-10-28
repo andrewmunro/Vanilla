@@ -1,10 +1,14 @@
 ﻿namespace Vanilla.World.Components.Login
 {
+    using System.Collections.Generic;
     using Vanilla.Core.Logging;
     using Vanilla.Core.Network.IO;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Communication.Outgoing.Auth;
+    using Vanilla.World.Communication.Outgoing.World;
     using Vanilla.World.Components.Login.Packets.Incoming;
+    using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Character;
     using Vanilla.World.Network;
 
@@ -22,14 +26,21 @@
             Character databaseCharacter = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
 
             session.Character = new CharacterEntity(databaseCharacter);
-            //session.UpdatePacketBuilder;
+            session.Character.Setup();
 
-            /*
-             * PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
-            session.SendPacket(new LoginVerifyWorld((int)session.Character.Map, session.Character.PositionX, session.Character.PositionY, session.Character.PositionZ, 0));
+            session.SendPacket(new PSLoginVerifyWorld(1, 0, 0, 0, 0));
             session.SendPacket(new PSAccountDataTimes());
             session.SendPacket(new PSSetRestStart());
             session.SendPacket(new PSBindPointUpdate());
+
+            session.SendPacket(new PSUpdateObject(new List<byte[]>() { (session.Character.PacketBuilder as CharacterPacketBuilder).BuildOwnCharacterPacket()  }));
+
+            /*
+             * PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
+            
+            
+            
+            
             session.SendPacket(new PSTutorialFlags(session.Account));
             SpellComponent.SendInitialSpells(session);
             session.SendPacket(new PSActionButtons(session.Character));
