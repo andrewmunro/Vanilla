@@ -1,5 +1,6 @@
 ﻿namespace Vanilla.World.Game.Entity.UpdateBuilder
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
 
@@ -23,6 +24,18 @@
         {
             if (UpdateQueue.Count == 0 && cachedCreatePacket != null) return cachedCreatePacket;
             return cachedCreatePacket = BuildCreatePacket();
+        }
+
+        public int MaskSize { get; private set; }
+        public BitArray Mask { get; private set; }
+        public Hashtable UpdateData { get; private set; }
+        public virtual int DataLength { get; private set; }
+
+        public EntityPacketBuilder()
+        {
+            MaskSize = ((DataLength) + 32) / 32;
+            Mask = new BitArray(DataLength, false);
+            UpdateData = new Hashtable();
         }
 
         protected void WriteCreationFields(BinaryWriter packet)
@@ -57,7 +70,6 @@
             }
 
             Mask.SetAll(false);
-            UpdateCount = 0;
         }
 
         protected abstract byte[] BuildUpdatePacket();

@@ -32,6 +32,7 @@
             UpdateFieldEntry updateFieldEntry = new UpdateFieldEntry();
             updateFieldEntry.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
             UpdateField updateField = updateFieldEntry.PropertyInfo.GetCustomAttribute<UpdateField>();
+
             if (updateField != null)
             {
                 updateFieldEntry.UpdateField = updateField.Enum;

@@ -1,7 +1,5 @@
 ﻿namespace Vanilla.World.Game.Entity.Character
 {
-    using System;
-
     using Vanilla.Database.Character.Models;
 
     public class CharacterEntity : Entity

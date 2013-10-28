@@ -22,6 +22,7 @@
             Character databaseCharacter = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
 
             session.Character = new CharacterEntity(databaseCharacter);
+            //session.UpdatePacketBuilder;
 
             /*
              * PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);

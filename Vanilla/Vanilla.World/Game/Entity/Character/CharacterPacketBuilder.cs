@@ -1,18 +1,17 @@
 ﻿namespace Vanilla.World.Game.Entity.Character
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-
     using Vanilla.Core.Extensions;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.UpdateBuilder;
-    using Vanilla.World.Game.Update;
     using Vanilla.World.Game.Update.Constants;
 
     public class CharacterPacketBuilder : EntityPacketBuilder
     {
         private CharacterEntity entity;
+
+        public override int DataLength { get { return (int)EUnitFields.PLAYER_END - 0x4; }}
 
         public CharacterPacketBuilder(CharacterEntity entity)
         {

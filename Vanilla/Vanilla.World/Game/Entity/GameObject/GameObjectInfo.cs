@@ -2,5 +2,9 @@
 {
     public class GameObjectInfo : EntityInfo
     {
+        public GameObjectInfo (ObjectGUID guid) : base(guid)
+        {
+
+        }
     }
 }
