@@ -12,6 +12,7 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
+    using Vanilla.World.Game.Entity.Character;
     using Vanilla.World.Game.Update;
 
     public class WorldSession : Session
@@ -22,7 +23,7 @@
 
         public Account Account { get; set; }
 
-        public Character Character { get; set; }
+        public CharacterEntity Character { get; set; }
 
         public VanillaCrypt PacketCrypto { get; set; }
 

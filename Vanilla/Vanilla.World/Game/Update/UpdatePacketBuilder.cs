@@ -4,6 +4,7 @@
     using System.IO;
 
     using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Update.Constants;
     using Vanilla.World.Network;
 
     public class UpdatePacketBuilder

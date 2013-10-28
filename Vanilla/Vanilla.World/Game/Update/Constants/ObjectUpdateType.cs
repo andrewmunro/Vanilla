@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Update
+﻿namespace Vanilla.World.Game.Update.Constants
 {
     public enum ObjectUpdateType : byte
     {

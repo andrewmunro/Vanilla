@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Constants.Update
+﻿namespace Vanilla.World.Game.Update.Constants
 {
     using System;
 

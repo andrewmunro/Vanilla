@@ -43,7 +43,7 @@
         CONTAINER_END = EItemFields.ITEM_END + 0x3A,
     };
 
-    enum EUnitFields
+    public enum EUnitFields
     {
         UNIT_FIELD_CHARM = 0x00 + EObjectFields.OBJECT_END, // Size:2
         UNIT_FIELD_SUMMON = 0x02 + EObjectFields.OBJECT_END, // Size:2

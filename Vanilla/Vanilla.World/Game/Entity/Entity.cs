@@ -1,25 +1,24 @@
 ﻿namespace Vanilla.World.Game.Entity
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Reflection;
-
-    using Vanilla.Core.Logging;
     using Vanilla.Core.Network.Session;
     using Vanilla.World.Game.Entity.UpdateBuilder;
 
     public class Entity
     {
-        public byte[] CreatePacket { get { return this.Builder.CreatePacket(); } }
+        public byte[] CreatePacket { get { return this.PacketBuilder.CreatePacket(); } }
 
-        public byte[] UpdatePacket { get { return this.Builder.UpdatePacket(); } }
+        public byte[] UpdatePacket { get { return this.PacketBuilder.UpdatePacket(); } }
 
         public EntityInfo Info;
 
+        public ObjectGUID ObjectGUID;
+
         public List<Session> SubscribedBy = new List<Session>(); 
 
-        protected EntityPacketBuilder Builder;
+        protected EntityPacketBuilder PacketBuilder;
 
         public Entity()
         {
@@ -30,11 +29,14 @@
         {
             if (SubscribedBy.Count == 0) return;
             
-            UpdateField updateField = new UpdateField();
-            updateField.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
-            updateField.Enum = updateField.PropertyInfo.GetCustomAttribute<EnumAttribute>().Enum;
-
-            if (!this.Builder.UpdateQueue.Contains(updateField)) this.Builder.UpdateQueue.Enqueue(updateField);
+            UpdateFieldEntry updateFieldEntry = new UpdateFieldEntry();
+            updateFieldEntry.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
+            UpdateField updateField = updateFieldEntry.PropertyInfo.GetCustomAttribute<UpdateField>();
+            if (updateField != null)
+            {
+                updateFieldEntry.UpdateField = updateField.Enum;
+                if (!this.PacketBuilder.UpdateQueue.Contains(updateFieldEntry)) this.PacketBuilder.UpdateQueue.Enqueue(updateFieldEntry);
+            }
         }
 
         public void Update()

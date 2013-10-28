@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vanilla.Core.IO;
-using Vanilla.Core.Logging;
-using Vanilla.Core.Network.IO;
-using Vanilla.Core.Opcodes;
-using Vanilla.World.Network;
-
-namespace Vanilla.World.Components.World
+﻿namespace Vanilla.World.Components.Login
 {
+    using Vanilla.Core.Logging;
+    using Vanilla.Core.Network.IO;
+    using Vanilla.Core.Opcodes;
+    using Vanilla.Database.Character.Models;
+    using Vanilla.World.Components.Login.Packets.Incoming;
+    using Vanilla.World.Game.Entity.Character;
+    using Vanilla.World.Network;
+
     public class LoginComponent : WorldServerComponent
     {
         public LoginComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
-            Router.AddHandler(WorldOpcodes.CMSG_PLAYER_LOGIN, OnPlayerLogin);
+            this.Router.AddHandler<PCPlayerLogin>(WorldOpcodes.CMSG_PLAYER_LOGIN, this.OnPlayerLogin);
         }
 
-        private void OnPlayerLogin(WorldSession session, PacketReader reader)
+        private void OnPlayerLogin(WorldSession session, PCPlayerLogin packet)
         {
             Log.Print("Trying to login");
-            
+
+            Character databaseCharacter = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
+
+            session.Character = new CharacterEntity(databaseCharacter);
+
             /*
              * PSUpdateObject playerEntity = PSUpdateObject.CreateOwnCharacterUpdate(session.Character, out session.Entity);
             session.SendPacket(new LoginVerifyWorld((int)session.Character.Map, session.Character.PositionX, session.Character.PositionY, session.Character.PositionZ, 0));

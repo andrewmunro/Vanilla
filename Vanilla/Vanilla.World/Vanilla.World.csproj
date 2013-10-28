@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Components\Auth\LoginComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthSession.cs" />
-    <Compile Include="Components\Auth\Packets\Incoming\PCPlayerLogin.cs" />
+    <Compile Include="Components\Login\Packets\Incoming\PCPlayerLogin.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Character\CharacterComponent.cs" />
     <Compile Include="Components\Character\Packets\Incoming\PCCharCreate.cs" />
@@ -63,17 +63,26 @@
     <Compile Include="Components\Character\Packets\Outgoing\PSCharDelete.cs" />
     <Compile Include="Components\Character\Packets\Outgoing\PSCharEnum.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
-    <Compile Include="Components\Login\WorldComponent.cs" />
+    <Compile Include="Components\Login\LoginComponent.cs" />
+    <Compile Include="Game\Entity\Character\CharacterEntity.cs" />
+    <Compile Include="Game\Entity\Character\CharacterInfo.cs" />
+    <Compile Include="Game\Entity\Character\CharacterPacketBuilder.cs" />
+    <Compile Include="Game\Entity\Constants\HighGUID.cs" />
     <Compile Include="Game\Entity\Entity.cs" />
     <Compile Include="Game\Entity\EntityInfo.cs" />
-    <Compile Include="Game\Entity\EnumAttribute.cs" />
-    <Compile Include="Game\Entity\EUpdateFields.cs" />
-    <Compile Include="Game\Entity\GameObjectEntity.cs" />
-    <Compile Include="Game\Entity\UpdateBuilder\EntityPacketBuilder.cs" />
-    <Compile Include="Game\Entity\Unit.cs" />
-    <Compile Include="Game\Entity\UpdateBuilder\GameObjectPacketBuilder.cs" />
     <Compile Include="Game\Entity\UpdateField.cs" />
-    <Compile Include="Game\Update\ObjectUpdateType.cs" />
+    <Compile Include="Game\Entity\EUpdateFields.cs" />
+    <Compile Include="Game\Entity\GameObject\GameObjectEntity.cs" />
+    <Compile Include="Game\Entity\EntityPacketBuilder.cs" />
+    <Compile Include="Game\Entity\GameObject\GameObjectInfo.cs" />
+    <Compile Include="Game\Entity\ObjectGUID.cs" />
+    <Compile Include="Game\Entity\Unit.cs" />
+    <Compile Include="Game\Entity\GameObject\GameObjectPacketBuilder.cs" />
+    <Compile Include="Game\Entity\UpdateFieldEntry.cs" />
+    <Compile Include="Game\Update\Constants\MovementFlags.cs" />
+    <Compile Include="Game\Update\Constants\ObjectUpdateFlag.cs" />
+    <Compile Include="Game\Update\Constants\ObjectUpdateType.cs" />
+    <Compile Include="Game\Entity\Constants\TypeID.cs" />
     <Compile Include="Game\Update\UpdatePacketBuilder.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
@@ -110,6 +119,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.3.0.38\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.3.0.38\tools\PostSharp.targets')" />
   <Import Project="Fody.targets" />

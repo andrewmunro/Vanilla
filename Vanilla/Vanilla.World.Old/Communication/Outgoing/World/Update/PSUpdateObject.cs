@@ -15,6 +15,7 @@ namespace Vanilla.World.Communication.Outgoing.World.Update
     using Vanilla.Core.Opcodes;
     using Database.World.Models;
     using Vanilla.World.Game.Constants.Game.Update;
+    using Vanilla.World.Game.Constants.Update;
     using Vanilla.World.Game.Entitys;
     using Vanilla.World.Tools.Shared;
     using Database.Character.Models;
