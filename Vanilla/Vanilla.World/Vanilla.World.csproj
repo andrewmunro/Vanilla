@@ -91,6 +91,7 @@
     <Compile Include="Game\Update\UpdatePacketBuilder.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Game\Update\UpdateReader.cs" />
     <Compile Include="IWorldServer.cs" />
     <Compile Include="Network\WorldRouter.cs" />
     <Compile Include="Network\WorldServer.cs" />

@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
+    using Vanilla.Core;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Logging;
@@ -114,34 +115,44 @@
 
         protected override void OnPacket(byte[] data)
         {
-            for (int index = 0; index < data.Length; index++)
+            try
             {
-                this.Decode(data);
+                for (int index = 0; index < data.Length; index++)
+                {
+                    this.Decode(data);
 
-                ushort opcode = BitConverter.ToUInt16(data, 0);
-                int length = BitConverter.ToInt16(data, 2);
-                
-                WorldOpcodes code = (WorldOpcodes)opcode;
+                    ushort opcode = BitConverter.ToUInt16(data, 0);
+                    int length = BitConverter.ToInt16(data, 2);
 
-                byte[] packetDate = new byte[length];
-                Array.Copy(data, index, packetDate, 0, length);
-                Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
+                    WorldOpcodes code = (WorldOpcodes)opcode;
 
-                Server.Router.CallHandler(this, packetDate);
+                    byte[] packetDate = new byte[length];
+                    Array.Copy(data, index, packetDate, 0, length);
+                    Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
 
-                index += 2 + (length - 1);
+                    Server.Router.CallHandler(this, packetDate);
+
+                    index += 2 + (length - 1);
+                }
+            }
+            catch(Exception e)
+            {
+
             }
         }
 
         public void SendHexPacket(WorldOpcodes opcde, string hex)
         {
-            /*
+            
             string end = hex.Replace(" ", "").Replace("\n", "");
 
             byte[] data = Utils.HexToByteArray(end);
 
-            this.SendPacket(opcde, data);*/
-            throw new Exception("no");
+            WorldPacket packet = new WorldPacket(opcde);
+            packet.Write(data);
+
+            this.SendPacket(packet);
+            //throw new Exception("no");
         }
 
         public void Update()

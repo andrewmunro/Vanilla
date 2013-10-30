@@ -7,6 +7,7 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Login;
     using Vanilla.World;
+    using Vanilla.World.Game.Update;
 
     public class Program
     {
@@ -20,6 +21,8 @@
         
         static void Main(string[] args)
         {
+            UpdateReader.Boot();
+
             DBCStore<ChrRaces> reader = new DBCStore<ChrRaces>();
 
 

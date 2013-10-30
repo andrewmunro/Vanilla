@@ -145,7 +145,7 @@
                 }
             }
 
-            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, character.Accessory, 0);
+            SetUpdateField<byte>((int)EUnitFields.PLAYER_BYTES_2, 0, 0);
 
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_NEXT_LEVEL_XP, 400);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_SKILL_INFO_1_1, 26); 
@@ -187,7 +187,7 @@
             SetUpdateField<Int32>((int)1220, 1065353216);
             SetUpdateField<Int32>((int)1221, 1065353216);
             SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX, -1);
-            SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_COINAGE, character.Money);
+            ///SetUpdateField<Int32>((int)EUnitFields.PLAYER_FIELD_COINAGE, character.Money);
         }
 
 

@@ -17,7 +17,7 @@
             Info = new CharacterInfo(Character, ObjectGUID);
 
             PacketBuilder = new CharacterPacketBuilder(this);
-
+            
             base.Setup();
         }
 
