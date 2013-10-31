@@ -65,16 +65,45 @@
 
         public byte[] BuildOwnCharacterPacket()
         {
+            foreach (UpdateFieldEntry entry in entity.Info.CreationUpdateFieldEntries)
+            {
+                byte key = entry.UpdateField;
+                string name = entry.PropertyInfo.PropertyType.Name;
+                var value = entry.PropertyInfo.GetValue(entity.Info);
+
+                if (entry.Index == -1)
+                {
+                    if (name == "Int32") SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
+                    if (name == "Byte") SetUpdateField<byte>((int)key, Convert.ToByte(value));
+                    if (name == "UInt64") SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
+                    if (name == "Single") SetUpdateField<float>((int)key, Convert.ToSingle(value));
+                }
+                else
+                {
+                    if (name == "Byte") SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
+                }
+            }
+           
+
+
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)0, 0); // Stand State?
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0, 2); // ShapeshiftForm?
+            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
+            SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES, 17235975);
+            SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES_2, 16777218);
+
+
+
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            byte[] guidBytes = GenerateGuidBytes((ulong)1);
-            WriteBytes(writer, guidBytes, guidBytes.Length);
-
+            writer.WritePackedUInt64((ulong)1);
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
+                                        ObjectUpdateFlag.UPDATEFLAG_SELF |
                                       ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION |
                                       ObjectUpdateFlag.UPDATEFLAG_LIVING;
 
@@ -101,8 +130,7 @@
 
             writer.Write(0x1); // Unkown...
 
-            writer.Write(Utils.HexToByteArray("29150040541DC0000000000080200000C0180402001000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000900000019000000CDCCAC3F540000006400000054000000E80300006400000001000000060000000601000108000000990900000900000001000000D0070000D00700003B0000003B00000000EE11000000803F002800000700030006000002"));
-
+            WriteUpdateFields(writer);
 
             return (writer.BaseStream as MemoryStream).ToArray();
         }

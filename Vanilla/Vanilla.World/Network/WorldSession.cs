@@ -135,9 +135,9 @@
                     index += 2 + (length - 1);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                Log.Print(LogType.Error, e.ToString() + " " + e.InnerException);
             }
         }
 
