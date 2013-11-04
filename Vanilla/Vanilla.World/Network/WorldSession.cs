@@ -30,9 +30,12 @@
 
         public UpdatePacketBuilder UpdatePacketBuilder { get; set; }
 
-        public WorldSession(WorldServer server, int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
+        public VanillaWorld Core { get; private set; }
+
+        public WorldSession(WorldServer server, VanillaWorld core, int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
         {
             Server = server;
+            Core = core;
 
             UpdatePacketBuilder = new UpdatePacketBuilder(this);
 

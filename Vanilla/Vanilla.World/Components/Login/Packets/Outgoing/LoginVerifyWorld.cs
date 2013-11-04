@@ -1,28 +1,18 @@
-﻿using Vanilla.Core.Network.Packet;
-
-namespace Vanilla.World.Communication.Outgoing.World
+﻿namespace Vanilla.World.Components.Login.Packets.Outgoing
 {
-    #region
-
-    using Vanilla.Core.Network;
+    using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
-
-    #endregion
 
     public sealed class PSLoginVerifyWorld : WorldPacket
     {
-        #region Constructors and Destructors
-
         public PSLoginVerifyWorld(int mapID, float X, float Y, float Z, float Rotation)
             : base(WorldOpcodes.SMSG_LOGIN_VERIFY_WORLD)
         {
-            Write(mapID);
-            Write(X);
-            Write(Y);
-            Write(Z);
-            Write(Rotation); // orientation
+            this.Write(mapID);
+            this.Write(X);
+            this.Write(Y);
+            this.Write(Z);
+            this.Write(Rotation); // orientation
         }
-
-        #endregion
     }
 }

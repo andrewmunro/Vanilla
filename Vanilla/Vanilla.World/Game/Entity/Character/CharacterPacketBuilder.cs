@@ -1,12 +1,11 @@
 ﻿namespace Vanilla.World.Game.Entity.Character
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
-    using Vanilla.Core;
-    using Vanilla.Core.Constants.Character;
     using Vanilla.Core.Extensions;
+    using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Constants;
-    using Vanilla.World.Game.Entity.UpdateBuilder;
     using Vanilla.World.Game.Update.Constants;
 
     public class CharacterPacketBuilder : EntityPacketBuilder
@@ -63,7 +62,7 @@
                 writer.Write(data, 0, count);
         }
 
-        public byte[] BuildOwnCharacterPacket()
+        public PSUpdateObject BuildOwnCharacterPacket()
         {
             foreach (UpdateFieldEntry entry in entity.Info.CreationUpdateFieldEntries)
             {
@@ -98,7 +97,7 @@
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            writer.WritePackedUInt64((ulong)1);
+            writer.WritePackedUInt64(this.entity.ObjectGUID.RawGUID);
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 
@@ -132,7 +131,7 @@
 
             WriteUpdateFields(writer);
 
-            return (writer.BaseStream as MemoryStream).ToArray();
+            return new PSUpdateObject(new List<byte[]>() { (writer.BaseStream as MemoryStream).ToArray() });
         }
 
 

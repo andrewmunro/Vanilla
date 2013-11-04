@@ -1,9 +1,10 @@
-﻿namespace Vanilla.World.Game.Entity.UpdateBuilder
+﻿namespace Vanilla.World.Game.Entity
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+
     using Vanilla.Core.Extensions;
 
     public abstract class EntityPacketBuilder
@@ -16,14 +17,14 @@
 
         public byte[] UpdatePacket()
         {
-            if (UpdateQueue.Count == 0 && cachedUpdatePacket != null) return cachedUpdatePacket;
-            return cachedUpdatePacket = BuildUpdatePacket();
+            if (this.UpdateQueue.Count == 0 && this.cachedUpdatePacket != null) return this.cachedUpdatePacket;
+            return this.cachedUpdatePacket = this.BuildUpdatePacket();
         }
 
         public byte[] CreatePacket()
         {
-            if (UpdateQueue.Count == 0 && cachedCreatePacket != null) return cachedCreatePacket;
-            return cachedCreatePacket = BuildCreatePacket();
+            if (this.UpdateQueue.Count == 0 && this.cachedCreatePacket != null) return this.cachedCreatePacket;
+            return this.cachedCreatePacket = this.BuildCreatePacket();
         }
 
         public int MaskSize { get; private set; }
@@ -33,9 +34,9 @@
 
         public EntityPacketBuilder()
         {
-            MaskSize = ((DataLength) + 32) / 32;
-            Mask = new BitArray(DataLength, false);
-            UpdateData = new Hashtable();            
+            this.MaskSize = ((this.DataLength) + 32) / 32;
+            this.Mask = new BitArray(this.DataLength, false);
+            this.UpdateData = new Hashtable();            
         }
 
         public void SetUpdateField<T>(int index, T value, byte offset = 0)
@@ -52,55 +53,55 @@
                 case "SByte":
                 case "Int16":
                     {
-                        Mask.Set(index, true);
+                        this.Mask.Set(index, true);
 
-                        if (UpdateData.ContainsKey(index))
-                            UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
+                        if (this.UpdateData.ContainsKey(index))
+                            this.UpdateData[index] = (int)((int)this.UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
                         else
-                            UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
+                            this.UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
 
                         break;
                     }
                 case "Byte":
                 case "UInt16":
                     {
-                        Mask.Set(index, true);
+                        this.Mask.Set(index, true);
 
-                        if (UpdateData.ContainsKey(index))
-                            UpdateData[index] = (uint)((uint)UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
+                        if (this.UpdateData.ContainsKey(index))
+                            this.UpdateData[index] = (uint)((uint)this.UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
                         else
-                            UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
+                            this.UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
 
                         break;
                     }
                 case "Int64":
                     {
-                        Mask.Set(index, true);
-                        Mask.Set(index + 1, true);
+                        this.Mask.Set(index, true);
+                        this.Mask.Set(index + 1, true);
 
                         long tmpValue = (long)Convert.ChangeType(value, typeof(long));
 
-                        UpdateData[index] = (uint)(tmpValue & Int32.MaxValue);
-                        UpdateData[index + 1] = (uint)((tmpValue >> 32) & Int32.MaxValue);
+                        this.UpdateData[index] = (uint)(tmpValue & Int32.MaxValue);
+                        this.UpdateData[index + 1] = (uint)((tmpValue >> 32) & Int32.MaxValue);
 
                         break;
                     }
                 case "UInt64":
                     {
-                        Mask.Set(index, true);
-                        Mask.Set(index + 1, true);
+                        this.Mask.Set(index, true);
+                        this.Mask.Set(index + 1, true);
 
                         ulong tmpValue = (ulong)Convert.ChangeType(value, typeof(ulong));
 
-                        UpdateData[index] = (uint)(tmpValue & UInt32.MaxValue);
-                        UpdateData[index + 1] = (uint)((tmpValue >> 32) & UInt32.MaxValue);
+                        this.UpdateData[index] = (uint)(tmpValue & UInt32.MaxValue);
+                        this.UpdateData[index + 1] = (uint)((tmpValue >> 32) & UInt32.MaxValue);
 
                         break;
                     }
                 default:
                     {
-                        Mask.Set(index, true);
-                        UpdateData[index] = value;
+                        this.Mask.Set(index, true);
+                        this.UpdateData[index] = value;
 
                         break;
                     }
@@ -109,26 +110,26 @@
 
         public void WriteUpdateFields(BinaryWriter packet)
         {
-            packet.Write((byte)MaskSize);
+            packet.Write((byte)this.MaskSize);
 
-            packet.WriteBitArray(Mask, (MaskSize * 4));    // Int32 = 4 Bytes
+            packet.WriteBitArray(this.Mask, (this.MaskSize * 4));    // Int32 = 4 Bytes
 
-            for (int i = 0; i < Mask.Count; i++)
+            for (int i = 0; i < this.Mask.Count; i++)
             {
-                if (Mask.Get(i))
+                if (this.Mask.Get(i))
                 {
                     try
                     {
-                        switch (UpdateData[i].GetType().Name)
+                        switch (this.UpdateData[i].GetType().Name)
                         {
                             case "UInt32":
-                                packet.Write((uint)UpdateData[i]);
+                                packet.Write((uint)this.UpdateData[i]);
                                 break;
                             case "Single":
-                                packet.Write((float)UpdateData[i]);
+                                packet.Write((float)this.UpdateData[i]);
                                 break;
                             default:
-                                packet.Write((int)UpdateData[i]);
+                                packet.Write((int)this.UpdateData[i]);
                                 break;
                         }
                     }
@@ -138,7 +139,7 @@
                 }
             }
 
-            Mask.SetAll(false);
+            this.Mask.SetAll(false);
         }
 
         protected abstract byte[] BuildUpdatePacket();

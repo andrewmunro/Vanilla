@@ -43,6 +43,7 @@
 
             Character character = new Character()
             {
+                GUID = Characters.AsQueryable().Count() + 1,
                 Account = session.Account.ID,
                 Name = Utils.NormalizeText(packet.Name),
                 Race = packet.Race,
@@ -86,7 +87,7 @@
                 StoredHonorableKills = 0,
                 WatchedFaction = 0,
                 Drunk = 0,
-                Health = 0,
+                Health = 100,
                 Power1 = 0,
                 Power2 = 0,
                 Power3 = 0,

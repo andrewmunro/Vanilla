@@ -22,7 +22,7 @@
             CharacterDatabase = new DatabaseUnitOfWork<CharacterDatabase>();
             LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
-            Server = new WorldServer();
+            Server = new WorldServer(this);
 
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));

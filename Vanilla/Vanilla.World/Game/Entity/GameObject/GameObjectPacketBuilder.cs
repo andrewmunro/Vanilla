@@ -2,8 +2,6 @@
 {
     using System.IO;
 
-    using Vanilla.World.Game.Entity.UpdateBuilder;
-
     public class GameObjectPacketBuilder : EntityPacketBuilder
     {
         private GameObjectEntity entity;

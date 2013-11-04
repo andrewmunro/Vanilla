@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Vanilla.Core.Constants.Character;
-
-namespace Vanilla.Core.DBC.Structs
+﻿namespace Vanilla.Core.DBC.Structs
 {
+    using System.Runtime.InteropServices;
+
+    using Vanilla.Core.Constants.Character;
+
     [StructLayout(LayoutKind.Explicit)]
     [DBCFileAttribute("ChrRaces")]
     public unsafe struct ChrRaces
     {
         [FieldOffset(0)]
-        public RaceID Class;
+        public byte RaceID;
 
         [FieldOffset(2 * 4)]
         public uint FactionID;

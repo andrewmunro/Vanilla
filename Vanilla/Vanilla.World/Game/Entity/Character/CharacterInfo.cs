@@ -1,33 +1,52 @@
 ﻿namespace Vanilla.World.Game.Entity.Character
 {
     using Vanilla.Core.Constants.Character;
+    using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Game.Entity.Constants;
 
     public class CharacterInfo : EntityInfo
     {
-        public CharacterInfo(Character databaseCharacter, ObjectGUID guid) : base(guid)
+        public CharacterInfo(Character databaseCharacter, ObjectGUID guid, ChrRaces race, ChrClasses chrClass) : base(guid)
         {
             X = databaseCharacter.PositionX;
             Y = databaseCharacter.PositionY;
             Z = databaseCharacter.PositionZ;
             Orientation = databaseCharacter.Orientation;
 
-            GUID = (uint)1;
+            GUID = guid.RawGUID;
             Type = 25;
-
             Scale = 1;
-            FactionTemplate = 1;
-            Bytes1Race = (byte)RaceID.Dwarf;
-            Bytes1Class = (byte)ClassID.Warrior;
-            Bytes1Gender = (byte)Gender.Male;
-            Bytes1Power = 0;
+            Class = chrClass;
+            ClassID = Class.ClassID;
+            Gender = databaseCharacter.Gender;
+            Power = (byte)Class.PowerType;
 
-            DisplayID = 59;
-            NativeDisplayID = 59;
+            Race = race;
+            RaceID = race.RaceID;
+            FactionTemplate = race.FactionID;
+            DisplayID = NativeDisplayID = (int)(Gender == 0 ? race.ModelM : race.ModelF);
 
-            Health = 100;
+            Health = (int)databaseCharacter.Health;
             MaxHealth = 100;
+
+            //Level = databaseCharacter.Level;
+            XP = (int)databaseCharacter.XP;
+            NextLevelXP = 400;
         }
+
+        public ChrClasses Class { get; set; }
+
+        public ChrRaces Race { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_LEVEL)]
+        public int Level { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_XP)]
+        public int XP { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_NEXT_LEVEL_XP)]
+        public int NextLevelXP { get; set; }
 
         public float X { get; set; }
 
@@ -38,19 +57,19 @@
         public float Orientation { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_FACTIONTEMPLATE)]
-        public int FactionTemplate { get; set; }
+        public uint FactionTemplate { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 0)]
-        public byte Bytes1Race { get; set; }
+        public byte RaceID { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 1)]
-        public byte Bytes1Class { get; set; }
+        public byte ClassID { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 2)]
-        public byte Bytes1Gender { get; set; }
+        public byte Gender { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 3)]
-        public byte Bytes1Power { get; set; }
+        public byte Power { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_DISPLAYID)]
         public int DisplayID { get; set; }

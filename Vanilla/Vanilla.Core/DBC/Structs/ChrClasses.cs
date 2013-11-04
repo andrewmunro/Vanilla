@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Vanilla.Core.Constants.Character;
+﻿using System.Runtime.InteropServices;
 
 namespace Vanilla.Core.DBC.Structs
 {
@@ -13,7 +7,7 @@ namespace Vanilla.Core.DBC.Structs
     public unsafe struct ChrClasses
     {
         [FieldOffset(0)]
-        public ClassID Class;
+        public byte ClassID;
 
         [FieldOffset(3 * 4)]
         public uint PowerType;

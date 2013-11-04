@@ -4,7 +4,6 @@
     using System.ComponentModel;
     using System.Reflection;
     using Vanilla.Core.Network.Session;
-    using Vanilla.World.Game.Entity.UpdateBuilder;
 
     public class Entity
     {

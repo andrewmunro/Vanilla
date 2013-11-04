@@ -24,13 +24,11 @@
 
         private void OnAuthLoginChallenge(LoginSession session, PCAuthLoginChallenge packet)
         {
-            bool accountExists = Accounts.Where((a) => a.Username.ToUpper() == packet.Username.ToUpper()) != null;
+            Account account = Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Username.ToUpper());
 
             // Todo: Error checking
-            if (accountExists)
+            if (account != null)
             {
-                Account account = Accounts.SingleOrDefault((a) => a.Username.ToUpper() == packet.Username.ToUpper());
-
                 session.AccountName = packet.Username;
 
                 byte[] userBytes = Encoding.UTF8.GetBytes(account.Username.ToUpper());
