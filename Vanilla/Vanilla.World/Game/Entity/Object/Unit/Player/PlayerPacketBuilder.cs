@@ -1,20 +1,22 @@
-﻿namespace Vanilla.World.Game.Entity.Character
+﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
+
     using Vanilla.Core.Extensions;
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Object.Unit.Creature;
     using Vanilla.World.Game.Update.Constants;
 
-    public class CharacterPacketBuilder : EntityPacketBuilder
+    public class PlayerPacketBuilder : EntityPacketBuilder
     {
-        private CharacterEntity entity;
+        private PlayerEntity entity;
 
         public override int DataLength { get { return (int)EUnitFields.PLAYER_END - 0x4; }}
 
-        public CharacterPacketBuilder(CharacterEntity entity)
+        public PlayerPacketBuilder(PlayerEntity entity)
         {
             this.entity = entity;
         }
@@ -64,33 +66,33 @@
 
         public PSUpdateObject BuildOwnCharacterPacket()
         {
-            foreach (UpdateFieldEntry entry in entity.Info.CreationUpdateFieldEntries)
+            foreach (UpdateFieldEntry entry in this.entity.Info.CreationUpdateFieldEntries)
             {
                 byte key = entry.UpdateField;
                 string name = entry.PropertyInfo.PropertyType.Name;
-                var value = entry.PropertyInfo.GetValue(entity.Info);
+                var value = entry.PropertyInfo.GetValue(this.entity.Info);
 
                 if (entry.Index == -1)
                 {
-                    if (name == "Int32") SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
-                    if (name == "Byte") SetUpdateField<byte>((int)key, Convert.ToByte(value));
-                    if (name == "UInt64") SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
-                    if (name == "Single") SetUpdateField<float>((int)key, Convert.ToSingle(value));
+                    if (name == "Int32") this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
+                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
+                    if (name == "UInt64") this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
+                    if (name == "Single") this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
                 }
                 else
                 {
-                    if (name == "Byte") SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
+                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
                 }
             }
            
 
 
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)0, 0); // Stand State?
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0, 2); // ShapeshiftForm?
-            SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
-            SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES, 17235975);
-            SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES_2, 16777218);
+            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)0, 0); // Stand State?
+            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
+            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0, 2); // ShapeshiftForm?
+            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
+            this.SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES, 17235975);
+            this.SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES_2, 16777218);
 
 
 
@@ -129,7 +131,7 @@
 
             writer.Write(0x1); // Unkown...
 
-            WriteUpdateFields(writer);
+            this.WriteUpdateFields(writer);
 
             return new PSUpdateObject(new List<byte[]>() { (writer.BaseStream as MemoryStream).ToArray() });
         }

@@ -11,9 +11,8 @@
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
-    using Vanilla.World.Game.Entity.Character;
+    using Vanilla.World.Game.Entity.Object.Unit.Player;
     using Vanilla.World.Game.Update;
 
     public class WorldSession : Session
@@ -24,7 +23,7 @@
 
         public Account Account { get; set; }
 
-        public CharacterEntity Character { get; set; }
+        public PlayerEntity Player { get; set; }
 
         public VanillaCrypt PacketCrypto { get; set; }
 

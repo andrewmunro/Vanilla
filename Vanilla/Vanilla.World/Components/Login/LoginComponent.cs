@@ -4,7 +4,6 @@
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.Login.Packets.Incoming;
     using Vanilla.World.Components.Login.Packets.Outgoing;
-    using Vanilla.World.Game.Entity.Character;
     using Vanilla.World.Network;
 
     public class LoginComponent : WorldServerComponent
@@ -18,8 +17,7 @@
         {
             Character databaseCharacter = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
 
-            session.Character = new CharacterEntity(databaseCharacter, session);
-            session.Character.Setup();
+            session.Player = Core.EntityManager.AddPlayerEntity(databaseCharacter, session);
 
             session.SendPacket(new PSLoginVerifyWorld((int)databaseCharacter.Map, databaseCharacter.PositionX, databaseCharacter.PositionY, databaseCharacter.PositionZ, databaseCharacter.Orientation));
             session.SendPacket(new PSAccountDataTimes());
@@ -29,7 +27,7 @@
             session.SendPacket(new PSLoginSetTimeSpeed());
             session.SendPacket(new PSInitWorldStates((uint)databaseCharacter.Zone));
 
-            session.SendPacket((session.Character.PacketBuilder as CharacterPacketBuilder).BuildOwnCharacterPacket());
+            session.SendPacket(session.Player.PacketBuilder.BuildOwnCharacterPacket());
         }
     }
 }

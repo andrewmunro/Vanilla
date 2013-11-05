@@ -1,24 +1,22 @@
 ﻿using Vanilla.Core.Network.Packet;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+
+using Vanilla.Core;
+using Vanilla.Core.Extensions;
+using Vanilla.Core.Opcodes;
+using Vanilla.Database.World.Models;
+using Vanilla.World.Game.Constants.Game.Update;
+using Vanilla.World.Game.Constants.Game.World.Entity;
+using Vanilla.World.Game.Managers;
+using Vanilla.World.Network;
+using Vanilla.World.Tools.DBC;
+using Vanilla.World.Tools.DBC.Tables;
+using Vanilla.World.Tools.Shared;
 
 namespace Vanilla.World.Game.Entitys
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-
-    using Vanilla.Core;
-    using Vanilla.Core.Extensions;
-    using Vanilla.Core.Network;
-    using Vanilla.Core.Opcodes;
-    using Database.World.Models;
-    using Vanilla.World.Game.Constants.Game.Update;
-    using Vanilla.World.Game.Constants.Game.World.Entity;
-    using Vanilla.World.Game.Managers;
-    using Vanilla.World.Network;
-    using Vanilla.World.Tools.DBC;
-    using Vanilla.World.Tools.DBC.Tables;
-    using Vanilla.World.Tools.Shared;
-
     public class AIBrainManager
     {
         public static List<AIBrain> AIBrains = new List<AIBrain>();

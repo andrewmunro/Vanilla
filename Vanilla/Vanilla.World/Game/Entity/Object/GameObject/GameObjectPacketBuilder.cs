@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Entity.GameObject
+﻿namespace Vanilla.World.Game.Entity.Object.GameObject
 {
     using System.IO;
 

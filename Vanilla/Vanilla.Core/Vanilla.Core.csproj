@@ -103,6 +103,11 @@
     <Compile Include="Opcodes\WorldOpcodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Network\Session\AbstractSession.cs" />
+    <Compile Include="Tools\Location.cs" />
+    <Compile Include="Tools\MathHelper.cs" />
+    <Compile Include="Tools\Matrix.cs" />
+    <Compile Include="Tools\Quaternion.cs" />
+    <Compile Include="Tools\Vector3.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">

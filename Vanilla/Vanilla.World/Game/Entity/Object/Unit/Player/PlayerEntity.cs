@@ -1,0 +1,32 @@
+﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
+{
+    using System.Linq;
+
+    using Vanilla.Core.DBC.Structs;
+    using Vanilla.Database.Character.Models;
+    using Vanilla.World.Network;
+
+    public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>
+    {
+        public Character Character;
+
+        public WorldSession Session;
+
+        public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
+        {
+            this.Character = databaseCharacter;
+            this.Session = session;
+        }
+
+        public override void Setup()
+        {
+            ChrRaces Race = this.Session.Core.DBC.GetDBC<ChrRaces>().SingleOrDefault(cr => cr.RaceID == this.Character.Race);
+            ChrClasses Class = this.Session.Core.DBC.GetDBC<ChrClasses>().SingleOrDefault(cr => cr.ClassID == this.Character.Class);
+
+            this.Info = new PlayerInfo(this.ObjectGUID, this.Character, Race, Class);
+            this.PacketBuilder = new PlayerPacketBuilder(this);
+            
+            base.Setup();
+        }
+    }
+}

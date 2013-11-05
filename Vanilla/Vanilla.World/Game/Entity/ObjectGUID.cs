@@ -45,9 +45,10 @@ namespace Vanilla.World.Game.Entity
 
         public HighGUID HighGUID { get; private set; }
 
-        public ObjectGUID(ulong GUID)
+        public ObjectGUID(ulong GUID, TypeID type)
         {
             RawGUID = GUID;
+            TypeID = type;
         }
 
         public ObjectGUID(uint index, TypeID type, HighGUID high)

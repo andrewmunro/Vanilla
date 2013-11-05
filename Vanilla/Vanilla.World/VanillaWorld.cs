@@ -10,6 +10,7 @@
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
     using Vanilla.World.Components.Login;
+    using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer
@@ -28,6 +29,8 @@
             Components.Add(new CharacterComponent(this));
             Components.Add(new LoginComponent(this));
 
+            EntityManager = new EntityManager(this);
+
             Server.Start(portNumber, maxConnections);
         }
 
@@ -40,6 +43,7 @@
         public DatabaseUnitOfWork<WorldDatabase> WorldDatabase { get; private set; }
 
         public DBCLibrary DBC { get; private set; }
-        
+
+        public EntityManager EntityManager { get; private set; }
     }
 }

@@ -14,19 +14,8 @@
 
         public List<UpdateFieldEntry> CreationUpdateFieldEntries = new List<UpdateFieldEntry>();
 
-        [UpdateField(EObjectFields.OBJECT_FIELD_GUID)]
-        public ulong GUID { get; set; }
-
-        [UpdateField(EObjectFields.OBJECT_FIELD_TYPE)]
-        public byte Type { get; set; }
-
-        [UpdateField(EObjectFields.OBJECT_FIELD_SCALE_X)]
-        public float Scale { get; set; }
-
-        public EntityInfo(ObjectGUID guid)
+        public EntityInfo()
         {
-            GUID = guid.RawGUID;
-
             foreach (var property in this.GetType().GetProperties())
             {
                 UpdateField updateField = property.GetCustomAttribute<UpdateField>();
@@ -42,8 +31,6 @@
                     });
                 }
             }
-
-            
         }
     }
 }

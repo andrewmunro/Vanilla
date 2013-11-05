@@ -5,23 +5,23 @@
     using System.Reflection;
     using Vanilla.Core.Network.Session;
 
-    public class Entity
+    public class Entity<TI, TP> where TI : EntityInfo where TP : EntityPacketBuilder
     {
         public byte[] CreatePacket { get { return this.PacketBuilder.CreatePacket(); } }
 
         public byte[] UpdatePacket { get { return this.PacketBuilder.UpdatePacket(); } }
 
-        public EntityInfo Info;
+        public TI Info;
+
+        public TP PacketBuilder;
 
         public ObjectGUID ObjectGUID;
 
         public List<Session> SubscribedBy = new List<Session>(); 
 
-        public EntityPacketBuilder PacketBuilder;
-
-        public Entity()
+        public Entity(ObjectGUID objectGUID)
         {
-           
+            ObjectGUID = objectGUID;
         }
 
         public virtual void Setup()

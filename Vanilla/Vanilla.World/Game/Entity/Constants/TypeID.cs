@@ -1,5 +1,8 @@
 ﻿namespace Vanilla.World.Game.Entity.Constants
 {
+    using System;
+
+    [Flags]
     public enum TypeID : byte
     {
         TYPEID_OBJECT = 0,
