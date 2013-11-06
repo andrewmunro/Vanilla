@@ -12,19 +12,19 @@
     {
         public WorldSession Session { get; set; }
 
-        private Queue<ObjectEntity<ObjectInfo, EntityPacketBuilder>> createEntities { get; set; }
+        private Queue<ISubscribable> createEntities { get; set; }
 
-        private List<ObjectEntity<ObjectInfo, EntityPacketBuilder>> updateEntities { get; set; }
+        private List<ISubscribable> updateEntities { get; set; }
 
-        private Queue<ObjectEntity<ObjectInfo, EntityPacketBuilder>> removeEntities { get; set; }
+        private Queue<ISubscribable> removeEntities { get; set; }
 
         public UpdatePacketBuilder(WorldSession session)
         {
             Session = session;
 
-            createEntities = new Queue<ObjectEntity<ObjectInfo, EntityPacketBuilder>>();
-            updateEntities = new List<ObjectEntity<ObjectInfo, EntityPacketBuilder>>();
-            removeEntities = new Queue<ObjectEntity<ObjectInfo, EntityPacketBuilder>>();
+            createEntities = new Queue<ISubscribable>();
+            updateEntities = new List<ISubscribable>();
+            removeEntities = new Queue<ISubscribable>();
         }
 
         public void Subscribe(ObjectEntity<ObjectInfo, EntityPacketBuilder> entity)
@@ -40,16 +40,12 @@
             entity.SubscribedBy.Remove(Session);
         }
 
-        private void refreshEntities()
-        {
-
-        }
-
         public void Update()
         {
-            BinaryWriter packet = new BinaryWriter(new MemoryStream());
+            if (Session.Player == null) return;
+            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 50f);
 
-            refreshEntities();
+            BinaryWriter packet = new BinaryWriter(new MemoryStream());
 
             if (createEntities.Count > 0)
             {

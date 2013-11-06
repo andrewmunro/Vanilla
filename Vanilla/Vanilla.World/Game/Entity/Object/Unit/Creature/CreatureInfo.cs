@@ -6,7 +6,7 @@
     {
         public CreatureInfo(ObjectGUID objectGUID, Creature creature) : base(objectGUID)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

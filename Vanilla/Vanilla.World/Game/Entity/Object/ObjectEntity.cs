@@ -2,7 +2,7 @@
 {
     using Vanilla.Core.Tools;
 
-    public class ObjectEntity<TI, TP> : Entity<TI, TP> where TI : ObjectInfo where TP : EntityPacketBuilder
+    public abstract class ObjectEntity<TI, TP> : Entity<TI, TP> where TI : ObjectInfo where TP : EntityPacketBuilder
     {
         public Location Location { get; set; }
 

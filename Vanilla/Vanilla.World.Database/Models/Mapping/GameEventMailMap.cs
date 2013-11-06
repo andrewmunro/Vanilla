@@ -8,7 +8,7 @@ namespace Vanilla.Database.World.Models.Mapping
         public GameEventMailMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.Event, raceMask = t.RaceMask, quest = t.Quest });
+            this.HasKey(t => new { t.Event, t.RaceMask, t.Quest });
 
             // Properties
             this.Property(t => t.Event)

@@ -8,7 +8,7 @@ namespace Vanilla.Database.World.Models.Mapping
         public playerClassLevelStatsMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.Class, level = t.Level });
+            this.HasKey(t => new { t.Class, t.Level });
 
             // Properties
         }

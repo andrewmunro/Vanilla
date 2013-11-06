@@ -5,7 +5,7 @@
     using System.Reflection;
     using Vanilla.Core.Network.Session;
 
-    public class Entity<TI, TP> where TI : EntityInfo where TP : EntityPacketBuilder
+    public abstract class Entity<TI, TP> : ISubscribable where TI : EntityInfo where TP : EntityPacketBuilder
     {
         public byte[] CreatePacket { get { return this.PacketBuilder.CreatePacket(); } }
 
@@ -17,11 +17,12 @@
 
         public ObjectGUID ObjectGUID;
 
-        public List<Session> SubscribedBy = new List<Session>(); 
+        public List<Session> SubscribedBy { get; set; }
 
         public Entity(ObjectGUID objectGUID)
         {
             ObjectGUID = objectGUID;
+            SubscribedBy = new List<Session>();
         }
 
         public virtual void Setup()

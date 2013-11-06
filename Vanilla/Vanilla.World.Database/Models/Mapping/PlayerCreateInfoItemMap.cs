@@ -8,7 +8,7 @@ namespace Vanilla.Database.World.Models.Mapping
         public PlayerCreateInfoItemMap()
         {
             // Primary Key
-            this.HasKey(t => new { race = t.Race, t.Class, itemid = t.Itemid, amount = t.Amount });
+            this.HasKey(t => new { t.Race, t.Class, t.Itemid, t.Amount });
 
             // Properties
             this.Property(t => t.Itemid)

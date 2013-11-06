@@ -8,7 +8,7 @@ namespace Vanilla.Database.World.Models.Mapping
         public PlayerCreateiInfoSpellMap()
         {
             // Primary Key
-            this.HasKey(t => new { race = t.Race, t.Class, t.Spell });
+            this.HasKey(t => new { t.Race, t.Class, t.Spell });
 
             // Properties
             this.Property(t => t.Spell)

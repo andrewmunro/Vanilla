@@ -8,7 +8,7 @@ namespace Vanilla.Database.World.Models.Mapping
         public GameEventQuestMap()
         {
             // Primary Key
-            this.HasKey(t => new { quest = t.Quest, t.Event });
+            this.HasKey(t => new { t.Quest, t.Event });
 
             // Properties
             this.Property(t => t.Quest)
