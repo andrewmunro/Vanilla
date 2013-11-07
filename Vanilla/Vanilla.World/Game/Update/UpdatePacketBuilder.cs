@@ -50,14 +50,14 @@
 
             var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 10f);
 
-            foreach (var entity in entities.Where(entity => !this.updateEntities.Contains(entity)))
-            {
-                this.Subscribe(entity);
-            }
-
             foreach (var entity in this.updateEntities.Where(entity => !entities.Contains(entity)))
             {
                 this.UnSubscribe(entity);
+            }
+
+            foreach (var entity in entities.Where(entity => !this.updateEntities.Contains(entity)))
+            {
+                this.Subscribe(entity);
             }
 
             SendUpdatePacket();
