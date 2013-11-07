@@ -2,6 +2,8 @@
 {
     using System.Linq;
 
+    using Microsoft.Xna.Framework;
+
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Network;
@@ -25,7 +27,12 @@
 
             this.Info = new PlayerInfo(this.ObjectGUID, this.Character, Race, Class);
             this.PacketBuilder = new PlayerPacketBuilder(this);
-            
+
+            Location.X = Character.PositionX;
+            Location.Y = Character.PositionY;
+            Location.Z = Character.PositionZ;
+            Location.Orientation = Character.Orientation;
+
             base.Setup();
         }
     }

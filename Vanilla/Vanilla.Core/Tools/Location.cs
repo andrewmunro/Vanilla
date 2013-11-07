@@ -2,22 +2,28 @@
 {
     using Microsoft.Xna.Framework;
 
-    public struct Location
+    public class Location
     {
         public Vector3 Position;
 
-        public float X { get { return Position.X; } }
-
-        public float Y { get { return Position.Y; } }
-
-        public float Z { get { return Position.Z; } }
-
         public float Orientation;
 
-        public Location(Vector3 position, float orientation)
+        public float X { get { return Position.X; } set { Position.X = value; } }
+
+        public float Y { get { return Position.Y; } set { Position.Y = value; } }
+
+        public float Z { get { return Position.Z; } set { Position.Z = value; } }
+
+        public Location(Vector3 position, float orientation = 0)
         {
             this.Position = position;
             this.Orientation = orientation;
+        }
+
+        public Location()
+        {
+            this.Position = Vector3.Zero;
+            this.Orientation = 0;
         }
     }
 }

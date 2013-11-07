@@ -28,7 +28,43 @@
 
         protected override byte[] BuildCreatePacket()
         {
-            throw new System.NotImplementedException();
+            var writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
+
+            byte[] guidBytes = GenerateGuidBytes(this.entity.ObjectGUID.RawGUID);
+            WriteBytes(writer, guidBytes, guidBytes.Length);
+
+            writer.Write((byte)TypeID.TYPEID_PLAYER);
+
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION
+                                           | ObjectUpdateFlag.UPDATEFLAG_LIVING;
+
+            writer.Write((byte)updateFlags);
+
+            writer.Write((uint)MovementFlags.MOVEFLAG_NONE);
+            writer.Write((uint)Environment.TickCount); // Time?
+
+            // Position
+            writer.Write(entity.Location.X);
+            writer.Write(entity.Location.Y);
+            writer.Write(entity.Location.Z);
+            writer.Write(entity.Location.Orientation); // R
+
+            // Movement speeds
+            writer.Write((float)0); // ????
+
+            writer.Write(2.5f); // MOVE_WALK
+            writer.Write((float)7); // MOVE_RUN
+            writer.Write(4.5f); // MOVE_RUN_BACK
+            writer.Write(4.72f * 20); // MOVE_SWIM
+            writer.Write(2.5f); // MOVE_SWIM_BACK
+            writer.Write(3.14f); // MOVE_TURN_RATE
+
+            writer.Write(0x1); // Unkown...
+
+            this.WriteUpdateFields(writer);
+
+            return (writer.BaseStream as MemoryStream).ToArray();
         }
 
         /* Needs moving */
@@ -111,13 +147,13 @@
             writer.Write((byte)updateFlags);
 
             writer.Write((UInt32)MovementFlags.MOVEFLAG_NONE);
-            writer.Write((UInt32)55675); // Time?
+            writer.Write((UInt32)Environment.TickCount); // Time?
 
             // Position
-            writer.Write((float)-2917.580078125);
-            writer.Write((float)-257.980010986328);
-            writer.Write((float)52.9967994689941);
-            writer.Write((float)0); // R
+            writer.Write((float)entity.Location.X);
+            writer.Write((float)entity.Location.Y);
+            writer.Write((float)entity.Location.Z);
+            writer.Write((float)entity.Location.Orientation); // R
 
             // Movement speeds
             writer.Write((float)0);     // ????

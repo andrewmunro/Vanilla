@@ -2,9 +2,12 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
+    using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Object;
+    using Vanilla.World.Game.Entity.Object.Unit;
     using Vanilla.World.Game.Update.Constants;
     using Vanilla.World.Network;
 
@@ -43,19 +46,12 @@
         public void Update()
         {
             if (Session.Player == null) return;
-            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 50f);
 
-            BinaryWriter packet = new BinaryWriter(new MemoryStream());
+            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 10f);
 
-            if (createEntities.Count > 0)
-            {
-                packet.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
+            var packets = entities.Select(subscribable => subscribable.CreatePacket).ToList();
 
-                foreach (ObjectEntity<ObjectInfo, EntityPacketBuilder> entity in createEntities)
-                {
-                    packet.Write(entity.CreatePacket);
-                }
-            }
+            Session.SendPacket(new PSUpdateObject(packets));
         }
     }
 }

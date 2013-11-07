@@ -6,7 +6,8 @@
     {
         public CreatureInfo(ObjectGUID objectGUID, Creature creature) : base(objectGUID)
         {
-            
+            this.DisplayID = NativeDisplayID = creature.ModelID;
+            this.Health = (int)creature.Curhealth;
         }
     }
 }
