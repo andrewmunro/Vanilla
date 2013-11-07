@@ -7,7 +7,16 @@
             Health = 1;
             MaxHealth = 100;
             DisplayID = NativeDisplayID = 1;
+
+            StandState = 0;
+            StandStateFlags = 0;
         }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 1)]
+        public byte StandState { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 3)]
+        public byte StandStateFlags { get; set; }
 
         [UpdateField(EUnitFields.UNIT_FIELD_LEVEL)]
         public int Level { get; set; }

@@ -41,7 +41,7 @@
             var radiusSquared = radius * radius;
 
             //entities.AddRange(from entity in this.playerEntities where (Vector3.DistanceSquared(location, entity.Value.Location.Position)) < radiusSquared select entity.Value);
-            entities.AddRange(from entity in this.creatureEntities where (Vector3.DistanceSquared(location, entity.Value.Location.Position)) < radiusSquared select entity.Value);
+            entities.AddRange(from entity in this.creatureEntities where (Math.Pow(location.X - entity.Value.Location.Position.X, 2) + Math.Pow(location.Z - entity.Value.Location.Position.X, 2)) < radiusSquared select entity.Value);
             //entities.AddRange(from entity in this.gameObjectEntities where (Vector3.DistanceSquared(location, entity.Value.Location.Position)) < radiusSquared select entity.Value);
 
             var creatures = CreatureDatabase.Where(creature => Math.Pow(location.X - creature.PositionX, 2) + Math.Pow(location.Z - creature.PositionZ, 2) < radiusSquared);

@@ -120,17 +120,6 @@
                     if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
                 }
             }
-           
-
-
-            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, (byte)0, 0); // Stand State?
-            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0xEE, 1); //  if (getPowerType() == POWER_RAGE || getPowerType() == POWER_MANA)
-            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, 0, 2); // ShapeshiftForm?
-            this.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_1, /* (byte)UnitBytes1_Flags.UNIT_BYTE1_FLAG_ALL */ 0, 3); // StandMiscFlags
-            this.SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES, 17235975);
-            this.SetUpdateField<int>((int)EUnitFields.PLAYER_BYTES_2, 16777218);
-
-
 
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);

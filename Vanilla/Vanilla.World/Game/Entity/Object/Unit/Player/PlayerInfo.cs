@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
 {
+    using System;
+
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
 
@@ -21,6 +23,15 @@
             //Level = databaseCharacter.Level;
             this.XP = (int)databaseCharacter.XP;
             this.NextLevelXP = 400;
+
+            Byte[] playerBytes = BitConverter.GetBytes(databaseCharacter.PlayerBytes);
+            Byte[] playerBytes2 = BitConverter.GetBytes(databaseCharacter.PlayerBytes2);
+
+            this.Skin = playerBytes[0];
+            this.Face = playerBytes[1];
+            this.HairStyle = playerBytes[2];
+            this.HairColor = playerBytes[3];
+            this.Accessory = playerBytes2[0];
         }
 
         public ChrClasses Class { get; set; }
@@ -32,5 +43,20 @@
 
         [UpdateField(EUnitFields.PLAYER_NEXT_LEVEL_XP)]
         public int NextLevelXP { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_BYTES, true, 0)]
+        public byte Skin { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_BYTES, true, 1)]
+        public byte Face { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_BYTES, true, 2)]
+        public byte HairStyle { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_BYTES, true, 3)]
+        public byte HairColor { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_BYTES_2, true, 0)]
+        public byte Accessory { get; set; }
     }
 }

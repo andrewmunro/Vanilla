@@ -15,10 +15,10 @@
         public uint FactionID;
 
         [FieldOffset(4 * 4)]
-        public uint ModelF;
+        public uint ModelM;
 
         [FieldOffset(5 * 4)]
-        public uint ModelM;
+        public uint ModelF;
 
         [FieldOffset(8 * 4)]
         public uint TeamID;
