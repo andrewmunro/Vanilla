@@ -69,6 +69,9 @@
     <Compile Include="Components\Login\Packets\Outgoing\PSLoginSetTimeSpeed.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSSetRestStart.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSTutorialFlags.cs" />
+    <Compile Include="Components\Movement\Packets\Incoming\PCMoveInfo.cs" />
+    <Compile Include="Components\Movement\Packets\Incoming\PCMoveTimeSkipped.cs" />
+    <Compile Include="Components\Movement\PlayerMovementComponent.cs" />
     <Compile Include="Components\Update\Packets\Outgoing\PSUpdateObject.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />

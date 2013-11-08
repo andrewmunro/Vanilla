@@ -31,6 +31,8 @@
 
         public VanillaWorld Core { get; private set; }
 
+        public uint OutOfSyncDelay { get; set; }
+
         public WorldSession(WorldServer server, VanillaWorld core, int connectionID, Socket connectionSocket) : base(connectionID, connectionSocket)
         {
             Server = server;

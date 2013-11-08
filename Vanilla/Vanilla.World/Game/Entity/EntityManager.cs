@@ -44,7 +44,7 @@
             entities.AddRange(from entity in this.creatureEntities where (Math.Pow(location.X - entity.Value.Location.Position.X, 2) + Math.Pow(location.Z - entity.Value.Location.Position.Z, 2)) < radiusSquared select entity.Value);
             //entities.AddRange(from entity in this.gameObjectEntities where (Vector3.DistanceSquared(location, entity.Value.Location.Position)) < radiusSquared select entity.Value);
 
-            var creatures = CreatureDatabase.Where(creature => Math.Pow(location.X - creature.PositionX, 2) + Math.Pow(location.Z - creature.PositionZ, 2) < radiusSquared);
+            var creatures = CreatureDatabase.Where(creature => Math.Pow(location.X - creature.PositionX, 2) + Math.Pow(location.Z - creature.PositionZ, 2) < radiusSquared).ToList();
             var gameObjects = GameObjectDatabase.Where(gameObject => Math.Pow(location.X - gameObject.PositionX, 2) + Math.Pow(location.Z - gameObject.PositionZ, 2) < radiusSquared);
 
             entities.AddRange((from creature in creatures where !this.creatureEntities.ContainsKey((ulong)creature.GUID) select this.AddCreatureEntity(creature)));
@@ -58,9 +58,9 @@
 
         public CreatureEntity AddCreatureEntity(Creature creature)
         {
-            //CreatureTemplate template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.ID);
-            ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, (TypeID)7); //right type?
-            CreatureEntity creatureEntity = new CreatureEntity(guid, creature, null);
+            CreatureTemplate template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.ID);
+            ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, (TypeID)template.Type); //right type?
+            CreatureEntity creatureEntity = new CreatureEntity(guid, creature, template);
             creatureEntities.Add(guid.RawGUID, creatureEntity);
             creatureEntity.Setup();
             return creatureEntity;
