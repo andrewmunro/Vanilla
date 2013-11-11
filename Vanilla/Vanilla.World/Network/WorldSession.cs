@@ -133,8 +133,8 @@
 
                     WorldOpcodes code = (WorldOpcodes)opcode;
 
-                    byte[] packetData = new byte[length];
-                    Array.Copy(data, index, packetData, 0, length);
+                    byte[] packetData = new byte[length + 2];
+                    Array.Copy(data, index, packetData, 0, length + 2);
                     Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
 
                     Server.Router.CallHandler(this, packetData);
