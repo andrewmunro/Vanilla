@@ -123,18 +123,21 @@
             {
                 for (int index = 0; index < data.Length; index++)
                 {
-                    this.Decode(data);
+                    byte[] headerData = new byte[6];
+                    Array.Copy(data, index, headerData, 0, 6);
+                    this.Decode(headerData);
+                    Array.Copy(headerData, 0, data, index, 6);
 
-                    ushort opcode = BitConverter.ToUInt16(data, 0);
-                    int length = BitConverter.ToInt16(data, 2);
+                    ushort opcode = BitConverter.ToUInt16(headerData, 0);
+                    int length = BitConverter.ToInt16(headerData, 2);
 
                     WorldOpcodes code = (WorldOpcodes)opcode;
 
-                    byte[] packetDate = new byte[length];
-                    Array.Copy(data, index, packetDate, 0, length);
+                    byte[] packetData = new byte[length];
+                    Array.Copy(data, index, packetData, 0, length);
                     Log.Print(LogType.Database, "Server <- Client [" + code + "] Packet Length: " + length);
 
-                    Server.Router.CallHandler(this, packetDate);
+                    Server.Router.CallHandler(this, packetData);
 
                     index += 2 + (length - 1);
                 }
