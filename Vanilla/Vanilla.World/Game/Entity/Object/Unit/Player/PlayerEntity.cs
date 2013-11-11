@@ -32,6 +32,7 @@
             Location.Y = Character.PositionY;
             Location.Z = Character.PositionZ;
             Location.Orientation = Character.Orientation;
+            Location.MapID = (int)Character.Map;
 
             base.Setup();
         }

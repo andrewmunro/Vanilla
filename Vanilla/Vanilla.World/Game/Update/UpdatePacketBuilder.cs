@@ -48,14 +48,14 @@
         {
             if (Session.Player == null) return;
 
-            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 10f);
+            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 5f);
 
-            foreach (var entity in this.updateEntities.Where(entity => !entities.Contains(entity)))
+            foreach (var entity in this.updateEntities.Where(entity => !entities.Contains(entity)).ToList())
             {
                 this.UnSubscribe(entity);
             }
 
-            foreach (var entity in entities.Where(entity => !this.updateEntities.Contains(entity)))
+            foreach (var entity in entities.Where(entity => !this.updateEntities.Contains(entity)).ToList())
             {
                 this.Subscribe(entity);
             }

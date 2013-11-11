@@ -9,6 +9,7 @@
     using Vanilla.World.Components;
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
+    using Vanilla.World.Components.Chat;
     using Vanilla.World.Components.Login;
     using Vanilla.World.Components.Movement;
     using Vanilla.World.Game.Entity;
@@ -28,6 +29,7 @@
 
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
+            Components.Add(new ChatMessageComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new PlayerMovementComponent(this));
 

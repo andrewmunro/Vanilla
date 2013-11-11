@@ -12,6 +12,7 @@
     using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Login.Models;
+    using Vanilla.World.Components.Chat;
     using Vanilla.World.Game.Entity.Object.Unit.Player;
     using Vanilla.World.Game.Update;
 
@@ -160,6 +161,11 @@
 
             this.SendPacket(packet);
             //throw new Exception("no");
+        }
+
+        public void sendMessage(String message)
+        {
+            Core.GetComponent<ChatMessageComponent>().SendSytemMessage(this, message);
         }
 
         public void Update()

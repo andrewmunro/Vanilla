@@ -148,7 +148,7 @@
             writer.Write((float)0);     // ????
 
             writer.Write((float)2.5f);  // MOVE_WALK
-            writer.Write((float)7);     // MOVE_RUN
+            writer.Write((float)20f);     // MOVE_RUN
             writer.Write((float)4.5f);  // MOVE_RUN_BACK
             writer.Write((float)4.72f); // MOVE_SWIM
             writer.Write((float)2.5f);  // MOVE_SWIM_BACK
