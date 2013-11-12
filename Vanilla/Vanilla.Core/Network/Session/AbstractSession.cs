@@ -3,6 +3,7 @@
     using System;
     using System.Net.Sockets;
 
+    using Vanilla.Core.Events;
     using Vanilla.Core.Logging;
 
     public abstract class AbstractSession
@@ -17,6 +18,8 @@
         public string ConnectionRemoteIP { get { return ConnectionSocket.RemoteEndPoint.ToString(); } }
 
         public int ConnectionID { get; private set; }
+
+        public event SessionEvent OnSessionDisconnect;
 
         public AbstractSession(int connectionID, Socket connectionSocket)
         {
@@ -65,6 +68,8 @@
                 Log.Print(LogType.Server, "User Disconnected");
 
                 ConnectionSocket.Close();
+
+                OnSessionDisconnect(this);
             }
             catch (Exception socketException)
             {

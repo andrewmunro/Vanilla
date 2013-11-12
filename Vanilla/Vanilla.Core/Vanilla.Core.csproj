@@ -83,6 +83,7 @@
     <Compile Include="DBC\Structs\CharStartOutfit.cs" />
     <Compile Include="DBC\Structs\ChrClasses.cs" />
     <Compile Include="DBC\Structs\ChrRaces.cs" />
+    <Compile Include="Events\SessionEvent.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="IO\DatabaseRepository.cs" />
