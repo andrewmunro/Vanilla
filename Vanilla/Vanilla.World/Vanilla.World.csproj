@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthSession.cs" />
+    <Compile Include="Components\Chat\ChatChannel.cs" />
     <Compile Include="Components\Chat\ChatMessageComponent.cs" />
     <Compile Include="Components\Chat\Constants\Channel\ChatChannelDBCFlags.cs" />
     <Compile Include="Components\Chat\Constants\Channel\ChatChannelFlags.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Components\Chat\Constants\Channel\ChatChannelNotify.cs" />
     <Compile Include="Components\Chat\Constants\ChatMessageLanguage.cs" />
     <Compile Include="Components\Chat\Constants\ChatMessageType.cs" />
+    <Compile Include="Components\Chat\Packets\Incoming\PCChannel.cs" />
     <Compile Include="Components\Chat\Packets\Incoming\PCMessageChat.cs" />
     <Compile Include="Components\Chat\Packets\Outgoing\PSChannelNotify.cs" />
     <Compile Include="Components\Chat\Packets\Outgoing\PSMessageChat.cs" />

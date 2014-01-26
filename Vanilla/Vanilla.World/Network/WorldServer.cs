@@ -25,7 +25,7 @@
                     while (true)
                     {
                         this.Sessions.ToList().ForEach(s => s.UpdatePacketBuilder.Update());
-                        Thread.Sleep(100);
+                        Thread.Sleep(5000);
                     }
                 };
 
@@ -41,7 +41,7 @@
         {
             var session = new WorldSession(this, Core, connectionID, connectionSocket);
             Sessions.Add(session);
-            session.OnSessionDisconnect += abstractSession => Sessions.Remove((WorldSession)abstractSession);
+            session.OnSessionDisconnect += abstractSession => Sessions.Remove(session);
             return session;
         }
 

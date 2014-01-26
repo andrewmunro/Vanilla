@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Vanilla.Core.Config;
-    using Vanilla.Core.Network;
     using Vanilla.Core.Opcodes;
+    using Vanilla.World.Communication.Chat.Channel;
     using Vanilla.World.Components.Chat.Constants;
+    using Vanilla.World.Components.Chat.Constants.Channel;
     using Vanilla.World.Components.Chat.Packets.Incoming;
     using Vanilla.World.Components.Chat.Packets.Outgoing;
     using Vanilla.World.Network;
@@ -18,17 +20,25 @@
 
     public class ChatMessageComponent : WorldServerComponent
     {
-        public static Dictionary<ChatMessageType, ProcessChatCallback> ChatHandlers;
+        public List<ChatChannel> ChatChannels;
+
+        public Dictionary<ChatMessageType, ProcessChatCallback> ChatHandlers;
 
         public ChatMessageComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
-            this.Router.AddHandler<PCMessageChat>(WorldOpcodes.CMSG_MESSAGECHAT, OnMessageChatPacket);
+            ChatChannels = new List<ChatChannel>();
+
+            Router.AddHandler<PCMessageChat>(WorldOpcodes.CMSG_MESSAGECHAT, OnMessageChatPacket);
+            Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
+            Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
+            Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, OnListChannel);
 
             ChatHandlers = new Dictionary<ChatMessageType,ProcessChatCallback>();
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_SAY, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_YELL, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_EMOTE, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_WHISPER, OnWhisper);
+            ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
         }
 
         public void AddChatCommand(String commandName, String commandDescription, ChatCommandDelegate method)
@@ -71,7 +81,41 @@
             {
                 session.sendMessage("Player not found.");
             }
-        }        
+        }
+
+        private void OnListChannel(WorldSession session, PCChannel packet)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnLeaveChannel(WorldSession session, PCChannel packet)
+        {
+            var channel = ChatChannels.SingleOrDefault(c => c.Name == packet.ChannelName);
+            channel.Sessions.Remove(session);
+
+            if (channel.Sessions.Count == 0) ChatChannels.Remove(channel);
+
+            session.SendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_LEFT_NOTICE, session.Player.ObjectGUID.RawGUID, packet.ChannelName));
+        }
+
+        private void OnJoinChannel(WorldSession session, PCChannel packet)
+        {
+            var channel = ChatChannels.SingleOrDefault(c => c.Name == packet.ChannelName);
+            if (channel == null)
+            {
+                channel = new ChatChannel(packet.ChannelName, packet.Password);
+                ChatChannels.Add(channel);
+            }
+            channel.Sessions.Add(session);
+
+            session.SendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_JOINED_NOTICE, session.Player.ObjectGUID.RawGUID, packet.ChannelName));
+        }
+
+        private void OnChannelMessage(WorldSession session, PCMessageChat packet)
+        {
+            var channel = ChatChannels.SingleOrDefault(c => c.Name == packet.ChannelName);
+            channel.Sessions.ForEach(s => s.SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, session.Player.ObjectGUID.RawGUID, packet.Message, packet.ChannelName)));
+        }
 
         public void SendSytemMessage(WorldSession session, string message)
         {

@@ -51,7 +51,6 @@
             //entities.AddRange((from gameObject in gameObjects where !this.gameObjectEntities.ContainsKey((ulong)gameObject.GUID) select this.AddGameObjectEntity(gameObject)));
 
             var end = (DateTime.Now - start).Milliseconds;
-            Log.Print(LogType.Debug, "Time took :" + end);
 
             return entities;
         }

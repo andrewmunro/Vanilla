@@ -61,7 +61,7 @@
             }
         }
 
-        public virtual void Disconnect(object obj = null)
+        public virtual void Disconnect()
         {
             try
             {
@@ -69,7 +69,8 @@
 
                 ConnectionSocket.Close();
 
-                OnSessionDisconnect(this);
+                //Null Check for login session.
+                if(OnSessionDisconnect != null) OnSessionDisconnect(this);
             }
             catch (Exception socketException)
             {

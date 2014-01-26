@@ -3,6 +3,7 @@
     using System.Linq;
     using Vanilla.Core;
     using Vanilla.Core.Cryptography;
+    using Vanilla.Core.IO;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Login.Models;
     using Vanilla.World.Communication.Outgoing.Auth;
@@ -18,7 +19,7 @@
         
         private void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
-            Account account = Core.LoginDatabase.GetRepository<Account>().AsQueryable().ToList().First((a) => a.Username == packet.Username);
+            Account account = new DatabaseUnitOfWork<LoginDatabase>().GetRepository<Account>().AsQueryable().ToList().First((a) => a.Username == packet.Username);
 
             session.Account = account;
             session.PacketCrypto = new VanillaCrypt();

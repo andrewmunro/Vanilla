@@ -63,7 +63,6 @@
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthLoginProof.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginChallange.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthLoginProof.cs" />
-    <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Realm\Packets\Outgoing\PSRealmList.cs" />
     <Compile Include="Components\Realm\Realm.cs" />
     <Compile Include="ILoginServer.cs" />

@@ -16,7 +16,7 @@
     {
         public VanillaLogin(int portNumber, int maxConnections)
         {
-            this.LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
+            LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
             // Entity framework hack to call meta data caching as soon as possible.
             var accounts = this.LoginDatabase.GetRepository<Account>();

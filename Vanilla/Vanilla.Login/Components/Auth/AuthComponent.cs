@@ -57,6 +57,7 @@
             if (account != null)
             {
                 account.SessionKey = Utils.ByteArrayToHex(sessionKey);
+                
                 Core.LoginDatabase.SaveChanges();
                 session.SendPacket(new PSAuthLoginProof(session.Authenticator));
             }

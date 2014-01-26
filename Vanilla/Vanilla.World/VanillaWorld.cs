@@ -23,7 +23,6 @@
 
             WorldDatabase = new DatabaseUnitOfWork<WorldDatabase>();
             CharacterDatabase = new DatabaseUnitOfWork<CharacterDatabase>();
-            LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
             Server = new WorldServer(this);
 
@@ -39,8 +38,6 @@
         }
 
         public WorldServer Server { get; private set; }
-
-        public DatabaseUnitOfWork<LoginDatabase> LoginDatabase { get; private set; }
 
         public DatabaseUnitOfWork<CharacterDatabase> CharacterDatabase { get; private set; }
 

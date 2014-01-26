@@ -21,7 +21,7 @@
                 UpdateField updateField = property.GetCustomAttribute<UpdateField>();
                 if (updateField != null && updateField.RequiredOnCreation)
                 {
-                    Log.Print(property.GetMethod.Name);
+                    //Log.Print(property.GetMethod.Name);
 
                     CreationUpdateFieldEntries.Add(new UpdateFieldEntry()
                     {
