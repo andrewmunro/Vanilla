@@ -77,7 +77,6 @@
         {
             if (packet.Message[0].ToString() == Config.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
             else Server.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, session.Player.ObjectGUID.RawGUID, packet.Message));
-            session.sendMessage(packet.Message);
         }
 
         public void OnWhisper(WorldSession session, PCMessageChat packet)

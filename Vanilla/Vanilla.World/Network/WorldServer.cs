@@ -55,7 +55,7 @@
 
         public WorldSession GetSessionByPlayerName(string playerName)
         {
-            return Sessions.Single(s => String.Equals(s.Player.Character.Name, playerName, StringComparison.CurrentCultureIgnoreCase));
+            return Sessions.SingleOrDefault(s => String.Equals(s.Player.Character.Name, playerName, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void TransmitToAll(WorldPacket packet)
