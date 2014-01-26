@@ -83,7 +83,7 @@
             return playerEntity;
         }
 
-        public void RemoveGameObjectEntity(PlayerEntity playerEntity)
+        public void RemoveGameObjectEntity(GameObjectEntity playerEntity)
         {
             RemoveGameObjectEntity(playerEntity.ObjectGUID.RawGUID);
         }

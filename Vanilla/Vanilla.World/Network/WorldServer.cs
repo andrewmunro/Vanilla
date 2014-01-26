@@ -6,9 +6,11 @@
     using System.Net.Sockets;
     using System.Threading;
 
+    using Vanilla.Core.Logging;
     using Vanilla.Core.Network;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
+    using Vanilla.World.Game.Entity;
 
     public class WorldServer : Server
     {
@@ -24,7 +26,7 @@
                 {
                     while (true)
                     {
-                        this.Sessions.ToList().ForEach(s => s.UpdatePacketBuilder.Update());
+                        //this.Sessions.ToList().ForEach(s => s.UpdatePacketBuilder.Update());
                         Thread.Sleep(5000);
                     }
                 };
@@ -41,8 +43,14 @@
         {
             var session = new WorldSession(this, Core, connectionID, connectionSocket);
             Sessions.Add(session);
-            session.OnSessionDisconnect += abstractSession => Sessions.Remove(session);
+            session.OnSessionDisconnect += abstractSession => Disconnect(session);
             return session;
+        }
+
+        private void Disconnect(WorldSession session)
+        {
+            Sessions.Remove(session);
+            Core.EntityManager.RemovePlayerEntity(session.Player);
         }
 
         public WorldSession GetSessionByPlayerName(string playerName)

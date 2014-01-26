@@ -51,6 +51,8 @@
 
         public override void SendPacket(PacketWriter packet)
         {
+            LogPacket(packet);
+
             byte[] endData = FinalisePacket(packet);
 
             Log.Print(LogType.Packet, "Server -> Client [" + packet.ParseOpcode() + "]");
@@ -61,12 +63,14 @@
         public override byte[] FinalisePacket(PacketWriter packet)
         {
             BinaryWriter endPacket = new BinaryWriter(new MemoryStream());
-            byte[] header = this.Encode(packet.PacketData.Length, (int) packet.Opcode);
+            byte[] header = this.Encode(packet.PacketData.Length, packet.Opcode);
 
             endPacket.Write(header);
             endPacket.Write(packet.PacketData);
 
-            return (endPacket.BaseStream as MemoryStream).ToArray();
+            var data = (endPacket.BaseStream as MemoryStream).ToArray();
+
+            return data;
         }
 
         private byte[] Encode(int size, int opcode)
@@ -88,6 +92,23 @@
             if (this.PacketCrypto != null) header = this.PacketCrypto.encrypt(header);
 
             return header;
+        }
+
+        private void LogPacket(PacketWriter packet)
+        {
+            var filename = "packetlog.txt";
+            if (!File.Exists(filename)) File.Create(filename).Close();
+
+            using (StreamWriter w = File.AppendText(filename))
+            {
+                w.WriteLine(DateTime.Now.ToString("yyyy-M-d H:mm:ss"));
+                w.WriteLine("Length: " + packet.PacketData.Length);
+                w.WriteLine("Opcode: " + packet.ParseOpcode());
+                w.WriteLine("Data: ");
+                w.Write(Utils.ByteArrayToHex(packet.PacketData));
+                w.WriteLine();
+                w.WriteLine();
+            }
         }
 
         private void Decode(byte[] header)

@@ -78,6 +78,7 @@
     <Compile Include="Components\Login\Packets\Outgoing\PSAccountDataTimes.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSBindPointUpdate.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSInitializeFactions.cs" />
+    <Compile Include="Components\Login\Packets\Outgoing\PSInitialSpells.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSInitWorldStates.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSLoginSetTimeSpeed.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSSetRestStart.cs" />

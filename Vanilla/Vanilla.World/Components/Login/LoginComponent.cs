@@ -24,6 +24,9 @@
             session.SendPacket(new PSSetRestStart());
             session.SendPacket(new PSBindPointUpdate());
             session.SendPacket(new PSTutorialFlags(session.Account, Core.CharacterDatabase.GetRepository<CharacterTutorial>()));
+            session.SendPacket(new PSInitialSpells());
+            //Action bars
+            session.SendPacket(new PSInitializeFactions());
             session.SendPacket(new PSLoginSetTimeSpeed());
             session.SendPacket(new PSInitWorldStates((uint)databaseCharacter.Zone));
 

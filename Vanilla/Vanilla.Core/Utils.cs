@@ -39,20 +39,6 @@
             return csv.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
         }
 
-        public static string byteArrayToHex(byte[] data, int legnth)
-        {
-            string packetOutput = string.Empty;
-            byte[] outputData = data;
-            for (int i = 0; i < legnth; i++)
-            {
-                string append = (i == legnth - 1) ? string.Empty : "-";
-
-                packetOutput += outputData[i].ToString("X2") + append;
-            }
-
-            return packetOutput;
-        }
-
         public static float Distance(float aX, float aY, float bX, float bY)
         {
             return (float)Math.Sqrt(Math.Pow(aX - bX, 2) + Math.Pow(aY - bY, 2));
