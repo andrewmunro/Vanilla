@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
+﻿namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     using Vanilla.Core.Extensions;
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Constants;
-    using Vanilla.World.Game.Entity.Object.Unit.Creature;
+    using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Game.Update.Constants;
 
     public class PlayerPacketBuilder : EntityPacketBuilder

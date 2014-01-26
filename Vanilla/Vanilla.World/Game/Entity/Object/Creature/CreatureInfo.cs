@@ -1,6 +1,7 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Unit.Creature
+﻿namespace Vanilla.World.Game.Entity.Object.Creature
 {
     using Vanilla.Database.World.Models;
+    using Vanilla.World.Game.Entity.Object.Unit;
 
     public class CreatureInfo : UnitInfo
     {

@@ -13,7 +13,7 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Login.Models;
     using Vanilla.World.Components.Chat;
-    using Vanilla.World.Game.Entity.Object.Unit.Player;
+    using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Game.Update;
 
     public class WorldSession : Session

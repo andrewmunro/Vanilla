@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Unit.Creature
+﻿namespace Vanilla.World.Game.Entity.Object.Creature
 {
     using System;
     using System.Collections.Generic;

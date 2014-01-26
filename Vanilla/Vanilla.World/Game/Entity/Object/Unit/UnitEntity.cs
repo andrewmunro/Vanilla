@@ -2,7 +2,7 @@
 {
     using Vanilla.Core.Tools;
     using Vanilla.World.Game.Entity;
-    using Vanilla.World.Game.Entity.Object.Unit.Creature;
+    using Vanilla.World.Game.Entity.Object.Creature;
 
     public abstract class UnitEntity<TI, TP> : ObjectEntity<TI, TP> where TI : UnitInfo where TP : EntityPacketBuilder
     {

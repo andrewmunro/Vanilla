@@ -1,9 +1,10 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
+﻿namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System;
 
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Game.Entity.Object.Unit;
 
     public class PlayerInfo : UnitInfo
     {

@@ -7,7 +7,7 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Components.Movement.Packets.Incoming;
     using Vanilla.World.Components.Update.Packets.Outgoing;
-    using Vanilla.World.Game.Entity.Object.Unit.Player;
+    using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Network;
 
     public class PlayerMovementComponent : WorldServerComponent

@@ -12,8 +12,8 @@
     using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.GameObject;
-    using Vanilla.World.Game.Entity.Object.Unit.Creature;
-    using Vanilla.World.Game.Entity.Object.Unit.Player;
+    using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Network;
 
     public class EntityManager

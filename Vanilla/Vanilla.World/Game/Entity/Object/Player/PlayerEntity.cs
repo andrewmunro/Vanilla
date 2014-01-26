@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Unit.Player
+﻿namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System.Linq;
 
@@ -7,6 +7,7 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Network;
+    using Vanilla.World.Game.Entity.Object.Unit;
 
     public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>
     {
