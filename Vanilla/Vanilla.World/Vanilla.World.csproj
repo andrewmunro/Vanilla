@@ -64,8 +64,10 @@
     <Compile Include="Components\Chat\Constants\ChatMessageType.cs" />
     <Compile Include="Components\Chat\Packets\Incoming\PCChannel.cs" />
     <Compile Include="Components\Chat\Packets\Incoming\PCMessageChat.cs" />
+    <Compile Include="Components\Chat\Packets\Incoming\PCNameQuery.cs" />
     <Compile Include="Components\Chat\Packets\Outgoing\PSChannelNotify.cs" />
     <Compile Include="Components\Chat\Packets\Outgoing\PSMessageChat.cs" />
+    <Compile Include="Components\Chat\Packets\Outgoing\PSNameQueryResponse.cs" />
     <Compile Include="Components\Login\Packets\Incoming\PCPlayerLogin.cs" />
     <Compile Include="Components\Auth\Packets\Outgoing\PSAuthResponse.cs" />
     <Compile Include="Components\Character\CharacterComponent.cs" />
@@ -89,7 +91,6 @@
     <Compile Include="Components\Update\Packets\Outgoing\PSUpdateObject.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />
-    <Compile Include="Debug\UpdateReader.cs" />
     <Compile Include="Game\Entity\EntityManager.cs" />
     <Compile Include="Game\Entity\ISubscribable.cs" />
     <Compile Include="Game\Entity\Object\ObjectEntity.cs" />
@@ -161,7 +162,9 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Debug\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.3.0.38\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.3.0.38\tools\PostSharp.targets')" />
   <Import Project="Fody.targets" />

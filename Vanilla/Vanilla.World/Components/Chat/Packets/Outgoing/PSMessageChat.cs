@@ -13,7 +13,6 @@
         public PSMessageChat(ChatMessageType type, ChatMessageLanguage language, ulong GUID, string message, string channelName = null) : base(WorldOpcodes.SMSG_MESSAGECHAT)
         {
             this.Write((byte)type);
-
             this.Write((uint)language);
 
             if (type == ChatMessageType.CHAT_MSG_CHANNEL)
@@ -22,7 +21,7 @@
                 this.Write((uint)0);
             }
 
-            this.Write(GUID);
+            this.Write((ulong)GUID);
 
             if (type == ChatMessageType.CHAT_MSG_SAY || type == ChatMessageType.CHAT_MSG_YELL
                 || type == ChatMessageType.CHAT_MSG_PARTY)

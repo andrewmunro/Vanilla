@@ -54,8 +54,10 @@ namespace Vanilla.World.Game.Managers
 
         public static void OnSayYell(WorldSession session, PCMessageChat packet)
         {
-            if (packet.Message[0].ToString() == INI.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
-            else WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
+            //if (packet.Message[0].ToString() == INI.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
+            //else 
+                
+                WorldServer.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Character.GUID, packet.Message));
         }
 
         public static void OnWhisper(WorldSession session, PCMessageChat packet)

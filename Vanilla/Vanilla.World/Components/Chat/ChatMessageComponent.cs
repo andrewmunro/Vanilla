@@ -32,6 +32,7 @@
             Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
             Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
             Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, OnListChannel);
+            Router.AddHandler<PCNameQuery>(WorldOpcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
 
             ChatHandlers = new Dictionary<ChatMessageType,ProcessChatCallback>();
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_SAY, OnSayYell);
@@ -39,6 +40,16 @@
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_EMOTE, OnSayYell);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_WHISPER, OnWhisper);
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
+        }
+
+        public void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
+        {
+            WorldSession target = Server.Sessions.Find(sesh => sesh.Player.Character.GUID == packet.GUID);
+            
+            if (target != null)
+            {
+                session.SendPacket(new PSNameQueryResponse(target.Player.Character));
+            }
         }
 
         public void AddChatCommand(String commandName, String commandDescription, ChatCommandDelegate method)
@@ -65,7 +76,13 @@
         public void OnSayYell(WorldSession session, PCMessageChat packet)
         {
             if (packet.Message[0].ToString() == Config.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
+<<<<<<< HEAD
             else Server.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, (ulong)session.Player.ObjectGUID.RawGUID, packet.Message));
+=======
+            else Server.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, session.Player.ObjectGUID.RawGUID, packet.Message));
+
+            session.sendMessage(packet.Message);
+>>>>>>> Added missing packet handler for Query (Enables Chat)
         }
 
         public void OnWhisper(WorldSession session, PCMessageChat packet)
