@@ -6,6 +6,7 @@
 
     using Vanilla.Core;
     using Vanilla.Core.Constants;
+    using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
     using Vanilla.Core.Network.IO;
     using Vanilla.Core.Opcodes;
@@ -27,7 +28,7 @@
 
         private void OnCharEnum(WorldSession session, PacketReader reader)
         {
-            session.SendPacket(new PSCharEnum(Characters.Where(c => c.Account == session.Account.ID).ToList()));
+            session.SendPacket(new PSCharEnum(session, Characters.Where(c => c.Account == session.Account.ID).ToList()));
         }
 
         private void OnCharDelete(WorldSession session, PCCharDelete packet)
@@ -95,7 +96,7 @@
                 Power4 = 0,
                 Power5 = 0,
                 ExploredZones = "",
-                EquipmentCache = "",
+                EquipmentCache = GetStartingEquipment(packet.Race, packet.Class, packet.Gender),
                 AmmoID = 0,
                 ActionBars = 0,
                 DeleteInfosAccount = session.Account.ID,
@@ -107,6 +108,18 @@
             Core.CharacterDatabase.SaveChanges();
 
             session.SendPacket(new PSCharCreate(LoginErrorCode.CHAR_CREATE_SUCCESS));
+        }
+
+        private unsafe string GetStartingEquipment(byte Race, byte Class, byte Gender)
+        {
+            CharStartOutfit entry = Core.DBC.GetDBC<CharStartOutfit>().SingleOrDefault(item => (byte)item.Class == Class && (byte)item.Race == Race && (byte)item.Gender == Gender);
+            var result = "";
+            for (int i = 0; i < 12; i++)
+            {
+                result += entry.ItemId[i];
+                if (i != 11) result += ",";
+            }
+            return result;
         }
     }
 }

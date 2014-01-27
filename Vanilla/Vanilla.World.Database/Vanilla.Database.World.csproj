@@ -111,7 +111,7 @@
     <Compile Include="Models\item_enchantment_template.cs" />
     <Compile Include="Models\item_loot_template.cs" />
     <Compile Include="Models\item_required_target.cs" />
-    <Compile Include="Models\item_template.cs" />
+    <Compile Include="Models\ItemTemplate.cs" />
     <Compile Include="Models\locales_creature.cs" />
     <Compile Include="Models\locales_gameobject.cs" />
     <Compile Include="Models\locales_gossip_menu_option.cs" />

@@ -36,7 +36,9 @@
 
         public static int[] CSVStringToIntArray(string csv)
         {
-            return csv.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            string[] vals = csv.Split(',');
+
+            return csv != "" ? csv.Split(',').Select(n => Convert.ToInt32(n)).ToArray() : null;
         }
 
         public static float Distance(float aX, float aY, float bX, float bY)

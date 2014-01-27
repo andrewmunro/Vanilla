@@ -79,7 +79,7 @@ namespace Vanilla.Database.World.Models
         public DbSet<item_enchantment_template> item_enchantment_template { get; set; }
         public DbSet<item_loot_template> item_loot_template { get; set; }
         public DbSet<item_required_target> item_required_target { get; set; }
-        public DbSet<item_template> item_template { get; set; }
+        public DbSet<ItemTemplate> item_template { get; set; }
         public DbSet<locales_creature> locales_creature { get; set; }
         public DbSet<locales_gameobject> locales_gameobject { get; set; }
         public DbSet<locales_gossip_menu_option> locales_gossip_menu_option { get; set; }

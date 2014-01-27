@@ -3,18 +3,18 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Vanilla.Database.World.Models.Mapping
 {
-    public class item_templateMap : EntityTypeConfiguration<item_template>
+    public class item_templateMap : EntityTypeConfiguration<ItemTemplate>
     {
         public item_templateMap()
         {
             // Primary Key
-            this.HasKey(t => t.entry);
+            this.HasKey(t => t.Entry);
 
             // Properties
-            this.Property(t => t.entry)
+            this.Property(t => t.Entry)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.name)
+            this.Property(t => t.Name)
                 .IsRequired()
                 .HasMaxLength(255);
 
