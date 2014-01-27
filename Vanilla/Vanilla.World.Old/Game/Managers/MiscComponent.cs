@@ -83,7 +83,7 @@ namespace Vanilla.World.Game.Managers
 
         public static void OnAreaTriggerPacket(WorldSession session, PCAreaTrigger packet)
         {
-            areatrigger_teleport areaTrigger = DBAreaTriggers.AreaTriggerTeleport.Find(at => at.ID == packet.TriggerID);
+            AreatriggerTeleport areaTrigger = DBAreaTriggers.AreaTriggerTeleport.Find(at => at.ID == packet.TriggerID);
 
             if (areaTrigger != null)
             {

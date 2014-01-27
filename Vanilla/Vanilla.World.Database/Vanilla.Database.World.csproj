@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Models\areatrigger_involvedrelation.cs" />
     <Compile Include="Models\areatrigger_tavern.cs" />
-    <Compile Include="Models\areatrigger_teleport.cs" />
+    <Compile Include="Models\AreatriggerTeleport.cs" />
     <Compile Include="Models\battleground_events.cs" />
     <Compile Include="Models\battleground_template.cs" />
     <Compile Include="Models\battlemaster_entry.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="Models\mangos_string.cs" />
     <Compile Include="Models\Mapping\areatrigger_involvedrelationMap.cs" />
     <Compile Include="Models\Mapping\areatrigger_tavernMap.cs" />
-    <Compile Include="Models\Mapping\areatrigger_teleportMap.cs" />
+    <Compile Include="Models\Mapping\AreatriggerTeleportMap.cs" />
     <Compile Include="Models\Mapping\battleground_eventsMap.cs" />
     <Compile Include="Models\Mapping\battleground_templateMap.cs" />
     <Compile Include="Models\Mapping\battlemaster_entryMap.cs" />

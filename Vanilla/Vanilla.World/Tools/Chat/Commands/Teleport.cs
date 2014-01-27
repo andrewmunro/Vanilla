@@ -64,9 +64,9 @@
 
             if(locations.Count > 10) locations = locations .GetRange(0, 10);
 
-            session.sendMessage("-- Tele List --");
-            locations.ForEach(e => session.sendMessage(e.Distance + " - " + e.Entry.Name));
-            session.sendMessage(" ");
+            session.SendMessage("-- Tele List --");
+            locations.ForEach(e => session.SendMessage(e.Distance + " - " + e.Entry.Name));
+            session.SendMessage(" ");
         }
 
 

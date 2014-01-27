@@ -5,13 +5,13 @@
 
     public class CreatureEntity : UnitEntity<CreatureInfo, CreaturePacketBuilder>
     {
-        public CreatureTemplate template { get; private set; }
+        public CreatureTemplate Template { get; private set; }
 
         public Creature Creature { get; private set; }
 
         public CreatureEntity(ObjectGUID objectGUID, Creature databaseCreature, CreatureTemplate template) : base(objectGUID)
         {
-            this.template = template;
+            this.Template = template;
             this.Creature = databaseCreature;
         }
 

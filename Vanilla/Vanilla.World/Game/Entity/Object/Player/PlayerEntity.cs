@@ -4,6 +4,7 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.ActionBar;
+    using Vanilla.World.Components.Misc.Packets.Outgoing;
     using Vanilla.World.Components.Spell;
     using Vanilla.World.Network;
     using Vanilla.World.Game.Entity.Object.Unit;
@@ -17,6 +18,9 @@
         public SpellCollection SpellCollection;
 
         public ActionButtonCollection ActionButtonCollection;
+
+        //TODO Create Interface for CreatureEntity and PlayerEntity
+        public PlayerEntity Target;
 
         public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
         {
@@ -41,6 +45,23 @@
             Location.MapID = (int)Character.Map;
 
             base.Setup();
+        }
+
+        public void TeleportTo(long mapID, float x, float y, float z, float r = 0)
+        {
+            if (Location.MapID != mapID)
+            {
+                Session.SendPacket(new PSTransferPending((int)mapID));
+            }
+
+            Character.Map = mapID;
+            Character.PositionX = x;
+            Character.PositionY = y;
+            Character.PositionZ = z;
+            Character.Orientation = r;
+            Session.Core.CharacterDatabase.SaveChanges();
+
+            Session.SendPacket(new PSNewWorld((int)mapID, x, y, z, r));
         }
     }
 }

@@ -11,6 +11,8 @@
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
+    using Vanilla.Core.Tools;
+    using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
     using Vanilla.World.Components.Chat;
     using Vanilla.World.Game.Entity.Object.Player;
@@ -184,7 +186,7 @@
             //throw new Exception("no");
         }
 
-        public void sendMessage(String message)
+        public void SendMessage(String message)
         {
             Core.GetComponent<ChatMessageComponent>().SendSytemMessage(this, message);
         }

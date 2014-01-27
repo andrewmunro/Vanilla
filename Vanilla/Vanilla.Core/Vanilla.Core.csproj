@@ -81,9 +81,11 @@
     <Compile Include="DBC\DBCLibrary.cs" />
     <Compile Include="DBC\DBCReader.cs" />
     <Compile Include="DBC\DBCStore.cs" />
+    <Compile Include="DBC\Structs\AreaTable.cs" />
     <Compile Include="DBC\Structs\CharStartOutfit.cs" />
     <Compile Include="DBC\Structs\ChrClasses.cs" />
     <Compile Include="DBC\Structs\ChrRaces.cs" />
+    <Compile Include="DBC\Structs\EmotesText.cs" />
     <Compile Include="DBC\Structs\Map.cs" />
     <Compile Include="DBC\Structs\SpellEntry.cs" />
     <Compile Include="Events\SessionEvent.cs" />

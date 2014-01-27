@@ -19,7 +19,7 @@ namespace Vanilla.Database.World.Models
 
         public DbSet<AreatriggerInvolvedrelation> areatrigger_involvedrelation { get; set; }
         public DbSet<areatrigger_tavern> areatrigger_tavern { get; set; }
-        public DbSet<areatrigger_teleport> areatrigger_teleport { get; set; }
+        public DbSet<AreatriggerTeleport> areatrigger_teleport { get; set; }
         public DbSet<battleground_events> battleground_events { get; set; }
         public DbSet<battleground_template> battleground_template { get; set; }
         public DbSet<battlemaster_entry> battlemaster_entry { get; set; }
@@ -145,7 +145,7 @@ namespace Vanilla.Database.World.Models
         {
             modelBuilder.Configurations.Add(new areatrigger_involvedrelationMap());
             modelBuilder.Configurations.Add(new areatrigger_tavernMap());
-            modelBuilder.Configurations.Add(new areatrigger_teleportMap());
+            modelBuilder.Configurations.Add(new AreatriggerTeleportMap());
             modelBuilder.Configurations.Add(new battleground_eventsMap());
             modelBuilder.Configurations.Add(new battleground_templateMap());
             modelBuilder.Configurations.Add(new battlemaster_entryMap());

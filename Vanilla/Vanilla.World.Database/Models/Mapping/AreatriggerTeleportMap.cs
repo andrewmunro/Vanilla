@@ -3,18 +3,18 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Vanilla.Database.World.Models.Mapping
 {
-    public class areatrigger_teleportMap : EntityTypeConfiguration<areatrigger_teleport>
+    public class AreatriggerTeleportMap : EntityTypeConfiguration<AreatriggerTeleport>
     {
-        public areatrigger_teleportMap()
+        public AreatriggerTeleportMap()
         {
             // Primary Key
-            this.HasKey(t => t.id);
+            this.HasKey(t => t.ID);
 
             // Properties
-            this.Property(t => t.id)
+            this.Property(t => t.ID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.name)
+            this.Property(t => t.Name)
                 .HasMaxLength(65535);
 
         }

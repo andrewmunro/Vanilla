@@ -114,7 +114,7 @@
                     {
                         Log.Print(LogType.Error, "Command Errored");
                         Log.Print(LogType.Error, e.StackTrace);
-                        sender.sendMessage("** " + commandNode.Name + " commands **");
+                        sender.SendMessage("** " + commandNode.Name + " commands **");
                         sendCommandMessage(sender, commandAttribute);
                         return false;
                     }
@@ -136,18 +136,18 @@
                         return false;
                     }
                 }
-                sender.sendMessage("** " + commandNode.Name + " commands **");
+                sender.SendMessage("** " + commandNode.Name + " commands **");
                 commandNode.CommandAttributes.ForEach(a => sendCommandMessage(sender, a));
                 return false;
             }
-            sender.sendMessage("** commands **");
+            sender.SendMessage("** commands **");
             ChatCommandNodes.ForEach(n => sendCommandMessage(sender, n));
             return false;
         }
 
         public static void sendCommandMessage(WorldSession session, ChatCommandBase cmd)
         {
-            session.sendMessage(cmd.Name + " - " + cmd.Description);
+            session.SendMessage(cmd.Name + " - " + cmd.Description);
         }
     }
 }

@@ -20,9 +20,9 @@
     {
         private readonly VanillaWorld vanillaWorld;
 
-        private readonly Dictionary<ulong, PlayerEntity> playerEntities = new Dictionary<ulong, PlayerEntity>();
-        private readonly Dictionary<ulong, CreatureEntity> creatureEntities = new Dictionary<ulong, CreatureEntity>();
-        private readonly Dictionary<ulong, GameObjectEntity> gameObjectEntities = new Dictionary<ulong, GameObjectEntity>();
+        public Dictionary<ulong, PlayerEntity> playerEntities = new Dictionary<ulong, PlayerEntity>();
+        public Dictionary<ulong, CreatureEntity> creatureEntities = new Dictionary<ulong, CreatureEntity>();
+        public Dictionary<ulong, GameObjectEntity> gameObjectEntities = new Dictionary<ulong, GameObjectEntity>();
 
         protected IRepository<Creature> CreatureDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<Creature>(); } }
         protected IRepository<CreatureTemplate> CreatureTemplateDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<CreatureTemplate>(); } }
@@ -68,7 +68,8 @@
         public GameObjectEntity AddGameObjectEntity(GameObject gameObject)
         {
             ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, (TypeID)21); //right type?
-            GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject);
+            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == gameObject.GUID);
+            GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             gameObjectEntities.Add(guid.RawGUID, gameObjectEntity);
             gameObjectEntity.Setup();
             return gameObjectEntity;
