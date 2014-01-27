@@ -1,16 +1,14 @@
-﻿using Vanilla.Core.Network.IO;
-
-namespace Vanilla.World.Communication.Chat.Channel
+﻿namespace Vanilla.World.Components.Chat.Packets.Incoming
 {
-    using Vanilla.Core.Network;
+    using Vanilla.Core.Network.IO;
 
     internal class PCChannel : PacketReader
     {
         public PCChannel(byte[] data)
             : base(data)
         {
-            this.ChannelName = ReadCString();
-            this.Password = ReadCString();
+            this.ChannelName = this.ReadCString();
+            this.Password = this.ReadCString();
         }
         public string ChannelName { get; private set; }
         public string Password { get; private set; }

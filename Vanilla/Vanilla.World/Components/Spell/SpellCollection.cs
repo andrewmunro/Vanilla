@@ -79,9 +79,9 @@
         {
             List<Spell> Spells = new List<Spell>();
 
-            var spells = characterDatabase.GetRepository<CharacterSpell>().Where(cs => cs.GUID == character.GUID).ToList();
+            var dbspells = characterDatabase.GetRepository<CharacterSpell>().Where(cs => cs.GUID == character.GUID).ToList();
 
-            spells.ForEach(characterSpell => Spells.Add(CreateSpell((int)characterSpell.Spell)));
+            dbspells.ForEach(characterSpell => Spells.Add(CreateSpell((int)characterSpell.Spell)));
             return Spells;
         }
 
@@ -109,10 +109,7 @@
 
         public IEnumerator<Spell> GetEnumerator()
         {
-            foreach (var spell in Collection.Values)
-            {
-                yield return spell;
-            }
+            return ((IEnumerable<Spell>)this.Collection.Values).GetEnumerator();
         }
     }
 }

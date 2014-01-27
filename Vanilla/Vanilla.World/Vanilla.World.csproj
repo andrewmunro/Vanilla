@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionBar\ActionButtonComponent.cs" />
+    <Compile Include="Components\ActionBar\ActionButtonCollection.cs" />
+    <Compile Include="Components\ActionBar\Constants\ActionButtonType.cs" />
+    <Compile Include="Components\ActionBar\Constants\ActionButtonUpdateState.cs" />
+    <Compile Include="Components\ActionBar\Packets\Incoming\PCSetActionButton.cs" />
+    <Compile Include="Components\ActionBar\Packets\Outgoing\PSActionButtons.cs" />
     <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthSession.cs" />
     <Compile Include="Components\Chat\ChatChannel.cs" />

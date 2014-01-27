@@ -3,6 +3,7 @@
     using System.Linq;
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Components.ActionBar;
     using Vanilla.World.Components.Spell;
     using Vanilla.World.Network;
     using Vanilla.World.Game.Entity.Object.Unit;
@@ -15,11 +16,14 @@
 
         public SpellCollection SpellCollection;
 
+        public ActionButtonCollection ActionButtonCollection;
+
         public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
         {
             this.Character = databaseCharacter;
             this.Session = session;
             this.SpellCollection = new SpellCollection(this);
+            this.ActionButtonCollection = new ActionButtonCollection(this);
         }
 
         public override void Setup()

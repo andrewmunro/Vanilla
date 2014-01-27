@@ -12,6 +12,7 @@
     using Vanilla.Database.Login.Models;
     using Vanilla.Database.World.Models;
     using Vanilla.World.Components;
+    using Vanilla.World.Components.ActionBar;
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
     using Vanilla.World.Components.Chat;
@@ -33,6 +34,7 @@
 
             Server = new WorldServer(this);
 
+            Components.Add(new ActionButtonComponent(this));
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
             Components.Add(new ChatMessageComponent(this));

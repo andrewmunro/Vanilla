@@ -6,7 +6,6 @@
 
     using Vanilla.Core.Config;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Communication.Chat.Channel;
     using Vanilla.World.Components.Chat.Constants;
     using Vanilla.World.Components.Chat.Constants.Channel;
     using Vanilla.World.Components.Chat.Packets.Incoming;

@@ -2,6 +2,7 @@
 {
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Components.ActionBar;
     using Vanilla.World.Components.Login.Packets.Incoming;
     using Vanilla.World.Components.Login.Packets.Outgoing;
     using Vanilla.World.Components.Spell;
@@ -28,7 +29,7 @@
             //Send Initial Spells
             Core.GetComponent<SpellComponent>().SendInitialSpells(session);
             //Action bars
-            //session.SendPacket(new PSActionButtons(session.Character));
+            Core.GetComponent<ActionButtonComponent>().SendInitialButtons(session);
             session.SendPacket(new PSInitializeFactions());
             session.SendPacket(new PSLoginSetTimeSpeed());
             session.SendPacket(new PSInitWorldStates((uint)databaseCharacter.Zone));
