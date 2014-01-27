@@ -28,7 +28,7 @@
 
         public void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
         {
-            WorldSession target = Server.Sessions.Find(sesh => sesh.Player.Character.GUID == packet.GUID);
+            WorldSession target = Server.Sessions.Find(sesh => sesh.Player.ObjectGUID.RawGUID == packet.GUID);
 
             if (target != null)
             {

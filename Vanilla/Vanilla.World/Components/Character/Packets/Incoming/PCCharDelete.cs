@@ -6,7 +6,7 @@
     {
         public PCCharDelete(byte[] data) : base(data)
         {
-            var guid = (int)this.ReadUInt64();
+            GUID = (int)this.ReadUInt64();
         }
 
         public long GUID { get; private set; }

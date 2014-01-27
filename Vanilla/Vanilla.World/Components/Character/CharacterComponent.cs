@@ -27,12 +27,13 @@
 
         private void OnCharEnum(WorldSession session, PacketReader reader)
         {
-            session.SendPacket(new PSCharEnum(Characters.AsQueryable().ToList()));
+            session.SendPacket(new PSCharEnum(Characters.Where(c => c.Account == session.Account.ID).ToList()));
         }
 
         private void OnCharDelete(WorldSession session, PCCharDelete packet)
         {
             Characters.Delete(Characters.SingleOrDefault(chars => chars.GUID == packet.GUID));
+            Core.CharacterDatabase.SaveChanges();
             session.SendPacket(new PSCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
 

@@ -113,7 +113,7 @@
         private void OnChannelMessage(WorldSession session, PCMessageChat packet)
         {
             var channel = ChatChannels.SingleOrDefault(c => c.Name == packet.ChannelName);
-            channel.Sessions.ForEach(s => s.SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, session.Player.ObjectGUID.RawGUID, packet.Message, packet.ChannelName)));
+            channel.Sessions.ForEach(s => s.SendPacket(new PSMessageChat(ChatMessageType.CHAT_MSG_CHANNEL, ChatMessageLanguage.LANG_UNIVERSAL, s.Player.ObjectGUID.RawGUID, packet.Message, packet.ChannelName)));
         }
 
         public void SendSytemMessage(WorldSession session, string message)

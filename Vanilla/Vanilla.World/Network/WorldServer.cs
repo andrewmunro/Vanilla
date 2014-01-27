@@ -50,7 +50,7 @@
         private void Disconnect(WorldSession session)
         {
             Sessions.Remove(session);
-            Core.EntityManager.RemovePlayerEntity(session.Player);
+            if(session.Player != null) Core.EntityManager.RemovePlayerEntity(session.Player);
         }
 
         public WorldSession GetSessionByPlayerName(string playerName)
