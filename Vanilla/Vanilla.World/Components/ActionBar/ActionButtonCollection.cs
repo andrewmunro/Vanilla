@@ -14,46 +14,54 @@ namespace Vanilla.World.Components.ActionBar
     {
         public PlayerEntity Owner { get; private set; }
 
-        private readonly DatabaseUnitOfWork<CharacterDatabase> characterDatabase;
-        private readonly DatabaseUnitOfWork<WorldDatabase> worldDatabase;
+        private DatabaseUnitOfWork<CharacterDatabase> CharacterDatabase
+        {
+            get { return Owner.Session.Core.CharacterDatabase; }
+        }
+
+        private IRepository<CharacterAction> CharacterActions
+        {
+            get { return CharacterDatabase.GetRepository<CharacterAction>(); }
+        }
+
+        private IRepository<PlayerCreateInfoAction> PlayerCreateActions
+        {
+            get { return Owner.Session.Core.WorldDatabase.GetRepository<PlayerCreateInfoAction>(); }
+        }
 
         public ActionButtonCollection(PlayerEntity playerEntity)
         {
             Owner = playerEntity;
-            characterDatabase = Owner.Session.Core.CharacterDatabase;
-            worldDatabase = Owner.Session.Core.WorldDatabase;
 
-            var characterActions = characterDatabase.GetRepository<CharacterAction>().Where(cs => cs.GUID == Owner.Character.GUID).ToList();
+            var characterActions = CharacterActions.Where(cs => cs.GUID == Owner.Character.GUID).ToList();
             //Must be a new character, get initial spells
             if (characterActions.Count == 0) AddCharacterCreationActions();
         }
 
         public void AddActionButton(CharacterAction characterAction)
         {
-            characterDatabase.GetRepository<CharacterAction>().Add(characterAction);
-            characterDatabase.SaveChanges();
+            CharacterActions.Add(characterAction);
+            CharacterDatabase.SaveChanges();
         }
 
         public void RemoveActionButton(byte button)
         {
-            var characterAction = characterDatabase.GetRepository<CharacterAction>().SingleOrDefault(ca => ca.GUID == Owner.ObjectGUID.Low && ca.Button == button);
+            var characterAction = CharacterActions.SingleOrDefault(ca => ca.GUID == Owner.ObjectGUID.Low && ca.Button == button);
             RemoveActionButton(characterAction);
         }
 
         public void RemoveActionButton(CharacterAction characterAction)
         {
-            characterDatabase.GetRepository<CharacterAction>().Delete(characterAction);
-            characterDatabase.SaveChanges();
+            CharacterActions.Delete(characterAction);
+            CharacterDatabase.SaveChanges();
         }
 
         private void AddCharacterCreationActions()
         {
-            var characterActions = characterDatabase.GetRepository<CharacterAction>();
+            List<PlayerCreateInfoAction> newCreateInfoActions = PlayerCreateActions.Where(s => s.Race == Owner.Character.Race && s.Class == Owner.Character.Class).ToList();
+            newCreateInfoActions.ForEach(a => CharacterActions.Add(new CharacterAction() { GUID = this.Owner.ObjectGUID.Low, Action = a.Action, Button = (byte)a.Button, Type = (byte) a.Type }));
 
-            List<PlayerCreateInfoAction> newCreateInfoActions = worldDatabase.GetRepository<PlayerCreateInfoAction>().Where(s => s.Race == Owner.Character.Race && s.Class == Owner.Character.Class).ToList();
-            newCreateInfoActions.ForEach(a => characterActions.Add(new CharacterAction() { GUID = this.Owner.ObjectGUID.Low, Action = a.Action, Button = (byte)a.Button, Type = (byte) a.Type }));
-
-            characterDatabase.SaveChanges();
+            CharacterDatabase.SaveChanges();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -63,7 +71,7 @@ namespace Vanilla.World.Components.ActionBar
 
         public IEnumerator<CharacterAction> GetEnumerator()
         {
-            return this.characterDatabase.GetRepository<CharacterAction>().Where(ca => ca.GUID == Owner.ObjectGUID.Low).GetEnumerator();
+            return CharacterActions.Where(ca => ca.GUID == Owner.ObjectGUID.Low).GetEnumerator();
         }
     }
 }
