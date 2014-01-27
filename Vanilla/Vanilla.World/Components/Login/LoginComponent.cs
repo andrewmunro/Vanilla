@@ -4,6 +4,7 @@
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.Login.Packets.Incoming;
     using Vanilla.World.Components.Login.Packets.Outgoing;
+    using Vanilla.World.Components.Spell;
     using Vanilla.World.Network;
 
     public class LoginComponent : WorldServerComponent
@@ -24,7 +25,9 @@
             session.SendPacket(new PSSetRestStart());
             session.SendPacket(new PSBindPointUpdate());
             session.SendPacket(new PSTutorialFlags(session.Account, Core.CharacterDatabase.GetRepository<CharacterTutorial>()));
-            session.SendPacket(new PSInitialSpells());
+            //Send Initial Spells
+            Core.GetComponent<SpellComponent>().SendInitialSpells(session);
+
             //Action bars
             session.SendPacket(new PSInitializeFactions());
             session.SendPacket(new PSLoginSetTimeSpeed());

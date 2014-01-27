@@ -70,6 +70,7 @@
     <Compile Include="Constants\LoginErrorCode.cs" />
     <Compile Include="Constants\PacketHeaderType.cs" />
     <Compile Include="Constants\ResponseCodes.cs" />
+    <Compile Include="Constants\Spell\SpellConstants.cs" />
     <Compile Include="Cryptography\Authenticator.cs" />
     <Compile Include="Cryptography\BigInteger.cs" />
     <Compile Include="Cryptography\RC4.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="DBC\Structs\ChrClasses.cs" />
     <Compile Include="DBC\Structs\ChrRaces.cs" />
     <Compile Include="DBC\Structs\Map.cs" />
+    <Compile Include="DBC\Structs\SpellEntry.cs" />
     <Compile Include="Events\SessionEvent.cs" />
     <Compile Include="Extensions\BinaryWriterExtension.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />

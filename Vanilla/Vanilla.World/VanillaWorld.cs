@@ -1,8 +1,13 @@
 ﻿namespace Vanilla.World
 {
+    using System;
+    using System.Linq;
+
     using Vanilla.Core.Components;
     using Vanilla.Core.DBC;
+    using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
+    using Vanilla.Core.Logging;
     using Vanilla.Database.Character.Models;
     using Vanilla.Database.Login.Models;
     using Vanilla.Database.World.Models;
@@ -12,6 +17,7 @@
     using Vanilla.World.Components.Chat;
     using Vanilla.World.Components.Login;
     using Vanilla.World.Components.Movement;
+    using Vanilla.World.Components.Spell;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
 
@@ -31,6 +37,7 @@
             Components.Add(new ChatMessageComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new PlayerMovementComponent(this));
+            Components.Add(new SpellComponent(this));
 
             EntityManager = new EntityManager(this);
 

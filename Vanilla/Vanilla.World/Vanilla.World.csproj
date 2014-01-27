@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -88,6 +89,17 @@
     <Compile Include="Components\Movement\Packets\Incoming\PCMoveInfo.cs" />
     <Compile Include="Components\Movement\Packets\Incoming\PCMoveTimeSkipped.cs" />
     <Compile Include="Components\Movement\PlayerMovementComponent.cs" />
+    <Compile Include="Components\Spell\Constants\SpellID.cs" />
+    <Compile Include="Components\Spell\Packets\Incoming\PCCancelSpell.cs" />
+    <Compile Include="Components\Spell\Packets\Incoming\PCCastSpell.cs" />
+    <Compile Include="Components\Spell\Packets\Outgoing\PSCastFailed.cs" />
+    <Compile Include="Components\Spell\Packets\Outgoing\PSInitialSpells.cs" />
+    <Compile Include="Components\Spell\Packets\Outgoing\PSLearnSpell.cs" />
+    <Compile Include="Components\Spell\Packets\Outgoing\PSRemoveSpell.cs" />
+    <Compile Include="Components\Spell\Packets\Outgoing\PSSpellGo.cs" />
+    <Compile Include="Components\Spell\Spell.cs" />
+    <Compile Include="Components\Spell\SpellCollection.cs" />
+    <Compile Include="Components\Spell\SpellComponent.cs" />
     <Compile Include="Components\Update\Packets\Outgoing\PSUpdateObject.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />

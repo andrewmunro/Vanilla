@@ -10,7 +10,8 @@ using Vanilla.Core.Constants.Character;
 
 namespace Vanilla.Core.DBC
 {
-    
+    using Vanilla.Core.Logging;
+
     public class DBCReader<T> : BinaryReader where T : struct
     {
         public List<T> Records { get; protected set; }

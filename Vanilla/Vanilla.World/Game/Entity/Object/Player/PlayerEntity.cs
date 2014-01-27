@@ -1,11 +1,9 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System.Linq;
-
-    using Microsoft.Xna.Framework;
-
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Components.Spell;
     using Vanilla.World.Network;
     using Vanilla.World.Game.Entity.Object.Unit;
 
@@ -15,10 +13,13 @@
 
         public WorldSession Session;
 
+        public SpellCollection SpellCollection;
+
         public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
         {
             this.Character = databaseCharacter;
             this.Session = session;
+            this.SpellCollection = new SpellCollection(this);
         }
 
         public override void Setup()
