@@ -38,7 +38,7 @@ namespace Vanilla.World.Game.Managers
         {
             if (logoutQueue.ContainsKey(session)) logoutQueue.Remove(session);
 
-            session.SendPacket(new SCLogoutResponse());
+            session.SendPacket(new PSLogoutResponse());
             logoutQueue.Add(session, DateTime.Now);
         }
 

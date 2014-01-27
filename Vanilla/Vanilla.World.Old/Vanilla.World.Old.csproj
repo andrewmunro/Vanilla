@@ -111,7 +111,7 @@
     <Compile Include="Communication\Outgoing\World\Entity\PSCreatureQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Entity\PSGameObjectQueryResponse.cs" />
     <Compile Include="Communication\Outgoing\World\LoginVerifyWorld.cs" />
-    <Compile Include="Communication\Outgoing\World\Logout\SCLogoutResponse.cs" />
+    <Compile Include="Communication\Outgoing\World\Logout\PSLogoutResponse.cs" />
     <Compile Include="Communication\Outgoing\World\Mail\PSMailListResult.cs" />
     <Compile Include="Communication\Outgoing\World\Mail\PSSendMailResult.cs" />
     <Compile Include="Communication\Outgoing\World\Movement\PSMoveHeartbeat.cs" />

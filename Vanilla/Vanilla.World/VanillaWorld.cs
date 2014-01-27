@@ -16,6 +16,7 @@
     using Vanilla.World.Components.Character;
     using Vanilla.World.Components.Chat;
     using Vanilla.World.Components.Login;
+    using Vanilla.World.Components.Logout;
     using Vanilla.World.Components.Movement;
     using Vanilla.World.Components.Spell;
     using Vanilla.World.Game.Entity;
@@ -36,6 +37,7 @@
             Components.Add(new CharacterComponent(this));
             Components.Add(new ChatMessageComponent(this));
             Components.Add(new LoginComponent(this));
+            Components.Add(new LogoutComponent(this));
             Components.Add(new PlayerMovementComponent(this));
             Components.Add(new SpellComponent(this));
 

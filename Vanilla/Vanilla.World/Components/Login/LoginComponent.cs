@@ -27,8 +27,8 @@
             session.SendPacket(new PSTutorialFlags(session.Account, Core.CharacterDatabase.GetRepository<CharacterTutorial>()));
             //Send Initial Spells
             Core.GetComponent<SpellComponent>().SendInitialSpells(session);
-
             //Action bars
+            //session.SendPacket(new PSActionButtons(session.Character));
             session.SendPacket(new PSInitializeFactions());
             session.SendPacket(new PSLoginSetTimeSpeed());
             session.SendPacket(new PSInitWorldStates((uint)databaseCharacter.Zone));

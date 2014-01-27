@@ -86,6 +86,10 @@
     <Compile Include="Components\Login\Packets\Outgoing\PSLoginSetTimeSpeed.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSSetRestStart.cs" />
     <Compile Include="Components\Login\Packets\Outgoing\PSTutorialFlags.cs" />
+    <Compile Include="Components\Logout\LogoutComponent.cs" />
+    <Compile Include="Components\Logout\Packets\Outgoing\PSLogoutCancelAcknowledgement.cs" />
+    <Compile Include="Components\Logout\Packets\Outgoing\PSLogoutComplete.cs" />
+    <Compile Include="Components\Logout\Packets\Outgoing\PSLogoutResponse.cs" />
     <Compile Include="Components\Movement\Packets\Incoming\PCMoveInfo.cs" />
     <Compile Include="Components\Movement\Packets\Incoming\PCMoveTimeSkipped.cs" />
     <Compile Include="Components\Movement\PlayerMovementComponent.cs" />
@@ -175,6 +179,7 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\Logout\Packets\Incoming\" />
     <Folder Include="Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
