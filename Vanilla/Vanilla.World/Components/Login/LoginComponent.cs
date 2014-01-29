@@ -3,6 +3,7 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.ActionBar;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.Login.Packets.Incoming;
     using Vanilla.World.Components.Login.Packets.Outgoing;
     using Vanilla.World.Components.Spell;
@@ -19,7 +20,7 @@
         {
             Character databaseCharacter = Core.CharacterDatabase.GetRepository<Character>().SingleOrDefault(c => c.GUID == packet.GUID);
 
-            session.Player = Core.EntityManager.AddPlayerEntity(databaseCharacter, session);
+            session.Player = Core.GetComponent<EntityComponent>().AddPlayerEntity(databaseCharacter, session);
 
             session.SendPacket(new PSLoginVerifyWorld((int)databaseCharacter.Map, databaseCharacter.PositionX, databaseCharacter.PositionY, databaseCharacter.PositionZ, databaseCharacter.Orientation));
             session.SendPacket(new PSAccountDataTimes());

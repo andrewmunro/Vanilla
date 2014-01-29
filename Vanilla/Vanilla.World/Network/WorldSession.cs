@@ -98,18 +98,24 @@
 
         private void LogPacket(PacketWriter packet)
         {
-            var filename = "packetlog.txt";
-            if (!File.Exists(filename)) File.Create(filename).Close();
-
-            using (StreamWriter w = File.AppendText(filename))
+            try
             {
-                w.WriteLine(DateTime.Now.ToString("yyyy-M-d H:mm:ss"));
-                w.WriteLine("Length: " + packet.PacketData.Length);
-                w.WriteLine("Opcode: " + packet.ParseOpcode());
-                w.WriteLine("Data: ");
-                w.Write(Utils.ByteArrayToHex(packet.PacketData));
-                w.WriteLine();
-                w.WriteLine();
+                var filename = "packetlog.txt";
+                if (!File.Exists(filename)) File.Create(filename).Close();
+
+                using (StreamWriter w = File.AppendText(filename))
+                {
+                    w.WriteLine(DateTime.Now.ToString("yyyy-M-d H:mm:ss"));
+                    w.WriteLine("Length: " + packet.PacketData.Length);
+                    w.WriteLine("Opcode: " + packet.ParseOpcode());
+                    w.WriteLine("Data: ");
+                    w.Write(Utils.ByteArrayToHex(packet.PacketData));
+                    w.WriteLine();
+                    w.WriteLine();
+                }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -193,7 +199,7 @@
 
         public void Update()
         {
-            
+            UpdatePacketBuilder.Update();
         }
     }
 }

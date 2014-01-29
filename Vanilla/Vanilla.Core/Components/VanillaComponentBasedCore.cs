@@ -14,7 +14,7 @@
 
         public T GetComponent<T>()
         {
-            return Components.OfType<T>().Single();
+            return Components.OfType<T>().SingleOrDefault();
         }
     }
 }

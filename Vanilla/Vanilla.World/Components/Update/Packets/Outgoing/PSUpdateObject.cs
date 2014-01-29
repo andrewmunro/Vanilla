@@ -18,7 +18,7 @@ namespace Vanilla.World.Components.Update.Packets.Outgoing
             this.Write((byte)hasTansport); // Has transport
 
             // Write each block
-            blocks.ForEach(b => Write(b));
+            blocks.ForEach(Write);
         }
     }
 }

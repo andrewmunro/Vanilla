@@ -1,15 +1,10 @@
 ﻿namespace Vanilla.World.Game.Update
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity;
-    using Vanilla.World.Game.Entity.Object;
-    using Vanilla.World.Game.Entity.Object.Unit;
-    using Vanilla.World.Game.Update.Constants;
     using Vanilla.World.Network;
 
     public class UpdatePacketBuilder
@@ -46,9 +41,11 @@
 
         public void Update()
         {
-            if (Session.Player == null) return;
+            if (Session.Player == null || Session.Player.SubscribedChunks == null) return;
 
-            var entities = Session.Core.EntityManager.GetEntitiesInRadius(Session.Player.Location.Position, 30f);
+            var entities = new List<ISubscribable>();
+
+            Session.Player.SubscribedChunks.ForEach(sc => entities.AddRange(sc.GetChunkEntities));
 
             foreach (var entity in this.updateEntities.Where(entity => !entities.Contains(entity)).ToList())
             {
@@ -67,7 +64,7 @@
         {
             var packets = new List<byte[]>();
 
-            while (createEntities.Count != 0)
+            while (packets.Count < 50 && createEntities.Count != 0)
             {
                 var entity = createEntities.Dequeue();
                 packets.Add(entity.CreatePacket);

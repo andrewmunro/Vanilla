@@ -33,6 +33,7 @@
         public TeleportEntry Entry;
 
     }
+
     [ChatCommandNode("tele", "Tele commands")]
     public class Teleport
     {

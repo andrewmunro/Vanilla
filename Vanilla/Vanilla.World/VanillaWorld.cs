@@ -16,6 +16,7 @@
     using Vanilla.World.Components.Auth;
     using Vanilla.World.Components.Character;
     using Vanilla.World.Components.Chat;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.GameObject;
     using Vanilla.World.Components.Login;
     using Vanilla.World.Components.Logout;
@@ -40,6 +41,7 @@
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
             Components.Add(new ChatMessageComponent(this));
+            Components.Add(new EntityComponent(this));
             Components.Add(new GameObjectComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new LogoutComponent(this));
@@ -47,7 +49,7 @@
             Components.Add(new PlayerMovementComponent(this));
             Components.Add(new SpellComponent(this));
 
-            EntityManager = new EntityManager(this);
+            //EntityManager = new EntityManager(this);
 
             Server.Start(portNumber, maxConnections);
         }

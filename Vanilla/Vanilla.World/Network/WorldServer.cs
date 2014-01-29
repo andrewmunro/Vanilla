@@ -10,6 +10,7 @@
     using Vanilla.Core.Network;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Game.Entity;
 
     public class WorldServer : Server
@@ -26,7 +27,8 @@
                 {
                     while (true)
                     {
-                        //this.Sessions.ToList().ForEach(s => s.UpdatePacketBuilder.Update());
+                        if (Core.GetComponent<EntityComponent>() != null) Core.GetComponent<EntityComponent>().Update();
+                        Sessions.ForEach(s => s.Update());
                         Thread.Sleep(5000);
                     }
                 };

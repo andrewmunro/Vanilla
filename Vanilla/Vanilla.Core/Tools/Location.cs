@@ -4,35 +4,41 @@
 
     public class Location
     {
-        public Vector3 Position;
+        private Vector3 position;
 
         public int MapID;
 
         public float Orientation;
 
-        public float X { get { return Position.X; } set { Position.X = value; } }
+        public float X { get { return this.position.X; } set { this.position.X = value; Moved = true; } }
 
-        public float Y { get { return Position.Y; } set { Position.Y = value; } }
+        public float Y { get { return this.position.Y; } set { this.position.Y = value; Moved = true; } }
 
-        public float Z { get { return Position.Z; } set { Position.Z = value; } }
+        public float Z { get { return this.position.Z; } set { this.position.Z = value; Moved = true; } }
+
+        //Has the entity moved since last EntityComponent tick.
+        public bool Moved;
 
         public Location(Vector3 position, float orientation, int mapID)
         {
-            this.Position = position;
+            this.position = position;
             this.Orientation = orientation;
             this.MapID = mapID;
+            this.Moved = false;
         }
 
         public Location(Vector3 position, float orientation = 0)
         {
-            this.Position = position;
+            this.position = position;
             this.Orientation = orientation;
+            this.Moved = false;
         }
 
         public Location()
         {
-            this.Position = Vector3.Zero;
+            this.position = Vector3.Zero;
             this.Orientation = 0;
+            this.Moved = false;
         }
     }
 }
