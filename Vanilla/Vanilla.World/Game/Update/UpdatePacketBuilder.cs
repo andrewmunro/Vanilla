@@ -1,14 +1,21 @@
 ﻿namespace Vanilla.World.Game.Update
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
+    using Vanilla.Core.Extensions;
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Entity.Object;
+    using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Game.Update.Constants;
     using Vanilla.World.Network;
 
     public class UpdatePacketBuilder
     {
+        private int MaxUpdatePacketCount = 50;
+
         public WorldSession Session { get; set; }
 
         private Queue<ISubscribable> createEntities { get; set; }
@@ -45,7 +52,7 @@
 
             var entities = new List<ISubscribable>();
 
-            Session.Player.SubscribedChunks.ForEach(sc => entities.AddRange(sc.GetChunkEntities));
+            Session.Player.SubscribedChunks.ForEach(sc => entities.AddRange(sc.GetChunkEntitiesExceptSelf(Session.Player)));
 
             foreach (var entity in this.updateEntities.Where(entity => !entities.Contains(entity)).ToList())
             {
@@ -64,7 +71,9 @@
         {
             var packets = new List<byte[]>();
 
-            while (packets.Count < 50 && createEntities.Count != 0)
+            if (removeEntities.Count > 0) packets.Add(RemoveEntitiesBlock());
+
+            while (packets.Count < MaxUpdatePacketCount && createEntities.Count != 0)
             {
                 var entity = createEntities.Dequeue();
                 packets.Add(entity.CreatePacket);
@@ -72,6 +81,22 @@
             }
 
             Session.SendPacket(new PSUpdateObject(packets));
+        }
+
+        private byte[] RemoveEntitiesBlock()
+        {
+            var writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_OUT_OF_RANGE_OBJECTS);
+            writer.Write((uint)this.removeEntities.Count);
+
+            while(removeEntities.Count != 0)
+            {
+                var entity = removeEntities.Dequeue();
+                var entityObj = (ObjectEntity<ObjectInfo, EntityPacketBuilder>)entity;
+                writer.WritePackedUInt64(entityObj.ObjectGUID.RawGUID);
+            }
+
+            return (writer.BaseStream as MemoryStream).ToArray();
         }
     }
 }

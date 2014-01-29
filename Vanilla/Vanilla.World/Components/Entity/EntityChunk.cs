@@ -4,6 +4,7 @@
     using System.Linq;
 
     using Vanilla.Core.IO;
+    using Vanilla.Core.Logging;
     using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
@@ -27,32 +28,30 @@
         private IRepository<CreatureTemplate> CreatureTemplateDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<CreatureTemplate>(); } }
         private IRepository<GameObject> GameObjectDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<GameObject>(); } }
 
-        public List<ISubscribable> GetChunkEntities
-        {
-            get
-            {
-                var entities = new List<ISubscribable>();
-                entities.AddRange(PlayerEntities);
-                entities.AddRange(CreatureEntities);
-                entities.AddRange(GameObjectEntities);
-                return entities;
-            }
-        }
-
-        public EntityChunk(Vector2 chunkLocation, VanillaWorld vanillaWorld)
+        public EntityChunk(Vector2 chunkLocation, float chunkSize, VanillaWorld vanillaWorld)
         {
             this.vanillaWorld = vanillaWorld;
             this.ChunkLocation = chunkLocation;
 
             this.bounds = new EntityBounds
                          {
-                             MinX = (chunkLocation.X * 533.33333f),
-                             MinY = (chunkLocation.Y * 533.33333f),
-                             MaxX = ((chunkLocation.X + 1) * 533.33333f),
-                             MaxY = ((chunkLocation.Y + 1) * 533.33333f)
+                             MinX = (chunkLocation.X * chunkSize),
+                             MinY = (chunkLocation.Y * chunkSize),
+                             MaxX = ((chunkLocation.X + 1) * chunkSize),
+                             MaxY = ((chunkLocation.Y + 1) * chunkSize)
                          };
 
             AddInitialEntities();
+        }
+
+        public List<ISubscribable> GetChunkEntitiesExceptSelf(PlayerEntity player)
+        {
+            var entities = new List<ISubscribable>();
+            entities.AddRange(PlayerEntities.Where(pe => pe.ObjectGUID.RawGUID != player.ObjectGUID.RawGUID));
+            entities.AddRange(CreatureEntities);
+            //TODO Enable GameObjectEntities when updateBuilder is done.
+            //entities.AddRange(GameObjectEntities);
+            return entities;
         }
 
         private void AddInitialEntities()
@@ -62,10 +61,10 @@
                 c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
                 && c.PositionY < this.bounds.MaxY).ToList().ForEach(c=> this.AddCreatureEntity(c));
 
-/*            GameObjectDatabase.Where(
+            GameObjectDatabase.Where(
                 c =>
                 c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
-                && c.PositionY < this.bounds.MaxY).ToList().ForEach(g => this.AddGameObjectEntity(g));*/
+                && c.PositionY < this.bounds.MaxY).ToList().ForEach(g => this.AddGameObjectEntity(g));
         }
 
         public CreatureEntity AddCreatureEntity(Creature creature)
@@ -90,7 +89,7 @@
 
         public void RemovePlayerEntity(PlayerEntity player)
         {
-            throw new System.NotImplementedException();
+            PlayerEntities.Remove(player);
         }
     }
 }

@@ -17,7 +17,9 @@ namespace Vanilla.World.Components.Entity
 
         public List<PlayerEntity> PlayerEntities; 
 
-        public int ChunkViewDistance = 1;
+        public const int ChunkViewDistance = 1;
+
+        public const float ChunkSize = 100f;
 
         public EntityComponent(VanillaWorld vanillaWorld)
             : base(vanillaWorld)
@@ -43,8 +45,8 @@ namespace Vanilla.World.Components.Entity
         private void UpdateSessionChunk(PlayerEntity player)
         {
             if (player.Location.Moved == false) return;
-            var chunkX = (int)Math.Floor(player.Location.X / 533.33333f);
-            var chunkY = (int)Math.Floor(player.Location.Y / 533.33333f);
+            var chunkX = (int)Math.Floor(player.Location.X / ChunkSize);
+            var chunkY = (int)Math.Floor(player.Location.Y / ChunkSize);
 
             var chunkLocation = new Vector2(chunkX, chunkY);
 
@@ -87,11 +89,17 @@ namespace Vanilla.World.Components.Entity
         {
             if (!EntityChunks.ContainsKey(chunkLocation))
             {
-                var chunk = new EntityChunk(chunkLocation, Core);
+                var chunk = new EntityChunk(chunkLocation, ChunkSize, Core);
                 EntityChunks[chunkLocation] = chunk;
                 return chunk;
             }
             return EntityChunks[chunkLocation];
+        }
+
+        public void RemovePlayerEntity(PlayerEntity player)
+        {
+            player.CurrentChunk.RemovePlayerEntity(player);
+            PlayerEntities.Remove(player);
         }
     }
 }
