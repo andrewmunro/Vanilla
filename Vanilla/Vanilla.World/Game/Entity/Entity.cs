@@ -15,7 +15,7 @@
 
         public TP PacketBuilder;
 
-        public ObjectGUID ObjectGUID;
+        public ObjectGUID ObjectGUID { get; set; }
 
         public List<Session> SubscribedBy { get; set; }
 

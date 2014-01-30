@@ -10,10 +10,10 @@
 
     public class ChatCommandParser
     {
-        private static readonly List<ChatCommandNode> ChatCommandNodes = new List<ChatCommandNode>();
+        private readonly List<ChatCommandNode> chatCommandNodes = new List<ChatCommandNode>();
 
         //TODO Cleanup parser and allow ignoring case.
-        public static void Boot()
+        public ChatCommandParser()
         {
             foreach (var type in GetTypesWithChatCommandNode(Assembly.GetExecutingAssembly()))
             {
@@ -32,22 +32,22 @@
             }
         }
 
-        public static void AddNode(ChatCommandNode node)
+        public void AddNode(ChatCommandNode node)
         {
-            ChatCommandNodes.Add(node);
+            this.chatCommandNodes.Add(node);
         }
 
-        public static void RemoveNode(ChatCommandNode node)
+        public void RemoveNode(ChatCommandNode node)
         {
-            ChatCommandNodes.Remove(node);
+            this.chatCommandNodes.Remove(node);
         }
 
-        public static void RemoveNode(String nodeName)
+        public void RemoveNode(String nodeName)
         {
-            ChatCommandNodes.Remove(ChatCommandNodes.FirstOrDefault(n => n.Name == nodeName));
+            this.chatCommandNodes.Remove(this.chatCommandNodes.FirstOrDefault(n => n.Name == nodeName));
         }
 
-        static IEnumerable<MethodInfo> GetMethodsWithChatCommandAttribute(Type type)
+        private IEnumerable<MethodInfo> GetMethodsWithChatCommandAttribute(Type type)
         {
             foreach (MethodInfo method in type.GetMethods())
             {
@@ -58,7 +58,7 @@
             }
         }
 
-        static IEnumerable<Type> GetTypesWithChatCommandNode(Assembly assembly)
+        private IEnumerable<Type> GetTypesWithChatCommandNode(Assembly assembly)
         {
             foreach (Type type in assembly.GetTypes())
             {
@@ -69,25 +69,25 @@
             }
         }
 
-        private static ChatCommandNode GetNode(Type type)
+        private ChatCommandNode GetNode(Type type)
         {
             Object[] attributes = type.GetCustomAttributes(typeof(ChatCommandNode), false);
             return (attributes.Length > 0) ? attributes.First() as ChatCommandNode : null;
         }
 
-        private static ChatCommandAttribute GetAttribute(MethodInfo method)
+        private ChatCommandAttribute GetAttribute(MethodInfo method)
         {
             Object[] attributes = method.GetCustomAttributes(typeof (ChatCommandAttribute), false);
             return (attributes.Length > 0) ? attributes.First() as ChatCommandAttribute : null;
         }
 
-        public static Boolean ExecuteCommand(WorldSession sender, String message)
+        public Boolean ExecuteCommand(WorldSession sender, String message)
         {
             //Remove the chat command key
             message = message.Remove(0, Config.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY).Length);
             List<String> args = message.ToLower().Split(' ').ToList();
 
-            ChatCommandNode commandNode = ChatCommandNodes.FirstOrDefault(node => node.Name == args[0]);
+            ChatCommandNode commandNode = this.chatCommandNodes.FirstOrDefault(node => node.Name == args[0]);
 
             if (commandNode != null)
             {
@@ -115,7 +115,7 @@
                         Log.Print(LogType.Error, "Command Errored");
                         Log.Print(LogType.Error, e.StackTrace);
                         sender.SendMessage("** " + commandNode.Name + " commands **");
-                        sendCommandMessage(sender, commandAttribute);
+                        this.SendCommandMessage(sender, commandAttribute);
                         return false;
                     }
                 }
@@ -137,15 +137,15 @@
                     }
                 }
                 sender.SendMessage("** " + commandNode.Name + " commands **");
-                commandNode.CommandAttributes.ForEach(a => sendCommandMessage(sender, a));
+                commandNode.CommandAttributes.ForEach(a => this.SendCommandMessage(sender, a));
                 return false;
             }
             sender.SendMessage("** commands **");
-            ChatCommandNodes.ForEach(n => sendCommandMessage(sender, n));
+            this.chatCommandNodes.ForEach(n => this.SendCommandMessage(sender, n));
             return false;
         }
 
-        public static void sendCommandMessage(WorldSession session, ChatCommandBase cmd)
+        private void SendCommandMessage(WorldSession session, ChatCommandBase cmd)
         {
             session.SendMessage(cmd.Name + " - " + cmd.Description);
         }

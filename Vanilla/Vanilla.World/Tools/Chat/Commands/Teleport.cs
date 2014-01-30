@@ -7,6 +7,7 @@
     using Microsoft.Xna.Framework;
 
     using Vanilla.Core.Tools;
+    using Vanilla.World.Components.Misc.Packets.Outgoing;
     using Vanilla.World.Network;
 
     public class TeleportEntry
@@ -50,8 +51,8 @@
 
             session.Player.Location = new Location(new Vector3(location.Entry.X, location.Entry.Y, location.Entry.Z), 0, location.Entry.MapID);
 
-           // session.SendPacket(new PSTransferPending(location.Entry.MapID));
-            //session.SendPacket(new PSNewWorld(location.Entry.MapID, location.Entry.X, location.Entry.Y, location.Entry.Z, 0));
+            session.SendPacket(new PSTransferPending(location.Entry.MapID));
+            session.SendPacket(new PSNewWorld(location.Entry.MapID, location.Entry.X, location.Entry.Y, location.Entry.Z, 0));
         }
 
         [ChatCommand("list", "")]

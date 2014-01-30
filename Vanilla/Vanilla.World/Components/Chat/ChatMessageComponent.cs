@@ -45,12 +45,12 @@
             ChatCommandNode node = new ChatCommandNode(commandName, commandDescription);
             node.Method = method.Method;
             node.CommandAttributes = new List<ChatCommandAttribute>();
-            ChatCommandParser.AddNode(node);
+            Core.ChatCommandEngine.AddNode(node);
         }
 
         public void RemoveChatCommand(String commandName)
         {
-            ChatCommandParser.RemoveNode(commandName);
+            Core.ChatCommandEngine.RemoveNode(commandName);
         }
 
         public void OnMessageChatPacket(WorldSession session, PCMessageChat packet)
@@ -63,7 +63,7 @@
 
         public void OnSayYell(WorldSession session, PCMessageChat packet)
         {
-            if (packet.Message[0].ToString() == Config.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) ChatCommandParser.ExecuteCommand(session, packet.Message);
+            if (packet.Message[0].ToString() == Config.GetValue(ConfigSections.WORLD, ConfigValues.COMMAND_KEY)) Core.ChatCommandEngine.ExecuteCommand(session, packet.Message);
             else Server.TransmitToAll(new PSMessageChat(packet.Type, ChatMessageLanguage.LANG_UNIVERSAL, session.Player.ObjectGUID.RawGUID, packet.Message));
         }
 

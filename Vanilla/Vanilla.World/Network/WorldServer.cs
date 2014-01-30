@@ -29,7 +29,7 @@
                     {
                         if (Core.GetComponent<EntityComponent>() != null) Core.GetComponent<EntityComponent>().Update();
                         Sessions.ForEach(s => s.Update());
-                        Thread.Sleep(5000);
+                        Thread.Sleep(500);
                     }
                 };
 

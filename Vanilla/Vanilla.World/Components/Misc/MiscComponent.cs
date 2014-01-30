@@ -81,12 +81,11 @@
             if (areaTrigger != null)
             {
                 session.SendMessage("[AreaTrigger] ID:" + packet.TriggerID + " " + areaTrigger.Name);
-                session.Player.Character.Map = areaTrigger.TargetMap;
-                session.Player.Character.PositionX = areaTrigger.TargetPositionX;
-                session.Player.Character.PositionY = areaTrigger.TargetPositionY;
-                session.Player.Character.PositionZ = areaTrigger.TargetPositionZ;
-                session.Player.Character.Orientation = areaTrigger.TargetOrientation;
-                Core.CharacterDatabase.SaveChanges();
+                session.Player.Location.MapID = areaTrigger.TargetMap;
+                session.Player.Location.X = areaTrigger.TargetPositionX;
+                session.Player.Location.Y = areaTrigger.TargetPositionY;
+                session.Player.Location.Z = areaTrigger.TargetPositionZ;
+                session.Player.Location.Orientation = areaTrigger.TargetOrientation;
 
                 session.SendPacket(new PSTransferPending(areaTrigger.TargetMap));
                 session.SendPacket(new PSNewWorld(areaTrigger.TargetMap, areaTrigger.TargetPositionX, areaTrigger.TargetPositionY, areaTrigger.TargetPositionZ, areaTrigger.TargetOrientation));

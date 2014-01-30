@@ -25,6 +25,7 @@
     using Vanilla.World.Components.Spell;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
+    using Vanilla.World.Tools.Chat;
 
     public class VanillaWorld : VanillaComponentBasedCore<WorldServerComponent>, IWorldServer
     {
@@ -49,10 +50,12 @@
             Components.Add(new PlayerMovementComponent(this));
             Components.Add(new SpellComponent(this));
 
-            //EntityManager = new EntityManager(this);
+            ChatCommandEngine = new ChatCommandParser();
 
             Server.Start(portNumber, maxConnections);
         }
+
+        public ChatCommandParser ChatCommandEngine { get; set; }
 
         public WorldServer Server { get; private set; }
 

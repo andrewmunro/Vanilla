@@ -15,5 +15,7 @@ namespace Vanilla.World.Game.Entity
         byte[] CreatePacket { get; }
 
         byte[] UpdatePacket { get; }
+
+        ObjectGUID ObjectGUID { get; set; }
     }
 }

@@ -92,8 +92,7 @@
             while(removeEntities.Count != 0)
             {
                 var entity = removeEntities.Dequeue();
-                var entityObj = (ObjectEntity<ObjectInfo, EntityPacketBuilder>)entity;
-                writer.WritePackedUInt64(entityObj.ObjectGUID.RawGUID);
+                writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
             }
 
             return (writer.BaseStream as MemoryStream).ToArray();

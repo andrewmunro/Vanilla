@@ -11,13 +11,16 @@
     using Vanilla.Core.Network.IO;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
+    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Character.Packets.Incoming;
     using Vanilla.World.Components.Character.Packets.Outgoing;
     using Vanilla.World.Network;
 
     public class CharacterComponent : WorldServerComponent
     {
-        protected IRepository<Character> Characters { get { return this.Core.CharacterDatabase.GetRepository<Character>(); } }
+        private IRepository<Character> Characters { get { return this.Core.CharacterDatabase.GetRepository<Character>(); } }
+
+        private IRepository<PlayerCreateInfo> CreateInfo { get { return this.Core.WorldDatabase.GetRepository<PlayerCreateInfo>(); } }
 
         public CharacterComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
@@ -43,6 +46,8 @@
             byte[] playerBytes = { packet.Skin, packet.Face, packet.HairStyle, packet.HairColor };
             byte[] playerBytes2 = { packet.Accessory };
 
+            PlayerCreateInfo info = CreateInfo.SingleOrDefault(ci => ci.Race == packet.Race && ci.Class == packet.Class);
+
             Character character = new Character()
             {
                 GUID = Characters.AsQueryable().Count() + 1,
@@ -57,11 +62,11 @@
                 PlayerBytes = BitConverter.ToInt32(playerBytes, 0),
                 PlayerBytes2 = 0,
                 PlayerFlags = 0,
-                PositionX = -2917.580078125f,
-                PositionY = -257.980010986328f,
-                PositionZ = 52.9967994689941f,
-                Map = 1,
-                Orientation = 0,
+                PositionX = info.PositionX,
+                PositionY = info.PositionY,
+                PositionZ = info.PositionZ,
+                Map = info.Map,
+                Orientation = info.Orientation,
                 TaxiMask = "",
                 Online = 0,
                 Cinematic = 0,
@@ -79,7 +84,7 @@
                 TransGUID = 0,                
                 ExtraFlags = 0,
                 AtLogin = 0,
-                Zone = 0,
+                Zone = info.Zone,
                 DeathExpireTime = 0,
                 TaxiPath = "",
                 HonorHighestRank = 0,
