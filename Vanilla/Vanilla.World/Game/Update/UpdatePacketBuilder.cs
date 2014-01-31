@@ -7,8 +7,6 @@
     using Vanilla.Core.Extensions;
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity;
-    using Vanilla.World.Game.Entity.Object;
-    using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Game.Update.Constants;
     using Vanilla.World.Network;
 

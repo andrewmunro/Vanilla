@@ -1,50 +1,40 @@
-﻿using Vanilla.Core.Network.Packet;
-
-namespace Vanilla.World.Communication.Outgoing.World.Movement
+﻿namespace Vanilla.World.Components.Movement.Packets.Outgoing
 {
-    #region
-
     using System;
     using System.IO;
 
     using Vanilla.Core.Extensions;
-    using Vanilla.Core.Network;
+    using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Communication.Incoming.World.Movement;
-    using Vanilla.World.Communication.Outgoing.World.Update;
+    using Vanilla.World.Components.Movement.Packets.Incoming;
+    using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Network;
-
-    #endregion
 
     public class PSMovement : WorldPacket
     {
-        #region Constructors and Destructors
-
         public PSMovement(WorldOpcodes worldOpcode, WorldSession session, PCMoveInfo moveinfo)
             : base(worldOpcode)
         {
             var correctedMoveTime = (uint)Environment.TickCount;
 
-            byte[] packedGUID = PSUpdateObject.GenerateGuidBytes((ulong)session.Character.GUID);
+            byte[] packedGUID = session.Player.ObjectGUID.GetGuidBytes();
             this.WriteBytes(packedGUID);
             this.WriteBytes((moveinfo.BaseStream as MemoryStream).ToArray());
 
             // We then overwrite the original moveTime (sent from the client) with ours
-            (BaseStream as MemoryStream).Position = 4 + packedGUID.Length;
+            (this.BaseStream as MemoryStream).Position = 4 + packedGUID.Length;
             this.WriteBytes(BitConverter.GetBytes(correctedMoveTime));
 
-            /*
+            
             Write((UInt32)moveinfo.moveFlags);
-            Write((UInt32)correctedMoveTime); // Time
+            Write(correctedMoveTime); // Time
             Write(moveinfo.X);
             Write(moveinfo.Y);
             Write(moveinfo.Z);
             Write(moveinfo.R);
             Write((UInt32)0); // ?
-            */
+            
             // Environment.TickCount
         }
-
-        #endregion
     }
 }

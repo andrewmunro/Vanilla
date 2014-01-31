@@ -2,6 +2,8 @@
 
 namespace Vanilla.World.Game.Entity
 {
+    using System;
+
     using Vanilla.World.Game.Entity.Constants;
 
     public class ObjectGUID
@@ -72,6 +74,29 @@ namespace Vanilla.World.Game.Entity
         public HighGUID GetGuidType()
         {
             return (HighGUID)(RawGUID >> 48);
+        }
+
+        public byte[] GetGuidBytes()
+        {
+            byte[] packedGuid = new byte[9];
+            byte length = 1;
+
+            for (byte i = 0; RawGUID != 0; i++)
+            {
+                if ((RawGUID & 0xFF) != 0)
+                {
+                    packedGuid[0] |= (byte)(1 << i);
+                    packedGuid[length] = (byte)(RawGUID & 0xFF);
+                    ++length;
+                }
+
+                RawGUID >>= 8;
+            }
+
+            byte[] clippedArray = new byte[length];
+            Array.Copy(packedGuid, clippedArray, length);
+
+            return clippedArray;
         }
     }
 }

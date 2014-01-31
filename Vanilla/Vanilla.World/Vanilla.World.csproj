@@ -80,6 +80,9 @@
     <Compile Include="Components\Misc\Constants\Emote.cs" />
     <Compile Include="Components\Misc\Packets\Incoming\PCCreatureQuery.cs" />
     <Compile Include="Components\Misc\Packets\Outgoing\PSCreatureQueryResponse.cs" />
+    <Compile Include="Components\Movement\Packets\Outgoing\PSMoveHeartbeat.cs" />
+    <Compile Include="Components\Movement\Packets\Outgoing\PSMoveKnockBack.cs" />
+    <Compile Include="Components\Movement\Packets\Outgoing\PSMovement.cs" />
     <Compile Include="Components\Update\Constants\UnitStandStateType.cs" />
     <Compile Include="Components\Chat\ChatChannel.cs" />
     <Compile Include="Components\Chat\ChatMessageComponent.cs" />
@@ -151,7 +154,6 @@
     <Compile Include="Components\Update\Packets\Outgoing\PSUpdateObject.cs" />
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />
-    <Compile Include="Game\Entity\EntityManager.cs" />
     <Compile Include="Game\Entity\ISubscribable.cs" />
     <Compile Include="Game\Entity\IUnitEntity.cs" />
     <Compile Include="Game\Entity\Object\ObjectEntity.cs" />
