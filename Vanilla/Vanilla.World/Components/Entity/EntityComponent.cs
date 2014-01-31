@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace Vanilla.World.Components.Entity
 {
-    using System.Net;
+    using System.Linq;
 
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Network;
 
@@ -15,7 +16,18 @@ namespace Vanilla.World.Components.Entity
     {
         public Dictionary<Vector2, EntityChunk> EntityChunks;
 
-        public List<PlayerEntity> PlayerEntities; 
+        public List<PlayerEntity> PlayerEntities;
+
+        public List<CreatureEntity> CreatureEntities
+        {
+            get
+            {
+                //TODO This could have some serious performance issues. Investigate later, maybe caching or store units in a seperate list as we do with PlayerEntities.
+                var creatures = new List<CreatureEntity>();
+                EntityChunks.Values.ToList().ForEach(ec => creatures.AddRange(ec.CreatureEntities));
+                return creatures;
+            }
+        }
 
         public const int ChunkViewDistance = 1;
 

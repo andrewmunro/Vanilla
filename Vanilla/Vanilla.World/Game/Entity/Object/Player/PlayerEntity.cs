@@ -9,7 +9,7 @@
     using Vanilla.World.Network;
     using Vanilla.World.Game.Entity.Object.Unit;
 
-    public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>
+    public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>, IUnitEntity
     {
         public Character Character;
 
@@ -19,8 +19,9 @@
 
         public ActionButtonCollection ActionButtonCollection;
 
-        //TODO Create Interface for CreatureEntity and PlayerEntity
-        public PlayerEntity Target;
+        public string Name { get { return Character.Name; } }
+
+        public IUnitEntity Target;
 
         public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
         {

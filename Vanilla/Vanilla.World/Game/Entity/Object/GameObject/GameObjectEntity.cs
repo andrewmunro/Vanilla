@@ -19,6 +19,11 @@
             this.Info = new GameObjectInfo(this.ObjectGUID, this.GameObject);
             this.PacketBuilder = new GameObjectPacketBuilder(this);
 
+            Location.X = GameObject.PositionX;
+            Location.Y = GameObject.PositionY;
+            Location.Z = GameObject.PositionZ;
+            Location.Orientation = GameObject.Orientation;
+
             base.Setup();
         }
     }

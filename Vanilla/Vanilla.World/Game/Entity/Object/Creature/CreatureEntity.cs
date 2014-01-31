@@ -3,11 +3,13 @@
     using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity.Object.Unit;
 
-    public class CreatureEntity : UnitEntity<CreatureInfo, CreaturePacketBuilder>
+    public class CreatureEntity : UnitEntity<CreatureInfo, CreaturePacketBuilder>, IUnitEntity
     {
         public CreatureTemplate Template { get; private set; }
 
         public Creature Creature { get; private set; }
+
+        public string Name { get { return Template.Name; } }
 
         public CreatureEntity(ObjectGUID objectGUID, Creature databaseCreature, CreatureTemplate template) : base(objectGUID)
         {

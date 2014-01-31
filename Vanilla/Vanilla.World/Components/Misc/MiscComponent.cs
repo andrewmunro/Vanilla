@@ -6,10 +6,12 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.World.Models;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.Misc.Constants;
     using Vanilla.World.Components.Misc.Packets.Incoming;
     using Vanilla.World.Components.Misc.Packets.Outgoing;
-    using Vanilla.World.Game.Entity.Object.Player;
+    using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Network;
 
     public class MiscComponent : WorldServerComponent
@@ -17,16 +19,17 @@
         public MiscComponent(VanillaWorld vanillaWorld)
             : base(vanillaWorld)
         {
-            Router.AddHandler<PCNameQuery>(WorldOpcodes.CMSG_NAME_QUERY, OnNameQueryPacket);
-            Router.AddHandler<PCTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, OnTextEmotePacket);
-            Router.AddHandler<PCEmote>(WorldOpcodes.CMSG_EMOTE, OnEmotePacket);
-            Router.AddHandler<PCZoneUpdate>(WorldOpcodes.CMSG_ZONEUPDATE, OnZoneUpdatePacket);
-            Router.AddHandler<PCAreaTrigger>(WorldOpcodes.CMSG_AREATRIGGER, OnAreaTriggerPacket);
-            Router.AddHandler<PCPing>(WorldOpcodes.CMSG_PING, OnPingPacket);
-            Router.AddHandler<PCSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, OnSetSelectionPacket);
+            Router.AddHandler<PCNameQuery>(WorldOpcodes.CMSG_NAME_QUERY, OnNameQuery);
+            Router.AddHandler<PCCreatureQuery>(WorldOpcodes.CMSG_CREATURE_QUERY, OnCreatureQuery);
+            Router.AddHandler<PCTextEmote>(WorldOpcodes.CMSG_TEXT_EMOTE, OnTextEmote);
+            Router.AddHandler<PCEmote>(WorldOpcodes.CMSG_EMOTE, OnEmote);
+            Router.AddHandler<PCZoneUpdate>(WorldOpcodes.CMSG_ZONEUPDATE, OnZoneUpdate);
+            Router.AddHandler<PCAreaTrigger>(WorldOpcodes.CMSG_AREATRIGGER, OnAreaTrigger);
+            Router.AddHandler<PCPing>(WorldOpcodes.CMSG_PING, OnPing);
+            Router.AddHandler<PCSetSelection>(WorldOpcodes.CMSG_SET_SELECTION, OnSetSelection);
         }
 
-        public void OnNameQueryPacket(WorldSession session, PCNameQuery packet)
+        public void OnNameQuery(WorldSession session, PCNameQuery packet)
         {
             WorldSession target = Server.Sessions.Find(sesh => sesh.Player.ObjectGUID.RawGUID == packet.GUID);
 
@@ -36,15 +39,22 @@
             }
         }
 
-        private void OnEmotePacket(WorldSession session, PCEmote packet)
+        public void OnCreatureQuery(WorldSession session, PCCreatureQuery packet)
+        {
+            CreatureEntity entity = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(ce => ce.ObjectGUID.RawGUID == packet.GUID);
+
+            if(entity != null) session.SendPacket(new PSCreatureQueryResponse(packet.Entry, entity));
+        }
+
+        private void OnEmote(WorldSession session, PCEmote packet)
         {
             session.SendPacket(new PSEmote(packet.EmoteID, session.Player.ObjectGUID.RawGUID));
         }
 
-        public void OnTextEmotePacket(WorldSession session, PCTextEmote packet)
+        public void OnTextEmote(WorldSession session, PCTextEmote packet)
         {
             //TODO Get the targetname from the packet.GUID
-            String targetName = session.Player.Target != null ? session.Player.Target.Character.Name : null;
+            String targetName = session.Player.Target != null ? session.Player.Target.Name : null;
 
             Server.TransmitToAll(new PSTextEmote((int)session.Player.Character.GUID, (int)packet.EmoteID, (int)packet.TextID, targetName));
 
@@ -65,7 +75,7 @@
             }
         }
 
-        public void OnZoneUpdatePacket(WorldSession session, PCZoneUpdate packet)
+        public void OnZoneUpdate(WorldSession session, PCZoneUpdate packet)
         {
             unsafe
             {
@@ -74,7 +84,7 @@
             }
         }
 
-        public void OnAreaTriggerPacket(WorldSession session, PCAreaTrigger packet)
+        public void OnAreaTrigger(WorldSession session, PCAreaTrigger packet)
         {
             AreatriggerTeleport areaTrigger = Core.WorldDatabase.GetRepository<AreatriggerTeleport>().SingleOrDefault(at => at.ID == packet.TriggerID);
 
@@ -96,26 +106,26 @@
             }
         }
 
-        public void OnPingPacket(WorldSession session, PCPing packet)
+        public void OnPing(WorldSession session, PCPing packet)
         {
             session.SendMessage("Ping: " + packet.Ping + " Latancy: " + packet.Latency);
 
             session.SendPacket(new PSPong(packet.Ping));
         }
 
-        public void OnSetSelectionPacket(WorldSession session, PCSetSelection packet)
+        public void OnSetSelection(WorldSession session, PCSetSelection packet)
         {
-            PlayerEntity target = null;
+            IUnitEntity target = null;
 
-            WorldSession op = Core.Server.Sessions.SingleOrDefault(s => s.Player.ObjectGUID.RawGUID == packet.GUID);
-            if (op != null) target = op.Player;
+            WorldSession targetSession = Core.Server.Sessions.SingleOrDefault(s => s.Player.ObjectGUID.RawGUID == packet.GUID);
+            if (targetSession != null) target = targetSession.Player;
 
-            //if (target == null) target = VanillaWorld.UnitComponent.Entitys.Find(e => e.ObjectGUID != null && e.ObjectGUID.RawGUID == packet.GUID);
+            if (target == null) target = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(e => e.ObjectGUID.RawGUID == packet.GUID);
 
             if (target != null)
             {
                 session.Player.Target = target;
-                session.SendMessage("Target: " + target.Character.Name);
+                session.SendMessage("Target: " + target.Name);
             }
             else
             {

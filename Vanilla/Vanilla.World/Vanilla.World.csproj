@@ -66,6 +66,8 @@
     <Compile Include="Components\Entity\EntityChunk.cs" />
     <Compile Include="Components\Entity\EntityComponent.cs" />
     <Compile Include="Components\Misc\Constants\Emote.cs" />
+    <Compile Include="Components\Misc\Packets\Incoming\PCCreatureQuery.cs" />
+    <Compile Include="Components\Misc\Packets\Outgoing\PSCreatureQueryResponse.cs" />
     <Compile Include="Components\Update\Constants\UnitStandStateType.cs" />
     <Compile Include="Components\Chat\ChatChannel.cs" />
     <Compile Include="Components\Chat\ChatMessageComponent.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Components\Login\LoginComponent.cs" />
     <Compile Include="Game\Entity\EntityManager.cs" />
     <Compile Include="Game\Entity\ISubscribable.cs" />
+    <Compile Include="Game\Entity\IUnitEntity.cs" />
     <Compile Include="Game\Entity\Object\ObjectEntity.cs" />
     <Compile Include="Game\Entity\Object\ObjectInfo.cs" />
     <Compile Include="Game\Entity\Object\Creature\CreatureEntity.cs" />
