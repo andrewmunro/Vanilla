@@ -1,8 +1,11 @@
 ﻿namespace Vanilla.World.Components.GameObject
 {
     using System.Collections.Generic;
+    using System.Linq;
+
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.World.Models;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.GameObject.Packets.Constants;
     using Vanilla.World.Components.GameObject.Packets.Incoming;
     using Vanilla.World.Components.GameObject.Packets.Outgoing;
@@ -34,7 +37,7 @@
 
         private static void OnGameObjectUsePacket(WorldSession session, PCGameObjectUse packet)
         {
-            GameObjectEntity gameObject = session.Core.EntityManager.gameObjectEntities[packet.GUID];
+            GameObjectEntity gameObject = session.Core.GetComponent<EntityComponent>().GameObjectEntities.SingleOrDefault(g => g.ObjectGUID.RawGUID == packet.GUID);
 
             GameObjectTemplate template = gameObject.Template;
 

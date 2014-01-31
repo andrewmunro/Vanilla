@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Vanilla.World.Components.Entity
+﻿namespace Vanilla.World.Components.Entity
 {
     using System.Linq;
-
+    using System;
+    using System.Collections.Generic;
     using Vanilla.Database.Character.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Game.Entity.Object.GameObject;
     using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Network;
 
@@ -26,6 +25,16 @@ namespace Vanilla.World.Components.Entity
                 var creatures = new List<CreatureEntity>();
                 EntityChunks.Values.ToList().ForEach(ec => creatures.AddRange(ec.CreatureEntities));
                 return creatures;
+            }
+        }
+
+        public List<GameObjectEntity> GameObjectEntities
+        {
+            get
+            {
+                var gameObjects = new List<GameObjectEntity>();
+                EntityChunks.Values.ToList().ForEach(ec => gameObjects.AddRange(ec.GameObjectEntities));
+                return gameObjects;
             }
         }
 

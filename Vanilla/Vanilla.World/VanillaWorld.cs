@@ -66,7 +66,5 @@
         public DatabaseUnitOfWork<WorldDatabase> WorldDatabase { get; private set; }
 
         public DBCLibrary DBC { get; private set; }
-
-        public EntityManager EntityManager { get; private set; }
     }
 }

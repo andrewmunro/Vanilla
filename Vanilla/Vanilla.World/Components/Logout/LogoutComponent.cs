@@ -8,6 +8,7 @@
     using Vanilla.Core.Network.IO;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Components;
+    using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.Logout.Packets.Outgoing;
     using Vanilla.World.Network;
 
@@ -52,7 +53,7 @@
                     {
                         entry.Key.SendPacket(new PSLogoutComplete());
                         LogoutQueue.Remove(entry.Key);
-                        Core.EntityManager.RemovePlayerEntity(entry.Key.Player);
+                        Core.GetComponent<EntityComponent>().RemovePlayerEntity(entry.Key.Player);
                     }
                 }
                 Thread.Sleep(1000);
