@@ -55,7 +55,7 @@ namespace Vanilla.Database.Character.Models
         public DbSet<item_instance> ItemInstance { get; set; }
         public DbSet<item_loot> ItemLoot { get; set; }
         public DbSet<item_text> ItemText { get; set; }
-        public DbSet<mail> Mails { get; set; }
+        public DbSet<Mail> Mails { get; set; }
         public DbSet<mail_items> MailItems { get; set; }
         public DbSet<pet_aura> PetAura { get; set; }
         public DbSet<pet_spell> PetSpell { get; set; }
@@ -104,7 +104,7 @@ namespace Vanilla.Database.Character.Models
             modelBuilder.Configurations.Add(new item_instanceMap());
             modelBuilder.Configurations.Add(new item_lootMap());
             modelBuilder.Configurations.Add(new item_textMap());
-            modelBuilder.Configurations.Add(new mailMap());
+            modelBuilder.Configurations.Add(new MailMap());
             modelBuilder.Configurations.Add(new mail_itemsMap());
             modelBuilder.Configurations.Add(new pet_auraMap());
             modelBuilder.Configurations.Add(new pet_spellMap());

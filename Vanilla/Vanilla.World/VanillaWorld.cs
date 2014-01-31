@@ -20,6 +20,7 @@
     using Vanilla.World.Components.GameObject;
     using Vanilla.World.Components.Login;
     using Vanilla.World.Components.Logout;
+    using Vanilla.World.Components.Mail;
     using Vanilla.World.Components.Misc;
     using Vanilla.World.Components.Movement;
     using Vanilla.World.Components.Spell;
@@ -46,6 +47,7 @@
             Components.Add(new GameObjectComponent(this));
             Components.Add(new LoginComponent(this));
             Components.Add(new LogoutComponent(this));
+            Components.Add(new MailComponent(this));
             Components.Add(new MiscComponent(this));
             Components.Add(new PlayerMovementComponent(this));
             Components.Add(new SpellComponent(this));

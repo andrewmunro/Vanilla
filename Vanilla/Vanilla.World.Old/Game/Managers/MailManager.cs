@@ -101,7 +101,7 @@
 
         private static void OnGetMailList(WorldSession session, PCGetMailList handler)
         {
-            List<mail> Mails = VanillaWorld.CharacterDatabase.Mails.Where(m => m.receiver == session.Character.GUID).ToList();
+            List<Mail> Mails = VanillaWorld.CharacterDatabase.Mails.Where(m => m.receiver == session.Character.GUID).ToList();
             session.SendPacket(new PSMailListResult(Mails));
         }
     }

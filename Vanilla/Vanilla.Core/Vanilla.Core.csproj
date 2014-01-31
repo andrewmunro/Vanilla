@@ -67,6 +67,7 @@
     <Compile Include="Constants\Character\Class.cs" />
     <Compile Include="Constants\Character\Gender.cs" />
     <Compile Include="Constants\Character\Race.cs" />
+    <Compile Include="Constants\GameUnits.cs" />
     <Compile Include="Constants\LoginErrorCode.cs" />
     <Compile Include="Constants\PacketHeaderType.cs" />
     <Compile Include="Constants\ResponseCodes.cs" />

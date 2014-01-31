@@ -1,64 +1,49 @@
-﻿using Vanilla.Core.Network.Packet;
-
-namespace Vanilla.World.Communication.Outgoing.World.Mail
+﻿namespace Vanilla.World.Components.Mail.Packets.Outgoing
 {
-    #region
-
     using System;
     using System.Collections.Generic;
 
-    using Database.Character.Models;
     using Vanilla.Core.Extensions;
-    using Vanilla.Core.Network;
+    using Vanilla.Core.IO;
+    using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
-    using Vanilla.World.Game.Constants.Game.Mail;
-    using Vanilla.World.Tools.Shared;
-
-    #endregion
+    using Vanilla.Database.Character.Models;
+    using Vanilla.World.Components.Mail.Constants;
+    using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Entity.Constants;
 
     public sealed class PSMailListResult : WorldPacket
     {
-        #region Constructors and Destructors
-
-        public PSMailListResult(List<Mail> MailList)
-            : base(WorldOpcodes.SMSG_MAIL_LIST_RESULT)
+        public PSMailListResult(List<Mail> mailList) : base(WorldOpcodes.SMSG_MAIL_LIST_RESULT)
         {
-            if (MailList.Count > 254)
+            if (mailList.Count > 254)
             {
                 throw new NotImplementedException();
             }
 
-            for (int i = 0; i < MailList.Count; i++)
+            foreach (var mail in mailList)
             {
-                Mail Mail = MailList[i];
+                this.Write((uint)mail.MessageType);
+                this.Write(mail.MessageType);
 
-                if (Mail.ExpireTime < Environment.TickCount)
-                {
-                    VanillaWorld.CharacterDatabase.Mails.Remove(Mail);
-                    continue;
-                }
-
-                Write((uint)Mail.messageType);
-                Write(Mail.messageType);
-
-                switch ((MailMessageType)Mail.messageType)
+                switch ((MailMessageType)mail.MessageType)
                 {
                     case MailMessageType.MAIL_NORMAL: // sender guid
-                        Write((int)new ObjectGUID((ulong)Mail.sender).HighGUID);
+                        this.Write((int)new ObjectGUID((ulong)mail.Sender, (TypeID)25).HighGUID);
                         break;
                     case MailMessageType.MAIL_CREATURE:
                     case MailMessageType.MAIL_GAMEOBJECT:
                     case MailMessageType.MAIL_AUCTION:
-                        Write((uint)Mail.sender); // creature/gameobject entry, auction id
+                        this.Write((uint)mail.Sender); // creature/gameobject entry, auction id
                         break;
                     case MailMessageType.MAIL_ITEM: // item entry (?) sender = "Unknown", NYI
                         break;
                 }
 
-                this.WriteCString(Mail.subject);
-                Write((uint)Mail.itemTextId);
-                Write((uint)0);
-                Write((uint)Mail.stationery);
+                this.WriteCString(mail.Subject);
+                this.Write((uint)mail.ItemTextId);
+                this.Write((uint)0);
+                this.Write((uint)mail.Stationery);
 
                 // TODO Send Item in messages
                 /*                Item* item = (*itr)->items.size() > 0 ? _player->GetMItem((*itr)->items[0].item_guid) : NULL;
@@ -81,18 +66,15 @@ namespace Vanilla.World.Communication.Outgoing.World.Mail
                 data << float(float((*itr)->expire_time - time(NULL)) / float(DAY));// Time
                 data << uint32((*itr)->mailTemplateId); */
                 this.WriteNullUInt(4);
-                Write((byte)0);
+                this.Write((byte)0);
                 this.WriteNullUInt(3);
 
-                Write((uint)Mail.money);
-                Write((uint)Mail.cod);
-                Write((uint)Mail.@checked);
-                Write((float)(Mail.ExpireTime - Environment.TickCount) / 86400000);
-                Write((uint)Mail.mailTemplateId);
+                this.Write((uint)mail.Money);
+                this.Write((uint)mail.Cod);
+                this.Write((uint)mail.Checked);
+                this.Write((float)(mail.ExpireTime - Environment.TickCount) / 86400000);
+                this.Write((uint)mail.MailTemplateId);
             }
-            VanillaWorld.CharacterDatabase.SaveChanges();
         }
-
-        #endregion
     }
 }

@@ -87,7 +87,7 @@
     <Compile Include="Models\item_instance.cs" />
     <Compile Include="Models\item_loot.cs" />
     <Compile Include="Models\item_text.cs" />
-    <Compile Include="Models\mail.cs" />
+    <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\mail_items.cs" />
     <Compile Include="Models\Mapping\AuctionMap.cs" />
     <Compile Include="Models\Mapping\BugReportMap.cs" />

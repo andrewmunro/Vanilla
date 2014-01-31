@@ -3,18 +3,18 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Vanilla.Database.Character.Models.Mapping
 {
-    public class mailMap : EntityTypeConfiguration<mail>
+    public class MailMap : EntityTypeConfiguration<Mail>
     {
-        public mailMap()
+        public MailMap()
         {
             // Primary Key
-            this.HasKey(t => t.id);
+            this.HasKey(t => t.ID);
 
             // Properties
-            this.Property(t => t.id)
+            this.Property(t => t.ID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.subject)
+            this.Property(t => t.Subject)
                 .HasMaxLength(1073741823);
 
         }
