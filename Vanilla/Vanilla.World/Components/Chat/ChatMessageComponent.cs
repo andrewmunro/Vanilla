@@ -28,7 +28,7 @@
             ChatChannels = new List<ChatChannel>();
 
             Router.AddHandler<PCMessageChat>(WorldOpcodes.CMSG_MESSAGECHAT, OnMessageChatPacket);
-            Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
+            Router.AddHandler<PCJoinChannel>(WorldOpcodes.CMSG_JOIN_CHANNEL, OnJoinChannel);
             Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_LEAVE_CHANNEL, OnLeaveChannel);
             Router.AddHandler<PCChannel>(WorldOpcodes.CMSG_CHANNEL_LIST, OnListChannel);
 
@@ -84,7 +84,9 @@
 
         private void OnListChannel(WorldSession session, PCChannel packet)
         {
-            throw new NotImplementedException();
+            session.SendMessage("Users in channel " + packet.ChannelName + ":");
+            var channel = ChatChannels.SingleOrDefault(ch => ch.Name == packet.ChannelName);
+            channel.Sessions.ForEach(s => session.SendMessage(s.Player.Name));
         }
 
         private void OnLeaveChannel(WorldSession session, PCChannel packet)
@@ -97,7 +99,7 @@
             session.SendPacket(new PSChannelNotify(ChatChannelNotify.CHAT_YOU_LEFT_NOTICE, session.Player.ObjectGUID.RawGUID, packet.ChannelName));
         }
 
-        private void OnJoinChannel(WorldSession session, PCChannel packet)
+        private void OnJoinChannel(WorldSession session, PCJoinChannel packet)
         {
             var channel = ChatChannels.SingleOrDefault(c => c.Name == packet.ChannelName);
             if (channel == null)
