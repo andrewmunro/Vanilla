@@ -8,7 +8,9 @@
 
     public class GameObjectPacketBuilder : EntityPacketBuilder
     {
-        private GameObjectEntity entity;
+        private readonly GameObjectEntity entity;
+
+        public override int DataLength { get { return (int)EGameObjectFields.GAMEOBJECT_END; } }
 
         public GameObjectPacketBuilder(GameObjectEntity entity)
         {

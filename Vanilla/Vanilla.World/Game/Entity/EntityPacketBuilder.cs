@@ -37,7 +37,7 @@
         {
             this.MaskSize = ((this.DataLength) + 32) / 32;
             this.Mask = new BitArray(this.DataLength, false);
-            this.UpdateData = new Hashtable();            
+            this.UpdateData = new Hashtable();
         }
 
         protected void SetInfoFields<TI>(TI info) where TI : EntityInfo

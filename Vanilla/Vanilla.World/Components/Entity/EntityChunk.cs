@@ -49,7 +49,6 @@
             var entities = new List<ISubscribable>();
             entities.AddRange(PlayerEntities.Where(pe => pe.ObjectGUID.RawGUID != player.ObjectGUID.RawGUID));
             entities.AddRange(CreatureEntities);
-            //TODO Enable GameObjectEntities when updateBuilder is done.
             entities.AddRange(GameObjectEntities);
             return entities;
         }
@@ -79,14 +78,7 @@
         public void AddGameObjectEntity(GameObject gameObject)
         {
             ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, (TypeID)21); //right type?
-            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == (int)gameObject.GUID);
-            //TODO Investigate why the template entry doesn't exist in the database for some of the guids (e.g GUID = 18094)
-            if (template == null)
-            {
-                Log.Print(LogType.Debug, "GameObject template not found! GUID: " + gameObject.GUID);
-                return;
-            }
-            Log.Print(LogType.Debug, "GameObject template found! GO: " + template.Name);
+            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == gameObject.ID);
             GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             GameObjectEntities.Add(gameObjectEntity);
             gameObjectEntity.Setup();
