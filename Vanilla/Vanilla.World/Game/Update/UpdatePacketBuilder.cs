@@ -57,7 +57,7 @@
                 this.UnSubscribe(entity);
             }
 
-            foreach (var entity in entities.Where(entity => !this.updateEntities.Contains(entity)).ToList())
+            foreach (var entity in entities.Where(entity => !updateEntities.Contains(entity)).ToList())
             {
                 this.Subscribe(entity);
             }

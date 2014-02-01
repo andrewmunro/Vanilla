@@ -81,16 +81,18 @@ namespace Vanilla.World.Game.Entity
             byte[] packedGuid = new byte[9];
             byte length = 1;
 
-            for (byte i = 0; RawGUID != 0; i++)
+            var raw = RawGUID;
+
+            for (byte i = 0; raw != 0; i++)
             {
-                if ((RawGUID & 0xFF) != 0)
+                if ((raw & 0xFF) != 0)
                 {
                     packedGuid[0] |= (byte)(1 << i);
                     packedGuid[length] = (byte)(RawGUID & 0xFF);
                     ++length;
                 }
 
-                RawGUID >>= 8;
+                raw >>= 8;
             }
 
             byte[] clippedArray = new byte[length];

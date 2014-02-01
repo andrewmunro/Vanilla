@@ -26,24 +26,8 @@
 
         protected override byte[] BuildCreatePacket()
         {
-            foreach (UpdateFieldEntry entry in this.entity.Info.CreationUpdateFieldEntries)
-            {
-                byte key = entry.UpdateField;
-                string name = entry.PropertyInfo.PropertyType.Name;
-                var value = entry.PropertyInfo.GetValue(this.entity.Info);
+            SetInfoFields(entity.Info);
 
-                if (entry.Index == -1)
-                {
-                    if (name == "Int32") this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
-                    if (name == "UInt64") this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
-                    if (name == "Single") this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
-                }
-                else
-                {
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
-                }
-            }
             var writer = new BinaryWriter(new MemoryStream());
 
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
@@ -55,9 +39,9 @@
                                            | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
             writer.Write((byte)updateFlags);
-            writer.Write((UInt32)0x00000000); // MovementFlags
+            writer.Write((uint)MovementFlags.MOVEFLAG_NONE); // MovementFlags
 
-            writer.Write((UInt32)Environment.TickCount); // Time
+            writer.Write((uint)Environment.TickCount); // Time
 
             // 3 bytes ahead?
 
@@ -83,7 +67,6 @@
             this.WriteUpdateFields(writer);
 
             return (writer.BaseStream as MemoryStream).ToArray();
-        
         }
     }
 }

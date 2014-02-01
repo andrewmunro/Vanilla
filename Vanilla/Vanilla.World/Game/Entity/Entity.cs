@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Reflection;
     using Vanilla.Core.Network.Session;
+    using Vanilla.World.Game.Entity.Tools;
 
     public abstract class Entity<TI, TP> : ISubscribable where TI : EntityInfo where TP : EntityPacketBuilder
     {

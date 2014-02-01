@@ -1,6 +1,7 @@
 ﻿namespace Vanilla.World.Components.Movement
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using Vanilla.Core.Network;
     using Vanilla.Core.Network.IO;
@@ -71,7 +72,8 @@
         private void TransmitMovement(WorldSession session, PCMoveInfo handler, WorldOpcodes code)
         {
             UpdateEntity(session, handler);
-            session.Player.SubscribedBy.ForEach(s => s.SendPacket(new PSMovement(code, session, handler)));
+            //ToList because collection can be modified while iterating.
+            session.Player.SubscribedBy.ToList().ForEach(s => s.SendPacket(new PSMovement(code, session, handler)));
         }
     }
 }

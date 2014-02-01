@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.ServiceModel.PeerResolvers;
 
     using Vanilla.Core.Extensions;
 
@@ -37,6 +38,28 @@
             this.MaskSize = ((this.DataLength) + 32) / 32;
             this.Mask = new BitArray(this.DataLength, false);
             this.UpdateData = new Hashtable();            
+        }
+
+        protected void SetInfoFields<TI>(TI info) where TI : EntityInfo
+        {
+            foreach (UpdateFieldEntry entry in info.CreationUpdateFieldEntries)
+            {
+                byte key = entry.UpdateField;
+                string name = entry.PropertyInfo.PropertyType.Name;
+                var value = entry.PropertyInfo.GetValue(info);
+
+                if (entry.Index == -1)
+                {
+                    if (name == "Int32") this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
+                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
+                    if (name == "UInt64") this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
+                    if (name == "Single") this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
+                }
+                else
+                {
+                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
+                }
+            }
         }
 
         public void SetUpdateField<T>(int index, T value, byte offset = 0)

@@ -7,12 +7,11 @@
     using Vanilla.Core.Extensions;
     using Vanilla.World.Components.Update.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Constants;
-    using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Game.Update.Constants;
 
     public class PlayerPacketBuilder : EntityPacketBuilder
     {
-        private PlayerEntity entity;
+        private readonly PlayerEntity entity;
 
         public override int DataLength { get { return (int)EUnitFields.PLAYER_END - 0x4; }}
 
@@ -28,11 +27,12 @@
 
         protected override byte[] BuildCreatePacket()
         {
+            SetInfoFields(entity.Info);
+
             var writer = new BinaryWriter(new MemoryStream());
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
 
-            byte[] guidBytes = this.entity.ObjectGUID.GetGuidBytes();
-            WriteBytes(writer, guidBytes, guidBytes.Length);
+            writer.WritePackedUInt64(this.entity.ObjectGUID.RawGUID);
 
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 
@@ -80,30 +80,12 @@
 
         public PSUpdateObject BuildOwnCharacterPacket()
         {
-            foreach (UpdateFieldEntry entry in this.entity.Info.CreationUpdateFieldEntries)
-            {
-                byte key = entry.UpdateField;
-                string name = entry.PropertyInfo.PropertyType.Name;
-                var value = entry.PropertyInfo.GetValue(this.entity.Info);
-
-                if (entry.Index == -1)
-                {
-                    if (name == "Int32") this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
-                    if (name == "UInt64") this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
-                    if (name == "Single") this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
-                }
-                else
-                {
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
-                }
-            }
+            SetInfoFields(entity.Info);
 
             BinaryWriter writer = new BinaryWriter(new MemoryStream());
+
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2);
-
             writer.WritePackedUInt64(this.entity.ObjectGUID.RawGUID);
-
             writer.Write((byte)TypeID.TYPEID_PLAYER);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL |
@@ -138,7 +120,5 @@
 
             return new PSUpdateObject(new List<byte[]>() { (writer.BaseStream as MemoryStream).ToArray() });
         }
-
-
     }
 }

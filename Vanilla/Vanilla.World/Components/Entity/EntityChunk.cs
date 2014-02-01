@@ -50,7 +50,7 @@
             entities.AddRange(PlayerEntities.Where(pe => pe.ObjectGUID.RawGUID != player.ObjectGUID.RawGUID));
             entities.AddRange(CreatureEntities);
             //TODO Enable GameObjectEntities when updateBuilder is done.
-            //entities.AddRange(GameObjectEntities);
+            entities.AddRange(GameObjectEntities);
             return entities;
         }
 
@@ -59,32 +59,37 @@
             CreatureDatabase.Where(
                 c =>
                 c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
-                && c.PositionY < this.bounds.MaxY).ToList().ForEach(c=> this.AddCreatureEntity(c));
+                && c.PositionY < this.bounds.MaxY).ToList().ForEach(this.AddCreatureEntity);
 
             GameObjectDatabase.Where(
                 c =>
                 c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
-                && c.PositionY < this.bounds.MaxY).ToList().ForEach(g => this.AddGameObjectEntity(g));
+                && c.PositionY < this.bounds.MaxY).ToList().ForEach(this.AddGameObjectEntity);
         }
 
-        public CreatureEntity AddCreatureEntity(Creature creature)
+        public void AddCreatureEntity(Creature creature)
         {
             CreatureTemplate template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.ID);
             ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, (TypeID)template.Type); //right type?
             CreatureEntity creatureEntity = new CreatureEntity(guid, creature, template);
             CreatureEntities.Add(creatureEntity);
             creatureEntity.Setup();
-            return creatureEntity;
         }
 
-        public GameObjectEntity AddGameObjectEntity(GameObject gameObject)
+        public void AddGameObjectEntity(GameObject gameObject)
         {
             ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, (TypeID)21); //right type?
-            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == gameObject.GUID);
+            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == (int)gameObject.GUID);
+            //TODO Investigate why the template entry doesn't exist in the database for some of the guids (e.g GUID = 18094)
+            if (template == null)
+            {
+                Log.Print(LogType.Debug, "GameObject template not found! GUID: " + gameObject.GUID);
+                return;
+            }
+            Log.Print(LogType.Debug, "GameObject template found! GO: " + template.Name);
             GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             GameObjectEntities.Add(gameObjectEntity);
             gameObjectEntity.Setup();
-            return gameObjectEntity;
         }
 
         public void RemovePlayerEntity(PlayerEntity player)

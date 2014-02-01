@@ -1,5 +1,8 @@
 ﻿namespace Vanilla.World.Game.Entity.Object
 {
+    using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Tools;
+
     public class ObjectInfo : EntityInfo
     {
         public ObjectInfo(ObjectGUID guid)

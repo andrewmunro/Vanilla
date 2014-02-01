@@ -5,7 +5,8 @@
     using System.Reflection;
 
     using PropertyChanged;
-    using Vanilla.Core.Logging;
+
+    using Vanilla.World.Game.Entity.Tools;
 
     [ImplementPropertyChanged]
     public class EntityInfo

@@ -1,5 +1,8 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Unit
 {
+    using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Tools;
+
     public abstract class UnitInfo : ObjectInfo
     {
         public UnitInfo(ObjectGUID guid) : base(guid)

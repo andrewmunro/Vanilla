@@ -65,7 +65,7 @@
 
         private void UpdateSessionChunk(PlayerEntity player)
         {
-            if (player.Location.Moved == false) return;
+            //if (player.Location.Moved == false) return;
             var chunkX = (int)Math.Floor(player.Location.X / ChunkSize);
             var chunkY = (int)Math.Floor(player.Location.Y / ChunkSize);
 

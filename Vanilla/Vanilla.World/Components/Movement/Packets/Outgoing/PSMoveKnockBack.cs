@@ -10,8 +10,7 @@
         public PSMoveKnockBack(PlayerEntity player, float vcos, float vsin, float horizontalSpeed, float verticalSpeed)
             : base(WorldOpcodes.SMSG_MOVE_KNOCK_BACK)
         {
-            byte[] packedGUID = player.ObjectGUID.GetGuidBytes();
-            this.WriteBytes(packedGUID);
+            this.WritePackedUInt64(player.ObjectGUID.RawGUID);
             this.Write((uint)0); // Sequence
             this.Write(vcos);
             this.Write(vsin);

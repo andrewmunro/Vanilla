@@ -4,7 +4,9 @@
 
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Unit;
+    using Vanilla.World.Game.Entity.Tools;
 
     public class PlayerInfo : UnitInfo
     {

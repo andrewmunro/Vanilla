@@ -16,7 +16,7 @@
 
         public override void Setup()
         {
-            this.Info = new GameObjectInfo(this.ObjectGUID, this.GameObject);
+            this.Info = new GameObjectInfo(this.ObjectGUID, this.GameObject, this.Template);
             this.PacketBuilder = new GameObjectPacketBuilder(this);
 
             Location.X = GameObject.PositionX;
