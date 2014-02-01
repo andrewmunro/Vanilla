@@ -29,6 +29,8 @@
 
             Rotation2 = gameObject.Rotation2;
             Rotation3 = gameObject.Rotation3;
+
+            Type |= (int)TypeMask.TYPEMASK_GAMEOBJECT;
         }
 
         [UpdateField(EGameObjectFields.GAMEOBJECT_DISPLAYID)]

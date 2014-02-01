@@ -3,7 +3,6 @@
     using System.IO;
 
     using Vanilla.Core.Extensions;
-    using Vanilla.World.Components.GameObject.Packets.Constants;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Update.Constants;
 
@@ -29,27 +28,12 @@
 
             var writer = new BinaryWriter(new MemoryStream());
 
-            byte createType = (byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT;
-
-            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
-
-            switch((GameObjectType)entity.Info.TypeID)
-            {
-                case GameObjectType.GAMEOBJECT_TYPE_TRAP:
-                case GameObjectType.GAMEOBJECT_TYPE_DUELFLAG:
-                case GameObjectType.GAMEOBJECT_TYPE_FLAGSTAND:
-                case GameObjectType.GAMEOBJECT_TYPE_FLAGDROP:
-                    createType = (byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT2;
-                    break;
-                case GameObjectType.GAMEOBJECT_TYPE_TRANSPORT:
-                    updateFlags |= ObjectUpdateFlag.UPDATEFLAG_TRANSPORT;
-                    break;
-            }
-
-            writer.Write(createType);
-
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
             writer.WritePackedUInt64(this.entity.ObjectGUID.RawGUID);
             writer.Write((byte)TypeID.TYPEID_GAMEOBJECT);
+
+            ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_TRANSPORT | ObjectUpdateFlag.UPDATEFLAG_ALL
+                                           | ObjectUpdateFlag.UPDATEFLAG_HAS_POSITION;
 
             writer.Write((byte)updateFlags);
 

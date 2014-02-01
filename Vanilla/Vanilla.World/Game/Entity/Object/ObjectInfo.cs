@@ -8,7 +8,7 @@
         public ObjectInfo(ObjectGUID guid)
         {
             GUID = guid.RawGUID;
-            Type = (byte)guid.TypeID;
+            Type = (int)TypeMask.TYPEMASK_OBJECT;
             Scale = 1;
         }
 
@@ -16,7 +16,7 @@
         public ulong GUID { get; set; }
 
         [UpdateField(EObjectFields.OBJECT_FIELD_TYPE)]
-        public byte Type { get; set; }
+        public int Type { get; set; }
 
         [UpdateField(EObjectFields.OBJECT_FIELD_ENTRY)]
         public int Entry { get; set; }

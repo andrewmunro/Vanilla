@@ -13,6 +13,8 @@
 
             StandState = 0;
             StandStateFlags = 0;
+
+            Type |= (int)TypeMask.TYPEMASK_UNIT;
         }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 1)]

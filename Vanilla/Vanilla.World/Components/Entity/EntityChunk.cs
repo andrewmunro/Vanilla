@@ -4,7 +4,6 @@
     using System.Linq;
 
     using Vanilla.Core.IO;
-    using Vanilla.Core.Logging;
     using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
@@ -69,7 +68,7 @@
         public void AddCreatureEntity(Creature creature)
         {
             CreatureTemplate template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.ID);
-            ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, (TypeID)template.Type); //right type?
+            ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, TypeID.TYPEID_UNIT); //right type?
             CreatureEntity creatureEntity = new CreatureEntity(guid, creature, template);
             CreatureEntities.Add(creatureEntity);
             creatureEntity.Setup();
@@ -77,7 +76,7 @@
 
         public void AddGameObjectEntity(GameObject gameObject)
         {
-            ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, (TypeID)21); //right type?
+            ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, TypeID.TYPEID_GAMEOBJECT); //right type?
             GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == gameObject.ID);
             GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             GameObjectEntities.Add(gameObjectEntity);

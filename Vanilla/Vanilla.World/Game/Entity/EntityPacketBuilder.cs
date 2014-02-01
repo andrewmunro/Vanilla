@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
-    using System.ServiceModel.PeerResolvers;
 
     using Vanilla.Core.Extensions;
 

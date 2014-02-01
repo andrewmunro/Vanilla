@@ -35,6 +35,8 @@
             this.HairStyle = playerBytes[2];
             this.HairColor = playerBytes[3];
             this.Accessory = playerBytes2[0];
+
+            Type |= (int)TypeMask.TYPEMASK_PLAYER;
         }
 
         public ChrClasses Class { get; set; }

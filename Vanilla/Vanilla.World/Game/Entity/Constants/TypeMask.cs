@@ -1,5 +1,8 @@
 ﻿namespace Vanilla.World.Game.Entity.Constants
 {
+    using System;
+
+    [Flags]
     public enum TypeMask
     {
         TYPEMASK_OBJECT = 0x0001,

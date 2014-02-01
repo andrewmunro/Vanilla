@@ -56,7 +56,7 @@
 
         public PlayerEntity AddPlayerEntity(Character character, WorldSession session)
         {
-            ObjectGUID guid = new ObjectGUID((ulong)character.GUID, (TypeID)25);
+            ObjectGUID guid = new ObjectGUID((ulong)character.GUID, TypeID.TYPEID_PLAYER);
             PlayerEntity playerEntity = new PlayerEntity(guid, character, session);
             PlayerEntities.Add(playerEntity);
             playerEntity.Setup();
