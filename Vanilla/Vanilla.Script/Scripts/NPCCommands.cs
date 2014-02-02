@@ -1,45 +1,48 @@
-﻿using Milkshake;
-using Milkshake.Game.Entitys;
-using Milkshake.Game.Managers;
-using Milkshake.Net;
-using Milkshake.Tools;
-
-namespace Vanilla.Script.Scripts
+﻿namespace Vanilla.Script.Scripts
 {
+    using Vanilla.Server;
+    using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Network;
+
     public class NPCCommands : VanillaPlugin
     {
         public NPCCommands()
         {
-            ChatManager.AddChatCommand("move", "move", Move);
-            ChatManager.AddChatCommand("info", "info", Info);
+            AddChatCommand("move", "Moves target creature to current location", Move);
+            AddChatCommand("info", "Displays information about target creature", Info);
 
-            WorldServer.Sessions.ForEach(s => s.sendMessage("NPC Commands"));
+            Core.Server.Sessions.ForEach(s => s.SendMessage("NPC Commands"));
         }
 
-        private static void Move(WorldSession session, string[] args)
+        private void Move(WorldSession session, string[] args)
         {
-            UnitEntity target = session.Entity.Target;
+            if (session.Player.Target != null)
+            {
+                var target = (CreatureEntity)session.Player.Target;
 
-            if (target != null) target.Move(session.Entity.X, session.Entity.Y, session.Entity.Z);
+                //if (target != null) target.Move(session.Player.Location.X, session.Player.Location.Y, session.Player.Location.Z);
+            }
+
         }
 
-        private static void Info(WorldSession session, string[] args)
+        private void Info(WorldSession session, string[] args)
         {
-            UnitEntity target = session.Entity.Target;
+            CreatureEntity target = (CreatureEntity)session.Player.Target;
 
             if (target != null)
             {
-                session.sendMessage("-- NPC Info --");
-                session.sendMessage("Name: " + target.Name);
+                session.SendMessage("-- NPC Info --");
+                session.SendMessage("Name: " + target.Name);
                 //session.sendMessage("Entry: " + target.Entry);
                 //session.sendMessage("TypeID: " + target.TypeID);
-                session.sendMessage("ModelID: " + target.DisplayID);
+                session.SendMessage("ModelID: " + target.Info.DisplayID);
             }
         }
 
         public override void Unload()
         {
-            ChatManager.RemoveChatCommand("npc");
+            RemoveChatCommand("move");
+            RemoveChatCommand("info");
         }
     }
 }

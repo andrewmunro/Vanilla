@@ -30,11 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MilkShake, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\MilkShake\bin\Debug\MilkShake.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,7 +43,28 @@
     <Compile Include="Scripts\NPCCommands.cs" />
     <Compile Include="Scripts\TestScript.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
+      <Project>{ecbe8c02-b0d3-4302-ba06-42c0cbd0749a}</Project>
+      <Name>Vanilla.Database.Character</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.Core\Vanilla.Core.csproj">
+      <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
+      <Name>Vanilla.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.Server\Vanilla.Server.csproj">
+      <Project>{c3053df2-fbd9-401e-b676-86448071b086}</Project>
+      <Name>Vanilla.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
+      <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
+      <Name>Vanilla.Database.World</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World\Vanilla.World.csproj">
+      <Project>{1567dfd3-9877-4694-a781-d3875e36989d}</Project>
+      <Name>Vanilla.World</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

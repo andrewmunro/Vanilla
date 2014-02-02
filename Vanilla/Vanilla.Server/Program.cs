@@ -14,13 +14,19 @@
         public static int WorldPort { get { return Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.PORT); } }
 
         public static int WorldMaxConnection { get { return Config.GetValue<int>(ConfigSections.WORLD, ConfigValues.MAX_CONNECTIONS); } }
+
+        public static VanillaWorld VanillaWorld;
+
+        public static VanillaLogin VanillaLogin;
         
         static void Main(string[] args)
         {
             Config.Boot();
 
-            VanillaLogin vanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);
-            VanillaWorld vanillaWorld = new VanillaWorld(WorldPort, WorldMaxConnection);
+            VanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);
+            VanillaWorld = new VanillaWorld(WorldPort, WorldMaxConnection);
+
+            new ScriptManager();
 
             //new BotClient(LoginPort).ConnectToServer();
 

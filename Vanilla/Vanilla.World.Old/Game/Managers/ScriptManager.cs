@@ -6,6 +6,8 @@ using Vanilla.World.Tools;
 
 namespace Vanilla.World.Game.Managers
 {
+    using Vanilla.Server;
+
     public class ScriptManager
     {
         private static List<ScriptCompiler> scripts = new List<ScriptCompiler>();

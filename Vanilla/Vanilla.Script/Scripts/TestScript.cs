@@ -1,39 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Milkshake;
-using Milkshake.Game.Entitys;
-using Milkshake.Game.Managers;
-using Milkshake.Net;
-using Milkshake.Tools;
-using Milkshake.Tools.Database;
-using Milkshake.Tools.Database.Tables;
-
-namespace Vanilla.Script.Scripts
+﻿namespace Vanilla.Script.Scripts
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using Vanilla.Database.World.Models;
+    using Vanilla.Server;
+    using Vanilla.World.Components.Entity;
+    using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Game.Entity.Object.Player;
+    using Vanilla.World.Game.Entity.Object.Unit;
+
     class TestScript : VanillaPlugin
     {
-        private static CreatureEntry taurenEntry;
-        private static PlayerEntity player;
-        private static Random random;
-        private static List<UnitEntity> taurens;
-        private static List<CreatureEntry> entryList;
-        private static bool follow;
+        private Creature taurenEntry;
+        private CreatureTemplate taurenTemplate;
+        private PlayerEntity player;
+        private Random random;
+        private List<CreatureEntity> taurens;
+        private bool follow;
 
         public TestScript()
         {
-            ChatManager.AddChatCommand("rain", "test", TestCommand);
-            ChatManager.AddChatCommand("follow", "test", Follow);
+            //6747
+            AddChatCommand("rain", "Rain Taurens from the sky", TestCommand);
+            AddChatCommand("follow", "Get taurens to follow you", Follow);
 
-            taurens = new List<UnitEntity>();
-            entryList = DB.World.Table<CreatureEntry>().ToList();
-            taurenEntry = entryList.First(c => c.id == 6747);
+            taurens = new List<CreatureEntity>();
+            tauren = Core.WorldDatabase.GetRepository<Creature>().SingleOrDefault(c => c.ID == 6747);
+            taurenTemplate = Core.WorldDatabase.GetRepository<CreatureTemplate>().SingleOrDefault(c => c.Entry == 6747);
             random = new Random();
             follow = false;
         }
 
-        private static void LetItRain()
+        private void LetItRain()
         {
             while (true)
             {
@@ -42,18 +43,18 @@ namespace Vanilla.Script.Scripts
             }
         }
 
-        private static void update()
+        private void update()
         {
-            Vector2 playerPos = new Vector2() {x = player.X, y = player.Y};
+            Vector2 playerPos = new Vector2() {x = player.Location.X, y = player.Location.Y};
             Vector2 taurenPos = RandomRadiusPoint(playerPos, 5, (float)(random.Next() * (Math.PI * 2)));
             if (!follow)
             {
-                taurenEntry.position_x = taurenPos.x;
-                taurenEntry.position_y = taurenPos.y;
-                taurenEntry.position_z = player.Z + random.Next(5, 30);
+                taurenEntry.PositionX = taurenPos.x;
+                taurenEntry.PositionY = taurenPos.y;
+                taurenEntry.PositionZ = player.Location.Z + random.Next(5, 30);
 
-                UnitEntity tauren = new UnitEntity(taurenEntry, ObjectGUID.GetUnitGUID());
-                MilkShake.UnitComponent.AddEntityToWorld(tauren);
+                var tauren = new CreatureEntity(ObjectGUID.GetUnitGUID(), taurenEntry, taurenTemplate);
+                Core.GetComponent<EntityComponent>().AddCreatureEntity()
                 taurens.Add(tauren);
 
                 player.Session.sendMessage("-----------");

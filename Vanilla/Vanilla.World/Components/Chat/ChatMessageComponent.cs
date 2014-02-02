@@ -40,19 +40,6 @@
             ChatHandlers.Add(ChatMessageType.CHAT_MSG_CHANNEL, OnChannelMessage);
         }
 
-        public void AddChatCommand(String commandName, String commandDescription, ChatCommandDelegate method)
-        {
-            ChatCommandNode node = new ChatCommandNode(commandName, commandDescription);
-            node.Method = method.Method;
-            node.CommandAttributes = new List<ChatCommandAttribute>();
-            Core.ChatCommandEngine.AddNode(node);
-        }
-
-        public void RemoveChatCommand(String commandName)
-        {
-            Core.ChatCommandEngine.RemoveNode(commandName);
-        }
-
         public void OnMessageChatPacket(WorldSession session, PCMessageChat packet)
         {
             if (ChatHandlers.ContainsKey(packet.Type))

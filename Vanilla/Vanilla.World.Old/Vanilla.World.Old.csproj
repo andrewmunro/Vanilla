@@ -195,7 +195,6 @@
     <Compile Include="Tools\DBC\Tables\CreatureTemplateEntry.cs" />
     <Compile Include="Tools\DBC\Tables\EmotesEntry.cs" />
     <Compile Include="Tools\DBC\Tables\ItemTemplateEntry.cs" />
-    <Compile Include="Tools\ScriptCompiler.cs" />
     <Compile Include="Tools\Shared\ObjectGUID.cs" />
     <Compile Include="Game\Handlers\WorldDataRouter.cs" />
     <Compile Include="Game\Handlers\ZoneHandler.cs" />
@@ -243,6 +242,10 @@
     <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
       <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
       <Name>Vanilla.Database.Login</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.Server\Vanilla.Server.csproj">
+      <Project>{c3053df2-fbd9-401e-b676-86448071b086}</Project>
+      <Name>Vanilla.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
       <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
