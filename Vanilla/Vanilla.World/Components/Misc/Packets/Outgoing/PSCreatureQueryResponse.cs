@@ -6,7 +6,6 @@
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Game.Entity.Object.Creature;
-    using Vanilla.World.Game.Entity.Object.Unit;
 
     public class PSCreatureQueryResponse : WorldPacket
     {

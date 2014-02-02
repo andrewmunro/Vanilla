@@ -41,9 +41,9 @@
 
         public void OnCreatureQuery(WorldSession session, PCCreatureQuery packet)
         {
-            CreatureEntity entity = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(ce => ce.ObjectGUID.RawGUID == packet.GUID);
+            CreatureEntity entity = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(ce => ce.Creature.GUID == (long)packet.GUID);
 
-            if(entity != null) session.SendPacket(new PSCreatureQueryResponse(packet.Entry, entity));
+            session.SendPacket(new PSCreatureQueryResponse(packet.Entry, entity));
         }
 
         private void OnEmote(WorldSession session, PCEmote packet)

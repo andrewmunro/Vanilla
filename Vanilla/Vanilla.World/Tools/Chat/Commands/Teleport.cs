@@ -60,18 +60,20 @@
         {
             if(Teleports == null) AddTeleports();
 
-            string locationName = args[0];
+            if(args.Length == 0) session.SendMessage("Input a location name to list similar locations (e.g 'org')");
+            else
+            {
+                string locationName = args[0];
 
-            List<DistanceTeleportEntry> locations  = FetchList(locationName);
+                List<DistanceTeleportEntry> locations = FetchList(locationName);
 
-            if(locations.Count > 10) locations = locations .GetRange(0, 10);
+                if (locations.Count > 10) locations = locations.GetRange(0, 10);
 
-            session.SendMessage("-- Tele List --");
-            locations.ForEach(e => session.SendMessage(e.Distance + " - " + e.Entry.Name));
-            session.SendMessage(" ");
+                session.SendMessage("-- Tele List --");
+                locations.ForEach(e => session.SendMessage(e.Distance + " - " + e.Entry.Name));
+                session.SendMessage(" ");
+            }
         }
-
-
 
         public static List<DistanceTeleportEntry> FetchList(string name)
         {
@@ -91,8 +93,6 @@
                     Console.Write("D");
                 }
             }
-
-
             return pow.Count <= 1 ? pow : pow.OrderBy(d => d.Distance).ToList();
         }
 

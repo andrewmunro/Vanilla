@@ -36,6 +36,8 @@
             this.HairColor = playerBytes[3];
             this.Accessory = playerBytes2[0];
 
+            this.Money = (int)databaseCharacter.Money;
+
             Type |= (int)TypeMask.TYPEMASK_PLAYER;
         }
 
@@ -63,5 +65,8 @@
 
         [UpdateField(EUnitFields.PLAYER_BYTES_2, true, 0)]
         public byte Accessory { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_FIELD_COINAGE)]
+        public int Money { get; set; }
     }
 }

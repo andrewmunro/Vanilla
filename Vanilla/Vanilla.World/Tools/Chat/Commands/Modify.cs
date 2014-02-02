@@ -1,11 +1,12 @@
-﻿/*
-using System;
-using Vanilla.World.Game.Constants.Game.Update;
-using Vanilla.World.Game.Constants.Game.World.Entity;
-using Vanilla.World.Game.Entitys;
-
-namespace Vanilla.World.Tools.Chat.Commands
+﻿namespace Vanilla.World.Tools.Chat.Commands
 {
+    using System;
+    using Vanilla.World.Components.Update.Constants;
+    using Vanilla.World.Game.Entity;
+    using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Object.Creature;
+    using Vanilla.World.Game.Entity.Object.Player;
+    using Vanilla.World.Game.Entity.Object.Unit;
     using Vanilla.World.Network;
 
     [ChatCommandNode("modify", "Modify commands")]
@@ -15,7 +16,7 @@ namespace Vanilla.World.Tools.Chat.Commands
         {
             if (args.Length == 1 && args[0].ToLower() == "list")
             {
-                session.sendMessage("List");
+                session.SendMessage("List");
             }
             else if(args.Length == 2)
             {
@@ -23,46 +24,43 @@ namespace Vanilla.World.Tools.Chat.Commands
                 string attributeValue = args[1];
 
                 // If player isn't targeting. Target self
-                UnitEntity entity = session.Entity.Target ?? session.Entity;
+                IUnitEntity entity = session.Player.Target ?? session.Player;
+
+                //TODO Fix horrible hack.
+                UnitInfo info = entity.ObjectGUID.TypeID == TypeID.TYPEID_PLAYER ? (UnitInfo)((PlayerEntity)entity).Info : ((CreatureEntity)entity).Info;
 
                 bool unknownAttribute = false;
 
                 switch (attributeName)
                 {
                     case "scale":
-                        entity.Scale = float.Parse(attributeValue);
+                        info.Scale = float.Parse(attributeValue);
                         break;
 
                     case "health":
-                        entity.Health = int.Parse(attributeValue);
+                        info.Health = int.Parse(attributeValue);
                         break;
 
                     case "level":
-                        entity.Level = int.Parse(attributeValue);
+                        info.Level = int.Parse(attributeValue);
                         break;
 
                     case "xp":
-                        (entity as PlayerEntity).XP = int.Parse(attributeValue);
-                        break;
-
-                    case "gender":
-                        entity.SetUpdateField<byte>((int)EUnitFields.UNIT_FIELD_BYTES_0, (byte)int.Parse(attributeValue), 2);
+                        (info as PlayerInfo).XP = int.Parse(attributeValue);
                         break;
 
                     case "model":
-                        entity.SetUpdateField<Int32>((int)EUnitFields.UNIT_FIELD_DISPLAYID, int.Parse(attributeValue));
+                        info.DisplayID = int.Parse(attributeValue);
                         break;
 
-                    case "state":
-                        entity.SetUpdateField<byte>((int)EUnitFields.UNIT_NPC_EMOTESTATE, (byte)int.Parse(attributeValue));
-                        break;
                     case "money":
                         int moneyToAdd = int.Parse(attributeValue) < 0x7fffffff ? int.Parse(attributeValue) : 0x7fffffff;
-                        entity.SetUpdateField<Int32>((int) EUnitFields.PLAYER_FIELD_COINAGE, moneyToAdd);
-                        session.Character.Money = moneyToAdd;
+                        (info as PlayerInfo).Money += moneyToAdd;
+                        session.Player.Character.Money += moneyToAdd;
                         break;
+
                     case "standstate":
-                        entity.SetStandState((UnitStandStateType)int.Parse(attributeValue));
+                        info.StandState = (byte)int.Parse(attributeValue);
                         break;
                     default:
                         unknownAttribute = true;
@@ -71,15 +69,13 @@ namespace Vanilla.World.Tools.Chat.Commands
 
                 if (unknownAttribute)
                 {
-                    session.sendMessage("Attribute '" + attributeName + "' was unknown");
+                    session.SendMessage("Attribute '" + attributeName + "' was unknown");
                 }
                 else
                 {
-                    session.sendMessage("Applied " + attributeName + " = " + attributeValue + "");
+                    session.SendMessage("Applied " + attributeName + " = " + attributeValue + "");
                 }
             }
         }
     }
-
 }
-*/

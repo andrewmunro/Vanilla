@@ -19,7 +19,7 @@
 
         public override void Setup()
         {
-            this.Info = new CreatureInfo(this.ObjectGUID, this.Creature);
+            this.Info = new CreatureInfo(this.ObjectGUID, this.Creature, this.Template);
 
             this.PacketBuilder = new CreaturePacketBuilder(this);
 
