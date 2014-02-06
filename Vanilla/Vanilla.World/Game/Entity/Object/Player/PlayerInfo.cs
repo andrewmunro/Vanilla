@@ -1,9 +1,11 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System;
-
+    using Vanilla.Core;
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Database.Character.Models;
+    using Vanilla.Database.World.Models;
+    using Vanilla.World.Components.Item;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Unit;
     using Vanilla.World.Game.Entity.Tools;
@@ -37,6 +39,36 @@
             this.Accessory = playerBytes2[0];
 
             this.Money = (int)databaseCharacter.Money;
+            /*
+            ItemTemplate[] equipment = ItemUtils.GenerateInventoryByIDs(Utils.CSVStringToIntArray(databaseCharacter.EquipmentCache));
+            VisualItems = new Item[19];
+            for (byte itemSlot = 0; itemSlot < 19; itemSlot++)
+            {
+                if (equipment == null) return;
+                if (equipment[itemSlot] != null)
+                {
+                    VisualItems[itemSlot] = new Item()
+                                                {
+                                                    Creator = guid.RawGUID,
+                                                    EnchantmentIDs = new[] { 0, 0 },
+                                                    Entry = equipment[itemSlot].Entry,
+                                                    RandomPropertyID = equipment[itemSlot].RandomProperty,
+                                                    ItemSuffixFactor = 3
+                                                };
+
+                }
+                else
+                {
+                    VisualItems[itemSlot] = new Item()
+                                                {
+                                                    Creator = 0,
+                                                    EnchantmentIDs = new[] { 0, 0 },
+                                                    Entry = 0,
+                                                    RandomPropertyID = 0,
+                                                    ItemSuffixFactor = 0
+                                                };
+                }
+            }*/
 
             Type |= (int)TypeMask.TYPEMASK_PLAYER;
         }
@@ -68,5 +100,8 @@
 
         [UpdateField(EUnitFields.PLAYER_FIELD_COINAGE)]
         public int Money { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_VISIBLE_ITEM_1_0)]
+        public Item[] VisualItems { get; set; }
     }
 }

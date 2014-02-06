@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Components.Character.Constants
+﻿namespace Vanilla.Core.Constants
 {
     public enum InventorySlotID : byte
     {

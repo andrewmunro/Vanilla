@@ -30,6 +30,11 @@ namespace Vanilla.World.Game.Entity
             return new ObjectGUID(index, TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
         }
 
+        public static ObjectGUID GetItemGUID(uint index)
+        {
+            return new ObjectGUID(index, TypeID.TYPEID_OBJECT, HighGUID.HIGHGUID_MO_TRANSPORT);
+        }
+
         private static uint GetIndex(TypeID type)
         {
             if (!Indexes.ContainsKey(type)) Indexes.Add(type, 1);

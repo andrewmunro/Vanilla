@@ -23,8 +23,5 @@
 
         [UpdateField(EObjectFields.OBJECT_FIELD_SCALE_X)]
         public float Scale { get; set; }
-
-        [UpdateField(EObjectFields.OBJECT_FIELD_PADDING)]
-        public int Padding { get; set; }
     }
 }

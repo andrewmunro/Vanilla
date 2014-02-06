@@ -43,9 +43,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="SQLite">
-      <HintPath>..\Vanilla.World\Librarys\SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -68,6 +65,7 @@
     <Compile Include="Constants\Character\Gender.cs" />
     <Compile Include="Constants\Character\Race.cs" />
     <Compile Include="Constants\GameUnits.cs" />
+    <Compile Include="Constants\InventorySlotID.cs" />
     <Compile Include="Constants\LoginErrorCode.cs" />
     <Compile Include="Constants\PacketHeaderType.cs" />
     <Compile Include="Constants\ResponseCodes.cs" />
@@ -96,6 +94,7 @@
     <Compile Include="IO\DatabaseUnitOfWork.cs" />
     <Compile Include="IO\IRepository.cs" />
     <Compile Include="IO\IUnitOfWork.cs" />
+    <Compile Include="ItemUtils.cs" />
     <Compile Include="Network\Packet\LoginPacket.cs" />
     <Compile Include="Network\Packet\RealmPacket.cs" />
     <Compile Include="Network\Session\Session.cs" />
@@ -121,6 +120,10 @@
     <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
       <Project>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</Project>
       <Name>Vanilla.Database.Character</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
+      <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
+      <Name>Vanilla.Database.World</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq.Expressions;
     using System.Reflection;
 
     using PropertyChanged;
@@ -22,16 +23,19 @@
                 UpdateField updateField = property.GetCustomAttribute<UpdateField>();
                 if (updateField != null && updateField.RequiredOnCreation)
                 {
-                    //Log.Print(property.GetMethod.Name);
-
-                    CreationUpdateFieldEntries.Add(new UpdateFieldEntry()
-                    {
-                        PropertyInfo = property,
-                        UpdateField = updateField.Enum,
-                        Index = updateField.Index
-                    });
+                    AddUpdateField(property, updateField);
                 }
             }
+        }
+
+        protected void AddUpdateField(PropertyInfo property, UpdateField updateField)
+        {
+            CreationUpdateFieldEntries.Add(new UpdateFieldEntry()
+            {
+                PropertyInfo = property,
+                UpdateField = updateField.Enum,
+                Index = updateField.Index
+            });
         }
     }
 }

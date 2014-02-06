@@ -4,8 +4,12 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
 
     using Vanilla.Core.Extensions;
+    using Vanilla.World.Components.Item;
+    using Vanilla.World.Game.Entity.Constants;
+    using Vanilla.World.Game.Entity.Tools;
 
     public abstract class EntityPacketBuilder
     {
@@ -44,19 +48,41 @@
             foreach (UpdateFieldEntry entry in info.CreationUpdateFieldEntries)
             {
                 byte key = entry.UpdateField;
-                string name = entry.PropertyInfo.PropertyType.Name;
+                Type type = entry.PropertyInfo.PropertyType;
                 var value = entry.PropertyInfo.GetValue(info);
 
                 if (entry.Index == -1)
                 {
-                    if (name == "Int32") this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
-                    if (name == "UInt64") this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
-                    if (name == "Single") this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
+                    if (type == typeof(Int32)) this.SetUpdateField<uint>((int)key, Convert.ToUInt32(value));
+                    if (type == typeof(Byte)) this.SetUpdateField<byte>((int)key, Convert.ToByte(value));
+                    if (type == typeof(UInt16)) this.SetUpdateField<UInt16>((int)key, Convert.ToUInt16(value));
+                    if (type == typeof(UInt64)) this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
+                    if (type == typeof(Single)) this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
+/*                    if (type == typeof(Item[]))
+                    {
+                        var values = value as Item[];
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            var item = values[i];
+                            this.SetUpdateField<ulong>((int)EUnitFields.PLAYER_FIELD_INV_SLOT_HEAD + (i * 2), item.GUID.RawGUID);
+                            this.SetUpdateField<ulong>((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_CREATOR + (i * 12), item.Creator);
+
+                            var itemBase = (int)EUnitFields.PLAYER_VISIBLE_ITEM_1_0 + (i * 12);
+
+                            this.SetUpdateField<int>(itemBase, item.Entry);
+                            for (int j = 0; j < item.EnchantmentIDs.Length; j++)
+                            {
+                                this.SetUpdateField<int>(itemBase + 1 + j, item.EnchantmentIDs[j]);
+                            }
+
+                            this.SetUpdateField<int>((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + (i * 12), item.RandomPropertyID);
+                            this.SetUpdateField<int>((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 1 + (i * 12), item.ItemSuffixFactor);
+                        }
+                    }*/
                 }
                 else
                 {
-                    if (name == "Byte") this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
+                    if (type == typeof(Byte)) this.SetUpdateField<byte>((int)key, Convert.ToByte(value), (byte)entry.Index);
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace Vanilla.World.Game.Entity
+﻿namespace Vanilla.World.Game.Entity.Tools
 {
     using System;
     using System.Reflection;

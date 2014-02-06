@@ -18,6 +18,7 @@
             DynamicFlags = (int)template.Dynamicflags;
             UnitFlags = (int)template.UnitFlags;
             FactionTemplate = (uint)template.FactionA;
+            Entry = template.Entry; //Used to set the creature name.
         }
 
         [UpdateField(EUnitFields.UNIT_NPC_FLAGS, true, 1)]
