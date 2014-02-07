@@ -4,7 +4,7 @@
 
     using Vanilla.Core.Tools;
 
-    public interface IUnitEntity<out T, out TU> : ISubscribable
+    public interface IUnitEntity : ISubscribable
     {
         String Name { get; }
         Location Location { get; set; }

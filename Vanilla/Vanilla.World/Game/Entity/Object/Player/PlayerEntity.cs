@@ -9,7 +9,7 @@
     using Vanilla.World.Network;
     using Vanilla.World.Game.Entity.Object.Unit;
 
-    public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>
+    public class PlayerEntity : UnitEntity<PlayerInfo, PlayerPacketBuilder>, IUnitEntity
     {
         public Character Character;
 
@@ -21,7 +21,7 @@
 
         public string Name { get { return Character.Name; } }
 
-        public UnitEntity<UnitInfo, EntityPacketBuilder> Target;
+        public IUnitEntity Target;
 
         public PlayerEntity(ObjectGUID objectGUID, Character databaseCharacter, WorldSession session) : base(objectGUID)
         {

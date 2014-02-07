@@ -9,6 +9,7 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
     using Vanilla.Core.Network.IO;
+    using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
     using Vanilla.Database.Character.Models;
     using Vanilla.Database.World.Models;
@@ -50,7 +51,7 @@
 
             Character character = new Character()
             {
-                GUID = Characters.AsQueryable().Count() + 1,
+                GUID = Characters.AsQueryable().Max(c => c.GUID) + 1,
                 Account = session.Account.ID,
                 Name = Utils.NormalizeText(packet.Name),
                 Race = packet.Race,
