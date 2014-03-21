@@ -21,11 +21,22 @@
 
         protected override byte[] BuildUpdatePacket()
         {
-            throw new System.NotImplementedException();
+            this.SetInfoFields(entity.Info);
+            var writer = new BinaryWriter(new MemoryStream());
+            writer.Write((byte)ObjectUpdateType.UPDATETYPE_VALUES);
+            writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
+            this.WriteUpdateFields(writer);
+            return (writer.BaseStream as MemoryStream).ToArray();
         }
 
         protected override byte[] BuildCreatePacket()
         {
+            //Add all info field entries to the queue
+            foreach (var creationUpdateFieldEntry in entity.Info.CreationUpdateFieldEntries)
+            {
+                UpdateQueue.Enqueue(creationUpdateFieldEntry);
+            }
+
             SetInfoFields(entity.Info);
 
             var writer = new BinaryWriter(new MemoryStream());

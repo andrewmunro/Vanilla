@@ -40,6 +40,8 @@ namespace Vanilla.World.Game.Entity.Object.Player
             this.Accessory = playerBytes2[0];
 
             this.Money = (int)databaseCharacter.money;
+
+/*
             
             item_template[] equipment = ItemUtils.GenerateInventoryByIDs(Utils.CSVStringToIntArray(databaseCharacter.equipmentCache));
             VisualItems = new Item[19];
@@ -69,7 +71,7 @@ namespace Vanilla.World.Game.Entity.Object.Player
                                                     ItemSuffixFactor = 0
                                                 };
                 }
-            }
+            }*/
 
             Type |= (int)TypeMask.TYPEMASK_PLAYER;
         }
@@ -102,7 +104,7 @@ namespace Vanilla.World.Game.Entity.Object.Player
         [UpdateField(EUnitFields.PLAYER_FIELD_COINAGE)]
         public int Money { get; set; }
 
-        [UpdateField(EUnitFields.PLAYER_VISIBLE_ITEM_1_0)]
-        public Item[] VisualItems { get; set; }
+/*        [UpdateField(EUnitFields.PLAYER_VISIBLE_ITEM_1_0)]
+        public Item[] VisualItems { get; set; }*/
     }
 }

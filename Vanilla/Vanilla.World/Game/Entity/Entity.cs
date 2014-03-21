@@ -20,6 +20,8 @@
 
         public List<Session> SubscribedBy { get; set; }
 
+        public bool Updated { get { return PacketBuilder.UpdateQueue.Count > 0; } }
+
         public Entity(ObjectGUID objectGUID)
         {
             ObjectGUID = objectGUID;
@@ -42,6 +44,7 @@
             if (updateField != null)
             {
                 updateFieldEntry.UpdateField = updateField.Enum;
+                this.PacketBuilder.ResetCache();
                 if (!this.PacketBuilder.UpdateQueue.Contains(updateFieldEntry)) this.PacketBuilder.UpdateQueue.Enqueue(updateFieldEntry);
             }
         }

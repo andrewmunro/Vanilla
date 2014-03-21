@@ -12,7 +12,7 @@
 
     public class UpdatePacketBuilder
     {
-        private int MaxUpdatePacketCount = 50;
+        private const int MaxUpdatePacketCount = 50;
 
         public WorldSession Session { get; set; }
 
@@ -69,7 +69,17 @@
         {
             var packets = new List<byte[]>();
 
+            if(Session.Player.Updated) packets.Add(Session.Player.UpdatePacket);
+
             if (removeEntities.Count > 0) packets.Add(RemoveEntitiesBlock());
+
+            var i = 0;
+            while (packets.Count < MaxUpdatePacketCount && i < updateEntities.Count)
+            {
+                var entity = updateEntities[i];
+                if (entity.Updated) packets.Add(entity.UpdatePacket);
+                i++;
+            }
 
             while (packets.Count < MaxUpdatePacketCount && createEntities.Count != 0)
             {
@@ -78,7 +88,7 @@
                 updateEntities.Add(entity);
             }
 
-            Session.SendPacket(new PSUpdateObject(packets));
+            if(packets.Count > 0) Session.SendPacket(new PSUpdateObject(packets));
         }
 
         private byte[] RemoveEntitiesBlock()

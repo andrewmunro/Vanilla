@@ -45,8 +45,9 @@
 
         protected void SetInfoFields<TI>(TI info) where TI : EntityInfo
         {
-            foreach (UpdateFieldEntry entry in info.CreationUpdateFieldEntries)
+            while(UpdateQueue.Count > 0)
             {
+                var entry = UpdateQueue.Dequeue();
                 byte key = entry.UpdateField;
                 Type type = entry.PropertyInfo.PropertyType;
                 var value = entry.PropertyInfo.GetValue(info);
@@ -188,6 +189,12 @@
             }
 
             this.Mask.SetAll(false);
+        }
+
+        public void ResetCache()
+        {
+            cachedCreatePacket = null;
+            cachedUpdatePacket = null;
         }
 
         protected abstract byte[] BuildUpdatePacket();
