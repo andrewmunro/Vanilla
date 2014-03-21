@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Components.Mail
+﻿using Vanilla.Character.Database;
+
+namespace Vanilla.World.Components.Mail
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +10,6 @@
     using Vanilla.Core.Constants.Character;
     using Vanilla.Core.IO;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.Mail.Constants;
     using Vanilla.World.Components.Mail.Packets.Incoming;
     using Vanilla.World.Components.Mail.Packets.Outgoing;
@@ -16,8 +17,8 @@
 
     public class MailComponent : WorldServerComponent
     {
-        public IRepository<Character> Characters { get { return Core.CharacterDatabase.GetRepository<Character>(); } }
-        public IRepository<Mail> Mails { get { return Core.CharacterDatabase.GetRepository<Mail>(); } }
+        public IRepository<character> Characters { get { return Core.CharacterDatabase.GetRepository<character>(); } }
+        public IRepository<mail> Mails { get { return Core.CharacterDatabase.GetRepository<mail>(); } }
 
         public MailComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
@@ -33,21 +34,21 @@
 
         private void OnSendMail(WorldSession session, PCSendMail packet)
         {
-            Character reciever = Characters.SingleOrDefault(c => c.Name == packet.Reciever);
+            character reciever = Characters.SingleOrDefault(c => c.name == packet.Reciever);
             var result = MailResponseResult.MAIL_OK;
             if (reciever == null)
             {
                 result = MailResponseResult.MAIL_ERR_RECIPIENT_NOT_FOUND;
             }
-            else if (reciever.Name == session.Player.Name)
+            else if (reciever.name == session.Player.Name)
             {
                 result = MailResponseResult.MAIL_ERR_CANNOT_SEND_TO_SELF;
             }
-            else if (session.Player.Character.Money < packet.Money + 30)
+            else if (session.Player.Character.money < packet.Money + 30)
             {
                 result = MailResponseResult.MAIL_ERR_NOT_ENOUGH_MONEY;
             }
-            else if (Mails.Where(m => m.Receiver == reciever.GUID).ToArray().Length > 100)
+            else if (Mails.Where(m => m.receiver == reciever.guid).ToArray().Length > 100)
             {
                 result = MailResponseResult.MAIL_ERR_RECIPIENT_CAP_REACHED;
             }
@@ -65,49 +66,49 @@
 
             if (result == MailResponseResult.MAIL_OK)
             {
-                session.Player.Character.Money -= (int)(packet.Money + 30);
+                session.Player.Character.money -= (int)(packet.Money + 30);
                 Mails.Add(
-                    new Mail()
+                    new mail()
                         {
-                            MessageType = (byte)MailMessageType.MAIL_NORMAL,
-                            DeliverTime = 0,
-                            ExpireTime = (int)GameUnits.DAY * 30,
-                            Checked =
+                            messageType = (byte)MailMessageType.MAIL_NORMAL,
+                            deliver_time = 0,
+                            expire_time = (int)GameUnits.DAY * 30,
+                            @checked = 
                                 packet.Body != ""
                                     ? (byte)MailCheckMask.MAIL_CHECK_MASK_HAS_BODY
                                     : (byte)MailCheckMask.MAIL_CHECK_MASK_COPIED,
-                            Cod = (int)packet.COD,
-                            HasItems = 0,
-                            ItemTextId = 0,
-                            Money = (int)packet.Money,
-                            Sender = session.Player.Character.GUID,
-                            Receiver = reciever.GUID,
-                            Subject = packet.Subject,
-                            Stationery = (byte)MailStationery.MAIL_STATIONERY_DEFAULT,
-                            MailTemplateId = 0
+                            cod = (int)packet.COD,
+                            has_items = 0,
+                            itemTextId = 0,
+                            money = (int)packet.Money,
+                            sender = session.Player.Character.guid,
+                            receiver = reciever.guid,
+                            subject = packet.Subject,
+                            stationery = (byte)MailStationery.MAIL_STATIONERY_DEFAULT,
+                            mailTemplateId = 0
                         });
             }
         }
 
-        private string GetFaction(Character character)
+        private string GetFaction(character character)
         {
-            if (character.Race == (byte)RaceID.Human ||
-            character.Race == (byte)RaceID.Dwarf || character.Race == (byte)RaceID.Gnome
-            || character.Race == (byte)RaceID.NightElf) return "Alliance";
+            if (character.race == (byte)RaceID.Human ||
+            character.race == (byte)RaceID.Dwarf || character.race == (byte)RaceID.Gnome
+            || character.race == (byte)RaceID.NightElf) return "Alliance";
             return "Horde";
         }
 
         private void OnGetMailList(WorldSession session, PCGetMailList packet)
         {
-            var mailList = this.Mails.Where(m => m.Receiver == packet.GUID).ToList();
+            var mailList = this.Mails.Where(m => m.receiver == packet.GUID).ToList();
             this.RemoveExpiredMail(mailList);
             
             session.SendPacket(new PSMailListResult(mailList));
         }
 
-        private void RemoveExpiredMail(List<Mail> mailList)
+        private void RemoveExpiredMail(List<mail> mailList)
         {
-            var expiredMail = mailList.Where(m => m.ExpireTime < Environment.TickCount).ToList();
+            var expiredMail = mailList.Where(m => m.expire_time < Environment.TickCount).ToList();
             expiredMail.ForEach(
                 m =>
                     {

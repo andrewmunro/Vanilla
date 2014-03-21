@@ -1,12 +1,12 @@
-﻿using Vanilla.Core.Tools;
+﻿using Vanilla.Character.Database;
+using Vanilla.Core.Tools;
+using Vanilla.World.Database;
 
 namespace Vanilla.World
 {
     using Vanilla.Core.Components;
     using Vanilla.Core.DBC;
     using Vanilla.Core.IO;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components;
     using Vanilla.World.Components.ActionBar;
     using Vanilla.World.Components.Auth;

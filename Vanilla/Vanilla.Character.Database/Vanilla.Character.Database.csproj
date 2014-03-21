@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65DD4F4C-7D18-4DB9-A23F-4C4821CDAE5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vanilla.Character.Database</RootNamespace>
+    <AssemblyName>Vanilla.Character.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="auction.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bugreport.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterDatabase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CharacterDatabase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterDatabase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterDatabase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CharacterDatabase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="character_action.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_aura.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_battleground_data.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_gifts.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_homebind.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_honor_cp.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_instance.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_inventory.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_pet.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_queststatus.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_reputation.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_skills.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_social.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_spell.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_spell_cooldown.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_stats.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_ticket.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="character_tutorial.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="corpse.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_respawn.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_respawn.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_status.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="group.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="group_instance.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="group_member.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="guild.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="guild_eventlog.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="guild_member.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="guild_rank.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="instance.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="instance_reset.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_instance.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_loot.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_text.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mail.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mail_items.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="petition.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="petition_sign.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pet_aura.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pet_spell.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pet_spell_cooldown.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="saved_variables.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="world.cs">
+      <DependentUpon>CharacterDatabase.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="CharacterDatabase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CharacterDatabase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CharacterDatabase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CharacterDatabase.edmx</DependentUpon>
+      <LastGenOutput>CharacterDatabase.Context.cs</LastGenOutput>
+    </None>
+    <None Include="CharacterDatabase.edmx.diagram">
+      <DependentUpon>CharacterDatabase.edmx</DependentUpon>
+    </None>
+    <None Include="CharacterDatabase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CharacterDatabase.edmx</DependentUpon>
+      <LastGenOutput>CharacterDatabase.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

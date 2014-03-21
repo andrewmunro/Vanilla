@@ -1,7 +1,9 @@
-﻿namespace Vanilla.World.Components.Character
+﻿using Vanilla.Character.Database;
+using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.Character
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     using Vanilla.Core;
@@ -9,19 +11,16 @@
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
     using Vanilla.Core.Network.IO;
-    using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Character.Packets.Incoming;
     using Vanilla.World.Components.Character.Packets.Outgoing;
     using Vanilla.World.Network;
 
     public class CharacterComponent : WorldServerComponent
     {
-        private IRepository<Character> Characters { get { return this.Core.CharacterDatabase.GetRepository<Character>(); } }
+        private IRepository<character> Characters { get { return this.Core.CharacterDatabase.GetRepository<character>(); } }
 
-        private IRepository<PlayerCreateInfo> CreateInfo { get { return this.Core.WorldDatabase.GetRepository<PlayerCreateInfo>(); } }
+        private IRepository<playercreateinfo> CreateInfo { get { return this.Core.WorldDatabase.GetRepository<playercreateinfo>(); } }
 
         public CharacterComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
@@ -32,12 +31,12 @@
 
         private void OnCharEnum(WorldSession session, PacketReader reader)
         {
-            session.SendPacket(new PSCharEnum(session, Characters.Where(c => c.Account == session.Account.ID).ToList()));
+            session.SendPacket(new PSCharEnum(session, Characters.Where(c => c.account == session.Account.id).ToList()));
         }
 
         private void OnCharDelete(WorldSession session, PCCharDelete packet)
         {
-            Characters.Delete(Characters.SingleOrDefault(chars => chars.GUID == packet.GUID));
+            Characters.Delete(Characters.SingleOrDefault(chars => chars.guid == packet.GUID));
             Core.CharacterDatabase.SaveChanges();
             session.SendPacket(new PSCharDelete(LoginErrorCode.CHAR_DELETE_SUCCESS));
         }
@@ -47,67 +46,67 @@
             byte[] playerBytes = { packet.Skin, packet.Face, packet.HairStyle, packet.HairColor };
             byte[] playerBytes2 = { packet.Accessory };
 
-            PlayerCreateInfo info = CreateInfo.SingleOrDefault(ci => ci.Race == packet.Race && ci.Class == packet.Class);
+            playercreateinfo info = CreateInfo.SingleOrDefault(ci => ci.race == packet.Race && ci.@class == packet.Class);
 
-            Character character = new Character()
+            character character = new character()
             {
-                GUID = Characters.AsQueryable().Max(c => c.GUID) + 1,
-                Account = session.Account.ID,
-                Name = Utils.NormalizeText(packet.Name),
-                Race = packet.Race,
-                Class = packet.Class,
-                Gender = packet.Gender,
-                Level = 1,
-                XP = 0,
-                Money = 100000,
-                PlayerBytes = BitConverter.ToInt32(playerBytes, 0),
-                PlayerBytes2 = 0,
-                PlayerFlags = 0,
-                PositionX = info.PositionX,
-                PositionY = info.PositionY,
-                PositionZ = info.PositionZ,
-                Map = info.Map,
-                Orientation = info.Orientation,
-                TaxiMask = "",
-                Online = 0,
-                Cinematic = 0,
-                TotalTime = 0,
-                LevelTime = 0,
-                LogoutTime = 0,
-                IsLogoutResting = 0,
-                RestBonus = 0,
-                ResetTalentsCost = 0,
-                ResetTalentsTime = 0,
-                TransX = 0,
-                TransY = 0,
-                TransZ = 0,
-                TransO = 0,
-                TransGUID = 0,                
-                ExtraFlags = 0,
-                AtLogin = 0,
-                Zone = info.Zone,
-                DeathExpireTime = 0,
-                TaxiPath = "",
-                HonorHighestRank = 0,
-                HonorStanding = 0,
-                StoredHonorRating = 0,
-                StoredDishonorableKills = 0,
-                StoredHonorableKills = 0,
-                WatchedFaction = 0,
-                Drunk = 0,
-                Health = 100,
-                Power1 = 0,
-                Power2 = 0,
-                Power3 = 0,
-                Power4 = 0,
-                Power5 = 0,
-                ExploredZones = "",
-                EquipmentCache = GetStartingEquipment(packet.Race, packet.Class, packet.Gender),
-                AmmoID = 0,
-                ActionBars = 0,
-                DeleteInfosAccount = session.Account.ID,
-                DeleteInfosName = Utils.NormalizeText(packet.Name),
-                DeleteDate = 0
+                guid = Characters.AsQueryable().Max(c => c.guid) + 1,
+                account = session.Account.id,
+                name = Utils.NormalizeText(packet.Name),
+                race = packet.Race,
+                @class = packet.Class,
+                gender = packet.Gender,
+                level = 1,
+                xp = 0,
+                money = 100000,
+                playerBytes = BitConverter.ToInt32(playerBytes, 0),
+                playerBytes2 = 0,
+                playerFlags = 0,
+                position_x = info.position_x,
+                position_y = info.position_y,
+                position_z = info.position_z,
+                map = info.map,
+                orientation = info.orientation,
+                taximask = "",
+                online = 0,
+                cinematic = 0,
+                totaltime = 0,
+                leveltime = 0,
+                logout_time = 0,
+                is_logout_resting = 0,
+                rest_bonus = 0,
+                resettalents_cost = 0,
+                resettalents_time = 0,
+                trans_x = 0,
+                trans_y = 0,
+                trans_z = 0,
+                trans_o = 0,
+                transguid = 0,                
+                extra_flags = 0,
+                at_login = 0,
+                zone = info.zone,
+                death_expire_time = 0,
+                taxi_path = "",
+                honor_highest_rank = 0,
+                honor_standing = 0,
+                stored_honor_rating = 0,
+                stored_dishonorable_kills = 0,
+                stored_honorable_kills = 0,
+                watchedFaction = 0,
+                drunk = 0,
+                health = 100,
+                power1 = 0,
+                power2 = 0,
+                power3 = 0,
+                power4 = 0,
+                power5 = 0,
+                exploredZones = "",
+                equipmentCache = GetStartingEquipment(packet.Race, packet.Class, packet.Gender),
+                ammoId = 0,
+                actionBars = 0,
+                deleteInfos_Account = session.Account.id,
+                deleteInfos_Name = Utils.NormalizeText(packet.Name),
+                deleteDate = 0
             };
 
             Characters.Add(character);

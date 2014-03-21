@@ -3,7 +3,7 @@ using System.Linq;
 
 using Vanilla.Core.IO;
 using Vanilla.Core.Logging;
-using Vanilla.Database.Login.Models;
+using Vanilla.Login.Database;
 
 namespace Vanilla.Core.Tools
 {
@@ -11,7 +11,7 @@ namespace Vanilla.Core.Tools
     {
         public DatabaseUnitOfWork<LoginDatabase> LoginDatabase { get; private set; }
 
-        public IRepository<Account> Accounts { get { return LoginDatabase.GetRepository<Account>(); } }
+        public IRepository<account> Accounts { get { return LoginDatabase.GetRepository<account>(); } }
 
         public AccountCreator()
         {
@@ -20,7 +20,7 @@ namespace Vanilla.Core.Tools
 
         public void CreateAccount(string username, string password)
         {
-            if (Accounts.SingleOrDefault(ac => ac.Username == username) != null)
+            if (Accounts.SingleOrDefault(ac => ac.username == username) != null)
             {
                 Log.Print(LogType.Debug, "Account '" + username + "' was not created because it already exists!");
                 return;
@@ -28,24 +28,24 @@ namespace Vanilla.Core.Tools
 
             var shaPassHash = CalculateShaPassHash(username, password);
 
-            Accounts.Add(new Account()
+            Accounts.Add(new account()
                              {
-                                 Username = username,
-                                 ShaPassHash = password,
-                                 LastIP = "0.0.0.0",
-                                 ActiveRealmID = 0,
-                                 Email = "",
-                                 Expansion = 0,
-                                 FailedLogins = 0,
-                                 GmLevel = 0,
-                                 Joindate = DateTime.Now,
-                                 LastLogin = DateTime.Now,
-                                 Locale = 0,
-                                 Locked = 0,
-                                 MuteTime = 0,
-                                 S = null,
-                                 SessionKey = null,
-                                 V = null
+                                 username = username,
+                                 sha_pass_hash = password,
+                                 last_ip = "0.0.0.0",
+                                 active_realm_id = 0,
+                                 email = "",
+                                 expansion = 0,
+                                 failed_logins = 0,
+                                 gmlevel = 0,
+                                 joindate = DateTime.Now,
+                                 last_login = DateTime.Now,
+                                 locale = 0,
+                                 locked = 0,
+                                 mutetime = 0,
+                                 s = null,
+                                 sessionkey = null,
+                                 v = null
                              });
 
             LoginDatabase.SaveChanges();

@@ -1,34 +1,35 @@
-﻿namespace Vanilla.World.Game.Entity.Object.GameObject
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Game.Entity.Object.GameObject
 {
     using System;
-
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Tools;
 
     public class GameObjectInfo : ObjectInfo
     {
-        public GameObjectInfo (ObjectGUID guid, GameObject gameObject, GameObjectTemplate template) : base(guid)
+        public GameObjectInfo(ObjectGUID guid, gameobject gameObject, gameobject_template template)
+            : base(guid)
         {
-            DisplayID = template.DisplayId;
-            Flags = (int)template.Flags;
-            TypeID = template.Type;
-            State = gameObject.State;
-            X = gameObject.PositionX;
-            Y = gameObject.PositionY;
-            Z = gameObject.PositionZ;
-            Rotation0 = gameObject.Rotation0;
-            Rotation1 = gameObject.Rotation1;
-            Orientation = gameObject.Orientation;
+            DisplayID = template.displayId;
+            Flags = (int)template.flags;
+            TypeID = template.type;
+            State = gameObject.state;
+            X = gameObject.position_x;
+            Y = gameObject.position_y;
+            Z = gameObject.position_z;
+            Rotation0 = gameObject.rotation0;
+            Rotation1 = gameObject.rotation1;
+            Orientation = gameObject.orientation;
 
-            if (gameObject.Rotation2 == 0 && gameObject.Rotation3 == 0)
+            if (gameObject.rotation2 == 0 && gameObject.rotation3 == 0)
             {
-                gameObject.Rotation2 = (float)Math.Sin(gameObject.Orientation / 2);
-                gameObject.Rotation3 = (float)Math.Cos(gameObject.Orientation / 2);
+                gameObject.rotation2 = (float)Math.Sin(gameObject.orientation / 2);
+                gameObject.rotation3 = (float)Math.Cos(gameObject.orientation / 2);
             }
 
-            Rotation2 = gameObject.Rotation2;
-            Rotation3 = gameObject.Rotation3;
+            Rotation2 = gameObject.rotation2;
+            Rotation3 = gameObject.rotation3;
 
             Type |= (int)TypeMask.TYPEMASK_GAMEOBJECT;
         }

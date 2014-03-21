@@ -112,7 +112,7 @@
 
         public WorldSession GetSessionByCharacterName(string characterName)
         {
-            return Server.Sessions.Find(character => String.Equals(character.Player.Character.Name, characterName, StringComparison.CurrentCultureIgnoreCase));
+            return Server.Sessions.Find(character => String.Equals(character.Player.Character.name, characterName, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

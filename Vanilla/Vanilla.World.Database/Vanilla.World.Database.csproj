@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB920DDF-18FD-46E7-9B34-0CEF77E17929}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vanilla.World.Database</RootNamespace>
+    <AssemblyName>Vanilla.World.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="areatrigger_involvedrelation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="areatrigger_tavern.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="areatrigger_teleport.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="battleground_events.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="battleground_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="battlemaster_entry.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="command.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="condition.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_addon.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_ai_scripts.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_ai_summons.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_ai_texts.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_battleground.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_equip_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_equip_template_raw.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_involvedrelation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_linking.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_linking_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_model_info.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_movement.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_movement_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_onkill_reputation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_questrelation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_template_addon.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_template_spells.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_creature_death.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_creature_movement.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_event.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_gossip.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_go_template_use.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_go_use.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_quest_end.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_quest_start.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dbscripts_on_spell.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db_script_string.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="disenchant_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="exploration_basexp.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fishing_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_battleground.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_involvedrelation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_questrelation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gameobject_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_creature.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_creature_data.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_gameobject.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_mail.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_event_quest.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_graveyard_zone.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_tele.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="game_weather.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gossip_menu.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gossip_menu_option.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="instance_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_enchantment_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_required_target.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="item_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_creature.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_gameobject.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_gossip_menu_option.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_item.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_npc_text.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_page_text.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_points_of_interest.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="locales_quest.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mail_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mangos_string.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_gossip.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_text.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_trainer.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_trainer_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_vendor.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="npc_vendor_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="page_text.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="petcreateinfo_spell.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pet_levelstats.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pet_name_generation.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pickpocketing_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="playercreateinfo.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="playercreateinfo_action.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="playercreateinfo_item.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="playercreateinfo_spell.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="player_classlevelstats.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="player_levelstats.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="player_xp_for_level.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="points_of_interest.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_creature.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_creature_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_gameobject.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_gameobject_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_pool.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pool_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quest_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reference_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reputation_reward_rate.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reputation_spillover_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reserved_name.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scripted_areatrigger.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scripted_event.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="skill_fishing_base_level.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="skinning_loot_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_affect.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_area.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_bonus_data.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_chain.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_elixir.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_facing.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_learn_spell.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_linked.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_pet_auras.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_proc_event.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_proc_item_enchant.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_script_target.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_target_position.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spell_threat.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="transport.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorldDatabase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorldDatabase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorldDatabase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorldDatabase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorldDatabase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="world_template.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <EntityDeploy Include="WorldDatabase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WorldDatabase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="WorldDatabase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorldDatabase.edmx</DependentUpon>
+      <LastGenOutput>WorldDatabase.Context.cs</LastGenOutput>
+    </None>
+    <None Include="WorldDatabase.edmx.diagram">
+      <DependentUpon>WorldDatabase.edmx</DependentUpon>
+    </None>
+    <None Include="WorldDatabase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorldDatabase.edmx</DependentUpon>
+      <LastGenOutput>WorldDatabase.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

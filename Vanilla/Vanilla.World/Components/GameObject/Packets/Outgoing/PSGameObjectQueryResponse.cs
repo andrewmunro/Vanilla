@@ -1,20 +1,21 @@
-﻿namespace Vanilla.World.Components.GameObject.Packets.Outgoing
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.GameObject.Packets.Outgoing
 {
     using System.Text;
 
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.World.Models;
 
     public sealed class PSGameObjectQueryResponse : WorldPacket
     {
-        public PSGameObjectQueryResponse(GameObjectTemplate gameObjectTemplate)
+        public PSGameObjectQueryResponse(gameobject_template gameObjectTemplate)
             : base(WorldOpcodes.SMSG_GAMEOBJECT_QUERY_RESPONSE)
         {
-            this.Write((uint)gameObjectTemplate.Entry);
-            this.Write((uint)gameObjectTemplate.Type);
-            this.Write((uint)gameObjectTemplate.DisplayId);
-            this.Write(Encoding.UTF8.GetBytes(gameObjectTemplate.Name));
+            this.Write((uint)gameObjectTemplate.entry);
+            this.Write((uint)gameObjectTemplate.type);
+            this.Write((uint)gameObjectTemplate.displayId);
+            this.Write(Encoding.UTF8.GetBytes(gameObjectTemplate.name));
             this.Write((ushort)0);
             this.Write((byte)0);
             this.Write((byte)0);

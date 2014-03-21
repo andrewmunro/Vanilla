@@ -1,11 +1,12 @@
-﻿namespace Vanilla.World.Components.Auth
+﻿using Vanilla.Login.Database;
+
+namespace Vanilla.World.Components.Auth
 {
     using System.Linq;
     using Vanilla.Core;
     using Vanilla.Core.Cryptography;
     using Vanilla.Core.IO;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Login.Models;
     using Vanilla.World.Communication.Outgoing.Auth;
     using Vanilla.World.Components.Auth.Packets.Incoming;
     using Vanilla.World.Network;
@@ -19,11 +20,11 @@
         
         private void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
-            Account account = new DatabaseUnitOfWork<LoginDatabase>().GetRepository<Account>().SingleOrDefault((a) => a.Username == packet.Username);
+            account account = new DatabaseUnitOfWork<LoginDatabase>().GetRepository<account>().SingleOrDefault((a) => a.username == packet.Username);
 
             session.Account = account;
             session.PacketCrypto = new VanillaCrypt();
-            session.PacketCrypto.init(Utils.HexToByteArray(session.Account.SessionKey));
+            session.PacketCrypto.init(Utils.HexToByteArray(session.Account.sessionkey));
             session.SendPacket(new PSAuthResponse());
         }
     }

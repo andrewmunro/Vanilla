@@ -38,24 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Data.Entity, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Routing" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Auth\AuthComponent.cs" />
@@ -79,17 +64,13 @@
     <Compile Include="VanillaLogin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
-      <Project>{ecbe8c02-b0d3-4302-ba06-42c0cbd0749a}</Project>
-      <Name>Vanilla.Database.Character</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Vanilla.Core\Vanilla.Core.csproj">
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
-      <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
-      <Name>Vanilla.Database.Login</Name>
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Login.Database.csproj">
+      <Project>{792a1970-756f-44cc-b9c2-8dccc72f9392}</Project>
+      <Name>Vanilla.Login.Database</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -38,23 +38,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="PropertyChanged">
       <HintPath>..\packages\PropertyChanged.Fody.1.41.0.0\Lib\NET35\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ActionBar\ActionButtonComponent.cs" />
@@ -206,21 +196,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
-      <Project>{ecbe8c02-b0d3-4302-ba06-42c0cbd0749a}</Project>
-      <Name>Vanilla.Database.Character</Name>
+    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Character.Database.csproj">
+      <Project>{65DD4F4C-7D18-4DB9-A23F-4C4821CDAE5B}</Project>
+      <Name>Vanilla.Character.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vanilla.Core\Vanilla.Core.csproj">
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
-      <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
-      <Name>Vanilla.Database.Login</Name>
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Login.Database.csproj">
+      <Project>{792A1970-756F-44CC-B9C2-8DCCC72F9392}</Project>
+      <Name>Vanilla.Login.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
-      <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
-      <Name>Vanilla.Database.World</Name>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
+      <Project>{bb920ddf-18fd-46e7-9b34-0cef77e17929}</Project>
+      <Name>Vanilla.World.Database</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

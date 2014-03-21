@@ -1,0 +1,2047 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="auction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="houseid" Type="bigint" Nullable="false" />
+          <Property Name="itemguid" Type="bigint" Nullable="false" />
+          <Property Name="item_template" Type="bigint" Nullable="false" />
+          <Property Name="item_count" Type="bigint" Nullable="false" />
+          <Property Name="item_randompropertyid" Type="int" Nullable="false" />
+          <Property Name="itemowner" Type="bigint" Nullable="false" />
+          <Property Name="buyoutprice" Type="int" Nullable="false" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+          <Property Name="buyguid" Type="bigint" Nullable="false" />
+          <Property Name="lastbid" Type="int" Nullable="false" />
+          <Property Name="startbid" Type="int" Nullable="false" />
+          <Property Name="deposit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bugreport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_action">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="button" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="button" Type="tinyint" Nullable="false" />
+          <Property Name="action" Type="bigint" Nullable="false" />
+          <Property Name="type" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_aura">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="caster_guid" />
+            <PropertyRef Name="item_guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="caster_guid" Type="bigint" Nullable="false" />
+          <Property Name="item_guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="stackcount" Type="bigint" Nullable="false" />
+          <Property Name="remaincharges" Type="bigint" Nullable="false" />
+          <Property Name="basepoints0" Type="int" Nullable="false" />
+          <Property Name="basepoints1" Type="int" Nullable="false" />
+          <Property Name="basepoints2" Type="int" Nullable="false" />
+          <Property Name="periodictime0" Type="bigint" Nullable="false" />
+          <Property Name="periodictime1" Type="bigint" Nullable="false" />
+          <Property Name="periodictime2" Type="bigint" Nullable="false" />
+          <Property Name="maxduration" Type="int" Nullable="false" />
+          <Property Name="remaintime" Type="int" Nullable="false" />
+          <Property Name="effIndexMask" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_battleground_data">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="instance_id" Type="bigint" Nullable="false" />
+          <Property Name="team" Type="bigint" Nullable="false" />
+          <Property Name="join_x" Type="real" Nullable="false" />
+          <Property Name="join_y" Type="real" Nullable="false" />
+          <Property Name="join_z" Type="real" Nullable="false" />
+          <Property Name="join_o" Type="real" Nullable="false" />
+          <Property Name="join_map" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'characters.dbo.character_db_version' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="character_db_version">
+          <Property Name="required_z1794_s1350_11716_09_characters_auction" Type="binary" MaxLength="1" />
+        </EntityType>-->
+        <EntityType Name="character_gifts">
+          <Key>
+            <PropertyRef Name="item_guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="item_guid" Type="bigint" Nullable="false" />
+          <Property Name="entry" Type="bigint" Nullable="false" />
+          <Property Name="flags" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_homebind">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="map" Type="bigint" Nullable="false" />
+          <Property Name="zone" Type="bigint" Nullable="false" />
+          <Property Name="position_x" Type="real" Nullable="false" />
+          <Property Name="position_y" Type="real" Nullable="false" />
+          <Property Name="position_z" Type="real" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'characters.dbo.character_honor_cp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="character_honor_cp">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="victim_type" />
+            <PropertyRef Name="victim" />
+            <PropertyRef Name="honor" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="victim_type" Type="tinyint" Nullable="false" />
+          <Property Name="victim" Type="bigint" Nullable="false" />
+          <Property Name="honor" Type="real" Nullable="false" />
+          <Property Name="date" Type="bigint" Nullable="false" />
+          <Property Name="type" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_instance">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="instance" Type="bigint" Nullable="false" />
+          <Property Name="permanent" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_inventory">
+          <Key>
+            <PropertyRef Name="item" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="bag" Type="bigint" Nullable="false" />
+          <Property Name="slot" Type="tinyint" Nullable="false" />
+          <Property Name="item" Type="bigint" Nullable="false" />
+          <Property Name="item_template" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_pet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="entry" Type="bigint" Nullable="false" />
+          <Property Name="owner" Type="bigint" Nullable="false" />
+          <Property Name="modelid" Type="bigint" />
+          <Property Name="CreatedBySpell" Type="bigint" Nullable="false" />
+          <Property Name="PetType" Type="tinyint" Nullable="false" />
+          <Property Name="level" Type="bigint" Nullable="false" />
+          <Property Name="exp" Type="bigint" Nullable="false" />
+          <Property Name="Reactstate" Type="tinyint" Nullable="false" />
+          <Property Name="loyaltypoints" Type="int" Nullable="false" />
+          <Property Name="loyalty" Type="bigint" Nullable="false" />
+          <Property Name="trainpoint" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="renamed" Type="tinyint" Nullable="false" />
+          <Property Name="slot" Type="bigint" Nullable="false" />
+          <Property Name="curhealth" Type="bigint" Nullable="false" />
+          <Property Name="curmana" Type="bigint" Nullable="false" />
+          <Property Name="curhappiness" Type="bigint" Nullable="false" />
+          <Property Name="savetime" Type="bigint" Nullable="false" />
+          <Property Name="resettalents_cost" Type="bigint" Nullable="false" />
+          <Property Name="resettalents_time" Type="bigint" Nullable="false" />
+          <Property Name="abdata" Type="nvarchar(max)" />
+          <Property Name="teachspelldata" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="character_queststatus">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="quest" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="quest" Type="bigint" Nullable="false" />
+          <Property Name="status" Type="bigint" Nullable="false" />
+          <Property Name="rewarded" Type="tinyint" Nullable="false" />
+          <Property Name="explored" Type="tinyint" Nullable="false" />
+          <Property Name="timer" Type="bigint" Nullable="false" />
+          <Property Name="mobcount1" Type="bigint" Nullable="false" />
+          <Property Name="mobcount2" Type="bigint" Nullable="false" />
+          <Property Name="mobcount3" Type="bigint" Nullable="false" />
+          <Property Name="mobcount4" Type="bigint" Nullable="false" />
+          <Property Name="itemcount1" Type="bigint" Nullable="false" />
+          <Property Name="itemcount2" Type="bigint" Nullable="false" />
+          <Property Name="itemcount3" Type="bigint" Nullable="false" />
+          <Property Name="itemcount4" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_reputation">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="faction" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="faction" Type="bigint" Nullable="false" />
+          <Property Name="standing" Type="int" Nullable="false" />
+          <Property Name="flags" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_skills">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="skill" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="skill" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+          <Property Name="max" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_social">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="friend" />
+            <PropertyRef Name="flags" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="friend" Type="bigint" Nullable="false" />
+          <Property Name="flags" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_spell">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="active" Type="tinyint" Nullable="false" />
+          <Property Name="disabled" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_spell_cooldown">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="item" Type="bigint" Nullable="false" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_stats">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="maxhealth" Type="bigint" Nullable="false" />
+          <Property Name="maxpower1" Type="bigint" Nullable="false" />
+          <Property Name="maxpower2" Type="bigint" Nullable="false" />
+          <Property Name="maxpower3" Type="bigint" Nullable="false" />
+          <Property Name="maxpower4" Type="bigint" Nullable="false" />
+          <Property Name="maxpower5" Type="bigint" Nullable="false" />
+          <Property Name="maxpower6" Type="bigint" Nullable="false" />
+          <Property Name="maxpower7" Type="bigint" Nullable="false" />
+          <Property Name="strength" Type="bigint" Nullable="false" />
+          <Property Name="agility" Type="bigint" Nullable="false" />
+          <Property Name="stamina" Type="bigint" Nullable="false" />
+          <Property Name="intellect" Type="bigint" Nullable="false" />
+          <Property Name="spirit" Type="bigint" Nullable="false" />
+          <Property Name="armor" Type="bigint" Nullable="false" />
+          <Property Name="resHoly" Type="bigint" Nullable="false" />
+          <Property Name="resFire" Type="bigint" Nullable="false" />
+          <Property Name="resNature" Type="bigint" Nullable="false" />
+          <Property Name="resFrost" Type="bigint" Nullable="false" />
+          <Property Name="resShadow" Type="bigint" Nullable="false" />
+          <Property Name="resArcane" Type="bigint" Nullable="false" />
+          <Property Name="blockPct" Type="real" Nullable="false" />
+          <Property Name="dodgePct" Type="real" Nullable="false" />
+          <Property Name="parryPct" Type="real" Nullable="false" />
+          <Property Name="critPct" Type="real" Nullable="false" />
+          <Property Name="rangedCritPct" Type="real" Nullable="false" />
+          <Property Name="attackPower" Type="bigint" Nullable="false" />
+          <Property Name="rangedAttackPower" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_ticket">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="ticket_text" Type="nvarchar(max)" />
+          <Property Name="response_text" Type="nvarchar(max)" />
+          <Property Name="ticket_lastchange" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_tutorial">
+          <Key>
+            <PropertyRef Name="account" />
+          </Key>
+          <Property Name="account" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tut0" Type="bigint" Nullable="false" />
+          <Property Name="tut1" Type="bigint" Nullable="false" />
+          <Property Name="tut2" Type="bigint" Nullable="false" />
+          <Property Name="tut3" Type="bigint" Nullable="false" />
+          <Property Name="tut4" Type="bigint" Nullable="false" />
+          <Property Name="tut5" Type="bigint" Nullable="false" />
+          <Property Name="tut6" Type="bigint" Nullable="false" />
+          <Property Name="tut7" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="characters">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="account" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="race" Type="tinyint" Nullable="false" />
+          <Property Name="class" Type="tinyint" Nullable="false" />
+          <Property Name="gender" Type="tinyint" Nullable="false" />
+          <Property Name="level" Type="tinyint" Nullable="false" />
+          <Property Name="xp" Type="bigint" Nullable="false" />
+          <Property Name="money" Type="bigint" Nullable="false" />
+          <Property Name="playerBytes" Type="bigint" Nullable="false" />
+          <Property Name="playerBytes2" Type="bigint" Nullable="false" />
+          <Property Name="playerFlags" Type="bigint" Nullable="false" />
+          <Property Name="position_x" Type="real" Nullable="false" />
+          <Property Name="position_y" Type="real" Nullable="false" />
+          <Property Name="position_z" Type="real" Nullable="false" />
+          <Property Name="map" Type="bigint" Nullable="false" />
+          <Property Name="orientation" Type="real" Nullable="false" />
+          <Property Name="taximask" Type="nvarchar(max)" />
+          <Property Name="online" Type="tinyint" Nullable="false" />
+          <Property Name="cinematic" Type="tinyint" Nullable="false" />
+          <Property Name="totaltime" Type="bigint" Nullable="false" />
+          <Property Name="leveltime" Type="bigint" Nullable="false" />
+          <Property Name="logout_time" Type="bigint" Nullable="false" />
+          <Property Name="is_logout_resting" Type="tinyint" Nullable="false" />
+          <Property Name="rest_bonus" Type="real" Nullable="false" />
+          <Property Name="resettalents_cost" Type="bigint" Nullable="false" />
+          <Property Name="resettalents_time" Type="bigint" Nullable="false" />
+          <Property Name="trans_x" Type="real" Nullable="false" />
+          <Property Name="trans_y" Type="real" Nullable="false" />
+          <Property Name="trans_z" Type="real" Nullable="false" />
+          <Property Name="trans_o" Type="real" Nullable="false" />
+          <Property Name="transguid" Type="bigint" Nullable="false" />
+          <Property Name="extra_flags" Type="bigint" Nullable="false" />
+          <Property Name="stable_slots" Type="tinyint" Nullable="false" />
+          <Property Name="at_login" Type="bigint" Nullable="false" />
+          <Property Name="zone" Type="bigint" Nullable="false" />
+          <Property Name="death_expire_time" Type="bigint" Nullable="false" />
+          <Property Name="taxi_path" Type="nvarchar(max)" />
+          <Property Name="honor_highest_rank" Type="bigint" Nullable="false" />
+          <Property Name="honor_standing" Type="bigint" Nullable="false" />
+          <Property Name="stored_honor_rating" Type="real" Nullable="false" />
+          <Property Name="stored_dishonorable_kills" Type="int" Nullable="false" />
+          <Property Name="stored_honorable_kills" Type="int" Nullable="false" />
+          <Property Name="watchedFaction" Type="bigint" Nullable="false" />
+          <Property Name="drunk" Type="int" Nullable="false" />
+          <Property Name="health" Type="bigint" Nullable="false" />
+          <Property Name="power1" Type="bigint" Nullable="false" />
+          <Property Name="power2" Type="bigint" Nullable="false" />
+          <Property Name="power3" Type="bigint" Nullable="false" />
+          <Property Name="power4" Type="bigint" Nullable="false" />
+          <Property Name="power5" Type="bigint" Nullable="false" />
+          <Property Name="exploredZones" Type="nvarchar(max)" />
+          <Property Name="equipmentCache" Type="nvarchar(max)" />
+          <Property Name="ammoId" Type="bigint" Nullable="false" />
+          <Property Name="actionBars" Type="tinyint" Nullable="false" />
+          <Property Name="deleteInfos_Account" Type="bigint" />
+          <Property Name="deleteInfos_Name" Type="nvarchar" MaxLength="12" />
+          <Property Name="deleteDate" Type="bigint" />
+        </EntityType>
+        <EntityType Name="corpse">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="player" Type="bigint" Nullable="false" />
+          <Property Name="position_x" Type="real" Nullable="false" />
+          <Property Name="position_y" Type="real" Nullable="false" />
+          <Property Name="position_z" Type="real" Nullable="false" />
+          <Property Name="orientation" Type="real" Nullable="false" />
+          <Property Name="map" Type="bigint" Nullable="false" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+          <Property Name="corpse_type" Type="tinyint" Nullable="false" />
+          <Property Name="instance" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="creature_respawn">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="respawntime" Type="bigint" Nullable="false" />
+          <Property Name="instance" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game_event_status">
+          <Key>
+            <PropertyRef Name="event" />
+          </Key>
+          <Property Name="event" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gameobject_respawn">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="respawntime" Type="bigint" Nullable="false" />
+          <Property Name="instance" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group_instance">
+          <Key>
+            <PropertyRef Name="leaderGuid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="leaderGuid" Type="bigint" Nullable="false" />
+          <Property Name="instance" Type="bigint" Nullable="false" />
+          <Property Name="permanent" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group_member">
+          <Key>
+            <PropertyRef Name="groupId" />
+            <PropertyRef Name="memberGuid" />
+          </Key>
+          <Property Name="groupId" Type="bigint" Nullable="false" />
+          <Property Name="memberGuid" Type="bigint" Nullable="false" />
+          <Property Name="assistant" Type="tinyint" Nullable="false" />
+          <Property Name="subgroup" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="groups">
+          <Key>
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="groupId" Type="bigint" Nullable="false" />
+          <Property Name="leaderGuid" Type="bigint" Nullable="false" />
+          <Property Name="mainTank" Type="bigint" Nullable="false" />
+          <Property Name="mainAssistant" Type="bigint" Nullable="false" />
+          <Property Name="lootMethod" Type="tinyint" Nullable="false" />
+          <Property Name="looterGuid" Type="bigint" Nullable="false" />
+          <Property Name="lootThreshold" Type="tinyint" Nullable="false" />
+          <Property Name="icon1" Type="bigint" Nullable="false" />
+          <Property Name="icon2" Type="bigint" Nullable="false" />
+          <Property Name="icon3" Type="bigint" Nullable="false" />
+          <Property Name="icon4" Type="bigint" Nullable="false" />
+          <Property Name="icon5" Type="bigint" Nullable="false" />
+          <Property Name="icon6" Type="bigint" Nullable="false" />
+          <Property Name="icon7" Type="bigint" Nullable="false" />
+          <Property Name="icon8" Type="bigint" Nullable="false" />
+          <Property Name="isRaid" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild">
+          <Key>
+            <PropertyRef Name="guildid" />
+          </Key>
+          <Property Name="guildid" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="leaderguid" Type="bigint" Nullable="false" />
+          <Property Name="EmblemStyle" Type="int" Nullable="false" />
+          <Property Name="EmblemColor" Type="int" Nullable="false" />
+          <Property Name="BorderStyle" Type="int" Nullable="false" />
+          <Property Name="BorderColor" Type="int" Nullable="false" />
+          <Property Name="BackgroundColor" Type="int" Nullable="false" />
+          <Property Name="info" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="motd" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="createdate" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild_eventlog">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="LogGuid" />
+          </Key>
+          <Property Name="guildid" Type="bigint" Nullable="false" />
+          <Property Name="LogGuid" Type="bigint" Nullable="false" />
+          <Property Name="EventType" Type="tinyint" Nullable="false" />
+          <Property Name="PlayerGuid1" Type="bigint" Nullable="false" />
+          <Property Name="PlayerGuid2" Type="bigint" Nullable="false" />
+          <Property Name="NewRank" Type="tinyint" Nullable="false" />
+          <Property Name="TimeStamp" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'characters.dbo.guild_member' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="guild_member">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="rank" />
+            <PropertyRef Name="pnote" />
+            <PropertyRef Name="offnote" />
+          </Key>
+          <Property Name="guildid" Type="bigint" Nullable="false" />
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="rank" Type="tinyint" Nullable="false" />
+          <Property Name="pnote" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="offnote" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild_rank">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="guildid" Type="bigint" Nullable="false" />
+          <Property Name="rid" Type="bigint" Nullable="false" />
+          <Property Name="rname" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="rights" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="map" Type="bigint" Nullable="false" />
+          <Property Name="resettime" Type="bigint" Nullable="false" />
+          <Property Name="data" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="instance_reset">
+          <Key>
+            <PropertyRef Name="mapid" />
+          </Key>
+          <Property Name="mapid" Type="bigint" Nullable="false" />
+          <Property Name="resettime" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_instance">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="owner_guid" Type="bigint" Nullable="false" />
+          <Property Name="data" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="item_loot">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="owner_guid" Type="bigint" Nullable="false" />
+          <Property Name="itemid" Type="bigint" Nullable="false" />
+          <Property Name="amount" Type="bigint" Nullable="false" />
+          <Property Name="property" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_text">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="text" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="messageType" Type="tinyint" Nullable="false" />
+          <Property Name="stationery" Type="smallint" Nullable="false" />
+          <Property Name="mailTemplateId" Type="int" Nullable="false" />
+          <Property Name="sender" Type="bigint" Nullable="false" />
+          <Property Name="receiver" Type="bigint" Nullable="false" />
+          <Property Name="subject" Type="nvarchar(max)" />
+          <Property Name="itemTextId" Type="bigint" Nullable="false" />
+          <Property Name="has_items" Type="tinyint" Nullable="false" />
+          <Property Name="expire_time" Type="bigint" Nullable="false" />
+          <Property Name="deliver_time" Type="bigint" Nullable="false" />
+          <Property Name="money" Type="bigint" Nullable="false" />
+          <Property Name="cod" Type="bigint" Nullable="false" />
+          <Property Name="checked" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mail_items">
+          <Key>
+            <PropertyRef Name="mail_id" />
+            <PropertyRef Name="item_guid" />
+          </Key>
+          <Property Name="mail_id" Type="int" Nullable="false" />
+          <Property Name="item_guid" Type="int" Nullable="false" />
+          <Property Name="item_template" Type="int" Nullable="false" />
+          <Property Name="receiver" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_aura">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="caster_guid" />
+            <PropertyRef Name="item_guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="caster_guid" Type="bigint" Nullable="false" />
+          <Property Name="item_guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="stackcount" Type="bigint" Nullable="false" />
+          <Property Name="remaincharges" Type="bigint" Nullable="false" />
+          <Property Name="basepoints0" Type="int" Nullable="false" />
+          <Property Name="basepoints1" Type="int" Nullable="false" />
+          <Property Name="basepoints2" Type="int" Nullable="false" />
+          <Property Name="periodictime0" Type="bigint" Nullable="false" />
+          <Property Name="periodictime1" Type="bigint" Nullable="false" />
+          <Property Name="periodictime2" Type="bigint" Nullable="false" />
+          <Property Name="maxduration" Type="int" Nullable="false" />
+          <Property Name="remaintime" Type="int" Nullable="false" />
+          <Property Name="effIndexMask" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_spell">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="active" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_spell_cooldown">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="bigint" Nullable="false" />
+          <Property Name="spell" Type="bigint" Nullable="false" />
+          <Property Name="time" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="petition">
+          <Key>
+            <PropertyRef Name="ownerguid" />
+          </Key>
+          <Property Name="ownerguid" Type="bigint" Nullable="false" />
+          <Property Name="petitionguid" Type="bigint" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="petition_sign">
+          <Key>
+            <PropertyRef Name="petitionguid" />
+            <PropertyRef Name="playerguid" />
+          </Key>
+          <Property Name="ownerguid" Type="bigint" Nullable="false" />
+          <Property Name="petitionguid" Type="bigint" Nullable="false" />
+          <Property Name="playerguid" Type="bigint" Nullable="false" />
+          <Property Name="player_account" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'characters.dbo.saved_variables' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="saved_variables">
+          <Key>
+            <PropertyRef Name="NextMaintenanceDate" />
+            <PropertyRef Name="cleaning_flags" />
+          </Key>
+          <Property Name="NextMaintenanceDate" Type="bigint" Nullable="false" />
+          <Property Name="cleaning_flags" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="world">
+          <Key>
+            <PropertyRef Name="map" />
+          </Key>
+          <Property Name="map" Type="bigint" Nullable="false" />
+          <Property Name="data" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="auction" EntityType="Self.auction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bugreport" EntityType="Self.bugreport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_action" EntityType="Self.character_action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_aura" EntityType="Self.character_aura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_battleground_data" EntityType="Self.character_battleground_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_gifts" EntityType="Self.character_gifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_homebind" EntityType="Self.character_homebind" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_instance" EntityType="Self.character_instance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_inventory" EntityType="Self.character_inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_pet" EntityType="Self.character_pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_queststatus" EntityType="Self.character_queststatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_reputation" EntityType="Self.character_reputation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_skills" EntityType="Self.character_skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_social" EntityType="Self.character_social" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_spell" EntityType="Self.character_spell" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_spell_cooldown" EntityType="Self.character_spell_cooldown" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_stats" EntityType="Self.character_stats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_ticket" EntityType="Self.character_ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_tutorial" EntityType="Self.character_tutorial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="characters" EntityType="Self.characters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="corpse" EntityType="Self.corpse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="creature_respawn" EntityType="Self.creature_respawn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="game_event_status" EntityType="Self.game_event_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gameobject_respawn" EntityType="Self.gameobject_respawn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group_instance" EntityType="Self.group_instance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group_member" EntityType="Self.group_member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guild" EntityType="Self.guild" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guild_eventlog" EntityType="Self.guild_eventlog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="guild_rank" EntityType="Self.guild_rank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="instance" EntityType="Self.instance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="instance_reset" EntityType="Self.instance_reset" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_instance" EntityType="Self.item_instance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_loot" EntityType="Self.item_loot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_text" EntityType="Self.item_text" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mail" EntityType="Self.mail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mail_items" EntityType="Self.mail_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pet_aura" EntityType="Self.pet_aura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pet_spell" EntityType="Self.pet_spell" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pet_spell_cooldown" EntityType="Self.pet_spell_cooldown" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="petition" EntityType="Self.petition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="petition_sign" EntityType="Self.petition_sign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="world" EntityType="Self.world" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="character_honor_cp" EntityType="Self.character_honor_cp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [character_honor_cp].[guid] AS [guid], 
+    [character_honor_cp].[victim_type] AS [victim_type], 
+    [character_honor_cp].[victim] AS [victim], 
+    [character_honor_cp].[honor] AS [honor], 
+    [character_honor_cp].[date] AS [date], 
+    [character_honor_cp].[type] AS [type]
+    FROM [dbo].[character_honor_cp] AS [character_honor_cp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="guild_member" EntityType="Self.guild_member" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [guild_member].[guildid] AS [guildid], 
+    [guild_member].[guid] AS [guid], 
+    [guild_member].[rank] AS [rank], 
+    [guild_member].[pnote] AS [pnote], 
+    [guild_member].[offnote] AS [offnote]
+    FROM [dbo].[guild_member] AS [guild_member]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="saved_variables" EntityType="Self.saved_variables" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [saved_variables].[NextMaintenanceDate] AS [NextMaintenanceDate], 
+    [saved_variables].[cleaning_flags] AS [cleaning_flags]
+    FROM [dbo].[saved_variables] AS [saved_variables]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="auction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="houseid" Type="Int64" Nullable="false" />
+          <Property Name="itemguid" Type="Int64" Nullable="false" />
+          <Property Name="item_template" Type="Int64" Nullable="false" />
+          <Property Name="item_count" Type="Int64" Nullable="false" />
+          <Property Name="item_randompropertyid" Type="Int32" Nullable="false" />
+          <Property Name="itemowner" Type="Int64" Nullable="false" />
+          <Property Name="buyoutprice" Type="Int32" Nullable="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+          <Property Name="buyguid" Type="Int64" Nullable="false" />
+          <Property Name="lastbid" Type="Int32" Nullable="false" />
+          <Property Name="startbid" Type="Int32" Nullable="false" />
+          <Property Name="deposit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bugreport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_action">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="button" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="button" Type="Byte" Nullable="false" />
+          <Property Name="action" Type="Int64" Nullable="false" />
+          <Property Name="type" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_aura">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="caster_guid" />
+            <PropertyRef Name="item_guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="caster_guid" Type="Int64" Nullable="false" />
+          <Property Name="item_guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="stackcount" Type="Int64" Nullable="false" />
+          <Property Name="remaincharges" Type="Int64" Nullable="false" />
+          <Property Name="basepoints0" Type="Int32" Nullable="false" />
+          <Property Name="basepoints1" Type="Int32" Nullable="false" />
+          <Property Name="basepoints2" Type="Int32" Nullable="false" />
+          <Property Name="periodictime0" Type="Int64" Nullable="false" />
+          <Property Name="periodictime1" Type="Int64" Nullable="false" />
+          <Property Name="periodictime2" Type="Int64" Nullable="false" />
+          <Property Name="maxduration" Type="Int32" Nullable="false" />
+          <Property Name="remaintime" Type="Int32" Nullable="false" />
+          <Property Name="effIndexMask" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_battleground_data">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="instance_id" Type="Int64" Nullable="false" />
+          <Property Name="team" Type="Int64" Nullable="false" />
+          <Property Name="join_x" Type="Single" Nullable="false" />
+          <Property Name="join_y" Type="Single" Nullable="false" />
+          <Property Name="join_z" Type="Single" Nullable="false" />
+          <Property Name="join_o" Type="Single" Nullable="false" />
+          <Property Name="join_map" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_gifts">
+          <Key>
+            <PropertyRef Name="item_guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="item_guid" Type="Int64" Nullable="false" />
+          <Property Name="entry" Type="Int64" Nullable="false" />
+          <Property Name="flags" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_homebind">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="map" Type="Int64" Nullable="false" />
+          <Property Name="zone" Type="Int64" Nullable="false" />
+          <Property Name="position_x" Type="Single" Nullable="false" />
+          <Property Name="position_y" Type="Single" Nullable="false" />
+          <Property Name="position_z" Type="Single" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_instance">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="instance" Type="Int64" Nullable="false" />
+          <Property Name="permanent" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_inventory">
+          <Key>
+            <PropertyRef Name="item" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="bag" Type="Int64" Nullable="false" />
+          <Property Name="slot" Type="Byte" Nullable="false" />
+          <Property Name="item" Type="Int64" Nullable="false" />
+          <Property Name="item_template" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_pet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="entry" Type="Int64" Nullable="false" />
+          <Property Name="owner" Type="Int64" Nullable="false" />
+          <Property Name="modelid" Type="Int64" />
+          <Property Name="CreatedBySpell" Type="Int64" Nullable="false" />
+          <Property Name="PetType" Type="Byte" Nullable="false" />
+          <Property Name="level" Type="Int64" Nullable="false" />
+          <Property Name="exp" Type="Int64" Nullable="false" />
+          <Property Name="Reactstate" Type="Byte" Nullable="false" />
+          <Property Name="loyaltypoints" Type="Int32" Nullable="false" />
+          <Property Name="loyalty" Type="Int64" Nullable="false" />
+          <Property Name="trainpoint" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="renamed" Type="Byte" Nullable="false" />
+          <Property Name="slot" Type="Int64" Nullable="false" />
+          <Property Name="curhealth" Type="Int64" Nullable="false" />
+          <Property Name="curmana" Type="Int64" Nullable="false" />
+          <Property Name="curhappiness" Type="Int64" Nullable="false" />
+          <Property Name="savetime" Type="Int64" Nullable="false" />
+          <Property Name="resettalents_cost" Type="Int64" Nullable="false" />
+          <Property Name="resettalents_time" Type="Int64" Nullable="false" />
+          <Property Name="abdata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="teachspelldata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="character_queststatus">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="quest" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="quest" Type="Int64" Nullable="false" />
+          <Property Name="status" Type="Int64" Nullable="false" />
+          <Property Name="rewarded" Type="Byte" Nullable="false" />
+          <Property Name="explored" Type="Byte" Nullable="false" />
+          <Property Name="timer" Type="Int64" Nullable="false" />
+          <Property Name="mobcount1" Type="Int64" Nullable="false" />
+          <Property Name="mobcount2" Type="Int64" Nullable="false" />
+          <Property Name="mobcount3" Type="Int64" Nullable="false" />
+          <Property Name="mobcount4" Type="Int64" Nullable="false" />
+          <Property Name="itemcount1" Type="Int64" Nullable="false" />
+          <Property Name="itemcount2" Type="Int64" Nullable="false" />
+          <Property Name="itemcount3" Type="Int64" Nullable="false" />
+          <Property Name="itemcount4" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_reputation">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="faction" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="faction" Type="Int64" Nullable="false" />
+          <Property Name="standing" Type="Int32" Nullable="false" />
+          <Property Name="flags" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_skills">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="skill" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="skill" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <Property Name="max" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_social">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="friend" />
+            <PropertyRef Name="flags" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="friend" Type="Int64" Nullable="false" />
+          <Property Name="flags" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_spell">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="active" Type="Byte" Nullable="false" />
+          <Property Name="disabled" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_spell_cooldown">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="item" Type="Int64" Nullable="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_stats">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="maxhealth" Type="Int64" Nullable="false" />
+          <Property Name="maxpower1" Type="Int64" Nullable="false" />
+          <Property Name="maxpower2" Type="Int64" Nullable="false" />
+          <Property Name="maxpower3" Type="Int64" Nullable="false" />
+          <Property Name="maxpower4" Type="Int64" Nullable="false" />
+          <Property Name="maxpower5" Type="Int64" Nullable="false" />
+          <Property Name="maxpower6" Type="Int64" Nullable="false" />
+          <Property Name="maxpower7" Type="Int64" Nullable="false" />
+          <Property Name="strength" Type="Int64" Nullable="false" />
+          <Property Name="agility" Type="Int64" Nullable="false" />
+          <Property Name="stamina" Type="Int64" Nullable="false" />
+          <Property Name="intellect" Type="Int64" Nullable="false" />
+          <Property Name="spirit" Type="Int64" Nullable="false" />
+          <Property Name="armor" Type="Int64" Nullable="false" />
+          <Property Name="resHoly" Type="Int64" Nullable="false" />
+          <Property Name="resFire" Type="Int64" Nullable="false" />
+          <Property Name="resNature" Type="Int64" Nullable="false" />
+          <Property Name="resFrost" Type="Int64" Nullable="false" />
+          <Property Name="resShadow" Type="Int64" Nullable="false" />
+          <Property Name="resArcane" Type="Int64" Nullable="false" />
+          <Property Name="blockPct" Type="Single" Nullable="false" />
+          <Property Name="dodgePct" Type="Single" Nullable="false" />
+          <Property Name="parryPct" Type="Single" Nullable="false" />
+          <Property Name="critPct" Type="Single" Nullable="false" />
+          <Property Name="rangedCritPct" Type="Single" Nullable="false" />
+          <Property Name="attackPower" Type="Int64" Nullable="false" />
+          <Property Name="rangedAttackPower" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character_ticket">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="ticket_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="response_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ticket_lastchange" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="character_tutorial">
+          <Key>
+            <PropertyRef Name="account" />
+          </Key>
+          <Property Name="account" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tut0" Type="Int64" Nullable="false" />
+          <Property Name="tut1" Type="Int64" Nullable="false" />
+          <Property Name="tut2" Type="Int64" Nullable="false" />
+          <Property Name="tut3" Type="Int64" Nullable="false" />
+          <Property Name="tut4" Type="Int64" Nullable="false" />
+          <Property Name="tut5" Type="Int64" Nullable="false" />
+          <Property Name="tut6" Type="Int64" Nullable="false" />
+          <Property Name="tut7" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="character">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="account" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="race" Type="Byte" Nullable="false" />
+          <Property Name="class" Type="Byte" Nullable="false" />
+          <Property Name="gender" Type="Byte" Nullable="false" />
+          <Property Name="level" Type="Byte" Nullable="false" />
+          <Property Name="xp" Type="Int64" Nullable="false" />
+          <Property Name="money" Type="Int64" Nullable="false" />
+          <Property Name="playerBytes" Type="Int64" Nullable="false" />
+          <Property Name="playerBytes2" Type="Int64" Nullable="false" />
+          <Property Name="playerFlags" Type="Int64" Nullable="false" />
+          <Property Name="position_x" Type="Single" Nullable="false" />
+          <Property Name="position_y" Type="Single" Nullable="false" />
+          <Property Name="position_z" Type="Single" Nullable="false" />
+          <Property Name="map" Type="Int64" Nullable="false" />
+          <Property Name="orientation" Type="Single" Nullable="false" />
+          <Property Name="taximask" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="online" Type="Byte" Nullable="false" />
+          <Property Name="cinematic" Type="Byte" Nullable="false" />
+          <Property Name="totaltime" Type="Int64" Nullable="false" />
+          <Property Name="leveltime" Type="Int64" Nullable="false" />
+          <Property Name="logout_time" Type="Int64" Nullable="false" />
+          <Property Name="is_logout_resting" Type="Byte" Nullable="false" />
+          <Property Name="rest_bonus" Type="Single" Nullable="false" />
+          <Property Name="resettalents_cost" Type="Int64" Nullable="false" />
+          <Property Name="resettalents_time" Type="Int64" Nullable="false" />
+          <Property Name="trans_x" Type="Single" Nullable="false" />
+          <Property Name="trans_y" Type="Single" Nullable="false" />
+          <Property Name="trans_z" Type="Single" Nullable="false" />
+          <Property Name="trans_o" Type="Single" Nullable="false" />
+          <Property Name="transguid" Type="Int64" Nullable="false" />
+          <Property Name="extra_flags" Type="Int64" Nullable="false" />
+          <Property Name="stable_slots" Type="Byte" Nullable="false" />
+          <Property Name="at_login" Type="Int64" Nullable="false" />
+          <Property Name="zone" Type="Int64" Nullable="false" />
+          <Property Name="death_expire_time" Type="Int64" Nullable="false" />
+          <Property Name="taxi_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="honor_highest_rank" Type="Int64" Nullable="false" />
+          <Property Name="honor_standing" Type="Int64" Nullable="false" />
+          <Property Name="stored_honor_rating" Type="Single" Nullable="false" />
+          <Property Name="stored_dishonorable_kills" Type="Int32" Nullable="false" />
+          <Property Name="stored_honorable_kills" Type="Int32" Nullable="false" />
+          <Property Name="watchedFaction" Type="Int64" Nullable="false" />
+          <Property Name="drunk" Type="Int32" Nullable="false" />
+          <Property Name="health" Type="Int64" Nullable="false" />
+          <Property Name="power1" Type="Int64" Nullable="false" />
+          <Property Name="power2" Type="Int64" Nullable="false" />
+          <Property Name="power3" Type="Int64" Nullable="false" />
+          <Property Name="power4" Type="Int64" Nullable="false" />
+          <Property Name="power5" Type="Int64" Nullable="false" />
+          <Property Name="exploredZones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="equipmentCache" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ammoId" Type="Int64" Nullable="false" />
+          <Property Name="actionBars" Type="Byte" Nullable="false" />
+          <Property Name="deleteInfos_Account" Type="Int64" />
+          <Property Name="deleteInfos_Name" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="deleteDate" Type="Int64" />
+        </EntityType>
+        <EntityType Name="corpse">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="player" Type="Int64" Nullable="false" />
+          <Property Name="position_x" Type="Single" Nullable="false" />
+          <Property Name="position_y" Type="Single" Nullable="false" />
+          <Property Name="position_z" Type="Single" Nullable="false" />
+          <Property Name="orientation" Type="Single" Nullable="false" />
+          <Property Name="map" Type="Int64" Nullable="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+          <Property Name="corpse_type" Type="Byte" Nullable="false" />
+          <Property Name="instance" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="creature_respawn">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="respawntime" Type="Int64" Nullable="false" />
+          <Property Name="instance" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="game_event_status">
+          <Key>
+            <PropertyRef Name="event" />
+          </Key>
+          <Property Name="event" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gameobject_respawn">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="respawntime" Type="Int64" Nullable="false" />
+          <Property Name="instance" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group_instance">
+          <Key>
+            <PropertyRef Name="leaderGuid" />
+            <PropertyRef Name="instance" />
+          </Key>
+          <Property Name="leaderGuid" Type="Int64" Nullable="false" />
+          <Property Name="instance" Type="Int64" Nullable="false" />
+          <Property Name="permanent" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group_member">
+          <Key>
+            <PropertyRef Name="groupId" />
+            <PropertyRef Name="memberGuid" />
+          </Key>
+          <Property Name="groupId" Type="Int64" Nullable="false" />
+          <Property Name="memberGuid" Type="Int64" Nullable="false" />
+          <Property Name="assistant" Type="Byte" Nullable="false" />
+          <Property Name="subgroup" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="groupId" Type="Int64" Nullable="false" />
+          <Property Name="leaderGuid" Type="Int64" Nullable="false" />
+          <Property Name="mainTank" Type="Int64" Nullable="false" />
+          <Property Name="mainAssistant" Type="Int64" Nullable="false" />
+          <Property Name="lootMethod" Type="Byte" Nullable="false" />
+          <Property Name="looterGuid" Type="Int64" Nullable="false" />
+          <Property Name="lootThreshold" Type="Byte" Nullable="false" />
+          <Property Name="icon1" Type="Int64" Nullable="false" />
+          <Property Name="icon2" Type="Int64" Nullable="false" />
+          <Property Name="icon3" Type="Int64" Nullable="false" />
+          <Property Name="icon4" Type="Int64" Nullable="false" />
+          <Property Name="icon5" Type="Int64" Nullable="false" />
+          <Property Name="icon6" Type="Int64" Nullable="false" />
+          <Property Name="icon7" Type="Int64" Nullable="false" />
+          <Property Name="icon8" Type="Int64" Nullable="false" />
+          <Property Name="isRaid" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild">
+          <Key>
+            <PropertyRef Name="guildid" />
+          </Key>
+          <Property Name="guildid" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="leaderguid" Type="Int64" Nullable="false" />
+          <Property Name="EmblemStyle" Type="Int32" Nullable="false" />
+          <Property Name="EmblemColor" Type="Int32" Nullable="false" />
+          <Property Name="BorderStyle" Type="Int32" Nullable="false" />
+          <Property Name="BorderColor" Type="Int32" Nullable="false" />
+          <Property Name="BackgroundColor" Type="Int32" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="motd" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="createdate" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild_eventlog">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="LogGuid" />
+          </Key>
+          <Property Name="guildid" Type="Int64" Nullable="false" />
+          <Property Name="LogGuid" Type="Int64" Nullable="false" />
+          <Property Name="EventType" Type="Byte" Nullable="false" />
+          <Property Name="PlayerGuid1" Type="Int64" Nullable="false" />
+          <Property Name="PlayerGuid2" Type="Int64" Nullable="false" />
+          <Property Name="NewRank" Type="Byte" Nullable="false" />
+          <Property Name="TimeStamp" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild_rank">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="guildid" Type="Int64" Nullable="false" />
+          <Property Name="rid" Type="Int64" Nullable="false" />
+          <Property Name="rname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rights" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="instance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="map" Type="Int64" Nullable="false" />
+          <Property Name="resettime" Type="Int64" Nullable="false" />
+          <Property Name="data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="instance_reset">
+          <Key>
+            <PropertyRef Name="mapid" />
+          </Key>
+          <Property Name="mapid" Type="Int64" Nullable="false" />
+          <Property Name="resettime" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_instance">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="owner_guid" Type="Int64" Nullable="false" />
+          <Property Name="data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="item_loot">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="itemid" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="owner_guid" Type="Int64" Nullable="false" />
+          <Property Name="itemid" Type="Int64" Nullable="false" />
+          <Property Name="amount" Type="Int64" Nullable="false" />
+          <Property Name="property" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_text">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="messageType" Type="Byte" Nullable="false" />
+          <Property Name="stationery" Type="Int16" Nullable="false" />
+          <Property Name="mailTemplateId" Type="Int32" Nullable="false" />
+          <Property Name="sender" Type="Int64" Nullable="false" />
+          <Property Name="receiver" Type="Int64" Nullable="false" />
+          <Property Name="subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="itemTextId" Type="Int64" Nullable="false" />
+          <Property Name="has_items" Type="Byte" Nullable="false" />
+          <Property Name="expire_time" Type="Int64" Nullable="false" />
+          <Property Name="deliver_time" Type="Int64" Nullable="false" />
+          <Property Name="money" Type="Int64" Nullable="false" />
+          <Property Name="cod" Type="Int64" Nullable="false" />
+          <Property Name="checked" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mail_items">
+          <Key>
+            <PropertyRef Name="mail_id" />
+            <PropertyRef Name="item_guid" />
+          </Key>
+          <Property Name="mail_id" Type="Int32" Nullable="false" />
+          <Property Name="item_guid" Type="Int32" Nullable="false" />
+          <Property Name="item_template" Type="Int32" Nullable="false" />
+          <Property Name="receiver" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_aura">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="caster_guid" />
+            <PropertyRef Name="item_guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="caster_guid" Type="Int64" Nullable="false" />
+          <Property Name="item_guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="stackcount" Type="Int64" Nullable="false" />
+          <Property Name="remaincharges" Type="Int64" Nullable="false" />
+          <Property Name="basepoints0" Type="Int32" Nullable="false" />
+          <Property Name="basepoints1" Type="Int32" Nullable="false" />
+          <Property Name="basepoints2" Type="Int32" Nullable="false" />
+          <Property Name="periodictime0" Type="Int64" Nullable="false" />
+          <Property Name="periodictime1" Type="Int64" Nullable="false" />
+          <Property Name="periodictime2" Type="Int64" Nullable="false" />
+          <Property Name="maxduration" Type="Int32" Nullable="false" />
+          <Property Name="remaintime" Type="Int32" Nullable="false" />
+          <Property Name="effIndexMask" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_spell">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="active" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pet_spell_cooldown">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="spell" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="spell" Type="Int64" Nullable="false" />
+          <Property Name="time" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="petition">
+          <Key>
+            <PropertyRef Name="ownerguid" />
+          </Key>
+          <Property Name="ownerguid" Type="Int64" Nullable="false" />
+          <Property Name="petitionguid" Type="Int64" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="petition_sign">
+          <Key>
+            <PropertyRef Name="petitionguid" />
+            <PropertyRef Name="playerguid" />
+          </Key>
+          <Property Name="ownerguid" Type="Int64" Nullable="false" />
+          <Property Name="petitionguid" Type="Int64" Nullable="false" />
+          <Property Name="playerguid" Type="Int64" Nullable="false" />
+          <Property Name="player_account" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="world">
+          <Key>
+            <PropertyRef Name="map" />
+          </Key>
+          <Property Name="map" Type="Int64" Nullable="false" />
+          <Property Name="data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="character_honor_cp">
+          <Key>
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="victim_type" />
+            <PropertyRef Name="victim" />
+            <PropertyRef Name="honor" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="victim_type" Type="Byte" Nullable="false" />
+          <Property Name="victim" Type="Int64" Nullable="false" />
+          <Property Name="honor" Type="Single" Nullable="false" />
+          <Property Name="date" Type="Int64" Nullable="false" />
+          <Property Name="type" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="guild_member">
+          <Key>
+            <PropertyRef Name="guildid" />
+            <PropertyRef Name="guid" />
+            <PropertyRef Name="rank" />
+            <PropertyRef Name="pnote" />
+            <PropertyRef Name="offnote" />
+          </Key>
+          <Property Name="guildid" Type="Int64" Nullable="false" />
+          <Property Name="guid" Type="Int64" Nullable="false" />
+          <Property Name="rank" Type="Byte" Nullable="false" />
+          <Property Name="pnote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="offnote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="saved_variables">
+          <Key>
+            <PropertyRef Name="NextMaintenanceDate" />
+            <PropertyRef Name="cleaning_flags" />
+          </Key>
+          <Property Name="NextMaintenanceDate" Type="Int64" Nullable="false" />
+          <Property Name="cleaning_flags" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CharacterDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auctions" EntityType="Self.auction" />
+          <EntitySet Name="bugreports" EntityType="Self.bugreport" />
+          <EntitySet Name="character_action" EntityType="Self.character_action" />
+          <EntitySet Name="character_aura" EntityType="Self.character_aura" />
+          <EntitySet Name="character_battleground_data" EntityType="Self.character_battleground_data" />
+          <EntitySet Name="character_gifts" EntityType="Self.character_gifts" />
+          <EntitySet Name="character_homebind" EntityType="Self.character_homebind" />
+          <EntitySet Name="character_instance" EntityType="Self.character_instance" />
+          <EntitySet Name="character_inventory" EntityType="Self.character_inventory" />
+          <EntitySet Name="character_pet" EntityType="Self.character_pet" />
+          <EntitySet Name="character_queststatus" EntityType="Self.character_queststatus" />
+          <EntitySet Name="character_reputation" EntityType="Self.character_reputation" />
+          <EntitySet Name="character_skills" EntityType="Self.character_skills" />
+          <EntitySet Name="character_social" EntityType="Self.character_social" />
+          <EntitySet Name="character_spell" EntityType="Self.character_spell" />
+          <EntitySet Name="character_spell_cooldown" EntityType="Self.character_spell_cooldown" />
+          <EntitySet Name="character_stats" EntityType="Self.character_stats" />
+          <EntitySet Name="character_ticket" EntityType="Self.character_ticket" />
+          <EntitySet Name="character_tutorial" EntityType="Self.character_tutorial" />
+          <EntitySet Name="characters" EntityType="Self.character" />
+          <EntitySet Name="corpses" EntityType="Self.corpse" />
+          <EntitySet Name="creature_respawn" EntityType="Self.creature_respawn" />
+          <EntitySet Name="game_event_status" EntityType="Self.game_event_status" />
+          <EntitySet Name="gameobject_respawn" EntityType="Self.gameobject_respawn" />
+          <EntitySet Name="group_instance" EntityType="Self.group_instance" />
+          <EntitySet Name="group_member" EntityType="Self.group_member" />
+          <EntitySet Name="groups" EntityType="Self.group" />
+          <EntitySet Name="guilds" EntityType="Self.guild" />
+          <EntitySet Name="guild_eventlog" EntityType="Self.guild_eventlog" />
+          <EntitySet Name="guild_rank" EntityType="Self.guild_rank" />
+          <EntitySet Name="instances" EntityType="Self.instance" />
+          <EntitySet Name="instance_reset" EntityType="Self.instance_reset" />
+          <EntitySet Name="item_instance" EntityType="Self.item_instance" />
+          <EntitySet Name="item_loot" EntityType="Self.item_loot" />
+          <EntitySet Name="item_text" EntityType="Self.item_text" />
+          <EntitySet Name="mails" EntityType="Self.mail" />
+          <EntitySet Name="mail_items" EntityType="Self.mail_items" />
+          <EntitySet Name="pet_aura" EntityType="Self.pet_aura" />
+          <EntitySet Name="pet_spell" EntityType="Self.pet_spell" />
+          <EntitySet Name="pet_spell_cooldown" EntityType="Self.pet_spell_cooldown" />
+          <EntitySet Name="petitions" EntityType="Self.petition" />
+          <EntitySet Name="petition_sign" EntityType="Self.petition_sign" />
+          <EntitySet Name="worlds" EntityType="Self.world" />
+          <EntitySet Name="character_honor_cp" EntityType="Self.character_honor_cp" />
+          <EntitySet Name="guild_member" EntityType="Self.guild_member" />
+          <EntitySet Name="saved_variables" EntityType="Self.saved_variables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="CharacterDatabase">
+          <EntitySetMapping Name="auctions">
+            <EntityTypeMapping TypeName="Models.auction">
+              <MappingFragment StoreEntitySet="auction">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="houseid" ColumnName="houseid" />
+                <ScalarProperty Name="itemguid" ColumnName="itemguid" />
+                <ScalarProperty Name="item_template" ColumnName="item_template" />
+                <ScalarProperty Name="item_count" ColumnName="item_count" />
+                <ScalarProperty Name="item_randompropertyid" ColumnName="item_randompropertyid" />
+                <ScalarProperty Name="itemowner" ColumnName="itemowner" />
+                <ScalarProperty Name="buyoutprice" ColumnName="buyoutprice" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="buyguid" ColumnName="buyguid" />
+                <ScalarProperty Name="lastbid" ColumnName="lastbid" />
+                <ScalarProperty Name="startbid" ColumnName="startbid" />
+                <ScalarProperty Name="deposit" ColumnName="deposit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bugreports">
+            <EntityTypeMapping TypeName="Models.bugreport">
+              <MappingFragment StoreEntitySet="bugreport">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="content" ColumnName="content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_action">
+            <EntityTypeMapping TypeName="Models.character_action">
+              <MappingFragment StoreEntitySet="character_action">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="button" ColumnName="button" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_aura">
+            <EntityTypeMapping TypeName="Models.character_aura">
+              <MappingFragment StoreEntitySet="character_aura">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="caster_guid" ColumnName="caster_guid" />
+                <ScalarProperty Name="item_guid" ColumnName="item_guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="stackcount" ColumnName="stackcount" />
+                <ScalarProperty Name="remaincharges" ColumnName="remaincharges" />
+                <ScalarProperty Name="basepoints0" ColumnName="basepoints0" />
+                <ScalarProperty Name="basepoints1" ColumnName="basepoints1" />
+                <ScalarProperty Name="basepoints2" ColumnName="basepoints2" />
+                <ScalarProperty Name="periodictime0" ColumnName="periodictime0" />
+                <ScalarProperty Name="periodictime1" ColumnName="periodictime1" />
+                <ScalarProperty Name="periodictime2" ColumnName="periodictime2" />
+                <ScalarProperty Name="maxduration" ColumnName="maxduration" />
+                <ScalarProperty Name="remaintime" ColumnName="remaintime" />
+                <ScalarProperty Name="effIndexMask" ColumnName="effIndexMask" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_battleground_data">
+            <EntityTypeMapping TypeName="Models.character_battleground_data">
+              <MappingFragment StoreEntitySet="character_battleground_data">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="instance_id" ColumnName="instance_id" />
+                <ScalarProperty Name="team" ColumnName="team" />
+                <ScalarProperty Name="join_x" ColumnName="join_x" />
+                <ScalarProperty Name="join_y" ColumnName="join_y" />
+                <ScalarProperty Name="join_z" ColumnName="join_z" />
+                <ScalarProperty Name="join_o" ColumnName="join_o" />
+                <ScalarProperty Name="join_map" ColumnName="join_map" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_gifts">
+            <EntityTypeMapping TypeName="Models.character_gifts">
+              <MappingFragment StoreEntitySet="character_gifts">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="item_guid" ColumnName="item_guid" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+                <ScalarProperty Name="flags" ColumnName="flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_homebind">
+            <EntityTypeMapping TypeName="Models.character_homebind">
+              <MappingFragment StoreEntitySet="character_homebind">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="map" ColumnName="map" />
+                <ScalarProperty Name="zone" ColumnName="zone" />
+                <ScalarProperty Name="position_x" ColumnName="position_x" />
+                <ScalarProperty Name="position_y" ColumnName="position_y" />
+                <ScalarProperty Name="position_z" ColumnName="position_z" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_instance">
+            <EntityTypeMapping TypeName="Models.character_instance">
+              <MappingFragment StoreEntitySet="character_instance">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+                <ScalarProperty Name="permanent" ColumnName="permanent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_inventory">
+            <EntityTypeMapping TypeName="Models.character_inventory">
+              <MappingFragment StoreEntitySet="character_inventory">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="bag" ColumnName="bag" />
+                <ScalarProperty Name="slot" ColumnName="slot" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="item_template" ColumnName="item_template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_pet">
+            <EntityTypeMapping TypeName="Models.character_pet">
+              <MappingFragment StoreEntitySet="character_pet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="modelid" ColumnName="modelid" />
+                <ScalarProperty Name="CreatedBySpell" ColumnName="CreatedBySpell" />
+                <ScalarProperty Name="PetType" ColumnName="PetType" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="exp" ColumnName="exp" />
+                <ScalarProperty Name="Reactstate" ColumnName="Reactstate" />
+                <ScalarProperty Name="loyaltypoints" ColumnName="loyaltypoints" />
+                <ScalarProperty Name="loyalty" ColumnName="loyalty" />
+                <ScalarProperty Name="trainpoint" ColumnName="trainpoint" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="renamed" ColumnName="renamed" />
+                <ScalarProperty Name="slot" ColumnName="slot" />
+                <ScalarProperty Name="curhealth" ColumnName="curhealth" />
+                <ScalarProperty Name="curmana" ColumnName="curmana" />
+                <ScalarProperty Name="curhappiness" ColumnName="curhappiness" />
+                <ScalarProperty Name="savetime" ColumnName="savetime" />
+                <ScalarProperty Name="resettalents_cost" ColumnName="resettalents_cost" />
+                <ScalarProperty Name="resettalents_time" ColumnName="resettalents_time" />
+                <ScalarProperty Name="abdata" ColumnName="abdata" />
+                <ScalarProperty Name="teachspelldata" ColumnName="teachspelldata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_queststatus">
+            <EntityTypeMapping TypeName="Models.character_queststatus">
+              <MappingFragment StoreEntitySet="character_queststatus">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="quest" ColumnName="quest" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="rewarded" ColumnName="rewarded" />
+                <ScalarProperty Name="explored" ColumnName="explored" />
+                <ScalarProperty Name="timer" ColumnName="timer" />
+                <ScalarProperty Name="mobcount1" ColumnName="mobcount1" />
+                <ScalarProperty Name="mobcount2" ColumnName="mobcount2" />
+                <ScalarProperty Name="mobcount3" ColumnName="mobcount3" />
+                <ScalarProperty Name="mobcount4" ColumnName="mobcount4" />
+                <ScalarProperty Name="itemcount1" ColumnName="itemcount1" />
+                <ScalarProperty Name="itemcount2" ColumnName="itemcount2" />
+                <ScalarProperty Name="itemcount3" ColumnName="itemcount3" />
+                <ScalarProperty Name="itemcount4" ColumnName="itemcount4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_reputation">
+            <EntityTypeMapping TypeName="Models.character_reputation">
+              <MappingFragment StoreEntitySet="character_reputation">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="faction" ColumnName="faction" />
+                <ScalarProperty Name="standing" ColumnName="standing" />
+                <ScalarProperty Name="flags" ColumnName="flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_skills">
+            <EntityTypeMapping TypeName="Models.character_skills">
+              <MappingFragment StoreEntitySet="character_skills">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="max" ColumnName="max" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_social">
+            <EntityTypeMapping TypeName="Models.character_social">
+              <MappingFragment StoreEntitySet="character_social">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="friend" ColumnName="friend" />
+                <ScalarProperty Name="flags" ColumnName="flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_spell">
+            <EntityTypeMapping TypeName="Models.character_spell">
+              <MappingFragment StoreEntitySet="character_spell">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="disabled" ColumnName="disabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_spell_cooldown">
+            <EntityTypeMapping TypeName="Models.character_spell_cooldown">
+              <MappingFragment StoreEntitySet="character_spell_cooldown">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_stats">
+            <EntityTypeMapping TypeName="Models.character_stats">
+              <MappingFragment StoreEntitySet="character_stats">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="maxhealth" ColumnName="maxhealth" />
+                <ScalarProperty Name="maxpower1" ColumnName="maxpower1" />
+                <ScalarProperty Name="maxpower2" ColumnName="maxpower2" />
+                <ScalarProperty Name="maxpower3" ColumnName="maxpower3" />
+                <ScalarProperty Name="maxpower4" ColumnName="maxpower4" />
+                <ScalarProperty Name="maxpower5" ColumnName="maxpower5" />
+                <ScalarProperty Name="maxpower6" ColumnName="maxpower6" />
+                <ScalarProperty Name="maxpower7" ColumnName="maxpower7" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="stamina" ColumnName="stamina" />
+                <ScalarProperty Name="intellect" ColumnName="intellect" />
+                <ScalarProperty Name="spirit" ColumnName="spirit" />
+                <ScalarProperty Name="armor" ColumnName="armor" />
+                <ScalarProperty Name="resHoly" ColumnName="resHoly" />
+                <ScalarProperty Name="resFire" ColumnName="resFire" />
+                <ScalarProperty Name="resNature" ColumnName="resNature" />
+                <ScalarProperty Name="resFrost" ColumnName="resFrost" />
+                <ScalarProperty Name="resShadow" ColumnName="resShadow" />
+                <ScalarProperty Name="resArcane" ColumnName="resArcane" />
+                <ScalarProperty Name="blockPct" ColumnName="blockPct" />
+                <ScalarProperty Name="dodgePct" ColumnName="dodgePct" />
+                <ScalarProperty Name="parryPct" ColumnName="parryPct" />
+                <ScalarProperty Name="critPct" ColumnName="critPct" />
+                <ScalarProperty Name="rangedCritPct" ColumnName="rangedCritPct" />
+                <ScalarProperty Name="attackPower" ColumnName="attackPower" />
+                <ScalarProperty Name="rangedAttackPower" ColumnName="rangedAttackPower" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_ticket">
+            <EntityTypeMapping TypeName="Models.character_ticket">
+              <MappingFragment StoreEntitySet="character_ticket">
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="ticket_text" ColumnName="ticket_text" />
+                <ScalarProperty Name="response_text" ColumnName="response_text" />
+                <ScalarProperty Name="ticket_lastchange" ColumnName="ticket_lastchange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_tutorial">
+            <EntityTypeMapping TypeName="Models.character_tutorial">
+              <MappingFragment StoreEntitySet="character_tutorial">
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="tut0" ColumnName="tut0" />
+                <ScalarProperty Name="tut1" ColumnName="tut1" />
+                <ScalarProperty Name="tut2" ColumnName="tut2" />
+                <ScalarProperty Name="tut3" ColumnName="tut3" />
+                <ScalarProperty Name="tut4" ColumnName="tut4" />
+                <ScalarProperty Name="tut5" ColumnName="tut5" />
+                <ScalarProperty Name="tut6" ColumnName="tut6" />
+                <ScalarProperty Name="tut7" ColumnName="tut7" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="characters">
+            <EntityTypeMapping TypeName="Models.character">
+              <MappingFragment StoreEntitySet="characters">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="race" ColumnName="race" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="xp" ColumnName="xp" />
+                <ScalarProperty Name="money" ColumnName="money" />
+                <ScalarProperty Name="playerBytes" ColumnName="playerBytes" />
+                <ScalarProperty Name="playerBytes2" ColumnName="playerBytes2" />
+                <ScalarProperty Name="playerFlags" ColumnName="playerFlags" />
+                <ScalarProperty Name="position_x" ColumnName="position_x" />
+                <ScalarProperty Name="position_y" ColumnName="position_y" />
+                <ScalarProperty Name="position_z" ColumnName="position_z" />
+                <ScalarProperty Name="map" ColumnName="map" />
+                <ScalarProperty Name="orientation" ColumnName="orientation" />
+                <ScalarProperty Name="taximask" ColumnName="taximask" />
+                <ScalarProperty Name="online" ColumnName="online" />
+                <ScalarProperty Name="cinematic" ColumnName="cinematic" />
+                <ScalarProperty Name="totaltime" ColumnName="totaltime" />
+                <ScalarProperty Name="leveltime" ColumnName="leveltime" />
+                <ScalarProperty Name="logout_time" ColumnName="logout_time" />
+                <ScalarProperty Name="is_logout_resting" ColumnName="is_logout_resting" />
+                <ScalarProperty Name="rest_bonus" ColumnName="rest_bonus" />
+                <ScalarProperty Name="resettalents_cost" ColumnName="resettalents_cost" />
+                <ScalarProperty Name="resettalents_time" ColumnName="resettalents_time" />
+                <ScalarProperty Name="trans_x" ColumnName="trans_x" />
+                <ScalarProperty Name="trans_y" ColumnName="trans_y" />
+                <ScalarProperty Name="trans_z" ColumnName="trans_z" />
+                <ScalarProperty Name="trans_o" ColumnName="trans_o" />
+                <ScalarProperty Name="transguid" ColumnName="transguid" />
+                <ScalarProperty Name="extra_flags" ColumnName="extra_flags" />
+                <ScalarProperty Name="stable_slots" ColumnName="stable_slots" />
+                <ScalarProperty Name="at_login" ColumnName="at_login" />
+                <ScalarProperty Name="zone" ColumnName="zone" />
+                <ScalarProperty Name="death_expire_time" ColumnName="death_expire_time" />
+                <ScalarProperty Name="taxi_path" ColumnName="taxi_path" />
+                <ScalarProperty Name="honor_highest_rank" ColumnName="honor_highest_rank" />
+                <ScalarProperty Name="honor_standing" ColumnName="honor_standing" />
+                <ScalarProperty Name="stored_honor_rating" ColumnName="stored_honor_rating" />
+                <ScalarProperty Name="stored_dishonorable_kills" ColumnName="stored_dishonorable_kills" />
+                <ScalarProperty Name="stored_honorable_kills" ColumnName="stored_honorable_kills" />
+                <ScalarProperty Name="watchedFaction" ColumnName="watchedFaction" />
+                <ScalarProperty Name="drunk" ColumnName="drunk" />
+                <ScalarProperty Name="health" ColumnName="health" />
+                <ScalarProperty Name="power1" ColumnName="power1" />
+                <ScalarProperty Name="power2" ColumnName="power2" />
+                <ScalarProperty Name="power3" ColumnName="power3" />
+                <ScalarProperty Name="power4" ColumnName="power4" />
+                <ScalarProperty Name="power5" ColumnName="power5" />
+                <ScalarProperty Name="exploredZones" ColumnName="exploredZones" />
+                <ScalarProperty Name="equipmentCache" ColumnName="equipmentCache" />
+                <ScalarProperty Name="ammoId" ColumnName="ammoId" />
+                <ScalarProperty Name="actionBars" ColumnName="actionBars" />
+                <ScalarProperty Name="deleteInfos_Account" ColumnName="deleteInfos_Account" />
+                <ScalarProperty Name="deleteInfos_Name" ColumnName="deleteInfos_Name" />
+                <ScalarProperty Name="deleteDate" ColumnName="deleteDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="corpses">
+            <EntityTypeMapping TypeName="Models.corpse">
+              <MappingFragment StoreEntitySet="corpse">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="player" ColumnName="player" />
+                <ScalarProperty Name="position_x" ColumnName="position_x" />
+                <ScalarProperty Name="position_y" ColumnName="position_y" />
+                <ScalarProperty Name="position_z" ColumnName="position_z" />
+                <ScalarProperty Name="orientation" ColumnName="orientation" />
+                <ScalarProperty Name="map" ColumnName="map" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="corpse_type" ColumnName="corpse_type" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="creature_respawn">
+            <EntityTypeMapping TypeName="Models.creature_respawn">
+              <MappingFragment StoreEntitySet="creature_respawn">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="respawntime" ColumnName="respawntime" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="game_event_status">
+            <EntityTypeMapping TypeName="Models.game_event_status">
+              <MappingFragment StoreEntitySet="game_event_status">
+                <ScalarProperty Name="event" ColumnName="event" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gameobject_respawn">
+            <EntityTypeMapping TypeName="Models.gameobject_respawn">
+              <MappingFragment StoreEntitySet="gameobject_respawn">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="respawntime" ColumnName="respawntime" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group_instance">
+            <EntityTypeMapping TypeName="Models.group_instance">
+              <MappingFragment StoreEntitySet="group_instance">
+                <ScalarProperty Name="leaderGuid" ColumnName="leaderGuid" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+                <ScalarProperty Name="permanent" ColumnName="permanent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group_member">
+            <EntityTypeMapping TypeName="Models.group_member">
+              <MappingFragment StoreEntitySet="group_member">
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="memberGuid" ColumnName="memberGuid" />
+                <ScalarProperty Name="assistant" ColumnName="assistant" />
+                <ScalarProperty Name="subgroup" ColumnName="subgroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="Models.group">
+              <MappingFragment StoreEntitySet="groups">
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="leaderGuid" ColumnName="leaderGuid" />
+                <ScalarProperty Name="mainTank" ColumnName="mainTank" />
+                <ScalarProperty Name="mainAssistant" ColumnName="mainAssistant" />
+                <ScalarProperty Name="lootMethod" ColumnName="lootMethod" />
+                <ScalarProperty Name="looterGuid" ColumnName="looterGuid" />
+                <ScalarProperty Name="lootThreshold" ColumnName="lootThreshold" />
+                <ScalarProperty Name="icon1" ColumnName="icon1" />
+                <ScalarProperty Name="icon2" ColumnName="icon2" />
+                <ScalarProperty Name="icon3" ColumnName="icon3" />
+                <ScalarProperty Name="icon4" ColumnName="icon4" />
+                <ScalarProperty Name="icon5" ColumnName="icon5" />
+                <ScalarProperty Name="icon6" ColumnName="icon6" />
+                <ScalarProperty Name="icon7" ColumnName="icon7" />
+                <ScalarProperty Name="icon8" ColumnName="icon8" />
+                <ScalarProperty Name="isRaid" ColumnName="isRaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="guilds">
+            <EntityTypeMapping TypeName="Models.guild">
+              <MappingFragment StoreEntitySet="guild">
+                <ScalarProperty Name="guildid" ColumnName="guildid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="leaderguid" ColumnName="leaderguid" />
+                <ScalarProperty Name="EmblemStyle" ColumnName="EmblemStyle" />
+                <ScalarProperty Name="EmblemColor" ColumnName="EmblemColor" />
+                <ScalarProperty Name="BorderStyle" ColumnName="BorderStyle" />
+                <ScalarProperty Name="BorderColor" ColumnName="BorderColor" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="motd" ColumnName="motd" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="guild_eventlog">
+            <EntityTypeMapping TypeName="Models.guild_eventlog">
+              <MappingFragment StoreEntitySet="guild_eventlog">
+                <ScalarProperty Name="guildid" ColumnName="guildid" />
+                <ScalarProperty Name="LogGuid" ColumnName="LogGuid" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="PlayerGuid1" ColumnName="PlayerGuid1" />
+                <ScalarProperty Name="PlayerGuid2" ColumnName="PlayerGuid2" />
+                <ScalarProperty Name="NewRank" ColumnName="NewRank" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="guild_rank">
+            <EntityTypeMapping TypeName="Models.guild_rank">
+              <MappingFragment StoreEntitySet="guild_rank">
+                <ScalarProperty Name="guildid" ColumnName="guildid" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="rname" ColumnName="rname" />
+                <ScalarProperty Name="rights" ColumnName="rights" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instances">
+            <EntityTypeMapping TypeName="Models.instance">
+              <MappingFragment StoreEntitySet="instance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="map" ColumnName="map" />
+                <ScalarProperty Name="resettime" ColumnName="resettime" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instance_reset">
+            <EntityTypeMapping TypeName="Models.instance_reset">
+              <MappingFragment StoreEntitySet="instance_reset">
+                <ScalarProperty Name="mapid" ColumnName="mapid" />
+                <ScalarProperty Name="resettime" ColumnName="resettime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_instance">
+            <EntityTypeMapping TypeName="Models.item_instance">
+              <MappingFragment StoreEntitySet="item_instance">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="owner_guid" ColumnName="owner_guid" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_loot">
+            <EntityTypeMapping TypeName="Models.item_loot">
+              <MappingFragment StoreEntitySet="item_loot">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="owner_guid" ColumnName="owner_guid" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="property" ColumnName="property" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_text">
+            <EntityTypeMapping TypeName="Models.item_text">
+              <MappingFragment StoreEntitySet="item_text">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="text" ColumnName="text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mails">
+            <EntityTypeMapping TypeName="Models.mail">
+              <MappingFragment StoreEntitySet="mail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="messageType" ColumnName="messageType" />
+                <ScalarProperty Name="stationery" ColumnName="stationery" />
+                <ScalarProperty Name="mailTemplateId" ColumnName="mailTemplateId" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="itemTextId" ColumnName="itemTextId" />
+                <ScalarProperty Name="has_items" ColumnName="has_items" />
+                <ScalarProperty Name="expire_time" ColumnName="expire_time" />
+                <ScalarProperty Name="deliver_time" ColumnName="deliver_time" />
+                <ScalarProperty Name="money" ColumnName="money" />
+                <ScalarProperty Name="cod" ColumnName="cod" />
+                <ScalarProperty Name="checked" ColumnName="checked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mail_items">
+            <EntityTypeMapping TypeName="Models.mail_items">
+              <MappingFragment StoreEntitySet="mail_items">
+                <ScalarProperty Name="mail_id" ColumnName="mail_id" />
+                <ScalarProperty Name="item_guid" ColumnName="item_guid" />
+                <ScalarProperty Name="item_template" ColumnName="item_template" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pet_aura">
+            <EntityTypeMapping TypeName="Models.pet_aura">
+              <MappingFragment StoreEntitySet="pet_aura">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="caster_guid" ColumnName="caster_guid" />
+                <ScalarProperty Name="item_guid" ColumnName="item_guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="stackcount" ColumnName="stackcount" />
+                <ScalarProperty Name="remaincharges" ColumnName="remaincharges" />
+                <ScalarProperty Name="basepoints0" ColumnName="basepoints0" />
+                <ScalarProperty Name="basepoints1" ColumnName="basepoints1" />
+                <ScalarProperty Name="basepoints2" ColumnName="basepoints2" />
+                <ScalarProperty Name="periodictime0" ColumnName="periodictime0" />
+                <ScalarProperty Name="periodictime1" ColumnName="periodictime1" />
+                <ScalarProperty Name="periodictime2" ColumnName="periodictime2" />
+                <ScalarProperty Name="maxduration" ColumnName="maxduration" />
+                <ScalarProperty Name="remaintime" ColumnName="remaintime" />
+                <ScalarProperty Name="effIndexMask" ColumnName="effIndexMask" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pet_spell">
+            <EntityTypeMapping TypeName="Models.pet_spell">
+              <MappingFragment StoreEntitySet="pet_spell">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pet_spell_cooldown">
+            <EntityTypeMapping TypeName="Models.pet_spell_cooldown">
+              <MappingFragment StoreEntitySet="pet_spell_cooldown">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="spell" ColumnName="spell" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="petitions">
+            <EntityTypeMapping TypeName="Models.petition">
+              <MappingFragment StoreEntitySet="petition">
+                <ScalarProperty Name="ownerguid" ColumnName="ownerguid" />
+                <ScalarProperty Name="petitionguid" ColumnName="petitionguid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="petition_sign">
+            <EntityTypeMapping TypeName="Models.petition_sign">
+              <MappingFragment StoreEntitySet="petition_sign">
+                <ScalarProperty Name="ownerguid" ColumnName="ownerguid" />
+                <ScalarProperty Name="petitionguid" ColumnName="petitionguid" />
+                <ScalarProperty Name="playerguid" ColumnName="playerguid" />
+                <ScalarProperty Name="player_account" ColumnName="player_account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="worlds">
+            <EntityTypeMapping TypeName="Models.world">
+              <MappingFragment StoreEntitySet="world">
+                <ScalarProperty Name="map" ColumnName="map" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="character_honor_cp">
+            <EntityTypeMapping TypeName="Models.character_honor_cp">
+              <MappingFragment StoreEntitySet="character_honor_cp">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="victim_type" ColumnName="victim_type" />
+                <ScalarProperty Name="victim" ColumnName="victim" />
+                <ScalarProperty Name="honor" ColumnName="honor" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="guild_member">
+            <EntityTypeMapping TypeName="Models.guild_member">
+              <MappingFragment StoreEntitySet="guild_member">
+                <ScalarProperty Name="guildid" ColumnName="guildid" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="pnote" ColumnName="pnote" />
+                <ScalarProperty Name="offnote" ColumnName="offnote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="saved_variables">
+            <EntityTypeMapping TypeName="Models.saved_variables">
+              <MappingFragment StoreEntitySet="saved_variables">
+                <ScalarProperty Name="NextMaintenanceDate" ColumnName="NextMaintenanceDate" />
+                <ScalarProperty Name="cleaning_flags" ColumnName="cleaning_flags" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

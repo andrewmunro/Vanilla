@@ -56,7 +56,7 @@
                     case "money":
                         int moneyToAdd = int.Parse(attributeValue) < 0x7fffffff ? int.Parse(attributeValue) : 0x7fffffff;
                         (info as PlayerInfo).Money += moneyToAdd;
-                        session.Player.Character.Money += moneyToAdd;
+                        session.Player.Character.money += moneyToAdd;
                         break;
 
                     case "standstate":

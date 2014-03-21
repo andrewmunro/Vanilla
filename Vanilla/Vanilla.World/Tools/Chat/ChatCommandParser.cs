@@ -107,7 +107,7 @@
                     try
                     {
                         commandAttribute.Method.Invoke(null, commandArguments);
-                        Log.Print(LogType.Debug, "Player " + sender.Player.Character.Name + " used command " + commandNode.Name + " " + commandAttribute.Name);
+                        Log.Print(LogType.Debug, "Player " + sender.Player.Character.name + " used command " + commandNode.Name + " " + commandAttribute.Name);
                         return true;
                     }
                     catch (Exception e)
@@ -126,7 +126,7 @@
                     try
                     {
                         commandNode.Method.Invoke(null, commandArguments);
-                        Log.Print(LogType.Debug, "Player " + sender.Player.Character.Name + " used command " + commandNode.Name + " Default");
+                        Log.Print(LogType.Debug, "Player " + sender.Player.Character.name + " used command " + commandNode.Name + " Default");
                         return true;
                     }
                     catch (Exception)

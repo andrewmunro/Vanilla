@@ -1,4 +1,7 @@
-﻿namespace Vanilla.World.Components.Spell
+﻿using Vanilla.Character.Database;
+using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.Spell
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -6,8 +9,6 @@
 
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Spell.Constants;
     using Vanilla.World.Components.Spell.Packets.Outgoing;
     using Vanilla.World.Game.Entity.Object.Player;
@@ -22,14 +23,14 @@
             get { return Owner.Session.Core.CharacterDatabase; }
         }
 
-        private IRepository<CharacterSpell> CharacterSpells
+        private IRepository<character_spell> CharacterSpells
         {
-            get { return CharacterDatabase.GetRepository<CharacterSpell>(); }
+            get { return CharacterDatabase.GetRepository<character_spell>(); }
         }
 
-        private IRepository<PlayerCreateInfoSpell> PlayerCreateSpells
+        private IRepository<playercreateinfo_spell> PlayerCreateSpells
         {
-            get { return Owner.Session.Core.WorldDatabase.GetRepository<PlayerCreateInfoSpell>(); }
+            get { return Owner.Session.Core.WorldDatabase.GetRepository<playercreateinfo_spell>(); }
         }
 
         public SpellCollection(PlayerEntity playerEntity)
@@ -62,7 +63,7 @@
             if (Collection.ContainsKey(spell.SpellID)) return;
             Collection.Add(spell.SpellID, spell);
 
-            CharacterSpells.Add(new CharacterSpell() { GUID = Owner.ObjectGUID.Low, Spell = (long)spell.SpellID });
+            CharacterSpells.Add(new character_spell() { guid = Owner.ObjectGUID.Low, spell = (long)spell.SpellID });
             CharacterDatabase.SaveChanges();
 
             Owner.Session.SendPacket(new PSLearnSpell((uint)spell.SpellID));
@@ -73,7 +74,7 @@
             if (!Collection.ContainsKey(spell.SpellID)) return;
             Collection.Remove(spell.SpellID);
 
-            CharacterSpells.Delete(new CharacterSpell() { GUID = Owner.ObjectGUID.Low, Spell = (long)spell.SpellID });
+            CharacterSpells.Delete(new character_spell() { guid = Owner.ObjectGUID.Low, spell = (long)spell.SpellID });
             CharacterDatabase.SaveChanges();
 
             Owner.Session.SendPacket(new PSRemoveSpell((uint)spell.SpellID));
@@ -85,13 +86,13 @@
             return new Spell((SpellID)spellID, spellEntry);
         }
 
-        private List<Spell> GetSpellsFromDatabase(Character character)
+        private List<Spell> GetSpellsFromDatabase(character character)
         {
             List<Spell> Spells = new List<Spell>();
 
-            var dbspells = CharacterSpells.Where(cs => cs.GUID == character.GUID).ToList();
+            var dbspells = CharacterSpells.Where(cs => cs.guid == character.guid).ToList();
 
-            dbspells.ForEach(characterSpell => Spells.Add(CreateSpell((int)characterSpell.Spell)));
+            dbspells.ForEach(characterSpell => Spells.Add(CreateSpell((int)characterSpell.spell)));
             return Spells;
         }
 
@@ -99,11 +100,11 @@
         {
             List<Spell> result = new List<Spell>();
 
-            List<PlayerCreateInfoSpell> newCharacterSpells = PlayerCreateSpells.Where(s => s.Race == Owner.Character.Race && s.Class == Owner.Character.Class).ToList();
+            List<playercreateinfo_spell> newCharacterSpells = PlayerCreateSpells.Where(s => s.race == Owner.Character.race && s.@class == Owner.Character.@class).ToList();
             newCharacterSpells.ForEach(s =>
                 {
                     Spell spell = this.CreateSpell(s.Spell);
-                    CharacterSpells.Add(new CharacterSpell() { GUID = Owner.ObjectGUID.Low, Spell = (long)spell.SpellID });
+                    CharacterSpells.Add(new character_spell() { guid = Owner.ObjectGUID.Low, spell = (long)spell.SpellID });
                     result.Add(spell);
                 });
 

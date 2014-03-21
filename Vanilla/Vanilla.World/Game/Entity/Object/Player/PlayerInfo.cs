@@ -1,10 +1,11 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Player
+﻿using Vanilla.Character.Database;
+using Vanilla.World.Database;
+
+namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System;
     using Vanilla.Core;
     using Vanilla.Core.DBC.Structs;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Item;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Unit;
@@ -12,25 +13,25 @@
 
     public class PlayerInfo : UnitInfo
     {
-        public PlayerInfo(ObjectGUID guid, Character databaseCharacter, ChrRaces race, ChrClasses chrClass) : base(guid)
+        public PlayerInfo(ObjectGUID guid, character databaseCharacter, ChrRaces race, ChrClasses chrClass) : base(guid)
         {
             this.Class = chrClass;
             this.ClassID = this.Class.ClassID;
-            this.Gender = databaseCharacter.Gender;
+            this.Gender = databaseCharacter.gender;
             this.Power = (byte)this.Class.PowerType;
 
             this.Race = race;
             this.RaceID = race.RaceID;
             this.FactionTemplate = race.FactionID;
             this.DisplayID = this.NativeDisplayID = (int)(this.Gender == 0 ? race.ModelM : race.ModelF);
-            this.Health = (int)databaseCharacter.Health;
+            this.Health = (int)databaseCharacter.health;
 
             //Level = databaseCharacter.Level;
-            this.XP = (int)databaseCharacter.XP;
+            this.XP = (int)databaseCharacter.xp;
             this.NextLevelXP = 400;
 
-            Byte[] playerBytes = BitConverter.GetBytes(databaseCharacter.PlayerBytes);
-            Byte[] playerBytes2 = BitConverter.GetBytes(databaseCharacter.PlayerBytes2);
+            Byte[] playerBytes = BitConverter.GetBytes(databaseCharacter.playerBytes);
+            Byte[] playerBytes2 = BitConverter.GetBytes(databaseCharacter.playerBytes2);
 
             this.Skin = playerBytes[0];
             this.Face = playerBytes[1];
@@ -38,9 +39,9 @@
             this.HairColor = playerBytes[3];
             this.Accessory = playerBytes2[0];
 
-            this.Money = (int)databaseCharacter.Money;
+            this.Money = (int)databaseCharacter.money;
             
-            ItemTemplate[] equipment = ItemUtils.GenerateInventoryByIDs(Utils.CSVStringToIntArray(databaseCharacter.EquipmentCache));
+            item_template[] equipment = ItemUtils.GenerateInventoryByIDs(Utils.CSVStringToIntArray(databaseCharacter.equipmentCache));
             VisualItems = new Item[19];
             for (byte itemSlot = 0; itemSlot < 19; itemSlot++)
             {
@@ -51,7 +52,7 @@
                                                 {
                                                     Creator = guid.RawGUID,
                                                     EnchantmentIDs = new[] { 0, 0 },
-                                                    Entry = equipment[itemSlot].Entry,
+                                                    Entry = equipment[itemSlot].entry,
                                                     RandomPropertyID = equipment[itemSlot].RandomProperty,
                                                     ItemSuffixFactor = 3
                                                 };

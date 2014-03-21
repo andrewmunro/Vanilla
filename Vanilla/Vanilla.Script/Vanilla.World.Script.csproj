@@ -44,10 +44,6 @@
     <Compile Include="Scripts\TestScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
-      <Project>{ecbe8c02-b0d3-4302-ba06-42c0cbd0749a}</Project>
-      <Name>Vanilla.Database.Character</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Vanilla.Core\Vanilla.Core.csproj">
       <Project>{d9cb81c5-3471-45e2-915b-c9e87a3c6d93}</Project>
       <Name>Vanilla.Core</Name>
@@ -56,9 +52,9 @@
       <Project>{c3053df2-fbd9-401e-b676-86448071b086}</Project>
       <Name>Vanilla.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
-      <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
-      <Name>Vanilla.Database.World</Name>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
+      <Project>{BB920DDF-18FD-46E7-9B34-0CEF77E17929}</Project>
+      <Name>Vanilla.World.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vanilla.World\Vanilla.World.csproj">
       <Project>{1567dfd3-9877-4694-a781-d3875e36989d}</Project>

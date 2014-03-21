@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Vanilla.Character.Database;
+using Vanilla.World.Database;
+
 namespace Vanilla.World.Components.ActionBar
 {
     using System.Collections;
 
     using Vanilla.Core.IO;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity.Object.Player;
 
-    public class ActionButtonCollection : IEnumerable<CharacterAction>
+    public class ActionButtonCollection : IEnumerable<character_action>
     {
         public PlayerEntity Owner { get; private set; }
 
@@ -19,26 +20,26 @@ namespace Vanilla.World.Components.ActionBar
             get { return Owner.Session.Core.CharacterDatabase; }
         }
 
-        private IRepository<CharacterAction> CharacterActions
+        private IRepository<character_action> CharacterActions
         {
-            get { return CharacterDatabase.GetRepository<CharacterAction>(); }
+            get { return CharacterDatabase.GetRepository<character_action>(); }
         }
 
-        private IRepository<PlayerCreateInfoAction> PlayerCreateActions
+        private IRepository<playercreateinfo_action> PlayerCreateActions
         {
-            get { return Owner.Session.Core.WorldDatabase.GetRepository<PlayerCreateInfoAction>(); }
+            get { return Owner.Session.Core.WorldDatabase.GetRepository<playercreateinfo_action>(); }
         }
 
         public ActionButtonCollection(PlayerEntity playerEntity)
         {
             Owner = playerEntity;
 
-            var characterActions = CharacterActions.Where(cs => cs.GUID == Owner.Character.GUID).ToList();
+            var characterActions = CharacterActions.Where(cs => cs.guid == Owner.Character.guid).ToList();
             //Must be a new character, get initial spells
             if (characterActions.Count == 0) AddCharacterCreationActions();
         }
 
-        public void AddActionButton(CharacterAction characterAction)
+        public void AddActionButton(character_action characterAction)
         {
             CharacterActions.Add(characterAction);
             CharacterDatabase.SaveChanges();
@@ -46,11 +47,11 @@ namespace Vanilla.World.Components.ActionBar
 
         public void RemoveActionButton(byte button)
         {
-            var characterAction = CharacterActions.SingleOrDefault(ca => ca.GUID == Owner.ObjectGUID.Low && ca.Button == button);
+            var characterAction = CharacterActions.SingleOrDefault(ca => ca.guid == Owner.ObjectGUID.Low && ca.button == button);
             RemoveActionButton(characterAction);
         }
 
-        public void RemoveActionButton(CharacterAction characterAction)
+        public void RemoveActionButton(character_action characterAction)
         {
             CharacterActions.Delete(characterAction);
             CharacterDatabase.SaveChanges();
@@ -58,8 +59,8 @@ namespace Vanilla.World.Components.ActionBar
 
         private void AddCharacterCreationActions()
         {
-            List<PlayerCreateInfoAction> newCreateInfoActions = PlayerCreateActions.Where(s => s.Race == Owner.Character.Race && s.Class == Owner.Character.Class).ToList();
-            newCreateInfoActions.ForEach(a => CharacterActions.Add(new CharacterAction() { GUID = this.Owner.ObjectGUID.Low, Action = a.Action, Button = (byte)a.Button, Type = (byte) a.Type }));
+            List<playercreateinfo_action> newCreateInfoActions = PlayerCreateActions.Where(s => s.race == Owner.Character.race && s.@class == Owner.Character.@class).ToList();
+            newCreateInfoActions.ForEach(a => CharacterActions.Add(new character_action() { guid = this.Owner.ObjectGUID.Low, action = a.action, button = (byte)a.button, type = (byte) a.type }));
 
             CharacterDatabase.SaveChanges();
         }
@@ -69,9 +70,9 @@ namespace Vanilla.World.Components.ActionBar
             return GetEnumerator();
         }
 
-        public IEnumerator<CharacterAction> GetEnumerator()
+        public IEnumerator<character_action> GetEnumerator()
         {
-            return CharacterActions.Where(ca => ca.GUID == Owner.ObjectGUID.Low).GetEnumerator();
+            return CharacterActions.Where(ca => ca.guid == Owner.ObjectGUID.Low).GetEnumerator();
         }
     }
 }

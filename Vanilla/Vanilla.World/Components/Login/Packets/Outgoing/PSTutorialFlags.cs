@@ -1,43 +1,44 @@
-﻿namespace Vanilla.World.Components.Login.Packets.Outgoing
+﻿using Vanilla.Character.Database;
+using Vanilla.Login.Database;
+
+namespace Vanilla.World.Components.Login.Packets.Outgoing
 {
     using Vanilla.Core.IO;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Character.Models;
-    using Vanilla.Database.Login.Models;
 
     internal sealed class PSTutorialFlags : WorldPacket
     {
-        public PSTutorialFlags(Account account, IRepository<CharacterTutorial> characterTutorials)
+        public PSTutorialFlags(account account, IRepository<character_tutorial> characterTutorials)
             : base(WorldOpcodes.SMSG_TUTORIAL_FLAGS)
         {
-            CharacterTutorial characterTutorial = characterTutorials.SingleOrDefault(ct => ct.Account == account.ID);
+            character_tutorial characterTutorial = characterTutorials.SingleOrDefault(ct => ct.account == account.id);
 
             if (characterTutorial == null)
             {
-                characterTutorial = new CharacterTutorial()
+                characterTutorial = new character_tutorial()
                                         {
-                                            Account = account.ID,
-                                            Tut0 = 0,
-                                            Tut1 = 0,
-                                            Tut2 = 0,
-                                            Tut3 = 0,
-                                            Tut4 = 0,
-                                            Tut5 = 0,
-                                            Tut6 = 0,
-                                            Tut7 = 0
+                                            account = account.id,
+                                            tut0 = 0,
+                                            tut1 = 0,
+                                            tut2 = 0,
+                                            tut3 = 0,
+                                            tut4 = 0,
+                                            tut5 = 0,
+                                            tut6 = 0,
+                                            tut7 = 0
                                         };
                 characterTutorials.Add(characterTutorial);
             }
 
-            this.Write((byte)characterTutorial.Tut0);
-            this.Write((byte)characterTutorial.Tut1);
-            this.Write((byte)characterTutorial.Tut2);
-            this.Write((byte)characterTutorial.Tut3);
-            this.Write((byte)characterTutorial.Tut4);
-            this.Write((byte)characterTutorial.Tut5);
-            this.Write((byte)characterTutorial.Tut6);
-            this.Write((byte)characterTutorial.Tut7);
+            this.Write((byte)characterTutorial.tut0);
+            this.Write((byte)characterTutorial.tut1);
+            this.Write((byte)characterTutorial.tut2);
+            this.Write((byte)characterTutorial.tut3);
+            this.Write((byte)characterTutorial.tut4);
+            this.Write((byte)characterTutorial.tut5);
+            this.Write((byte)characterTutorial.tut6);
+            this.Write((byte)characterTutorial.tut7);
         }
     }
 }

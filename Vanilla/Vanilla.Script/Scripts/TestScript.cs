@@ -1,21 +1,24 @@
-﻿namespace Vanilla.Script.Scripts
+﻿/*
+using Vanilla.Core.Logging;
+using Vanilla.World.Database;
+using Vanilla.World.Network;
+
+namespace Vanilla.Script.Scripts
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
-    using Vanilla.Database.World.Models;
     using Vanilla.Server;
     using Vanilla.World.Components.Entity;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Object.Creature;
     using Vanilla.World.Game.Entity.Object.Player;
-    using Vanilla.World.Game.Entity.Object.Unit;
 
     class TestScript : VanillaPlugin
     {
-        private Creature taurenEntry;
-        private CreatureTemplate taurenTemplate;
+        private creature taurenEntry;
+        private creature_template taurenTemplate;
         private PlayerEntity player;
         private Random random;
         private List<CreatureEntity> taurens;
@@ -88,8 +91,8 @@
 
         private static void TestCommand(WorldSession session, string[] args)
         {
-            player = PlayerManager.Players.Count > 0 ? PlayerManager.Players[0] : null;
-            new Thread(LetItRain).Start();
+            //player = PlayerManager.Players.Count > 0 ? PlayerManager.Players[0] : null;
+            //new Thread(LetItRain).Start();
         }
 
         private static void Follow(WorldSession session, string[] args)
@@ -111,3 +114,4 @@
         public float y;
     }
 }
+*/

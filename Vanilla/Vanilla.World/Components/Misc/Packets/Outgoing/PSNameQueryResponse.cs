@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Components.Misc.Packets.Outgoing
+﻿using Vanilla.Character.Database;
+
+namespace Vanilla.World.Components.Misc.Packets.Outgoing
 {
     using System.Text;
 
@@ -9,15 +11,15 @@
     {
         private string channel;
 
-        public PSNameQueryResponse(Database.Character.Models.Character character)
+        public PSNameQueryResponse(character character)
             : base(WorldOpcodes.SMSG_NAME_QUERY_RESPONSE)
         {
-            this.Write((ulong)character.GUID);
-            this.Write(Encoding.UTF8.GetBytes(character.Name + '\0'));
+            this.Write((ulong)character.guid);
+            this.Write(Encoding.UTF8.GetBytes(character.name + '\0'));
             this.Write((byte)0); // realm name for cross realm BG usage
-            this.Write((uint)character.Race);
-            this.Write((uint)character.Gender);
-            this.Write((uint)character.Class);
+            this.Write((uint)character.race);
+            this.Write((uint)character.guid);
+            this.Write((uint)character.@class);
         }
     }
 }

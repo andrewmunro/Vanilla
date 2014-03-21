@@ -1,10 +1,11 @@
-﻿namespace Vanilla.World.Components.GameObject
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.GameObject
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.GameObject.Packets.Constants;
     using Vanilla.World.Components.GameObject.Packets.Incoming;
@@ -31,7 +32,7 @@
 
         public void OnGameObjectQuery(WorldSession session, PCGameObjectQuery packet)
         {
-            GameObjectTemplate template = Core.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(g => g.Entry == packet.EntryID);
+            gameobject_template template = Core.WorldDatabase.GetRepository<gameobject_template>().SingleOrDefault(g => g.entry == packet.EntryID);
             session.SendPacket(new PSGameObjectQueryResponse(template));
         }
 
@@ -39,17 +40,17 @@
         {
             GameObjectEntity gameObject = session.Core.GetComponent<EntityComponent>().GameObjectEntities.SingleOrDefault(g => g.ObjectGUID.RawGUID == packet.GUID);
 
-            GameObjectTemplate template = gameObject.Template;
+            gameobject_template template = gameObject.Template;
 
-            if (gameObject != null && GameObjectUseHandlers.ContainsKey((GameObjectType)template.Type))
+            if (gameObject != null && GameObjectUseHandlers.ContainsKey((GameObjectType)template.type))
             {
-                GameObjectUseHandlers[(GameObjectType)template.Type](session, gameObject);
+                GameObjectUseHandlers[(GameObjectType)template.type](session, gameObject);
             }
         }
 
         private static void OnUseChair(WorldSession session, GameObjectEntity gameObjectEntity)
         {
-            session.Player.TeleportTo(session.Player.Character.Map, gameObjectEntity.Location.X, gameObjectEntity.Location.Y, gameObjectEntity.Location.Z, gameObjectEntity.Location.Orientation);
+            session.Player.TeleportTo(session.Player.Character.map, gameObjectEntity.Location.X, gameObjectEntity.Location.Y, gameObjectEntity.Location.Z, gameObjectEntity.Location.Orientation);
             session.Player.Info.StandState = (byte)UnitStandStateType.UNIT_STAND_STATE_SIT_CHAIR;
         }
     }

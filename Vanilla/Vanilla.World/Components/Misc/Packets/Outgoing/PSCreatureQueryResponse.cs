@@ -16,23 +16,23 @@
             this.WriteCString(entity.Name);
             this.WriteNullByte(3); // Name2,3,4
 
-            if (entity.Template.Subname == "\\N")
+            if (entity.Template.subname == "\\N")
             {
                 this.WriteNullByte(1);
             }
             else
             {
-                this.WriteCString(entity.Template.Subname);
+                this.WriteCString(entity.Template.subname);
             }
 
-            this.Write((UInt32)entity.Template.TypeFlags);
-            this.Write((UInt32)entity.Template.Type);
-            this.Write((UInt32)entity.Template.Family);
-            this.Write((UInt32)entity.Template.Rank);
+            this.Write((UInt32)entity.Template.type_flags);
+            this.Write((UInt32)entity.Template.type);
+            this.Write((UInt32)entity.Template.family);
+            this.Write((UInt32)entity.Template.rank);
             this.WriteNullUInt(1);
 
             this.Write((UInt32)entity.Template.PetSpellDataId);
-            this.Write((UInt32)entity.Creature.ModelID);
+            this.Write((UInt32)entity.Creature.modelid);
             this.Write((UInt16)entity.Template.Civilian);
         }
     }

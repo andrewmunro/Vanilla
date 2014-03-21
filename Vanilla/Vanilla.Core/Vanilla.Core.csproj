@@ -107,22 +107,22 @@
     <Compile Include="Tools\Vector3.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
-      <Project>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</Project>
-      <Name>Vanilla.Database.Character</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
-      <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
-      <Name>Vanilla.Database.Login</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
-      <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>
-      <Name>Vanilla.Database.World</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Character.Database.csproj">
+      <Project>{65dd4f4c-7d18-4db9-a23f-4c4821cdae5b}</Project>
+      <Name>Vanilla.Character.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Login.Database.csproj">
+      <Project>{792A1970-756F-44CC-B9C2-8DCCC72F9392}</Project>
+      <Name>Vanilla.Login.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.World.Database\Vanilla.World.Database.csproj">
+      <Project>{bb920ddf-18fd-46e7-9b34-0cef77e17929}</Project>
+      <Name>Vanilla.World.Database</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,22 +1,23 @@
-﻿namespace Vanilla.Core
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.Core
 {
     using Vanilla.Core.Constants;
     using Vanilla.Core.IO;
-    using Vanilla.Database.World.Models;
 
     public class ItemUtils
     {
-        public static ItemTemplate[] GenerateInventoryByIDs(int[] ids)
+        public static item_template[] GenerateInventoryByIDs(int[] ids)
         {
             if (ids == null) return null;
 
-            ItemTemplate[] inventory = new ItemTemplate[19];
+            item_template[] inventory = new item_template[19];
             for (int i = 0; i < ids.Length; i++)
             {
                 if (ids[i] > 0)
                 {
                     var itemEntry = ids[i];
-                    ItemTemplate item = new DatabaseUnitOfWork<WorldDatabase>().GetRepository<ItemTemplate>().SingleOrDefault(it => it.Entry == itemEntry);
+                    item_template item = new DatabaseUnitOfWork<WorldDatabase>().GetRepository<item_template>().SingleOrDefault(it => it.entry == itemEntry);
                     switch ((InventorySlotID)item.InventoryType)
                     {
                         case InventorySlotID.Head:

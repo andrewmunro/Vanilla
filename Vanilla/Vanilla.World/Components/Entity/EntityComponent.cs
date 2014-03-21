@@ -1,9 +1,10 @@
-﻿namespace Vanilla.World.Components.Entity
+﻿using Vanilla.Character.Database;
+
+namespace Vanilla.World.Components.Entity
 {
     using System.Linq;
     using System;
     using System.Collections.Generic;
-    using Vanilla.Database.Character.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Creature;
@@ -54,9 +55,9 @@
             PlayerEntities.ForEach(this.UpdateSessionChunk);
         }
 
-        public PlayerEntity AddPlayerEntity(Character character, WorldSession session)
+        public PlayerEntity AddPlayerEntity(character character, WorldSession session)
         {
-            ObjectGUID guid = new ObjectGUID((ulong)character.GUID, TypeID.TYPEID_PLAYER);
+            ObjectGUID guid = new ObjectGUID((ulong)character.guid, TypeID.TYPEID_PLAYER);
             PlayerEntity playerEntity = new PlayerEntity(guid, character, session);
             PlayerEntities.Add(playerEntity);
             playerEntity.Setup();

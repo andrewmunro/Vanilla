@@ -1,8 +1,8 @@
-﻿namespace Vanilla.Core
+﻿using Vanilla.Character.Database;
+
+namespace Vanilla.Core
 {
     using System.Collections.Generic;
-
-    using Database.Character.Models;
     using Vanilla.Core.Constants.Character;
 
     public struct GenderModelEntry
@@ -32,9 +32,9 @@
         };
 
         //This shouldnt be here!!! Refactor later. Core should not need to reference database!
-        public static int GetModel(Character character)
+        public static int GetModel(character character)
         {
-            return character.Gender == (byte)Gender.Male ? (byte)MODELS[(RaceID)character.Race].Male : (byte)MODELS[(RaceID)character.Race].Female;
+            return character.gender == (byte)Gender.Male ? (byte)MODELS[(RaceID)character.race].Male : (byte)MODELS[(RaceID)character.race].Female;
         }
     }
 }

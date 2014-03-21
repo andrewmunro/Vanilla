@@ -1,4 +1,6 @@
-﻿namespace Vanilla.World.Network
+﻿using Vanilla.Login.Database;
+
+namespace Vanilla.World.Network
 {
     using System;
     using System.IO;
@@ -11,7 +13,6 @@
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Login.Models;
     using Vanilla.World.Components.Chat;
     using Vanilla.World.Game.Entity.Object.Player;
     using Vanilla.World.Game.Update;
@@ -22,7 +23,7 @@
 
         public override int HeaderLength { get { return 6; } }
 
-        public Account Account { get; set; }
+        public account Account { get; set; }
 
         public PlayerEntity Player { get; set; }
 

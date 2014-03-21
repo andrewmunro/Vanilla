@@ -1,11 +1,12 @@
-﻿namespace Vanilla.Login
+﻿using Vanilla.Login.Database;
+
+namespace Vanilla.Login
 {
     using System;
     using System.ServiceModel;
 
     using Vanilla.Core.Components;
     using Vanilla.Core.IO;
-    using Vanilla.Database.Login.Models;
     using Vanilla.Login.Components;
     using Vanilla.Login.Components.Auth;
     using Vanilla.Login.Components.Realm;
@@ -19,7 +20,7 @@
             LoginDatabase = new DatabaseUnitOfWork<LoginDatabase>();
 
             // Entity framework hack to call meta data caching as soon as possible.
-            var accounts = this.LoginDatabase.GetRepository<Account>();
+            var accounts = this.LoginDatabase.GetRepository<account>();
             accounts.AsQueryable();
 
             Server = new LoginServer();

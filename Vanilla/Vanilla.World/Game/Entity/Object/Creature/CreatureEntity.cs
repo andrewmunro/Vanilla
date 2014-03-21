@@ -1,17 +1,19 @@
-﻿namespace Vanilla.World.Game.Entity.Object.Creature
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Game.Entity.Object.Creature
 {
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity.Object.Unit;
 
     public class CreatureEntity : UnitEntity<CreatureInfo, CreaturePacketBuilder>, IUnitEntity
     {
-        public CreatureTemplate Template { get; private set; }
+        public creature_template Template { get; private set; }
 
-        public Creature Creature { get; private set; }
+        public creature Creature { get; private set; }
 
-        public string Name { get { return Template.Name; } }
+        public string Name { get { return Template.name; } }
 
-        public CreatureEntity(ObjectGUID objectGUID, Creature databaseCreature, CreatureTemplate template) : base(objectGUID)
+        public CreatureEntity(ObjectGUID objectGUID, creature databaseCreature, creature_template template)
+            : base(objectGUID)
         {
             this.Template = template;
             this.Creature = databaseCreature;
@@ -23,10 +25,10 @@
 
             this.PacketBuilder = new CreaturePacketBuilder(this);
 
-            Location.X = Creature.PositionX;
-            Location.Y = Creature.PositionY;
-            Location.Z = Creature.PositionZ;
-            Location.Orientation = Creature.Orientation;
+            Location.X = Creature.position_x;
+            Location.Y = Creature.position_y;
+            Location.Z = Creature.position_z;
+            Location.Orientation = Creature.orientation;
 
             base.Setup();
         }

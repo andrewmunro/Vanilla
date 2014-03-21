@@ -1,10 +1,11 @@
-﻿namespace Vanilla.World.Components.Entity
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.Entity
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using Vanilla.Core.IO;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Creature;
@@ -23,9 +24,9 @@
         public List<CreatureEntity> CreatureEntities = new List<CreatureEntity>();
         public List<GameObjectEntity> GameObjectEntities = new List<GameObjectEntity>();
 
-        private IRepository<Creature> CreatureDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<Creature>(); } }
-        private IRepository<CreatureTemplate> CreatureTemplateDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<CreatureTemplate>(); } }
-        private IRepository<GameObject> GameObjectDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<GameObject>(); } }
+        private IRepository<creature> CreatureDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<creature>(); } }
+        private IRepository<creature_template> CreatureTemplateDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<creature_template>(); } }
+        private IRepository<gameobject> GameObjectDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<gameobject>(); } }
 
         public EntityChunk(Vector2 chunkLocation, float chunkSize, VanillaWorld vanillaWorld)
         {
@@ -56,28 +57,28 @@
         {
             CreatureDatabase.Where(
                 c =>
-                c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
-                && c.PositionY < this.bounds.MaxY).ToList().ForEach(this.AddCreatureEntity);
+                c.position_x > this.bounds.MinX && c.position_y > this.bounds.MinY && c.position_x < this.bounds.MaxX
+                && c.position_y < this.bounds.MaxY).ToList().ForEach(this.AddCreatureEntity);
 
             GameObjectDatabase.Where(
                 c =>
-                c.PositionX > this.bounds.MinX && c.PositionY > this.bounds.MinY && c.PositionX < this.bounds.MaxX
-                && c.PositionY < this.bounds.MaxY).ToList().ForEach(this.AddGameObjectEntity);
+                c.position_x > this.bounds.MinX && c.position_y > this.bounds.MinY && c.position_x < this.bounds.MaxX
+                && c.position_y < this.bounds.MaxY).ToList().ForEach(this.AddGameObjectEntity);
         }
 
-        public void AddCreatureEntity(Creature creature)
+        public void AddCreatureEntity(creature creature)
         {
-            CreatureTemplate template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.ID);
-            ObjectGUID guid = new ObjectGUID((ulong)creature.GUID, TypeID.TYPEID_UNIT); //right type?
+            creature_template template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.entry == creature.id);
+            ObjectGUID guid = new ObjectGUID((ulong)creature.guid, TypeID.TYPEID_UNIT); //right type?
             CreatureEntity creatureEntity = new CreatureEntity(guid, creature, template);
             CreatureEntities.Add(creatureEntity);
             creatureEntity.Setup();
         }
 
-        public void AddGameObjectEntity(GameObject gameObject)
+        public void AddGameObjectEntity(gameobject gameObject)
         {
-            ObjectGUID guid = new ObjectGUID((ulong)gameObject.GUID, TypeID.TYPEID_GAMEOBJECT); //right type?
-            GameObjectTemplate template = vanillaWorld.WorldDatabase.GetRepository<GameObjectTemplate>().SingleOrDefault(t => t.Entry == gameObject.ID);
+            ObjectGUID guid = new ObjectGUID((ulong)gameObject.guid, TypeID.TYPEID_GAMEOBJECT); //right type?
+            gameobject_template template = vanillaWorld.WorldDatabase.GetRepository<gameobject_template>().SingleOrDefault(t => t.entry == gameObject.id);
             GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             GameObjectEntities.Add(gameObjectEntity);
             gameObjectEntity.Setup();

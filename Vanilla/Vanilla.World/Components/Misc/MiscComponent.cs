@@ -1,11 +1,12 @@
-﻿namespace Vanilla.World.Components.Misc
+﻿using Vanilla.World.Database;
+
+namespace Vanilla.World.Components.Misc
 {
     using System;
     using System.Linq;
 
     using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.World.Models;
     using Vanilla.World.Components.Entity;
     using Vanilla.World.Components.Misc.Constants;
     using Vanilla.World.Components.Misc.Packets.Incoming;
@@ -41,7 +42,7 @@
 
         public void OnCreatureQuery(WorldSession session, PCCreatureQuery packet)
         {
-            CreatureEntity entity = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(ce => ce.Creature.GUID == (long)packet.GUID);
+            CreatureEntity entity = Core.GetComponent<EntityComponent>().CreatureEntities.SingleOrDefault(ce => ce.Creature.guid == (long)packet.GUID);
 
             session.SendPacket(new PSCreatureQueryResponse(packet.Entry, entity));
         }
@@ -56,7 +57,7 @@
             //TODO Get the targetname from the packet.GUID
             String targetName = session.Player.Target != null ? session.Player.Target.Name : null;
 
-            Server.TransmitToAll(new PSTextEmote((int)session.Player.Character.GUID, (int)packet.EmoteID, (int)packet.TextID, targetName));
+            Server.TransmitToAll(new PSTextEmote((int)session.Player.Character.guid, (int)packet.EmoteID, (int)packet.TextID, targetName));
 
             EmotesText textEmote = Core.DBC.GetDBC<EmotesText>().SingleOrDefault(e => e.textid == packet.TextID);
 
@@ -86,19 +87,19 @@
 
         public void OnAreaTrigger(WorldSession session, PCAreaTrigger packet)
         {
-            AreatriggerTeleport areaTrigger = Core.WorldDatabase.GetRepository<AreatriggerTeleport>().SingleOrDefault(at => at.ID == packet.TriggerID);
+            areatrigger_teleport areaTrigger = Core.WorldDatabase.GetRepository<areatrigger_teleport>().SingleOrDefault(at => at.id == packet.TriggerID);
 
             if (areaTrigger != null)
             {
-                session.SendMessage("[AreaTrigger] ID:" + packet.TriggerID + " " + areaTrigger.Name);
-                session.Player.Location.MapID = areaTrigger.TargetMap;
-                session.Player.Location.X = areaTrigger.TargetPositionX;
-                session.Player.Location.Y = areaTrigger.TargetPositionY;
-                session.Player.Location.Z = areaTrigger.TargetPositionZ;
-                session.Player.Location.Orientation = areaTrigger.TargetOrientation;
+                session.SendMessage("[AreaTrigger] ID:" + packet.TriggerID + " " + areaTrigger.name);
+                session.Player.Location.MapID = areaTrigger.target_map;
+                session.Player.Location.X = areaTrigger.target_position_x;
+                session.Player.Location.Y = areaTrigger.target_position_y;
+                session.Player.Location.Z = areaTrigger.target_position_z;
+                session.Player.Location.Orientation = areaTrigger.target_orientation;
 
-                session.SendPacket(new PSTransferPending(areaTrigger.TargetMap));
-                session.SendPacket(new PSNewWorld(areaTrigger.TargetMap, areaTrigger.TargetPositionX, areaTrigger.TargetPositionY, areaTrigger.TargetPositionZ, areaTrigger.TargetOrientation));
+                session.SendPacket(new PSTransferPending(areaTrigger.target_map));
+                session.SendPacket(new PSNewWorld(areaTrigger.target_map, areaTrigger.target_position_x, areaTrigger.target_position_y, areaTrigger.target_position_z, areaTrigger.target_orientation));
             }
             else
             {

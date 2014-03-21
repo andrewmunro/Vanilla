@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="sha_pass_hash" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="gmlevel" Type="tinyint" Nullable="false" />
+          <Property Name="sessionkey" Type="nvarchar(max)" />
+          <Property Name="v" Type="nvarchar(max)" />
+          <Property Name="s" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="joindate" Type="datetime" />
+          <Property Name="last_ip" Type="nvarchar" MaxLength="30" />
+          <Property Name="failed_logins" Type="bigint" />
+          <Property Name="locked" Type="tinyint" />
+          <Property Name="last_login" Type="datetime" />
+          <Property Name="active_realm_id" Type="bigint" />
+          <Property Name="expansion" Type="tinyint" />
+          <Property Name="mutetime" Type="bigint" />
+          <Property Name="locale" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="account_banned">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="bandate" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="bandate" Type="bigint" Nullable="false" />
+          <Property Name="unbandate" Type="bigint" Nullable="false" />
+          <Property Name="bannedby" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="banreason" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ip_banned">
+          <Key>
+            <PropertyRef Name="ip" />
+            <PropertyRef Name="bandate" />
+          </Key>
+          <Property Name="ip" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="bandate" Type="bigint" Nullable="false" />
+          <Property Name="unbandate" Type="bigint" Nullable="false" />
+          <Property Name="bannedby" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="banreason" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="realmcharacters">
+          <Key>
+            <PropertyRef Name="realmid" />
+            <PropertyRef Name="acctid" />
+          </Key>
+          <Property Name="realmid" Type="bigint" Nullable="false" />
+          <Property Name="acctid" Type="bigint" Nullable="false" />
+          <Property Name="numchars" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="realmd_db_version">
+          <Property Name="required_z2426_01_realmd_relations" Type="binary" MaxLength="1" />
+        </EntityType>-->
+        <EntityType Name="realmlist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="port" Type="int" Nullable="false" />
+          <Property Name="icon" Type="tinyint" Nullable="false" />
+          <Property Name="realmflags" Type="tinyint" Nullable="false" />
+          <Property Name="timezone" Type="tinyint" Nullable="false" />
+          <Property Name="allowedSecurityLevel" Type="tinyint" Nullable="false" />
+          <Property Name="population" Type="real" Nullable="false" />
+          <Property Name="realmbuilds" Type="nvarchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uptime">
+          <Key>
+            <PropertyRef Name="realmid" />
+            <PropertyRef Name="starttime" />
+          </Key>
+          <Property Name="realmid" Type="bigint" Nullable="false" />
+          <Property Name="starttime" Type="bigint" Nullable="false" />
+          <Property Name="startstring" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="uptime" Type="bigint" Nullable="false" />
+          <Property Name="maxplayers" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="account_banned" EntityType="Self.account_banned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ip_banned" EntityType="Self.ip_banned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="realmcharacters" EntityType="Self.realmcharacters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="realmlist" EntityType="Self.realmlist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uptime" EntityType="Self.uptime" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sha_pass_hash" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gmlevel" Type="Byte" Nullable="false" />
+          <Property Name="sessionkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="v" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="s" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="joindate" Type="DateTime" Precision="3" />
+          <Property Name="last_ip" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="failed_logins" Type="Int64" />
+          <Property Name="locked" Type="Byte" />
+          <Property Name="last_login" Type="DateTime" Precision="3" />
+          <Property Name="active_realm_id" Type="Int64" />
+          <Property Name="expansion" Type="Byte" />
+          <Property Name="mutetime" Type="Int64" />
+          <Property Name="locale" Type="Byte" />
+        </EntityType>
+        <EntityType Name="account_banned">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="bandate" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="bandate" Type="Int64" Nullable="false" />
+          <Property Name="unbandate" Type="Int64" Nullable="false" />
+          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="active" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ip_banned">
+          <Key>
+            <PropertyRef Name="ip" />
+            <PropertyRef Name="bandate" />
+          </Key>
+          <Property Name="ip" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bandate" Type="Int64" Nullable="false" />
+          <Property Name="unbandate" Type="Int64" Nullable="false" />
+          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="realmcharacter">
+          <Key>
+            <PropertyRef Name="realmid" />
+            <PropertyRef Name="acctid" />
+          </Key>
+          <Property Name="realmid" Type="Int64" Nullable="false" />
+          <Property Name="acctid" Type="Int64" Nullable="false" />
+          <Property Name="numchars" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="realmlist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="port" Type="Int32" Nullable="false" />
+          <Property Name="icon" Type="Byte" Nullable="false" />
+          <Property Name="realmflags" Type="Byte" Nullable="false" />
+          <Property Name="timezone" Type="Byte" Nullable="false" />
+          <Property Name="allowedSecurityLevel" Type="Byte" Nullable="false" />
+          <Property Name="population" Type="Single" Nullable="false" />
+          <Property Name="realmbuilds" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uptime">
+          <Key>
+            <PropertyRef Name="realmid" />
+            <PropertyRef Name="starttime" />
+          </Key>
+          <Property Name="realmid" Type="Int64" Nullable="false" />
+          <Property Name="starttime" Type="Int64" Nullable="false" />
+          <Property Name="startstring" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uptime1" Type="Int64" Nullable="false" />
+          <Property Name="maxplayers" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="LoginDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Self.account" />
+          <EntitySet Name="account_banned" EntityType="Self.account_banned" />
+          <EntitySet Name="ip_banned" EntityType="Self.ip_banned" />
+          <EntitySet Name="realmcharacters" EntityType="Self.realmcharacter" />
+          <EntitySet Name="realmlists" EntityType="Self.realmlist" />
+          <EntitySet Name="uptimes" EntityType="Self.uptime" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="LoginDatabase">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="Models.account">
+              <MappingFragment StoreEntitySet="account">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="sha_pass_hash" ColumnName="sha_pass_hash" />
+                <ScalarProperty Name="gmlevel" ColumnName="gmlevel" />
+                <ScalarProperty Name="sessionkey" ColumnName="sessionkey" />
+                <ScalarProperty Name="v" ColumnName="v" />
+                <ScalarProperty Name="s" ColumnName="s" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="joindate" ColumnName="joindate" />
+                <ScalarProperty Name="last_ip" ColumnName="last_ip" />
+                <ScalarProperty Name="failed_logins" ColumnName="failed_logins" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="last_login" ColumnName="last_login" />
+                <ScalarProperty Name="active_realm_id" ColumnName="active_realm_id" />
+                <ScalarProperty Name="expansion" ColumnName="expansion" />
+                <ScalarProperty Name="mutetime" ColumnName="mutetime" />
+                <ScalarProperty Name="locale" ColumnName="locale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="account_banned">
+            <EntityTypeMapping TypeName="Models.account_banned">
+              <MappingFragment StoreEntitySet="account_banned">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bandate" ColumnName="bandate" />
+                <ScalarProperty Name="unbandate" ColumnName="unbandate" />
+                <ScalarProperty Name="bannedby" ColumnName="bannedby" />
+                <ScalarProperty Name="banreason" ColumnName="banreason" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ip_banned">
+            <EntityTypeMapping TypeName="Models.ip_banned">
+              <MappingFragment StoreEntitySet="ip_banned">
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="bandate" ColumnName="bandate" />
+                <ScalarProperty Name="unbandate" ColumnName="unbandate" />
+                <ScalarProperty Name="bannedby" ColumnName="bannedby" />
+                <ScalarProperty Name="banreason" ColumnName="banreason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="realmcharacters">
+            <EntityTypeMapping TypeName="Models.realmcharacter">
+              <MappingFragment StoreEntitySet="realmcharacters">
+                <ScalarProperty Name="realmid" ColumnName="realmid" />
+                <ScalarProperty Name="acctid" ColumnName="acctid" />
+                <ScalarProperty Name="numchars" ColumnName="numchars" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="realmlists">
+            <EntityTypeMapping TypeName="Models.realmlist">
+              <MappingFragment StoreEntitySet="realmlist">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="port" ColumnName="port" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="realmflags" ColumnName="realmflags" />
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="allowedSecurityLevel" ColumnName="allowedSecurityLevel" />
+                <ScalarProperty Name="population" ColumnName="population" />
+                <ScalarProperty Name="realmbuilds" ColumnName="realmbuilds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uptimes">
+            <EntityTypeMapping TypeName="Models.uptime">
+              <MappingFragment StoreEntitySet="uptime">
+                <ScalarProperty Name="realmid" ColumnName="realmid" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="startstring" ColumnName="startstring" />
+                <ScalarProperty Name="uptime1" ColumnName="uptime" />
+                <ScalarProperty Name="maxplayers" ColumnName="maxplayers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

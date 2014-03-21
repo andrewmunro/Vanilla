@@ -1,7 +1,8 @@
-﻿namespace Vanilla.World.Components.ActionBar
+﻿using Vanilla.Character.Database;
+
+namespace Vanilla.World.Components.ActionBar
 {
     using Vanilla.Core.Opcodes;
-    using Vanilla.Database.Character.Models;
     using Vanilla.World.Components.ActionBar.Packets.Incoming;
     using Vanilla.World.Components.ActionBar.Packets.Outgoing;
     using Vanilla.World.Network;
@@ -27,7 +28,7 @@
             }
             else
             {
-                session.Player.ActionButtonCollection.AddActionButton(new CharacterAction() { GUID = session.Player.ObjectGUID.Low, Action = packet.Action, Button = packet.Button, Type = (byte)packet.Type });
+                session.Player.ActionButtonCollection.AddActionButton(new character_action() { guid = session.Player.ObjectGUID.Low, action = packet.Action, button = packet.Button, type = (byte)packet.Type });
             }
         }
     }
