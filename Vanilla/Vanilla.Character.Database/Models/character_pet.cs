@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("character_pet", Schema="characters")]
+	    [Table("character_pet", Schema="dbo")]
 
     public partial class character_pet
     {
@@ -36,7 +36,7 @@ namespace Vanilla.Database.Character.Models
 		        public long exp { get; set; }
  
         [Column("Reactstate")] 
-		        public bool Reactstate { get; set; }
+		        public byte Reactstate { get; set; }
  
         [Column("loyaltypoints")] 
 		        public int loyaltypoints { get; set; }
@@ -51,7 +51,7 @@ namespace Vanilla.Database.Character.Models
 		        public string name { get; set; }
  
         [Column("renamed")] 
-		        public bool renamed { get; set; }
+		        public byte renamed { get; set; }
  
         [Column("slot")] 
 		        public long slot { get; set; }
@@ -66,13 +66,13 @@ namespace Vanilla.Database.Character.Models
 		        public long curhappiness { get; set; }
  
         [Column("savetime")] 
-		        public decimal savetime { get; set; }
+		        public long savetime { get; set; }
  
         [Column("resettalents_cost")] 
 		        public long resettalents_cost { get; set; }
  
         [Column("resettalents_time")] 
-		        public decimal resettalents_time { get; set; }
+		        public long resettalents_time { get; set; }
  
         [Column("abdata")] 
 		        public string abdata { get; set; }

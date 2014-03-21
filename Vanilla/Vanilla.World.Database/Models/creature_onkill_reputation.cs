@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("creature_onkill_reputation", Schema="mangos")]
+	    [Table("creature_onkill_reputation", Schema="dbo")]
 
     public partial class creature_onkill_reputation
     {
@@ -21,19 +21,19 @@ namespace Vanilla.Database.World.Models
 		        public short RewOnKillRepFaction2 { get; set; }
  
         [Column("MaxStanding1")] 
-		        public sbyte MaxStanding1 { get; set; }
+		        public byte MaxStanding1 { get; set; }
  
         [Column("IsTeamAward1")] 
-		        public sbyte IsTeamAward1 { get; set; }
+		        public byte IsTeamAward1 { get; set; }
  
         [Column("RewOnKillRepValue1")] 
 		        public int RewOnKillRepValue1 { get; set; }
  
         [Column("MaxStanding2")] 
-		        public sbyte MaxStanding2 { get; set; }
+		        public byte MaxStanding2 { get; set; }
  
         [Column("IsTeamAward2")] 
-		        public sbyte IsTeamAward2 { get; set; }
+		        public byte IsTeamAward2 { get; set; }
  
         [Column("RewOnKillRepValue2")] 
 		        public int RewOnKillRepValue2 { get; set; }

@@ -32,27 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\GenericServerComponent.cs" />
@@ -99,6 +88,7 @@
     <Compile Include="Network\Packet\RealmPacket.cs" />
     <Compile Include="Network\Session\Session.cs" />
     <Compile Include="Network\Router.cs" />
+    <Compile Include="Tools\AccountCreator.cs" />
     <Compile Include="Tools\Vector2.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Logging\Log.cs" />
@@ -120,6 +110,10 @@
     <ProjectReference Include="..\Vanilla.Character.Database\Vanilla.Database.Character.csproj">
       <Project>{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}</Project>
       <Name>Vanilla.Database.Character</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vanilla.Login.Database\Vanilla.Database.Login.csproj">
+      <Project>{acd5cfd3-2f64-4488-9489-66a8416287da}</Project>
+      <Name>Vanilla.Database.Login</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vanilla.World.Database\Vanilla.Database.World.csproj">
       <Project>{abe214f4-31bb-4471-968b-932cdf169ce1}</Project>

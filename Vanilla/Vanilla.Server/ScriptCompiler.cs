@@ -26,12 +26,12 @@
             ChatCommandNode node = new ChatCommandNode(commandName, commandDescription);
             node.Method = method.Method;
             node.CommandAttributes = new List<ChatCommandAttribute>();
-            Core.ChatCommandEngine.AddNode(node);
+            Core.ChatCommands.AddNode(node);
         }
 
         protected void RemoveChatCommand(String commandName)
         {
-            Core.ChatCommandEngine.RemoveNode(commandName);
+            Core.ChatCommands.RemoveNode(commandName);
         }
     }
 

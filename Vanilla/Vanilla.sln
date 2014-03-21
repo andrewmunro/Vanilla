@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanilla.World.Old", "Vanilla.World.Old\Vanilla.World.Old.csproj", "{A97AC046-F332-4AAA-827B-A2286950839E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{ECBE8C02-B0D3-4302-BA06-42C0CBD0749A} = {ECBE8C02-B0D3-4302-BA06-42C0CBD0749A}

@@ -2,7 +2,7 @@ namespace Vanilla.Database.Character.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("characters", Schema = "characters")]
+    [Table("characters", Schema="dbo")]
     public class Character
     {
  
@@ -73,7 +73,7 @@ namespace Vanilla.Database.Character.Models
                 public long LevelTime { get; set; }
  
         [Column("logout_time")] 
-                public decimal LogoutTime { get; set; }
+                public long LogoutTime { get; set; }
  
         [Column("is_logout_resting")] 
                 public byte IsLogoutResting { get; set; }
@@ -85,7 +85,7 @@ namespace Vanilla.Database.Character.Models
                 public long ResetTalentsCost { get; set; }
  
         [Column("resettalents_time")] 
-                public decimal ResetTalentsTime { get; set; }
+                public long ResetTalentsTime { get; set; }
  
         [Column("trans_x")] 
                 public float TransX { get; set; }
@@ -100,13 +100,13 @@ namespace Vanilla.Database.Character.Models
                 public float TransO { get; set; }
  
         [Column("transguid")] 
-                public decimal TransGUID { get; set; }
+                public long TransGUID { get; set; }
  
         [Column("extra_flags")] 
                 public long ExtraFlags { get; set; }
  
         [Column("stable_slots")] 
-                public bool StableSlots { get; set; }
+                public byte StableSlots { get; set; }
  
         [Column("at_login")] 
                 public long AtLogin { get; set; }
@@ -115,7 +115,7 @@ namespace Vanilla.Database.Character.Models
                 public long Zone { get; set; }
  
         [Column("death_expire_time")] 
-                public decimal DeathExpireTime { get; set; }
+                public long DeathExpireTime { get; set; }
  
         [Column("taxi_path")] 
                 public string TaxiPath { get; set; }
@@ -178,6 +178,6 @@ namespace Vanilla.Database.Character.Models
                 public string DeleteInfosName { get; set; }
  
         [Column("deleteDate")] 
-                public decimal? DeleteDate { get; set; }
+                public long? DeleteDate { get; set; }
     }
 }

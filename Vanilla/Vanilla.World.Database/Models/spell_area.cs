@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_area", Schema="mangos")]
+	    [Table("spell_area", Schema="dbo")]
 
     public partial class spell_area
     {
@@ -21,7 +21,7 @@ namespace Vanilla.Database.World.Models
 		        public int quest_start { get; set; }
  
         [Column("quest_start_active")] 
-		        public bool quest_start_active { get; set; }
+		        public byte quest_start_active { get; set; }
  
         [Column("quest_end")] 
 		        public int quest_end { get; set; }
@@ -36,9 +36,9 @@ namespace Vanilla.Database.World.Models
 		        public int racemask { get; set; }
  
         [Column("gender")] 
-		        public bool gender { get; set; }
+		        public byte gender { get; set; }
  
         [Column("autocast")] 
-		        public bool autocast { get; set; }
+		        public byte autocast { get; set; }
     }
 }

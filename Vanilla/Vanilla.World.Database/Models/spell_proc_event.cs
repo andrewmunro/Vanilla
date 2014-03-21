@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_proc_event", Schema="mangos")]
+	    [Table("spell_proc_event", Schema="dbo")]
 
     public partial class spell_proc_event
     {
@@ -21,13 +21,13 @@ namespace Vanilla.Database.World.Models
 		        public int SpellFamilyName { get; set; }
  
         [Column("SpellFamilyMask0")] 
-		        public decimal SpellFamilyMask0 { get; set; }
+		        public long SpellFamilyMask0 { get; set; }
  
         [Column("SpellFamilyMask1")] 
-		        public decimal SpellFamilyMask1 { get; set; }
+		        public long SpellFamilyMask1 { get; set; }
  
         [Column("SpellFamilyMask2")] 
-		        public decimal SpellFamilyMask2 { get; set; }
+		        public long SpellFamilyMask2 { get; set; }
  
         [Column("procFlags")] 
 		        public long procFlags { get; set; }

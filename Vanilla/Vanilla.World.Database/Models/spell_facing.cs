@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_facing", Schema="mangos")]
+	    [Table("spell_facing", Schema="dbo")]
 
     public partial class spell_facing
     {
@@ -15,6 +15,6 @@ namespace Vanilla.Database.World.Models
 		        public long entry { get; set; }
  
         [Column("facingcasterflag")] 
-		        public bool facingcasterflag { get; set; }
+		        public byte facingcasterflag { get; set; }
     }
 }

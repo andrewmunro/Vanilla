@@ -2,7 +2,7 @@ namespace Vanilla.Database.World.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("game_event_creature_data", Schema = "mangos")]
+    [Table("game_event_creature_data", Schema="dbo")]
     public class GameEventCreatureData
     {
         [Column("guid")] 

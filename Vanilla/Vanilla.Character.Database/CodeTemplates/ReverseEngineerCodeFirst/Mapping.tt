@@ -65,7 +65,7 @@ namespace <#= code.EscapeNamespace(efHost.Namespace) #>
         var configLines = new List<string>();
              
         if (type.ClrEquivalentType == typeof(int)
-            || type.ClrEquivalentType == typeof(decimal)
+            || type.ClrEquivalentType == typeof(long)
             || type.ClrEquivalentType == typeof(short)
             || type.ClrEquivalentType == typeof(long))
         {
@@ -88,13 +88,13 @@ namespace <#= code.EscapeNamespace(efHost.Namespace) #>
             }
                 
             var unicodeFacet = (Facet)prop.TypeUsage.Facets.SingleOrDefault(f => f.Name == "IsUnicode");
-            if(unicodeFacet != null && !(bool)unicodeFacet.Value)
+            if(unicodeFacet != null && !(byte)unicodeFacet.Value)
             {
                 configLines.Add(".IsUnicode(false)");
             }
                 
             var fixedLengthFacet = (Facet)prop.TypeUsage.Facets.SingleOrDefault(f => f.Name == "FixedLength");
-            if (fixedLengthFacet != null && (bool)fixedLengthFacet.Value)
+            if (fixedLengthFacet != null && (byte)fixedLengthFacet.Value)
             {
                 configLines.Add(".IsFixedLength()");
             }

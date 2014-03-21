@@ -6,6 +6,7 @@
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Components.Spell.Packets.Incoming;
     using Vanilla.World.Components.Spell.Packets.Outgoing;
+    using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
 
     public class SpellComponent : WorldServerComponent
@@ -24,11 +25,11 @@
 
         private void OnCastSpell(WorldSession session, PCCastSpell packet)
         {
-            PrepareSpell(session, packet);
 
-            //ObjectEntity<> target = (session.Entity.Target != null) ? session.Entity.Target : session.Entity;
+            IUnitEntity target = session.Player.Target ?? session.Player;
 
-            //WorldServer.TransmitToAll(new PSSpellGo(session.Entity, target, packet.spellID));
+            target.SubscribedBy.ForEach(s => s.SendPacket(new PSSpellGo(session.Player, target, packet.spellID)));
+            session.SendPacket(new PSSpellGo(session.Player, target, packet.spellID));
             session.SendPacket(new PSCastFailed(packet.spellID));
 
             SpellEntry spell = Core.DBC.GetDBC<SpellEntry>().SingleOrDefault(s => s.ID == packet.spellID);
@@ -63,11 +64,6 @@
            
 
            */
-        }
-
-        private void PrepareSpell(WorldSession session, PCCastSpell packet)
-        {
-            //UnitEntity target = session.Entity.Target ?? session.Entity;
         }
 
         public void DoTimer(double interval, ElapsedEventHandler elapseEvent)

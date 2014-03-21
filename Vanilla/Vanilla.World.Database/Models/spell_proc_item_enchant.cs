@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_proc_item_enchant", Schema="mangos")]
+	    [Table("spell_proc_item_enchant", Schema="dbo")]
 
     public partial class spell_proc_item_enchant
     {

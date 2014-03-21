@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("dbscripts_on_go_template_use", Schema="mangos")]
+	    [Table("dbscripts_on_go_template_use", Schema="dbo")]
 
     public partial class dbscripts_on_go_template_use
     {

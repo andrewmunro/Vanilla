@@ -2,7 +2,7 @@ namespace Vanilla.Database.World.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("playercreateinfo_item", Schema = "mangos")]
+    [Table("playercreateinfo_item", Schema="dbo")]
     public class PlayerCreateInfoItem
     {
  

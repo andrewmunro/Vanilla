@@ -58,7 +58,7 @@
                     if (type == typeof(UInt16)) this.SetUpdateField<UInt16>((int)key, Convert.ToUInt16(value));
                     if (type == typeof(UInt64)) this.SetUpdateField<ulong>((int)key, Convert.ToUInt64(value));
                     if (type == typeof(Single)) this.SetUpdateField<float>((int)key, Convert.ToSingle(value));
-/*                    if (type == typeof(Item[]))
+                    if (type == typeof(Item[]))
                     {
                         var values = value as Item[];
                         for (int i = 0; i < values.Length; i++)
@@ -78,7 +78,7 @@
                             this.SetUpdateField<int>((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + (i * 12), item.RandomPropertyID);
                             this.SetUpdateField<int>((int)EUnitFields.PLAYER_VISIBLE_ITEM_1_PROPERTIES + 1 + (i * 12), item.ItemSuffixFactor);
                         }
-                    }*/
+                    }
                 }
                 else
                 {

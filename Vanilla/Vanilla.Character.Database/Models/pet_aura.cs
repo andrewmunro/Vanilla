@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("pet_aura", Schema="characters")]
+	    [Table("pet_aura", Schema="dbo")]
 
     public partial class pet_aura
     {
@@ -15,7 +15,7 @@ namespace Vanilla.Database.Character.Models
 		        public long guid { get; set; }
  
         [Column("caster_guid")] 
-		        public decimal caster_guid { get; set; }
+		        public long caster_guid { get; set; }
  
         [Column("item_guid")] 
 		        public long item_guid { get; set; }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("battleground_template", Schema="mangos")]
+	    [Table("battleground_template", Schema="dbo")]
 
     public partial class battleground_template
     {

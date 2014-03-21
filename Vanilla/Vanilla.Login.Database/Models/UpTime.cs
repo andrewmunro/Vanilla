@@ -2,7 +2,7 @@ namespace Vanilla.Database.Login.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("uptime", Schema="realmd")]
+    [Table("uptime", Schema="dbo")]
 
     public class UpTime
     {
@@ -11,13 +11,13 @@ namespace Vanilla.Database.Login.Models
 		        public long RealmID { get; set; }
  
         [Column("starttime")] 
-		        public decimal StartTime { get; set; }
+		        public long StartTime { get; set; }
  
         [Column("startstring")] 
 		        public string StartString { get; set; }
  
         [Column("uptime")] 
-		        public decimal UpTime1 { get; set; }
+		        public long UpTime1 { get; set; }
  
         [Column("maxplayers")] 
 		        public int MaxPlayers { get; set; }

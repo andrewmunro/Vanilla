@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("character_spell_cooldown", Schema="characters")]
+	    [Table("character_spell_cooldown", Schema="dbo")]
 
     public partial class character_spell_cooldown
     {
@@ -21,6 +21,6 @@ namespace Vanilla.Database.Character.Models
 		        public long item { get; set; }
  
         [Column("time")] 
-		        public decimal time { get; set; }
+		        public long time { get; set; }
     }
 }

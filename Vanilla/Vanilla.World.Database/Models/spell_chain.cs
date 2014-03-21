@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_chain", Schema="mangos")]
+	    [Table("spell_chain", Schema="dbo")]
 
     public partial class spell_chain
     {
@@ -21,7 +21,7 @@ namespace Vanilla.Database.World.Models
 		        public int first_spell { get; set; }
  
         [Column("rank")] 
-		        public sbyte rank { get; set; }
+		        public byte rank { get; set; }
  
         [Column("req_spell")] 
 		        public int req_spell { get; set; }

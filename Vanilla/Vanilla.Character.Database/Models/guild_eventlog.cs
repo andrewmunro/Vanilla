@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("guild_eventlog", Schema="characters")]
+	    [Table("guild_eventlog", Schema="dbo")]
 
     public partial class guild_eventlog
     {
@@ -18,7 +18,7 @@ namespace Vanilla.Database.Character.Models
 		        public long LogGuid { get; set; }
  
         [Column("EventType")] 
-		        public bool EventType { get; set; }
+		        public byte EventType { get; set; }
  
         [Column("PlayerGuid1")] 
 		        public long PlayerGuid1 { get; set; }
@@ -30,6 +30,6 @@ namespace Vanilla.Database.Character.Models
 		        public byte NewRank { get; set; }
  
         [Column("TimeStamp")] 
-		        public decimal TimeStamp { get; set; }
+		        public long TimeStamp { get; set; }
     }
 }

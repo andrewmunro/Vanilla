@@ -3,7 +3,7 @@ namespace Vanilla.Database.World.Models
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("creature_template", Schema = "mangos")]
+    [Table("creature_template", Schema="dbo")]
     public class CreatureTemplate
     {
  
@@ -80,7 +80,7 @@ namespace Vanilla.Database.World.Models
                 public float Maxdmg { get; set; }
  
         [Column("dmgschool")] 
-                public sbyte Dmgschool { get; set; }
+                public byte Dmgschool { get; set; }
  
         [Column("attackpower")] 
                 public long Attackpower { get; set; }
@@ -104,10 +104,10 @@ namespace Vanilla.Database.World.Models
                 public long Dynamicflags { get; set; }
  
         [Column("family")] 
-                public sbyte Family { get; set; }
+                public byte Family { get; set; }
  
         [Column("trainer_type")] 
-                public sbyte TrainerType { get; set; }
+                public byte TrainerType { get; set; }
  
         [Column("trainer_spell")] 
                 public int TrainerSpell { get; set; }

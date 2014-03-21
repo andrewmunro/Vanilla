@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("corpse", Schema="characters")]
+	    [Table("corpse", Schema="dbo")]
 
     public partial class corpse
     {
@@ -33,7 +33,7 @@ namespace Vanilla.Database.Character.Models
 		        public long map { get; set; }
  
         [Column("time")] 
-		        public decimal time { get; set; }
+		        public long time { get; set; }
  
         [Column("corpse_type")] 
 		        public byte corpse_type { get; set; }

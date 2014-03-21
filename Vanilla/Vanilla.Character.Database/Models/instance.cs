@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("instance", Schema="characters")]
+	    [Table("instance", Schema="dbo")]
 
     public partial class instance
     {
@@ -18,7 +18,7 @@ namespace Vanilla.Database.Character.Models
 		        public long map { get; set; }
  
         [Column("resettime")] 
-		        public decimal resettime { get; set; }
+		        public long resettime { get; set; }
  
         [Column("data")] 
 		        public string data { get; set; }

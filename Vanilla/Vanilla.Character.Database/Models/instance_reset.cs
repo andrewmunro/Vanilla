@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("instance_reset", Schema="characters")]
+	    [Table("instance_reset", Schema="dbo")]
 
     public partial class instance_reset
     {
@@ -15,6 +15,6 @@ namespace Vanilla.Database.Character.Models
 		        public long mapid { get; set; }
  
         [Column("resettime")] 
-		        public decimal resettime { get; set; }
+		        public long resettime { get; set; }
     }
 }

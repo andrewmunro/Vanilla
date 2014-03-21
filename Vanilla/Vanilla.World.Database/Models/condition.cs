@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("conditions", Schema="mangos")]
+	    [Table("conditions", Schema="dbo")]
 
     public partial class condition
     {
@@ -15,7 +15,7 @@ namespace Vanilla.Database.World.Models
 		        public int condition_entry { get; set; }
  
         [Column("type")] 
-		        public sbyte type { get; set; }
+		        public byte type { get; set; }
  
         [Column("value1")] 
 		        public int value1 { get; set; }

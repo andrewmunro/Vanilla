@@ -1,8 +1,10 @@
 ﻿namespace Vanilla.World.Components.Spell.Packets.Outgoing
 {
+    using Vanilla.Core.Extensions;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;
     using Vanilla.World.Components.Update.Packets.Outgoing;
+    using Vanilla.World.Game.Entity;
     using Vanilla.World.Game.Entity.Object.Player;
 
     internal enum SpellCastFlags
@@ -30,22 +32,19 @@
 
     public sealed class PSSpellGo : WorldPacket
     {
-        public PSSpellGo(PlayerEntity caster, PlayerEntity target, uint spellID)
+        public PSSpellGo(PlayerEntity caster, IUnitEntity target, uint spellID)
             : base(WorldOpcodes.SMSG_SPELL_GO)
         {
-            //TODO FIX
-            //byte[] casterGUID = PSUpdateObject.GenerateGuidBytes(caster.ObjectGUID.RawGUID);
-            //byte[] targetGUID = PSUpdateObject.GenerateGuidBytes(target.ObjectGUID.RawGUID);
+            this.WritePackedUInt64(caster.ObjectGUID.RawGUID);
+            this.WritePackedUInt64(target.ObjectGUID.RawGUID);
 
-            //PSUpdateObject.WriteBytes(this, casterGUID);
-            //PSUpdateObject.WriteBytes(this, casterGUID);
             this.Write(spellID);
             this.Write((ushort)SpellCastFlags.CAST_FLAG_UNKNOWN9); // Cast Flags!?
             this.Write((byte)1); // Target Length
-            Write(target.ObjectGUID.RawGUID);
+            this.Write(target.ObjectGUID.RawGUID);
             this.Write((byte)0); // End
             this.Write((ushort)2); // TARGET_FLAG_UNIT
-            //PSUpdateObject.WriteBytes(this, targetGUID); // Packed GUID
+            this.WritePackedUInt64(target.ObjectGUID.RawGUID);
         }
     }
 }

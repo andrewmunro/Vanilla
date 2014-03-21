@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-		[Table("item_template", Schema="mangos")]
+		[Table("item_template", Schema="dbo")]
 
 	public class ItemTemplate
 	{
@@ -228,7 +228,7 @@ namespace Vanilla.Database.World.Models
 				public byte spelltrigger_1 { get; set; }
  
 		[Column("spellcharges_1")] 
-				public sbyte spellcharges_1 { get; set; }
+				public short spellcharges_1 { get; set; }
  
 		[Column("spellppmRate_1")] 
 				public float spellppmRate_1 { get; set; }
@@ -249,7 +249,7 @@ namespace Vanilla.Database.World.Models
 				public byte spelltrigger_2 { get; set; }
  
 		[Column("spellcharges_2")] 
-				public sbyte spellcharges_2 { get; set; }
+				public short spellcharges_2 { get; set; }
  
 		[Column("spellppmRate_2")] 
 				public float spellppmRate_2 { get; set; }
@@ -270,7 +270,7 @@ namespace Vanilla.Database.World.Models
 				public byte spelltrigger_3 { get; set; }
  
 		[Column("spellcharges_3")] 
-				public sbyte spellcharges_3 { get; set; }
+				public short spellcharges_3 { get; set; }
  
 		[Column("spellppmRate_3")] 
 				public float spellppmRate_3 { get; set; }
@@ -291,7 +291,7 @@ namespace Vanilla.Database.World.Models
 				public byte spelltrigger_4 { get; set; }
  
 		[Column("spellcharges_4")] 
-				public sbyte spellcharges_4 { get; set; }
+				public short spellcharges_4 { get; set; }
  
 		[Column("spellppmRate_4")] 
 				public float spellppmRate_4 { get; set; }
@@ -312,7 +312,7 @@ namespace Vanilla.Database.World.Models
 				public byte spelltrigger_5 { get; set; }
  
 		[Column("spellcharges_5")] 
-				public sbyte spellcharges_5 { get; set; }
+				public short spellcharges_5 { get; set; }
  
 		[Column("spellppmRate_5")] 
 				public float spellppmRate_5 { get; set; }
@@ -348,7 +348,7 @@ namespace Vanilla.Database.World.Models
 				public int lockid { get; set; }
  
 		[Column("Material")] 
-				public sbyte Material { get; set; }
+				public short Material { get; set; }
  
 		[Column("sheath")] 
 				public byte sheath { get; set; }
@@ -393,6 +393,6 @@ namespace Vanilla.Database.World.Models
 				public long Duration { get; set; }
  
 		[Column("ExtraFlags")] 
-				public bool ExtraFlags { get; set; }
+				public byte ExtraFlags { get; set; }
 	}
 }

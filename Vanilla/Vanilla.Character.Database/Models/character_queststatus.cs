@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("character_queststatus", Schema="characters")]
+	    [Table("character_queststatus", Schema="dbo")]
 
     public partial class character_queststatus
     {
@@ -21,13 +21,13 @@ namespace Vanilla.Database.Character.Models
 		        public long status { get; set; }
  
         [Column("rewarded")] 
-		        public bool rewarded { get; set; }
+		        public byte rewarded { get; set; }
  
         [Column("explored")] 
-		        public bool explored { get; set; }
+		        public byte explored { get; set; }
  
         [Column("timer")] 
-		        public decimal timer { get; set; }
+		        public long timer { get; set; }
  
         [Column("mobcount1")] 
 		        public long mobcount1 { get; set; }

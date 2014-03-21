@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("db_script_string", Schema="mangos")]
+	    [Table("db_script_string", Schema="dbo")]
 
     public partial class db_script_string
     {

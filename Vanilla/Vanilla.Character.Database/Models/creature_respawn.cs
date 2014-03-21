@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("creature_respawn", Schema="characters")]
+	    [Table("creature_respawn", Schema="dbo")]
 
     public partial class creature_respawn
     {
@@ -15,7 +15,7 @@ namespace Vanilla.Database.Character.Models
 		        public long guid { get; set; }
  
         [Column("respawntime")] 
-		        public decimal respawntime { get; set; }
+		        public long respawntime { get; set; }
  
         [Column("instance")] 
 		        public int instance { get; set; }

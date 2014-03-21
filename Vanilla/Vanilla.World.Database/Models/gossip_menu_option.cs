@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("gossip_menu_option", Schema="mangos")]
+	    [Table("gossip_menu_option", Schema="dbo")]
 
     public partial class gossip_menu_option
     {

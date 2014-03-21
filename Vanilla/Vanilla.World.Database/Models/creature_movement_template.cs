@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("creature_movement_template", Schema="mangos")]
+	    [Table("creature_movement_template", Schema="dbo")]
 
     public partial class creature_movement_template
     {

@@ -4,7 +4,7 @@ namespace Vanilla.Database.Character.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("game_event_status", Schema="characters")]
+    [Table("game_event_status", Schema="dbo")]
     public partial class GameEventStatus
     {
         [Column("event")] 

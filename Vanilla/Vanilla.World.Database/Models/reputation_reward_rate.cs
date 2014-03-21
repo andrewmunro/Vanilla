@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("reputation_reward_rate", Schema="mangos")]
+	    [Table("reputation_reward_rate", Schema="dbo")]
 
     public partial class reputation_reward_rate
     {

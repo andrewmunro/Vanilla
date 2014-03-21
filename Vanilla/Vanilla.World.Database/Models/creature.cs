@@ -2,7 +2,7 @@ namespace Vanilla.Database.World.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("creature", Schema = "mangos")]
+    [Table("creature", Schema = "dbo")]
     public class Creature
     {
         [Column("guid")] 

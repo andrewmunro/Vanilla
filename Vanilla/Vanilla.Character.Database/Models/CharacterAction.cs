@@ -2,7 +2,7 @@ namespace Vanilla.Database.Character.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("character_action", Schema = "characters")]
+    [Table("character_action", Schema="dbo")]
     public class CharacterAction
     {
         [Column("guid")] 

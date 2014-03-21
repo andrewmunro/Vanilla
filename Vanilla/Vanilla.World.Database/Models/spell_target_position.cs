@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_target_position", Schema="mangos")]
+	    [Table("spell_target_position", Schema="dbo")]
 
     public partial class spell_target_position
     {

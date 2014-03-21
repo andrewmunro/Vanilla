@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-		[Table("areatrigger_involvedrelation", Schema="mangos")]
+		[Table("areatrigger_involvedrelation", Schema="dbo")]
 
 	public class AreatriggerInvolvedrelation
 	{

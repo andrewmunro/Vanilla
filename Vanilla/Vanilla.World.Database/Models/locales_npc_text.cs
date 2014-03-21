@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("locales_npc_text", Schema="mangos")]
+	    [Table("locales_npc_text", Schema="dbo")]
 
     public partial class locales_npc_text
     {

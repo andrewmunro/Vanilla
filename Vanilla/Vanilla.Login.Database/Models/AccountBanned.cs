@@ -2,7 +2,7 @@ namespace Vanilla.Database.Login.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("account_banned", Schema="realmd")]
+    [Table("account_banned", Schema="dbo")]
 
 	public class AccountBanned
 	{
@@ -23,6 +23,6 @@ namespace Vanilla.Database.Login.Models
 				public string banreason { get; set; }
  
 		[Column("active")] 
-				public sbyte active { get; set; }
+				public byte active { get; set; }
 	}
 }

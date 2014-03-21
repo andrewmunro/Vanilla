@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_affect", Schema="mangos")]
+	    [Table("spell_affect", Schema="dbo")]
 
     public partial class spell_affect
     {
@@ -18,6 +18,6 @@ namespace Vanilla.Database.World.Models
 		        public byte effectId { get; set; }
  
         [Column("SpellFamilyMask")] 
-		        public decimal SpellFamilyMask { get; set; }
+		        public long SpellFamilyMask { get; set; }
     }
 }

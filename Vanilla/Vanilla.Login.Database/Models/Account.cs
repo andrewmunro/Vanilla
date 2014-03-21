@@ -3,9 +3,11 @@ namespace Vanilla.Database.Login.Models
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("account", Schema = "realmd")]
+    [Table("account", Schema="dbo")]
     public class Account
     {
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public long ID { get; set; }
 
@@ -52,7 +54,7 @@ namespace Vanilla.Database.Login.Models
         public byte Expansion { get; set; }
 
         [Column("mutetime")]
-        public decimal MuteTime { get; set; }
+        public long? MuteTime { get; set; }
 
         [Column("locale")]
         public byte Locale { get; set; }

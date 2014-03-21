@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("locales_points_of_interest", Schema="mangos")]
+	    [Table("locales_points_of_interest", Schema="dbo")]
 
     public partial class locales_points_of_interest
     {

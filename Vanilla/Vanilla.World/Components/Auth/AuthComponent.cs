@@ -19,7 +19,7 @@
         
         private void OnAuthSession(WorldSession session, PCAuthSession packet)
         {
-            Account account = new DatabaseUnitOfWork<LoginDatabase>().GetRepository<Account>().AsQueryable().ToList().First((a) => a.Username == packet.Username);
+            Account account = new DatabaseUnitOfWork<LoginDatabase>().GetRepository<Account>().SingleOrDefault((a) => a.Username == packet.Username);
 
             session.Account = account;
             session.PacketCrypto = new VanillaCrypt();

@@ -65,7 +65,7 @@ namespace <#= code.EscapeNamespace(efHost.Namespace) #>
         var configLines = new List<string>();
              
         if (type.ClrEquivalentType == typeof(int)
-            || type.ClrEquivalentType == typeof(decimal)
+            || type.ClrEquivalentType == typeof(long)
             || type.ClrEquivalentType == typeof(short)
             || type.ClrEquivalentType == typeof(long))
         {

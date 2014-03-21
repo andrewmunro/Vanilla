@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("game_event", Schema="mangos")]
+	    [Table("game_event", Schema="dbo")]
 
     public partial class game_event
     {
@@ -21,10 +21,10 @@ namespace Vanilla.Database.World.Models
 		        public System.DateTime end_time { get; set; }
  
         [Column("occurence")] 
-		        public decimal occurence { get; set; }
+		        public long occurence { get; set; }
  
         [Column("length")] 
-		        public decimal length { get; set; }
+		        public long length { get; set; }
  
         [Column("holiday")] 
 		        public int holiday { get; set; }

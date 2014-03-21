@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("groups", Schema="characters")]
+	    [Table("groups", Schema="dbo")]
 
     public partial class group
     {
@@ -57,6 +57,6 @@ namespace Vanilla.Database.Character.Models
 		        public long icon8 { get; set; }
  
         [Column("isRaid")] 
-		        public bool isRaid { get; set; }
+		        public byte isRaid { get; set; }
     }
 }

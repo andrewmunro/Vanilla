@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("guild_rank", Schema="characters")]
+	    [Table("guild_rank", Schema="dbo")]
 
     public partial class guild_rank
     {

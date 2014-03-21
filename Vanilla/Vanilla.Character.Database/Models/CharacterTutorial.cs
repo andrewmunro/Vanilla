@@ -2,11 +2,11 @@ namespace Vanilla.Database.Character.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("character_tutorial", Schema = "characters")]
+    [Table("character_tutorial", Schema="dbo")]
     public class CharacterTutorial
     {
         [Column("account")] 
-                public decimal Account { get; set; }
+                public long Account { get; set; }
  
         [Column("tut0")] 
                 public long Tut0 { get; set; }

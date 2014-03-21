@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("group_instance", Schema="characters")]
+	    [Table("group_instance", Schema="dbo")]
 
     public partial class group_instance
     {
@@ -18,6 +18,6 @@ namespace Vanilla.Database.Character.Models
 		        public long instance { get; set; }
  
         [Column("permanent")] 
-		        public bool permanent { get; set; }
+		        public byte permanent { get; set; }
     }
 }

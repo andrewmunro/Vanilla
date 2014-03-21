@@ -2,7 +2,7 @@ namespace Vanilla.Database.World.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("playercreateinfo_action", Schema = "mangos")]
+    [Table("playercreateinfo_action", Schema="dbo")]
     public class PlayerCreateInfoAction
     {
         [Column("race")] 

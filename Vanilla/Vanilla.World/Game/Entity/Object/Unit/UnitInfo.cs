@@ -1,5 +1,7 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Unit
 {
+    using System;
+
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Tools;
 
@@ -13,8 +15,10 @@
 
             StandState = 0;
             StandStateFlags = 0;
-
+            Power = 3;
             Type |= (int)TypeMask.TYPEMASK_UNIT;
+
+            Mana = MaxMana = MaxRage = 1000;
         }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 1)]
@@ -55,5 +59,14 @@
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 3)]
         public byte Power { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_POWER1)]
+        public int Mana { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_MAXPOWER1)]
+        public int MaxMana { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_MAXPOWER2)]
+        public int MaxRage { get; set; }
     }
 }

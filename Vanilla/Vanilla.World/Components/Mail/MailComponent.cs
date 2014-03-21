@@ -83,7 +83,7 @@
                             Sender = session.Player.Character.GUID,
                             Receiver = reciever.GUID,
                             Subject = packet.Subject,
-                            Stationery = (sbyte)MailStationery.MAIL_STATIONERY_DEFAULT,
+                            Stationery = (byte)MailStationery.MAIL_STATIONERY_DEFAULT,
                             MailTemplateId = 0
                         });
             }

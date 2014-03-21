@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("guild", Schema="characters")]
+	    [Table("guild", Schema="dbo")]
 
     public partial class guild
     {
@@ -42,6 +42,6 @@ namespace Vanilla.Database.Character.Models
 		        public string motd { get; set; }
  
         [Column("createdate")] 
-		        public decimal createdate { get; set; }
+		        public long createdate { get; set; }
     }
 }

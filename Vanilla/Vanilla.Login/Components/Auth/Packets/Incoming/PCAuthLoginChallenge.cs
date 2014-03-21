@@ -5,8 +5,6 @@
 
     public sealed class PCAuthLoginChallenge : PacketReader
     {
-        #region Fields
-
         public ushort Build;
 
         public string Country;
@@ -31,10 +29,6 @@
 
         public string Version;
 
-        #endregion
-
-        #region Constructors and Destructors
-
         public PCAuthLoginChallenge(byte[] data)
             : base(data)
         {
@@ -54,7 +48,5 @@
             this.IP = ReadIpAddress();
             this.Username = ReadPascalString(1);
         }
-
-        #endregion
     }
 }

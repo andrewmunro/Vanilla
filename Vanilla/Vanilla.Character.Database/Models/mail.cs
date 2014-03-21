@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-        [Table("mail", Schema="characters")]
+        [Table("mail", Schema="dbo")]
 
     public class Mail
     {
@@ -15,7 +15,7 @@ namespace Vanilla.Database.Character.Models
                 public byte MessageType { get; set; }
  
         [Column("stationery")] 
-                public sbyte Stationery { get; set; }
+                public byte Stationery { get; set; }
  
         [Column("mailTemplateId")] 
                 public int MailTemplateId { get; set; }
@@ -36,10 +36,10 @@ namespace Vanilla.Database.Character.Models
                 public byte HasItems { get; set; }
  
         [Column("expire_time")] 
-                public decimal ExpireTime { get; set; }
+                public long ExpireTime { get; set; }
  
         [Column("deliver_time")] 
-                public decimal DeliverTime { get; set; }
+                public long DeliverTime { get; set; }
  
         [Column("money")] 
                 public long Money { get; set; }

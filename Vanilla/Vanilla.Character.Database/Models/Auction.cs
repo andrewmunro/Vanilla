@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-		[Table("auction", Schema="characters")]
+		[Table("auction", Schema="dbo")]
 
 	public class Auction
 	{
@@ -36,7 +36,7 @@ namespace Vanilla.Database.Character.Models
 				public int BuyOutPrice { get; set; }
  
 		[Column("time")] 
-				public decimal Time { get; set; }
+				public long Time { get; set; }
  
 		[Column("buyguid")] 
 				public long BuyGUID { get; set; }

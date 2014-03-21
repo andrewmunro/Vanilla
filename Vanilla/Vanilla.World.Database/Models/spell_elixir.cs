@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("spell_elixir", Schema="mangos")]
+	    [Table("spell_elixir", Schema="dbo")]
 
     public partial class spell_elixir
     {
@@ -15,6 +15,6 @@ namespace Vanilla.Database.World.Models
 		        public long entry { get; set; }
  
         [Column("mask")] 
-		        public bool mask { get; set; }
+		        public byte mask { get; set; }
     }
 }

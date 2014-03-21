@@ -2,7 +2,7 @@ namespace Vanilla.Database.Login.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("realmcharacters", Schema="realmd")]
+    [Table("realmcharacters", Schema="dbo")]
 
     public class RealmCharacter
     {

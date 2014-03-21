@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("reputation_spillover_template", Schema="mangos")]
+	    [Table("reputation_spillover_template", Schema="dbo")]
 
     public partial class reputation_spillover_template
     {

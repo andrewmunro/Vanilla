@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("character_social", Schema="characters")]
+	    [Table("character_social", Schema="dbo")]
 
     public partial class character_social
     {
@@ -18,6 +18,6 @@ namespace Vanilla.Database.Character.Models
 		        public long friend { get; set; }
  
         [Column("flags")] 
-		        public bool flags { get; set; }
+		        public byte flags { get; set; }
     }
 }

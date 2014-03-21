@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("pet_name_generation", Schema="mangos")]
+	    [Table("pet_name_generation", Schema="dbo")]
 
     public partial class pet_name_generation
     {
@@ -21,6 +21,6 @@ namespace Vanilla.Database.World.Models
 		        public int entry { get; set; }
  
         [Column("half")] 
-		        public sbyte half { get; set; }
+		        public byte half { get; set; }
     }
 }

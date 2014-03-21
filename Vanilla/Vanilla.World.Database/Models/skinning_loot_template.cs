@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("skinning_loot_template", Schema="mangos")]
+	    [Table("skinning_loot_template", Schema="dbo")]
 
     public partial class skinning_loot_template
     {

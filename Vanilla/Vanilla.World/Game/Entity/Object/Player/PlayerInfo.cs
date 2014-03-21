@@ -39,7 +39,7 @@
             this.Accessory = playerBytes2[0];
 
             this.Money = (int)databaseCharacter.Money;
-            /*
+            
             ItemTemplate[] equipment = ItemUtils.GenerateInventoryByIDs(Utils.CSVStringToIntArray(databaseCharacter.EquipmentCache));
             VisualItems = new Item[19];
             for (byte itemSlot = 0; itemSlot < 19; itemSlot++)
@@ -68,7 +68,7 @@
                                                     ItemSuffixFactor = 0
                                                 };
                 }
-            }*/
+            }
 
             Type |= (int)TypeMask.TYPEMASK_PLAYER;
         }

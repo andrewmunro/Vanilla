@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("creature_linking_template", Schema="mangos")]
+	    [Table("creature_linking_template", Schema="dbo")]
 
     public partial class creature_linking_template
     {

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	[Table("areatrigger_teleport", Schema="mangos")]
+	[Table("areatrigger_teleport", Schema="dbo")]
 	public class AreatriggerTeleport
 	{
  

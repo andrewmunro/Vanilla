@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("group_member", Schema="characters")]
+	    [Table("group_member", Schema="dbo")]
 
     public partial class group_member
     {
@@ -18,7 +18,7 @@ namespace Vanilla.Database.Character.Models
 		        public long memberGuid { get; set; }
  
         [Column("assistant")] 
-		        public bool assistant { get; set; }
+		        public byte assistant { get; set; }
  
         [Column("subgroup")] 
 		        public int subgroup { get; set; }

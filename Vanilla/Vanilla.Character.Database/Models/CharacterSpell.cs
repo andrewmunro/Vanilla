@@ -2,7 +2,7 @@ namespace Vanilla.Database.Character.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("character_spell", Schema = "characters")]
+    [Table("character_spell", Schema="dbo")]
     public class CharacterSpell
     {
  

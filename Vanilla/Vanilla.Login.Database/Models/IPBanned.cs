@@ -2,7 +2,7 @@ namespace Vanilla.Database.Login.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("ip_banned", Schema="realmd")]
+    [Table("ip_banned", Schema="dbo")]
 
 	public class IPBanned
 	{

@@ -1,15 +1,11 @@
-﻿namespace Vanilla.World
-{
-    using System;
-    using System.Linq;
+﻿using Vanilla.Core.Tools;
 
+namespace Vanilla.World
+{
     using Vanilla.Core.Components;
     using Vanilla.Core.DBC;
-    using Vanilla.Core.DBC.Structs;
     using Vanilla.Core.IO;
-    using Vanilla.Core.Logging;
     using Vanilla.Database.Character.Models;
-    using Vanilla.Database.Login.Models;
     using Vanilla.Database.World.Models;
     using Vanilla.World.Components;
     using Vanilla.World.Components.ActionBar;
@@ -24,7 +20,6 @@
     using Vanilla.World.Components.Misc;
     using Vanilla.World.Components.Movement;
     using Vanilla.World.Components.Spell;
-    using Vanilla.World.Game.Entity;
     using Vanilla.World.Network;
     using Vanilla.World.Tools.Chat;
 
@@ -52,12 +47,16 @@
             Components.Add(new PlayerMovementComponent(this));
             Components.Add(new SpellComponent(this));
 
-            ChatCommandEngine = new ChatCommandParser();
+            ChatCommands = new ChatCommandParser();
 
             Server.Start(portNumber, maxConnections);
+
+            var accountCreator = new AccountCreator();
+            accountCreator.CreateAccount("andrew1", "password");
+            accountCreator.CreateAccount("lucas", "password");
         }
 
-        public ChatCommandParser ChatCommandEngine { get; set; }
+        public ChatCommandParser ChatCommands { get; set; }
 
         public WorldServer Server { get; private set; }
 

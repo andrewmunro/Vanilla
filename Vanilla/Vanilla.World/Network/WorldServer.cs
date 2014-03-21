@@ -6,12 +6,10 @@
     using System.Net.Sockets;
     using System.Threading;
 
-    using Vanilla.Core.Logging;
     using Vanilla.Core.Network;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Network.Session;
     using Vanilla.World.Components.Entity;
-    using Vanilla.World.Game.Entity;
 
     public class WorldServer : Server
     {

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.Character.Models
 {
 
-	    [Table("mail_items", Schema="characters")]
+	    [Table("mail_items", Schema="dbo")]
 
     public partial class mail_items
     {

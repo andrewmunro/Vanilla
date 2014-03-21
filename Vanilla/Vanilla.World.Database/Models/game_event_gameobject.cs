@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Vanilla.Database.World.Models
 {
 
-	    [Table("game_event_gameobject", Schema="mangos")]
+	    [Table("game_event_gameobject", Schema="dbo")]
 
     public partial class game_event_gameobject
     {
