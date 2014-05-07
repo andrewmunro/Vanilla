@@ -13,6 +13,10 @@
 
     public class WorldServer : Server
     {
+        public VanillaWorld Core { get; private set; }
+
+        public WorldRouter Router { get; private set; }
+
         public List<WorldSession> Sessions { get; private set; } 
 
         public WorldServer(VanillaWorld core)
@@ -25,8 +29,7 @@
                 {
                     while (true)
                     {
-                        if (Core.GetComponent<EntityComponent>() != null) Core.GetComponent<EntityComponent>().Update();
-                        Sessions.ForEach(s => s.Update());
+                        this.Update();
                         Thread.Sleep(500);
                     }
                 };
@@ -35,9 +38,11 @@
             updateSessionThread.Start();
         }
 
-        public VanillaWorld Core { get; private set; }
-
-        public WorldRouter Router { get; private set; }
+        private void Update()
+        {
+            if (Core.GetComponent<EntityComponent>() != null) Core.GetComponent<EntityComponent>().Update();
+            Sessions.ForEach(s => s.Update());
+        }
 
         public override AbstractSession GenerateSession(int connectionID, Socket connectionSocket)
         {

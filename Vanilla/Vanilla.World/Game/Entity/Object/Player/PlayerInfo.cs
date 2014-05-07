@@ -1,12 +1,10 @@
 ﻿using Vanilla.Character.Database;
-using Vanilla.World.Database;
 
 namespace Vanilla.World.Game.Entity.Object.Player
 {
     using System;
-    using Vanilla.Core;
+
     using Vanilla.Core.DBC.Structs;
-    using Vanilla.World.Components.Item;
     using Vanilla.World.Game.Entity.Constants;
     using Vanilla.World.Game.Entity.Object.Unit;
     using Vanilla.World.Game.Entity.Tools;

@@ -20,7 +20,7 @@ namespace Vanilla.World.Game.Entity.Object.Player
 
         public ActionButtonCollection ActionButtonCollection;
 
-        public string Name { get { return Character.name; } }
+        public new string Name { get { return Character.name; } }
 
         public IUnitEntity Target;
 

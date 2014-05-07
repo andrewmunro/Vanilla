@@ -1,4 +1,8 @@
-﻿namespace Vanilla.World.Game.Update
+﻿using System;
+
+using Vanilla.Core.Logging;
+
+namespace Vanilla.World.Game.Update
 {
     using System.Collections.Generic;
     using System.IO;
@@ -21,6 +25,8 @@
         private List<ISubscribable> updateEntities { get; set; }
 
         private Queue<ISubscribable> removeEntities { get; set; }
+
+        public List<ISubscribable> createEntitiesInPacket { get; set; } 
 
         public UpdatePacketBuilder(WorldSession session)
         {
@@ -68,8 +74,10 @@
         private void SendUpdatePacket()
         {
             var packets = new List<byte[]>();
+            var names = new List<string>();
+            this.createEntitiesInPacket = new List<ISubscribable>();
 
-            if(Session.Player.Updated) packets.Add(Session.Player.UpdatePacket);
+            if (Session.Player.Updated) packets.Add(Session.Player.UpdatePacket);
 
             if (removeEntities.Count > 0) packets.Add(RemoveEntitiesBlock());
 
@@ -84,11 +92,22 @@
             while (packets.Count < MaxUpdatePacketCount && createEntities.Count != 0)
             {
                 var entity = createEntities.Dequeue();
+
                 packets.Add(entity.CreatePacket);
+                this.createEntitiesInPacket.Add(entity);
                 updateEntities.Add(entity);
             }
 
             if(packets.Count > 0) Session.SendPacket(new PSUpdateObject(packets));
+
+            createEntitiesInPacket.ForEach(e => e.OnEntityCreatedForSession(Session));
+
+            if (this.createEntitiesInPacket.Count > 0)
+            {
+                this.createEntitiesInPacket.ForEach(e => names.Add(e.Name));
+                Log.Print(LogType.Debug, "Created entities: ");
+                Log.Print(LogType.Debug, String.Join(", ", names.ToArray()));
+            }
         }
 
         private byte[] RemoveEntitiesBlock()

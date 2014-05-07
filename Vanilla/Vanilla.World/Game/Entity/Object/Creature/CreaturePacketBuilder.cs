@@ -1,7 +1,6 @@
 ﻿namespace Vanilla.World.Game.Entity.Object.Creature
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
 
     using Vanilla.Core.Extensions;
@@ -10,7 +9,7 @@
 
     public class CreaturePacketBuilder : EntityPacketBuilder
     {
-        private CreatureEntity entity;
+        private readonly CreatureEntity entity;
 
         public override int DataLength { get { return (int)EUnitFields.PLAYER_END - 0x4; }}
 
@@ -41,9 +40,11 @@
 
             var writer = new BinaryWriter(new MemoryStream());
 
+            //TODO Work out why "adder" unit crashes client. Maybe a pet or dynamic object?
             writer.Write((byte)ObjectUpdateType.UPDATETYPE_CREATE_OBJECT);
 
             writer.WritePackedUInt64(entity.ObjectGUID.RawGUID);
+
             writer.Write((byte)TypeID.TYPEID_UNIT);
 
             ObjectUpdateFlag updateFlags = ObjectUpdateFlag.UPDATEFLAG_ALL | ObjectUpdateFlag.UPDATEFLAG_LIVING
@@ -65,7 +66,7 @@
             // Movement speeds
             writer.Write((float)0); // ????
 
-            writer.Write(2.5f); // MOVE_WALK
+            writer.Write(entity.Info.WalkSpeed); // MOVE_WALK
             writer.Write((float)7); // MOVE_RUN
             writer.Write(4.5f); // MOVE_RUN_BACK
             writer.Write(4.72f); // MOVE_SWIM

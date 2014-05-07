@@ -1,4 +1,8 @@
-﻿namespace Vanilla.World.Tools.Chat.Commands
+﻿using PropertyChanged;
+
+using Vanilla.World.Components.Misc.Packets.Outgoing;
+
+namespace Vanilla.World.Tools.Chat.Commands
 {
     using System;
     using Vanilla.World.Components.Update.Constants;
@@ -61,6 +65,11 @@
 
                     case "standstate":
                         info.StandState = (byte)int.Parse(attributeValue);
+                        break;
+
+                    case "speed":
+                        info.WalkSpeed = float.Parse(attributeValue);
+                        session.SendPacket(new PSForceRunSpeedChange(entity.ObjectGUID, info.WalkSpeed));
                         break;
                     default:
                         unknownAttribute = true;

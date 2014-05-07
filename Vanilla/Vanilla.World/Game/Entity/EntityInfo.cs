@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq.Expressions;
     using System.Reflection;
 
     using PropertyChanged;
@@ -20,7 +19,7 @@
         {
             foreach (var property in this.GetType().GetProperties())
             {
-                UpdateField updateField = property.GetCustomAttribute<UpdateField>();
+                var updateField = property.GetCustomAttribute<UpdateField>();
                 if (updateField != null && updateField.RequiredOnCreation)
                 {
                     AddUpdateField(property, updateField);

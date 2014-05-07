@@ -28,7 +28,7 @@
 
             IUnitEntity target = session.Player.Target ?? session.Player;
 
-            target.SubscribedBy.ForEach(s => s.SendPacket(new PSSpellGo(session.Player, target, packet.spellID)));
+            target.SubscribedBy.ToList().ForEach(s => s.SendPacket(new PSSpellGo(session.Player, target, packet.spellID)));
             session.SendPacket(new PSSpellGo(session.Player, target, packet.spellID));
             session.SendPacket(new PSCastFailed(packet.spellID));
 

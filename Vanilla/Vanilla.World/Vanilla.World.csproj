@@ -56,9 +56,11 @@
     <Compile Include="Components\Auth\AuthComponent.cs" />
     <Compile Include="Components\Auth\Packets\Incoming\PCAuthSession.cs" />
     <Compile Include="Components\Chat\Packets\Incoming\PCChannel.cs" />
+    <Compile Include="Components\Entity\Constants\UnitSpeed.cs" />
     <Compile Include="Components\Entity\EntityBounds.cs" />
     <Compile Include="Components\Entity\EntityChunk.cs" />
     <Compile Include="Components\Entity\EntityComponent.cs" />
+    <Compile Include="Components\Entity\packets\Outgoing\PSMonsterMove.cs" />
     <Compile Include="Components\Item\Item.cs" />
     <Compile Include="Components\Mail\Constants\MailAuctionAnswers.cs" />
     <Compile Include="Components\Mail\Constants\MailCheckMask.cs" />
@@ -103,7 +105,7 @@
     <Compile Include="Components\Misc\Packets\Incoming\PCSetSelection.cs" />
     <Compile Include="Components\Misc\Packets\Incoming\PCTextEmote.cs" />
     <Compile Include="Components\Misc\Packets\Incoming\PCZoneUpdate.cs" />
-    <Compile Include="Components\Misc\Packets\Outgoing\ForceRunSpeedChange.cs" />
+    <Compile Include="Components\Misc\Packets\Outgoing\PSForceRunSpeedChange.cs" />
     <Compile Include="Components\Misc\Packets\Outgoing\PSEmote.cs" />
     <Compile Include="Components\Misc\Packets\Outgoing\PSNameQueryResponse.cs" />
     <Compile Include="Components\Login\Packets\Incoming\PCPlayerLogin.cs" />
@@ -152,6 +154,8 @@
     <Compile Include="Game\Entity\Constants\TypeMask.cs" />
     <Compile Include="Game\Entity\ISubscribable.cs" />
     <Compile Include="Game\Entity\IUnitEntity.cs" />
+    <Compile Include="Game\Entity\Object\Creature\AiBrain.cs" />
+    <Compile Include="Game\Entity\Object\Creature\Waypoint.cs" />
     <Compile Include="Game\Entity\Object\ObjectEntity.cs" />
     <Compile Include="Game\Entity\Object\ObjectInfo.cs" />
     <Compile Include="Game\Entity\Object\Creature\CreatureEntity.cs" />

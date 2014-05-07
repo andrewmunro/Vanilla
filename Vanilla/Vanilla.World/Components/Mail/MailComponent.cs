@@ -1,4 +1,6 @@
 ﻿using Vanilla.Character.Database;
+using Vanilla.World.Components.Auth;
+using Vanilla.World.Components.Chat;
 
 namespace Vanilla.World.Components.Mail
 {

@@ -53,6 +53,7 @@ namespace Vanilla.World.Components.Entity
         public void Update()
         {
             PlayerEntities.ForEach(this.UpdateSessionChunk);
+            CreatureEntities.ForEach(cr => cr.Update());
         }
 
         public PlayerEntity AddPlayerEntity(character character, WorldSession session)

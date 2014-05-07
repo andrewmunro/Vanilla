@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using Vanilla.World.Network;
 
 namespace Vanilla.World.Game.Entity
 {
@@ -15,5 +18,9 @@ namespace Vanilla.World.Game.Entity
         ObjectGUID ObjectGUID { get; set; }
 
         bool Updated { get; }
+
+        string Name { get; }
+
+        void OnEntityCreatedForSession(WorldSession session);
     }
 }

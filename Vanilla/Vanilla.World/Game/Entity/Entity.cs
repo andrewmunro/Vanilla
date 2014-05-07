@@ -1,4 +1,8 @@
-﻿namespace Vanilla.World.Game.Entity
+﻿using System.Collections.ObjectModel;
+
+using Vanilla.World.Network;
+
+namespace Vanilla.World.Game.Entity
 {
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -20,9 +24,11 @@
 
         public List<Session> SubscribedBy { get; set; }
 
+        public string Name { get; set; }
+
         public bool Updated { get { return PacketBuilder.UpdateQueue.Count > 0; } }
 
-        public Entity(ObjectGUID objectGUID)
+        protected Entity(ObjectGUID objectGUID)
         {
             ObjectGUID = objectGUID;
             SubscribedBy = new List<Session>();
@@ -37,9 +43,12 @@
         {
             //if (SubscribedBy.Count == 0) return;
             
-            UpdateFieldEntry updateFieldEntry = new UpdateFieldEntry();
+            var updateFieldEntry = new UpdateFieldEntry();
             updateFieldEntry.PropertyInfo = Info.GetType().GetProperty(e.PropertyName);
-            UpdateField updateField = updateFieldEntry.PropertyInfo.GetCustomAttribute<UpdateField>();
+            var updateField = updateFieldEntry.PropertyInfo.GetCustomAttribute<UpdateField>();
+
+            //TODO Somehow save the value back to the database... 
+            //TODO Possibly pass POCO through updateField obj and make sure propertynames are consistant?
 
             if (updateField != null)
             {
@@ -49,7 +58,12 @@
             }
         }
 
-        public void Update()
+        public virtual void OnEntityCreatedForSession(WorldSession session)
+        {
+            
+        }
+
+        public virtual void Update()
         {
             if (SubscribedBy.Count == 0)
             {

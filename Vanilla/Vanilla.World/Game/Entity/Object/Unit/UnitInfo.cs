@@ -19,6 +19,8 @@
             Type |= (int)TypeMask.TYPEMASK_UNIT;
 
             Mana = MaxMana = MaxRage = 1000;
+
+            WalkSpeed = 2.5f;
         }
 
         [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 1)]
@@ -68,5 +70,7 @@
 
         [UpdateField(EUnitFields.UNIT_FIELD_MAXPOWER2)]
         public int MaxRage { get; set; }
+
+        public float WalkSpeed { get; set; }
     }
 }

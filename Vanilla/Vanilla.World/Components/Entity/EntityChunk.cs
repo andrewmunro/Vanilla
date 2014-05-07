@@ -25,7 +25,6 @@ namespace Vanilla.World.Components.Entity
         public List<GameObjectEntity> GameObjectEntities = new List<GameObjectEntity>();
 
         private IRepository<creature> CreatureDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<creature>(); } }
-        private IRepository<creature_template> CreatureTemplateDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<creature_template>(); } }
         private IRepository<gameobject> GameObjectDatabase { get { return vanillaWorld.WorldDatabase.GetRepository<gameobject>(); } }
 
         public EntityChunk(Vector2 chunkLocation, float chunkSize, VanillaWorld vanillaWorld)
@@ -68,18 +67,17 @@ namespace Vanilla.World.Components.Entity
 
         public void AddCreatureEntity(creature creature)
         {
-            creature_template template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.entry == creature.id);
-            ObjectGUID guid = new ObjectGUID((ulong)creature.guid, TypeID.TYPEID_UNIT); //right type?
-            CreatureEntity creatureEntity = new CreatureEntity(guid, creature, template);
+            var guid = new ObjectGUID((ulong)creature.guid, TypeID.TYPEID_UNIT);
+            var creatureEntity = new CreatureEntity(guid, creature, vanillaWorld);
             CreatureEntities.Add(creatureEntity);
             creatureEntity.Setup();
         }
 
         public void AddGameObjectEntity(gameobject gameObject)
         {
-            ObjectGUID guid = new ObjectGUID((ulong)gameObject.guid, TypeID.TYPEID_GAMEOBJECT); //right type?
-            gameobject_template template = vanillaWorld.WorldDatabase.GetRepository<gameobject_template>().SingleOrDefault(t => t.entry == gameObject.id);
-            GameObjectEntity gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
+            var guid = new ObjectGUID((ulong)gameObject.guid, TypeID.TYPEID_GAMEOBJECT);
+            var template = vanillaWorld.WorldDatabase.GetRepository<gameobject_template>().SingleOrDefault(t => t.entry == gameObject.id);
+            var gameObjectEntity = new GameObjectEntity(guid, gameObject, template);
             GameObjectEntities.Add(gameObjectEntity);
             gameObjectEntity.Setup();
         }
