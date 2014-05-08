@@ -1,4 +1,5 @@
 ﻿using Vanilla.Character.Database;
+using Vanilla.World.Components.Weather;
 
 namespace Vanilla.World.Components.Login
 {
@@ -37,6 +38,7 @@ namespace Vanilla.World.Components.Login
             session.SendPacket(new PSInitWorldStates((uint)databaseCharacter.zone));
 
             session.SendPacket(session.Player.PacketBuilder.BuildOwnCharacterPacket());
+            Core.GetComponent<WeatherComponent>().SendWeather(session);
         }
     }
 }

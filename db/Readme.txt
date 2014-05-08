@@ -1,6 +1,6 @@
 To install the database:
 
-Download the 3 .bak files
+Download the 3 .bak files into this folder.
 
 https://www.dropbox.com/s/yx65ecp42kv10pj/mangos.bak
 https://www.dropbox.com/s/hxqvz4pp8n2j3ew/characters.bak

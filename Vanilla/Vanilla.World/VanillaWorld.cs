@@ -1,5 +1,6 @@
 ﻿using Vanilla.Character.Database;
 using Vanilla.Core.Tools;
+using Vanilla.World.Components.Weather;
 using Vanilla.World.Database;
 
 namespace Vanilla.World
@@ -38,6 +39,7 @@ namespace Vanilla.World
             Components.Add(new AuthComponent(this));
             Components.Add(new CharacterComponent(this));
             Components.Add(new ChatMessageComponent(this));
+            Components.Add(new WeatherComponent(this));
             Components.Add(new EntityComponent(this));
             Components.Add(new GameObjectComponent(this));
             Components.Add(new LoginComponent(this));
