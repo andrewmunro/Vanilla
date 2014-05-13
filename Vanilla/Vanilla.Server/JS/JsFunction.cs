@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vanilla.Server.lua
 {
-    [System.AttributeUsage(System.AttributeTargets.Method)]
-    public class LUAFunction : System.Attribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public class JSFunction : Attribute
     {
-        public LUAFunction()
+        public JSFunction()
         {
         }
     }
