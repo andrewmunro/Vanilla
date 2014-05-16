@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 
-using Vanilla.Core.IO;
 using Vanilla.Core.Logging;
-using Vanilla.Core.Network.Session;
 using Vanilla.World.Components.Entity;
 using Vanilla.World.Components.Weather.Constants;
 using Vanilla.World.Components.Weather.Packets.Outgoing;
@@ -30,11 +27,13 @@ namespace Vanilla.World.Components.Weather
         }
 
         //TODO Call this in an update loop when weather is to be recalculated.
-        public void Update()
+        public override void Update()
         {
+            base.Update();
             if (WeatherZones != null) WeatherZones.Values.ToList().ForEach(this.UpdateWeatherZone);
         }
 
+        
         public void UpdateWeatherZone(WeatherZone weatherZone)
         {
             if(weatherZone.ChangeWeather()) SendWeather(weatherZone);

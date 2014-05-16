@@ -159,6 +159,7 @@
     <Compile Include="Components\WorldServerComponent.cs" />
     <Compile Include="Components\Login\LoginComponent.cs" />
     <Compile Include="Game\Entity\Constants\TypeMask.cs" />
+    <Compile Include="Game\Entity\Constants\UnitFlags.cs" />
     <Compile Include="Game\Entity\ISubscribable.cs" />
     <Compile Include="Game\Entity\IUnitEntity.cs" />
     <Compile Include="Game\Entity\Object\Creature\AiBrain.cs" />

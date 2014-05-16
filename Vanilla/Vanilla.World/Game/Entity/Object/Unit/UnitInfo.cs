@@ -71,6 +71,18 @@
         [UpdateField(EUnitFields.UNIT_FIELD_MAXPOWER2)]
         public int MaxRage { get; set; }
 
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_0, true, 1)]
+        public int SpawnBytes0 { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_1, true, 1)]
+        public int SpawnBytes1 { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_2, true, 1)]
+        public int SpawnBytes2 { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_FLAGS, true, 1)]
+        public int UnitFlag { get; set; }
+
         public float WalkSpeed { get; set; }
     }
 }

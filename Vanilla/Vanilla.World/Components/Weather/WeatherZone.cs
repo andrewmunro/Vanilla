@@ -63,8 +63,8 @@ namespace Vanilla.World.Components.Weather
             MapId = weather.zone;
             SetupSeasons(weather);
 
-            CurrentWeather = WeatherType.WEATHER_TYPE_RAIN;
-            Intensity = 0.9f;
+            CurrentWeather = WeatherType.WEATHER_TYPE_FINE;
+            Intensity = 0.0f;
         }
 
         public bool ChangeWeather()

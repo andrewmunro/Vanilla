@@ -88,6 +88,7 @@
     <Compile Include="Network\Packet\RealmPacket.cs" />
     <Compile Include="Network\Session\Session.cs" />
     <Compile Include="Network\Router.cs" />
+    <Compile Include="Tasks\TaskManager.cs" />
     <Compile Include="Tools\AccountCreator.cs" />
     <Compile Include="Tools\Vector2.cs" />
     <Compile Include="Utils.cs" />

@@ -1,7 +1,6 @@
 ﻿namespace Vanilla.World.Components.Misc.Packets.Outgoing
 {
     using System;
-
     using Vanilla.Core.Extensions;
     using Vanilla.Core.Network.Packet;
     using Vanilla.Core.Opcodes;

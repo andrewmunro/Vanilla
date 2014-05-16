@@ -26,7 +26,7 @@
             VanillaLogin = new VanillaLogin(LoginPort, LoginMaxConnection);
             VanillaWorld = new VanillaWorld(WorldPort, WorldMaxConnection);
 
-            new LuaManager(VanillaWorld);
+            //new LuaManager(VanillaWorld);
 
             //new BotClient(LoginPort).ConnectToServer();
 

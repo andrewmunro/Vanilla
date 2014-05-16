@@ -17,9 +17,11 @@ namespace Vanilla.World.Game.Entity.Object.Creature
 
             NPCFlags = (int)template.npcflag;
             DynamicFlags = (int)template.dynamicflags;
-            UnitFlags = (int)template.unit_flags;
+            UnitFlag = (int)template.unit_flags;
             FactionTemplate = (uint)template.faction_A;
             Entry = template.entry; //Used to set the creature name.
+
+            CombatReach = 30f;
         }
 
         [UpdateField(EUnitFields.UNIT_NPC_FLAGS, true, 1)]
@@ -28,7 +30,7 @@ namespace Vanilla.World.Game.Entity.Object.Creature
         [UpdateField(EUnitFields.UNIT_DYNAMIC_FLAGS, true, 1)]
         public int DynamicFlags { get; set; }
 
-        [UpdateField(EUnitFields.UNIT_FIELD_FLAGS, true, 1)]
-        public int UnitFlags { get; set; }
+        [UpdateField(EUnitFields.UNIT_FIELD_COMBATREACH, true, 1)]
+        public float CombatReach { get; set; }
     }
 }

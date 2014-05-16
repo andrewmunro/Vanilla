@@ -1,4 +1,6 @@
-﻿using Vanilla.Character.Database;
+﻿using System.Threading.Tasks;
+
+using Vanilla.Character.Database;
 using Vanilla.Core.Tools;
 using Vanilla.World.Components.Weather;
 using Vanilla.World.Database;

@@ -30,6 +30,7 @@
                     while (true)
                     {
                         this.Update();
+                        Core.Components.ForEach(c => c.Update());
                         Thread.Sleep(500);
                     }
                 };

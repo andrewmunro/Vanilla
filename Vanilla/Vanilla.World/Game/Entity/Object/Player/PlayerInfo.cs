@@ -37,6 +37,12 @@ namespace Vanilla.World.Game.Entity.Object.Player
             this.HairColor = playerBytes[3];
             this.Accessory = playerBytes2[0];
 
+            FactionTemplate = race.FactionID;
+            UnitFlag = (int)UnitFlags.UNIT_FLAG_PVP;
+            FlagUnk = 0x08 | 0x20;
+            WatchedFactionIndex = (int)databaseCharacter.watchedFaction;
+
+
             this.Money = (int)databaseCharacter.money;
 
 /*
@@ -101,6 +107,12 @@ namespace Vanilla.World.Game.Entity.Object.Player
 
         [UpdateField(EUnitFields.PLAYER_FIELD_COINAGE)]
         public int Money { get; set; }
+
+        [UpdateField(EUnitFields.UNIT_FIELD_BYTES_2, true, 1)]
+        public byte FlagUnk { get; set; }
+
+        [UpdateField(EUnitFields.PLAYER_FIELD_WATCHED_FACTION_INDEX)]
+        public int WatchedFactionIndex { get; set; }
 
 /*        [UpdateField(EUnitFields.PLAYER_VISIBLE_ITEM_1_0)]
         public Item[] VisualItems { get; set; }*/

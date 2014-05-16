@@ -37,6 +37,16 @@ namespace Vanilla.World.Tools.Chat.Commands
 
                 switch (attributeName)
                 {
+                    case "faction":
+                        var val = uint.Parse(attributeValue);
+                        if (val == 0) session.SendMessage("FactionID: " + info.FactionTemplate);
+                        else
+                        {
+                            session.SendMessage("Old FactionID: " + info.FactionTemplate);
+                            info.FactionTemplate = val;
+                            session.SendMessage("New FactionID: " + info.FactionTemplate);
+                        }
+                        break;
                     case "scale":
                         info.Scale = float.Parse(attributeValue);
                         break;

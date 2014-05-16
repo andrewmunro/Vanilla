@@ -3,12 +3,17 @@
     using Vanilla.Core.Components;
     using Vanilla.World.Network;
 
-    public class WorldServerComponent : GenericServerComponent<VanillaWorld, WorldServer, WorldRouter>
+    public abstract class WorldServerComponent : GenericServerComponent<VanillaWorld, WorldServer, WorldRouter>
     {
-        public WorldServerComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
+        protected WorldServerComponent(VanillaWorld vanillaWorld) : base(vanillaWorld)
         {
             Server = Core.Server;
             Router = Core.Server.Router;
+        }
+
+        public virtual void Update()
+        {
+            
         }
     }
 }
