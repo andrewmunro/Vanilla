@@ -29,6 +29,6 @@ namespace Vanilla.Character.Database
         public long icon6 { get; set; }
         public long icon7 { get; set; }
         public long icon8 { get; set; }
-        public byte isRaid { get; set; }
+        public bool isRaid { get; set; }
     }
 }

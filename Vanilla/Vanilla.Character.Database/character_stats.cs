@@ -35,11 +35,6 @@ namespace Vanilla.Character.Database
         public long resFrost { get; set; }
         public long resShadow { get; set; }
         public long resArcane { get; set; }
-        public float blockPct { get; set; }
-        public float dodgePct { get; set; }
-        public float parryPct { get; set; }
-        public float critPct { get; set; }
-        public float rangedCritPct { get; set; }
         public long attackPower { get; set; }
         public long rangedAttackPower { get; set; }
     }

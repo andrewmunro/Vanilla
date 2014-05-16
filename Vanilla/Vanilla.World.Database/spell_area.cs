@@ -17,12 +17,12 @@ namespace Vanilla.World.Database
         public int spell { get; set; }
         public int area { get; set; }
         public int quest_start { get; set; }
-        public byte quest_start_active { get; set; }
+        public bool quest_start_active { get; set; }
         public int quest_end { get; set; }
         public int condition_id { get; set; }
         public int aura_spell { get; set; }
         public int racemask { get; set; }
-        public byte gender { get; set; }
-        public byte autocast { get; set; }
+        public bool gender { get; set; }
+        public bool autocast { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace Vanilla.World.Database
     {
         public int entry { get; set; }
         public byte effectId { get; set; }
-        public long SpellFamilyMask { get; set; }
+        public decimal SpellFamilyMask { get; set; }
     }
 }

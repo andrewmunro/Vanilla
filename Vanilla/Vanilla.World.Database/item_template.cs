@@ -86,35 +86,35 @@ namespace Vanilla.World.Database
         public float RangedModRange { get; set; }
         public int spellid_1 { get; set; }
         public byte spelltrigger_1 { get; set; }
-        public short spellcharges_1 { get; set; }
+        public sbyte spellcharges_1 { get; set; }
         public float spellppmRate_1 { get; set; }
         public int spellcooldown_1 { get; set; }
         public int spellcategory_1 { get; set; }
         public int spellcategorycooldown_1 { get; set; }
         public int spellid_2 { get; set; }
         public byte spelltrigger_2 { get; set; }
-        public short spellcharges_2 { get; set; }
+        public sbyte spellcharges_2 { get; set; }
         public float spellppmRate_2 { get; set; }
         public int spellcooldown_2 { get; set; }
         public int spellcategory_2 { get; set; }
         public int spellcategorycooldown_2 { get; set; }
         public int spellid_3 { get; set; }
         public byte spelltrigger_3 { get; set; }
-        public short spellcharges_3 { get; set; }
+        public sbyte spellcharges_3 { get; set; }
         public float spellppmRate_3 { get; set; }
         public int spellcooldown_3 { get; set; }
         public int spellcategory_3 { get; set; }
         public int spellcategorycooldown_3 { get; set; }
         public int spellid_4 { get; set; }
         public byte spelltrigger_4 { get; set; }
-        public short spellcharges_4 { get; set; }
+        public sbyte spellcharges_4 { get; set; }
         public float spellppmRate_4 { get; set; }
         public int spellcooldown_4 { get; set; }
         public int spellcategory_4 { get; set; }
         public int spellcategorycooldown_4 { get; set; }
         public int spellid_5 { get; set; }
         public byte spelltrigger_5 { get; set; }
-        public short spellcharges_5 { get; set; }
+        public sbyte spellcharges_5 { get; set; }
         public float spellppmRate_5 { get; set; }
         public int spellcooldown_5 { get; set; }
         public int spellcategory_5 { get; set; }
@@ -126,7 +126,7 @@ namespace Vanilla.World.Database
         public byte PageMaterial { get; set; }
         public int startquest { get; set; }
         public int lockid { get; set; }
-        public short Material { get; set; }
+        public sbyte Material { get; set; }
         public byte sheath { get; set; }
         public int RandomProperty { get; set; }
         public int block { get; set; }
@@ -141,6 +141,6 @@ namespace Vanilla.World.Database
         public long minMoneyLoot { get; set; }
         public long maxMoneyLoot { get; set; }
         public long Duration { get; set; }
-        public byte ExtraFlags { get; set; }
+        public bool ExtraFlags { get; set; }
     }
 }

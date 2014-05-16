@@ -17,9 +17,9 @@ namespace Vanilla.World.Database
         public int entry { get; set; }
         public byte SchoolMask { get; set; }
         public int SpellFamilyName { get; set; }
-        public long SpellFamilyMask0 { get; set; }
-        public long SpellFamilyMask1 { get; set; }
-        public long SpellFamilyMask2 { get; set; }
+        public decimal SpellFamilyMask0 { get; set; }
+        public decimal SpellFamilyMask1 { get; set; }
+        public decimal SpellFamilyMask2 { get; set; }
         public long procFlags { get; set; }
         public long procEx { get; set; }
         public float ppmRate { get; set; }

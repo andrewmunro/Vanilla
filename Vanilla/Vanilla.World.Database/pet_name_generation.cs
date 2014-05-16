@@ -17,6 +17,6 @@ namespace Vanilla.World.Database
         public int id { get; set; }
         public string word { get; set; }
         public int entry { get; set; }
-        public short half { get; set; }
+        public sbyte half { get; set; }
     }
 }

@@ -15,9 +15,9 @@ namespace Vanilla.Login.Database
     public partial class uptime
     {
         public long realmid { get; set; }
-        public long starttime { get; set; }
+        public decimal starttime { get; set; }
         public string startstring { get; set; }
-        public long uptime1 { get; set; }
+        public decimal uptime1 { get; set; }
         public int maxplayers { get; set; }
     }
 }

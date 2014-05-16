@@ -17,7 +17,7 @@ namespace Vanilla.World.Database
         public int spell_id { get; set; }
         public int prev_spell { get; set; }
         public int first_spell { get; set; }
-        public short rank { get; set; }
+        public sbyte rank { get; set; }
         public int req_spell { get; set; }
     }
 }

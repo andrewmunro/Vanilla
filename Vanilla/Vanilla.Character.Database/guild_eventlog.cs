@@ -16,10 +16,10 @@ namespace Vanilla.Character.Database
     {
         public long guildid { get; set; }
         public long LogGuid { get; set; }
-        public byte EventType { get; set; }
+        public bool EventType { get; set; }
         public long PlayerGuid1 { get; set; }
         public long PlayerGuid2 { get; set; }
         public byte NewRank { get; set; }
-        public long TimeStamp { get; set; }
+        public decimal TimeStamp { get; set; }
     }
 }

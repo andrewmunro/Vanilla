@@ -16,6 +16,6 @@ namespace Vanilla.Character.Database
     {
         public long leaderGuid { get; set; }
         public long instance { get; set; }
-        public byte permanent { get; set; }
+        public bool permanent { get; set; }
     }
 }

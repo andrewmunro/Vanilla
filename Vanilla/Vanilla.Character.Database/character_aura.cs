@@ -15,7 +15,7 @@ namespace Vanilla.Character.Database
     public partial class character_aura
     {
         public long guid { get; set; }
-        public long caster_guid { get; set; }
+        public decimal caster_guid { get; set; }
         public long item_guid { get; set; }
         public long spell { get; set; }
         public long stackcount { get; set; }

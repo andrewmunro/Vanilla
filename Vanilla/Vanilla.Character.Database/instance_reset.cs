@@ -15,6 +15,6 @@ namespace Vanilla.Character.Database
     public partial class instance_reset
     {
         public long mapid { get; set; }
-        public long resettime { get; set; }
+        public decimal resettime { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace Vanilla.Character.Database
     {
         public long guid { get; set; }
         public long spell { get; set; }
-        public long time { get; set; }
+        public decimal time { get; set; }
     }
 }

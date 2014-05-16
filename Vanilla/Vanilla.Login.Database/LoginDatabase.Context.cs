@@ -12,7 +12,8 @@ namespace Vanilla.Login.Database
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public partial class LoginDatabase : DbContext
     {
         public LoginDatabase()

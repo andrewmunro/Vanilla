@@ -17,9 +17,9 @@ namespace Vanilla.Character.Database
         public long guid { get; set; }
         public long quest { get; set; }
         public long status { get; set; }
-        public byte rewarded { get; set; }
-        public byte explored { get; set; }
-        public long timer { get; set; }
+        public bool rewarded { get; set; }
+        public bool explored { get; set; }
+        public decimal timer { get; set; }
         public long mobcount1 { get; set; }
         public long mobcount2 { get; set; }
         public long mobcount3 { get; set; }

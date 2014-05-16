@@ -18,14 +18,14 @@ namespace Vanilla.World.Game.Entity.Object.Creature
 
         public AiBrain Brain { get; set; }
 
-        public new string Name { get { return Template.name; } }
+        public new string Name { get { return Template.Name; } }
 
         public CreatureEntity(ObjectGUID objectGUID, creature creature, VanillaWorld vanillaWorld)
             : base(objectGUID)
         {
             this.VanillaWorld = vanillaWorld;
             this.Creature = creature;
-            this.Template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.entry == creature.id);
+            this.Template = CreatureTemplateDatabase.SingleOrDefault(ct => ct.Entry == creature.id);
         }
 
         public override void Setup()

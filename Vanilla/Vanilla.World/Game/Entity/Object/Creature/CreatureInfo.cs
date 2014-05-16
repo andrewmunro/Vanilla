@@ -12,14 +12,14 @@ namespace Vanilla.World.Game.Entity.Object.Creature
         {
             DisplayID = NativeDisplayID = creature.modelid;
             Health = (int)creature.curhealth;
-            MaxHealth = (int)template.maxhealth;
-            Level = template.maxlevel;
+            MaxHealth = (int)template.MaxLevelHealth;
+            Level = template.MaxLevel;
 
-            NPCFlags = (int)template.npcflag;
-            DynamicFlags = (int)template.dynamicflags;
-            UnitFlag = (int)template.unit_flags;
-            FactionTemplate = (uint)template.faction_A;
-            Entry = template.entry; //Used to set the creature name.
+            NPCFlags = (int)template.NpcFlags;
+            DynamicFlags = (int)template.DynamicFlags;
+            UnitFlag = (int)template.UnitFlags;
+            FactionTemplate = (uint)template.FactionAlliance;
+            Entry = template.Entry; //Used to set the creature name.
 
             CombatReach = 30f;
         }

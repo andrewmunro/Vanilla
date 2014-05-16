@@ -15,6 +15,6 @@ namespace Vanilla.World.Database
     public partial class spell_elixir
     {
         public long entry { get; set; }
-        public byte mask { get; set; }
+        public bool mask { get; set; }
     }
 }

@@ -4,126 +4,127 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="realmd.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="account">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="sha_pass_hash" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="gmlevel" Type="tinyint" Nullable="false" />
-          <Property Name="sessionkey" Type="nvarchar(max)" />
-          <Property Name="v" Type="nvarchar(max)" />
-          <Property Name="s" Type="nvarchar(max)" />
-          <Property Name="email" Type="nvarchar(max)" />
-          <Property Name="joindate" Type="datetime" />
-          <Property Name="last_ip" Type="nvarchar" MaxLength="30" />
-          <Property Name="failed_logins" Type="bigint" />
-          <Property Name="locked" Type="tinyint" />
-          <Property Name="last_login" Type="datetime" />
-          <Property Name="active_realm_id" Type="bigint" />
-          <Property Name="expansion" Type="tinyint" />
-          <Property Name="mutetime" Type="bigint" />
-          <Property Name="locale" Type="tinyint" />
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="sha_pass_hash" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="gmlevel" Type="utinyint" Nullable="false" />
+          <Property Name="sessionkey" Type="longtext" />
+          <Property Name="v" Type="longtext" />
+          <Property Name="s" Type="longtext" />
+          <Property Name="email" Type="text" />
+          <Property Name="joindate" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="last_ip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="failed_logins" Type="uint" Nullable="false" />
+          <Property Name="locked" Type="utinyint" Nullable="false" />
+          <Property Name="last_login" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="active_realm_id" Type="uint" Nullable="false" />
+          <Property Name="expansion" Type="utinyint" Nullable="false" />
+          <Property Name="mutetime" Type="ubigint" Nullable="false" />
+          <Property Name="locale" Type="utinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="account_banned">
           <Key>
             <PropertyRef Name="id" />
             <PropertyRef Name="bandate" />
           </Key>
-          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="id" Type="uint" Nullable="false" />
           <Property Name="bandate" Type="bigint" Nullable="false" />
           <Property Name="unbandate" Type="bigint" Nullable="false" />
-          <Property Name="bannedby" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="banreason" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="active" Type="smallint" Nullable="false" />
+          <Property Name="bannedby" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="banreason" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="ip_banned">
           <Key>
             <PropertyRef Name="ip" />
             <PropertyRef Name="bandate" />
           </Key>
-          <Property Name="ip" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ip" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="bandate" Type="bigint" Nullable="false" />
           <Property Name="unbandate" Type="bigint" Nullable="false" />
-          <Property Name="bannedby" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="banreason" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="bannedby" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="banreason" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="realmcharacters">
           <Key>
             <PropertyRef Name="realmid" />
             <PropertyRef Name="acctid" />
           </Key>
-          <Property Name="realmid" Type="bigint" Nullable="false" />
-          <Property Name="acctid" Type="bigint" Nullable="false" />
-          <Property Name="numchars" Type="tinyint" Nullable="false" />
+          <Property Name="realmid" Type="uint" Nullable="false" />
+          <Property Name="acctid" Type="uint" Nullable="false" />
+          <Property Name="numchars" Type="utinyint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'def.realmd.realmd_db_version' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="realmd_db_version">
-          <Property Name="required_z2426_01_realmd_relations" Type="binary" MaxLength="1" />
+          <Property Name="required_z2426_01_realmd_relations" Type="bit" />
         </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6005: The data type 'ufloat' is currently not supported for the target Entity Framework version; the column 'def.realmd.realmlist' in the table 'population' was excluded.-->
         <EntityType Name="realmlist">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="address" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="port" Type="int" Nullable="false" />
-          <Property Name="icon" Type="tinyint" Nullable="false" />
-          <Property Name="realmflags" Type="tinyint" Nullable="false" />
-          <Property Name="timezone" Type="tinyint" Nullable="false" />
-          <Property Name="allowedSecurityLevel" Type="tinyint" Nullable="false" />
-          <Property Name="population" Type="real" Nullable="false" />
-          <Property Name="realmbuilds" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="icon" Type="utinyint" Nullable="false" />
+          <Property Name="realmflags" Type="utinyint" Nullable="false" />
+          <Property Name="timezone" Type="utinyint" Nullable="false" />
+          <Property Name="allowedSecurityLevel" Type="utinyint" Nullable="false" />
+          <Property Name="realmbuilds" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="uptime">
           <Key>
             <PropertyRef Name="realmid" />
             <PropertyRef Name="starttime" />
           </Key>
-          <Property Name="realmid" Type="bigint" Nullable="false" />
-          <Property Name="starttime" Type="bigint" Nullable="false" />
-          <Property Name="startstring" Type="nvarchar" MaxLength="64" Nullable="false" />
-          <Property Name="uptime" Type="bigint" Nullable="false" />
-          <Property Name="maxplayers" Type="int" Nullable="false" />
+          <Property Name="realmid" Type="uint" Nullable="false" />
+          <Property Name="starttime" Type="ubigint" Nullable="false" />
+          <Property Name="startstring" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="uptime" Type="ubigint" Nullable="false" />
+          <Property Name="maxplayers" Type="usmallint" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ModelsStoreContainer">
-          <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="account_banned" EntityType="Self.account_banned" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ip_banned" EntityType="Self.ip_banned" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="realmcharacters" EntityType="Self.realmcharacters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="realmlist" EntityType="Self.realmlist" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="uptime" EntityType="Self.uptime" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="realmdStoreContainer">
+          <EntitySet Name="account" EntityType="Self.account" Schema="realmd" store:Type="Tables" />
+          <EntitySet Name="account_banned" EntityType="Self.account_banned" Schema="realmd" store:Type="Tables" />
+          <EntitySet Name="ip_banned" EntityType="Self.ip_banned" Schema="realmd" store:Type="Tables" />
+          <EntitySet Name="realmcharacters" EntityType="Self.realmcharacters" Schema="realmd" store:Type="Tables" />
+          <EntitySet Name="realmlist" EntityType="Self.realmlist" Schema="realmd" store:Type="Tables" />
+          <EntitySet Name="uptime" EntityType="Self.uptime" Schema="realmd" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="realmd" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="account">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="sha_pass_hash" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sha_pass_hash" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="gmlevel" Type="Byte" Nullable="false" />
-          <Property Name="sessionkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="v" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="s" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="joindate" Type="DateTime" Precision="3" />
-          <Property Name="last_ip" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="failed_logins" Type="Int64" />
-          <Property Name="locked" Type="Byte" />
-          <Property Name="last_login" Type="DateTime" Precision="3" />
-          <Property Name="active_realm_id" Type="Int64" />
-          <Property Name="expansion" Type="Byte" />
-          <Property Name="mutetime" Type="Int64" />
-          <Property Name="locale" Type="Byte" />
+          <Property Name="sessionkey" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="v" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="s" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="joindate" Type="DateTime" Nullable="false" />
+          <Property Name="last_ip" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="failed_logins" Type="Int64" Nullable="false" />
+          <Property Name="locked" Type="Byte" Nullable="false" />
+          <Property Name="last_login" Type="DateTime" Nullable="false" />
+          <Property Name="active_realm_id" Type="Int64" Nullable="false" />
+          <Property Name="expansion" Type="Byte" Nullable="false" />
+          <Property Name="mutetime" Type="Decimal" Nullable="false" />
+          <Property Name="locale" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="account_banned">
           <Key>
@@ -133,20 +134,20 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
           <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="bandate" Type="Int64" Nullable="false" />
           <Property Name="unbandate" Type="Int64" Nullable="false" />
-          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="active" Type="Int16" Nullable="false" />
+          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="SByte" Nullable="false" />
         </EntityType>
         <EntityType Name="ip_banned">
           <Key>
             <PropertyRef Name="ip" />
             <PropertyRef Name="bandate" />
           </Key>
-          <Property Name="ip" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ip" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="bandate" Type="Int64" Nullable="false" />
           <Property Name="unbandate" Type="Int64" Nullable="false" />
-          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bannedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="banreason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="realmcharacter">
           <Key>
@@ -162,15 +163,14 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="port" Type="Int32" Nullable="false" />
           <Property Name="icon" Type="Byte" Nullable="false" />
           <Property Name="realmflags" Type="Byte" Nullable="false" />
           <Property Name="timezone" Type="Byte" Nullable="false" />
           <Property Name="allowedSecurityLevel" Type="Byte" Nullable="false" />
-          <Property Name="population" Type="Single" Nullable="false" />
-          <Property Name="realmbuilds" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="realmbuilds" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="uptime">
           <Key>
@@ -178,9 +178,9 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             <PropertyRef Name="starttime" />
           </Key>
           <Property Name="realmid" Type="Int64" Nullable="false" />
-          <Property Name="starttime" Type="Int64" Nullable="false" />
-          <Property Name="startstring" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="uptime1" Type="Int64" Nullable="false" />
+          <Property Name="starttime" Type="Decimal" Nullable="false" />
+          <Property Name="startstring" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uptime1" Type="Decimal" Nullable="false" />
           <Property Name="maxplayers" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="LoginDatabase" annotation:LazyLoadingEnabled="true">
@@ -196,9 +196,9 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="LoginDatabase">
+        <EntityContainerMapping StorageEntityContainer="realmdStoreContainer" CdmEntityContainer="LoginDatabase">
           <EntitySetMapping Name="accounts">
-            <EntityTypeMapping TypeName="Models.account">
+            <EntityTypeMapping TypeName="realmd.account">
               <MappingFragment StoreEntitySet="account">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -221,7 +221,7 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="account_banned">
-            <EntityTypeMapping TypeName="Models.account_banned">
+            <EntityTypeMapping TypeName="realmd.account_banned">
               <MappingFragment StoreEntitySet="account_banned">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="bandate" ColumnName="bandate" />
@@ -233,7 +233,7 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ip_banned">
-            <EntityTypeMapping TypeName="Models.ip_banned">
+            <EntityTypeMapping TypeName="realmd.ip_banned">
               <MappingFragment StoreEntitySet="ip_banned">
                 <ScalarProperty Name="ip" ColumnName="ip" />
                 <ScalarProperty Name="bandate" ColumnName="bandate" />
@@ -244,7 +244,7 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="realmcharacters">
-            <EntityTypeMapping TypeName="Models.realmcharacter">
+            <EntityTypeMapping TypeName="realmd.realmcharacter">
               <MappingFragment StoreEntitySet="realmcharacters">
                 <ScalarProperty Name="realmid" ColumnName="realmid" />
                 <ScalarProperty Name="acctid" ColumnName="acctid" />
@@ -253,7 +253,7 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="realmlists">
-            <EntityTypeMapping TypeName="Models.realmlist">
+            <EntityTypeMapping TypeName="realmd.realmlist">
               <MappingFragment StoreEntitySet="realmlist">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -263,13 +263,12 @@ warning 6013: The table/view 'realmd.dbo.realmd_db_version' does not have a prim
                 <ScalarProperty Name="realmflags" ColumnName="realmflags" />
                 <ScalarProperty Name="timezone" ColumnName="timezone" />
                 <ScalarProperty Name="allowedSecurityLevel" ColumnName="allowedSecurityLevel" />
-                <ScalarProperty Name="population" ColumnName="population" />
                 <ScalarProperty Name="realmbuilds" ColumnName="realmbuilds" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="uptimes">
-            <EntityTypeMapping TypeName="Models.uptime">
+            <EntityTypeMapping TypeName="realmd.uptime">
               <MappingFragment StoreEntitySet="uptime">
                 <ScalarProperty Name="realmid" ColumnName="realmid" />
                 <ScalarProperty Name="starttime" ColumnName="starttime" />

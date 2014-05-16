@@ -22,14 +22,14 @@ namespace Vanilla.Login.Database
         public string v { get; set; }
         public string s { get; set; }
         public string email { get; set; }
-        public Nullable<System.DateTime> joindate { get; set; }
+        public System.DateTime joindate { get; set; }
         public string last_ip { get; set; }
-        public Nullable<long> failed_logins { get; set; }
-        public Nullable<byte> locked { get; set; }
-        public Nullable<System.DateTime> last_login { get; set; }
-        public Nullable<long> active_realm_id { get; set; }
-        public Nullable<byte> expansion { get; set; }
-        public Nullable<long> mutetime { get; set; }
-        public Nullable<byte> locale { get; set; }
+        public long failed_logins { get; set; }
+        public byte locked { get; set; }
+        public System.DateTime last_login { get; set; }
+        public long active_realm_id { get; set; }
+        public byte expansion { get; set; }
+        public decimal mutetime { get; set; }
+        public byte locale { get; set; }
     }
 }

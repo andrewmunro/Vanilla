@@ -22,7 +22,6 @@ namespace Vanilla.Login.Database
         public byte realmflags { get; set; }
         public byte timezone { get; set; }
         public byte allowedSecurityLevel { get; set; }
-        public float population { get; set; }
         public string realmbuilds { get; set; }
     }
 }

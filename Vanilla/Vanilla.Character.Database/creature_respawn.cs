@@ -15,7 +15,7 @@ namespace Vanilla.Character.Database
     public partial class creature_respawn
     {
         public long guid { get; set; }
-        public long respawntime { get; set; }
+        public decimal respawntime { get; set; }
         public int instance { get; set; }
     }
 }

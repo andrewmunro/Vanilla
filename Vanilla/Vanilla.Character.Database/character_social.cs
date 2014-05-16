@@ -16,6 +16,6 @@ namespace Vanilla.Character.Database
     {
         public long guid { get; set; }
         public long friend { get; set; }
-        public byte flags { get; set; }
+        public bool flags { get; set; }
     }
 }

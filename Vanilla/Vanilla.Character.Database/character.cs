@@ -36,21 +36,21 @@ namespace Vanilla.Character.Database
         public byte cinematic { get; set; }
         public long totaltime { get; set; }
         public long leveltime { get; set; }
-        public long logout_time { get; set; }
+        public decimal logout_time { get; set; }
         public byte is_logout_resting { get; set; }
         public float rest_bonus { get; set; }
         public long resettalents_cost { get; set; }
-        public long resettalents_time { get; set; }
+        public decimal resettalents_time { get; set; }
         public float trans_x { get; set; }
         public float trans_y { get; set; }
         public float trans_z { get; set; }
         public float trans_o { get; set; }
-        public long transguid { get; set; }
+        public decimal transguid { get; set; }
         public long extra_flags { get; set; }
-        public byte stable_slots { get; set; }
+        public bool stable_slots { get; set; }
         public long at_login { get; set; }
         public long zone { get; set; }
-        public long death_expire_time { get; set; }
+        public decimal death_expire_time { get; set; }
         public string taxi_path { get; set; }
         public long honor_highest_rank { get; set; }
         public long honor_standing { get; set; }
@@ -71,6 +71,6 @@ namespace Vanilla.Character.Database
         public byte actionBars { get; set; }
         public Nullable<long> deleteInfos_Account { get; set; }
         public string deleteInfos_Name { get; set; }
-        public Nullable<long> deleteDate { get; set; }
+        public Nullable<decimal> deleteDate { get; set; }
     }
 }

@@ -12,7 +12,8 @@ namespace Vanilla.World.Database
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public partial class WorldDatabase : DbContext
     {
         public WorldDatabase()
@@ -52,6 +53,7 @@ namespace Vanilla.World.Database
         public virtual DbSet<creature_questrelation> creature_questrelation { get; set; }
         public virtual DbSet<creature_template> creature_template { get; set; }
         public virtual DbSet<creature_template_addon> creature_template_addon { get; set; }
+        public virtual DbSet<creature_template_classlevelstats> creature_template_classlevelstats { get; set; }
         public virtual DbSet<creature_template_spells> creature_template_spells { get; set; }
         public virtual DbSet<db_script_string> db_script_string { get; set; }
         public virtual DbSet<disenchant_loot_template> disenchant_loot_template { get; set; }
@@ -78,14 +80,6 @@ namespace Vanilla.World.Database
         public virtual DbSet<item_enchantment_template> item_enchantment_template { get; set; }
         public virtual DbSet<item_loot_template> item_loot_template { get; set; }
         public virtual DbSet<item_template> item_template { get; set; }
-        public virtual DbSet<locales_creature> locales_creature { get; set; }
-        public virtual DbSet<locales_gameobject> locales_gameobject { get; set; }
-        public virtual DbSet<locales_gossip_menu_option> locales_gossip_menu_option { get; set; }
-        public virtual DbSet<locales_item> locales_item { get; set; }
-        public virtual DbSet<locales_npc_text> locales_npc_text { get; set; }
-        public virtual DbSet<locales_page_text> locales_page_text { get; set; }
-        public virtual DbSet<locales_points_of_interest> locales_points_of_interest { get; set; }
-        public virtual DbSet<locales_quest> locales_quest { get; set; }
         public virtual DbSet<mail_loot_template> mail_loot_template { get; set; }
         public virtual DbSet<mangos_string> mangos_string { get; set; }
         public virtual DbSet<npc_gossip> npc_gossip { get; set; }
@@ -116,7 +110,7 @@ namespace Vanilla.World.Database
         public virtual DbSet<reputation_spillover_template> reputation_spillover_template { get; set; }
         public virtual DbSet<reserved_name> reserved_name { get; set; }
         public virtual DbSet<scripted_areatrigger> scripted_areatrigger { get; set; }
-        public virtual DbSet<scripted_event> scripted_event { get; set; }
+        public virtual DbSet<scripted_event_id> scripted_event_id { get; set; }
         public virtual DbSet<skill_fishing_base_level> skill_fishing_base_level { get; set; }
         public virtual DbSet<skinning_loot_template> skinning_loot_template { get; set; }
         public virtual DbSet<spell_affect> spell_affect { get; set; }
@@ -126,7 +120,6 @@ namespace Vanilla.World.Database
         public virtual DbSet<spell_elixir> spell_elixir { get; set; }
         public virtual DbSet<spell_facing> spell_facing { get; set; }
         public virtual DbSet<spell_learn_spell> spell_learn_spell { get; set; }
-        public virtual DbSet<spell_linked> spell_linked { get; set; }
         public virtual DbSet<spell_pet_auras> spell_pet_auras { get; set; }
         public virtual DbSet<spell_proc_event> spell_proc_event { get; set; }
         public virtual DbSet<spell_proc_item_enchant> spell_proc_item_enchant { get; set; }

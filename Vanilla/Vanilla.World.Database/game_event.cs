@@ -17,8 +17,8 @@ namespace Vanilla.World.Database
         public int entry { get; set; }
         public System.DateTime start_time { get; set; }
         public System.DateTime end_time { get; set; }
-        public long occurence { get; set; }
-        public long length { get; set; }
+        public decimal occurence { get; set; }
+        public decimal length { get; set; }
         public int holiday { get; set; }
         public string description { get; set; }
     }

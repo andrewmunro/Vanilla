@@ -14,7 +14,7 @@ namespace Vanilla.World.Database
     
     public partial class exploration_basexp
     {
-        public short level { get; set; }
+        public sbyte level { get; set; }
         public int basexp { get; set; }
     }
 }

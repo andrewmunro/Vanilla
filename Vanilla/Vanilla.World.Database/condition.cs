@@ -15,7 +15,7 @@ namespace Vanilla.World.Database
     public partial class condition
     {
         public int condition_entry { get; set; }
-        public short type { get; set; }
+        public sbyte type { get; set; }
         public int value1 { get; set; }
         public int value2 { get; set; }
     }

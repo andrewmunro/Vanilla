@@ -27,7 +27,7 @@ namespace Vanilla.World.Game.Entity.Object.Creature
         {
             this.entity = entity;
 
-            var moveTemplates = CreatureMovementTemplates.Where(ways => ways.entry == entity.Template.entry).ToList();
+            var moveTemplates = CreatureMovementTemplates.Where(ways => ways.entry == entity.Template.Entry).ToList();
             if (moveTemplates.Count != 0)
             {
                 moveTemplates.ForEach(way => waypoints.Add(new Waypoint() { PointIndex = way.point, Point = new Vector3(way.position_x, way.position_y, way.position_z) }));

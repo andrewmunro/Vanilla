@@ -22,19 +22,19 @@ namespace Vanilla.Character.Database
         public byte PetType { get; set; }
         public long level { get; set; }
         public long exp { get; set; }
-        public byte Reactstate { get; set; }
+        public bool Reactstate { get; set; }
         public int loyaltypoints { get; set; }
         public long loyalty { get; set; }
         public int trainpoint { get; set; }
         public string name { get; set; }
-        public byte renamed { get; set; }
+        public bool renamed { get; set; }
         public long slot { get; set; }
         public long curhealth { get; set; }
         public long curmana { get; set; }
         public long curhappiness { get; set; }
-        public long savetime { get; set; }
+        public decimal savetime { get; set; }
         public long resettalents_cost { get; set; }
-        public long resettalents_time { get; set; }
+        public decimal resettalents_time { get; set; }
         public string abdata { get; set; }
         public string teachspelldata { get; set; }
     }

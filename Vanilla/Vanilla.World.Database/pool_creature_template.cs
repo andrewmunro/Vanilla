@@ -16,7 +16,6 @@ namespace Vanilla.World.Database
     {
         public long id { get; set; }
         public int pool_entry { get; set; }
-        public float chance { get; set; }
         public string description { get; set; }
     }
 }

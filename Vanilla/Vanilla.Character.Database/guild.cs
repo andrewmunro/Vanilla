@@ -24,6 +24,6 @@ namespace Vanilla.Character.Database
         public int BackgroundColor { get; set; }
         public string info { get; set; }
         public string motd { get; set; }
-        public long createdate { get; set; }
+        public decimal createdate { get; set; }
     }
 }

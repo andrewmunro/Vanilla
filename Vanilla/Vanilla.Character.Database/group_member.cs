@@ -16,7 +16,7 @@ namespace Vanilla.Character.Database
     {
         public long groupId { get; set; }
         public long memberGuid { get; set; }
-        public byte assistant { get; set; }
+        public bool assistant { get; set; }
         public int subgroup { get; set; }
     }
 }

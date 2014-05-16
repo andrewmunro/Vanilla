@@ -56,7 +56,7 @@ namespace Vanilla.World
             Server.Start(portNumber, maxConnections);
 
             var accountCreator = new AccountCreator();
-            accountCreator.CreateAccount("andrew1", "password");
+            accountCreator.CreateAccount("andrew", "password");
             accountCreator.CreateAccount("lucas", "password");
         }
 

@@ -14,7 +14,7 @@ namespace Vanilla.Character.Database
     
     public partial class character_tutorial
     {
-        public long account { get; set; }
+        public decimal account { get; set; }
         public long tut0 { get; set; }
         public long tut1 { get; set; }
         public long tut2 { get; set; }

@@ -30,11 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.Data.Entities.6.8.3.0\lib\net45\mysql.data.entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -127,6 +136,9 @@
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="creature_template_addon.cs">
+      <DependentUpon>WorldDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="creature_template_classlevelstats.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="creature_template_spells.cs">
@@ -237,30 +249,6 @@
     <Compile Include="item_template.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="locales_creature.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_gameobject.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_gossip_menu_option.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_item.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_npc_text.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_page_text.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_points_of_interest.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="locales_quest.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="mail_loot_template.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
@@ -361,7 +349,7 @@
     <Compile Include="scripted_areatrigger.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="scripted_event.cs">
+    <Compile Include="scripted_event_id.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="skill_fishing_base_level.cs">
@@ -389,9 +377,6 @@
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="spell_learn_spell.cs">
-      <DependentUpon>WorldDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="spell_linked.cs">
       <DependentUpon>WorldDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="spell_pet_auras.cs">
@@ -435,6 +420,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <EntityDeploy Include="WorldDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

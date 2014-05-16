@@ -22,7 +22,7 @@ namespace Vanilla.Character.Database
         public int item_randompropertyid { get; set; }
         public long itemowner { get; set; }
         public int buyoutprice { get; set; }
-        public long time { get; set; }
+        public decimal time { get; set; }
         public long buyguid { get; set; }
         public int lastbid { get; set; }
         public int startbid { get; set; }

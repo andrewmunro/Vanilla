@@ -16,7 +16,7 @@ namespace Vanilla.Character.Database
     {
         public long id { get; set; }
         public long map { get; set; }
-        public long resettime { get; set; }
+        public decimal resettime { get; set; }
         public string data { get; set; }
     }
 }

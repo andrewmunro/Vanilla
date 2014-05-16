@@ -86,7 +86,7 @@ namespace Vanilla.World.Components.Mail
                             sender = session.Player.Character.guid,
                             receiver = reciever.guid,
                             subject = packet.Subject,
-                            stationery = (byte)MailStationery.MAIL_STATIONERY_DEFAULT,
+                            stationery = (sbyte)MailStationery.MAIL_STATIONERY_DEFAULT,
                             mailTemplateId = 0
                         });
             }

@@ -19,6 +19,6 @@ namespace Vanilla.Login.Database
         public long unbandate { get; set; }
         public string bannedby { get; set; }
         public string banreason { get; set; }
-        public short active { get; set; }
+        public sbyte active { get; set; }
     }
 }

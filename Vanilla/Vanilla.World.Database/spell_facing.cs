@@ -15,6 +15,6 @@ namespace Vanilla.World.Database
     public partial class spell_facing
     {
         public long entry { get; set; }
-        public short facingcasterflag { get; set; }
+        public bool facingcasterflag { get; set; }
     }
 }

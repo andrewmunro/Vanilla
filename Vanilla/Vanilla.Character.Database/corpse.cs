@@ -21,7 +21,7 @@ namespace Vanilla.Character.Database
         public float position_z { get; set; }
         public float orientation { get; set; }
         public long map { get; set; }
-        public long time { get; set; }
+        public decimal time { get; set; }
         public byte corpse_type { get; set; }
         public long instance { get; set; }
     }

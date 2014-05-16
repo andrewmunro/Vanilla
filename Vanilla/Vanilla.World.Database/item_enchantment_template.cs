@@ -16,6 +16,5 @@ namespace Vanilla.World.Database
     {
         public int entry { get; set; }
         public int ench { get; set; }
-        public float chance { get; set; }
     }
 }

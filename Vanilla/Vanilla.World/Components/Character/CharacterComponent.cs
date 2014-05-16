@@ -48,9 +48,11 @@ namespace Vanilla.World.Components.Character
 
             playercreateinfo info = CreateInfo.SingleOrDefault(ci => ci.race == packet.Race && ci.@class == packet.Class);
 
+            var charGuid = Characters.AsQueryable().Any() ? Characters.AsQueryable().Max(c => c.guid) + 1 : 1;
+
             character character = new character()
             {
-                guid = Characters.AsQueryable().Max(c => c.guid) + 1,
+                guid = charGuid,
                 account = session.Account.id,
                 name = Utils.NormalizeText(packet.Name),
                 race = packet.Race,

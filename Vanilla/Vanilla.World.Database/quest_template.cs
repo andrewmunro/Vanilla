@@ -18,7 +18,7 @@ namespace Vanilla.World.Database
         public byte Method { get; set; }
         public short ZoneOrSort { get; set; }
         public byte MinLevel { get; set; }
-        public byte QuestLevel { get; set; }
+        public short QuestLevel { get; set; }
         public int Type { get; set; }
         public int RequiredClasses { get; set; }
         public int RequiredRaces { get; set; }
